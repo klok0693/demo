@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<?import org.example.astero_demo.port.ui.ToolBarView?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<ToolBarView xmlns="http://javafx.com/javafx"
+             xmlns:fx="http://javafx.com/fxml"
+             fx:id="toolBarRoot"
+             fx:controller="org.example.astero_demo.adapter.ui.ToolBarAdapter">
+
+    <stylesheets>
+        <URL value="@../css/tool-bar.css"/>
+    </stylesheets>
+
+    <Button fx:id="RectBtn" text="Rect"/>
+    <Button text="Square"/>
+    <Button text="Cycle"/>
+    <Button text="triangle"/>
+
+<!--    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>-->
+
+</ToolBarView>

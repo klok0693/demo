@@ -1,8 +1,10 @@
-module org.example.astero_demo {
+open module org.example.astero_demo {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.base;
+    requires javafx.graphics;
 
+    requires lombok;
 
-    opens org.example.astero_demo to javafx.fxml;
     exports org.example.astero_demo;
 }
