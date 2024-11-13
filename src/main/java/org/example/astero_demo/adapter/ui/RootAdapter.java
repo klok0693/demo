@@ -18,7 +18,6 @@ public class RootAdapter extends UIAdapter implements Initializable {
 
     public RootAdapter(final ViewController controller) {
         super(controller);
-        controller.setRootAdapter(this);
     }
 
     @Override

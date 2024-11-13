@@ -9,19 +9,27 @@ import org.example.astero_demo.adapter.ui.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.adapter.ui.ToolBarAdapter;
 import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.logic.command.CommandFactory;
+import org.example.astero_demo.logic.command.CommandProcessor;
 
 @Getter
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final StateHolder holder = StateHolder.INSTANCE;
     private final ShapeFactory factory = ShapeFactory.INSTANCE;
-    private final ModelAdapter modelAdapter = new ModelAdapter(factory, holder);
 
-    private final ViewController viewController = new ViewController(modelAdapter);
+    private final ModelAdapter modelAdapter = new ModelAdapter(factory, holder);
+    private final CommandFactory commandFactory = new CommandFactory(modelAdapter);
+    private final CommandProcessor commandProcessor = CommandProcessor.INSTANCE;
+
+    private final ViewController viewController = new ViewController(commandFactory, commandProcessor);
 
     private final CanvasAdapter canvasAdapter = new CanvasAdapter(viewController, holder);
     private final ToolBarAdapter toolBarAdapter = new ToolBarAdapter(viewController);
     private final RootAdapter rootAdapter = new RootAdapter(viewController);
 
+    public CustomControllerFactory() {
+        this.commandFactory.setRootAdapter(rootAdapter);
+    }
 
     @Override
     public Object call(Class<?> aClass) {
