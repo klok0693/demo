@@ -2,25 +2,26 @@ package org.example.astero_demo.port.ui.canvas.background;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import org.example.astero_demo.port.ui.canvas.Drawable;
+import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
-class CanvasBackgroundDrawable implements Drawable {
+class CanvasBackgroundElement extends CanvasElement {
+
+    protected CanvasBackgroundElement() {
+        super(10, 10, 630, 380);
+    }
 
     @Override
-    public void draw(final GraphicsContext gc) {
-        final int border = 10;
-        final int width = 630;
-        final int height = 380;
+    protected void drawElement(final GraphicsContext gc) {
         final int cellWidth = 25;
 
         gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(border, border, width, height);
+        gc.fillRect(x, y, width, height);
 
         gc.setFill(Color.WHITE);
-        for (int i = border; i < width; i += cellWidth) {
-            int startJ = border;
+        for (int i = (int) x; i < width; i += cellWidth) {
+            int startJ = (int) y;
             if ((i / cellWidth) % 2 != 0) {
-                startJ = cellWidth + border;
+                startJ = cellWidth + (int) y;
             }
             for (int j = startJ; j < height; j += (cellWidth << 1)) {
                 gc.fillRect(i, j, cellWidth, cellWidth);

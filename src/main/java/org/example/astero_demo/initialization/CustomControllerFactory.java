@@ -8,12 +8,13 @@ import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.adapter.ui.ToolBarAdapter;
+import org.example.astero_demo.adapter.ui.state.MutableUIState;
+import org.example.astero_demo.adapter.ui.state.UIStateHolder;
 import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 
-@Getter
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final StateHolder holder = StateHolder.INSTANCE;
     private final ShapeFactory factory = ShapeFactory.INSTANCE;
@@ -25,9 +26,10 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final ViewController viewController = new ViewController(commandFactory, commandProcessor);
     private final ModelController modelController = new ModelController(commandFactory, commandProcessor);
 
-    private final CanvasAdapter canvasAdapter = new CanvasAdapter(viewController, holder);
-    private final ToolBarAdapter toolBarAdapter = new ToolBarAdapter(viewController);
-    private final RootAdapter rootAdapter = new RootAdapter(viewController);
+    private MutableUIState uiState = UIStateHolder.INSTANCE;
+    private final CanvasAdapter canvasAdapter = new CanvasAdapter(viewController, holder, uiState);
+    private final ToolBarAdapter toolBarAdapter = new ToolBarAdapter(viewController, uiState);
+    private final RootAdapter rootAdapter = new RootAdapter(viewController, uiState);
 
     public CustomControllerFactory() {
         this.commandFactory.setViewController(viewController);

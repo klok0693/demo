@@ -6,8 +6,13 @@ import javafx.collections.WeakListChangeListener;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 
-public class CanvasLayer implements Drawable, Comparable<CanvasLayer> {
-    protected ObservableList<Drawable> children = FXCollections.observableArrayList();
+import java.util.ArrayDeque;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.stream.Stream;
+
+public class CanvasLayer<T extends Drawable> implements Drawable, Comparable<CanvasLayer<T>> {
+    protected ObservableList<T> children = FXCollections.observableArrayList();
     @Getter
     private int priority;
 
@@ -23,11 +28,15 @@ public class CanvasLayer implements Drawable, Comparable<CanvasLayer> {
         children.forEach(ch -> ch.draw(gc));
     }
 
-    public void add(final Drawable ch) {
+    public final Stream<T> getChildren() {
+        return children.stream();
+    }
+
+    public final void add(final T ch) {
         children.add(ch);
     }
 
-    public void remove(final Drawable ch) {
+    public final void remove(final T ch) {
         children.remove(ch);
     }
 

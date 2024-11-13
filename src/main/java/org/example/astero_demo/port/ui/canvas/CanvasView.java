@@ -11,7 +11,10 @@ import javafx.scene.input.MouseEvent;
 import lombok.Setter;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
-import org.example.astero_demo.port.ui.canvas.element.ElementLayer;
+import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
+import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
+import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
+import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 
 import java.util.Comparator;
 
@@ -24,7 +27,9 @@ public class CanvasView extends Canvas {
     });
 
     private ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
-    private ElementLayer elementLayer;
+    private final ShapeLayer shapeLayer;
+    private final ToolLayer toolLayer;
+
     @Setter
     private CanvasDelegate delegate;
 
@@ -32,8 +37,11 @@ public class CanvasView extends Canvas {
         final CanvasLayer backgroundLayer = new BackgroundLayer(getGraphicsContext2D());
         layers.add(backgroundLayer);
 
-        elementLayer = new ElementLayer(getGraphicsContext2D());
-        layers.add(elementLayer);
+        shapeLayer = new ShapeLayer(getGraphicsContext2D());
+        layers.add(shapeLayer);
+
+        toolLayer = new ToolLayer(getGraphicsContext2D());
+        layers.add(toolLayer);
 
         visibleProperty().addListener(redrawListener);
         focusedProperty().addListener(redrawListener);
@@ -51,8 +59,20 @@ public class CanvasView extends Canvas {
     }
 
     public void update(final StateHolder holder) {
-        elementLayer.update(holder);
+        shapeLayer.update(holder);
         redraw();
+    }
+
+    public void selectElement(final double x, final double y) {
+        final ShapeElement element = shapeLayer.elementAt(x, y);
+        final ShapeSelectionTool selectionTool = new ShapeSelectionTool(element.x, element.y, 100, 100);
+
+        toolLayer.add(selectionTool);
+        redraw();
+    }
+
+    public boolean hasAnyElement(final double x, final double y) {
+        return shapeLayer.elementAt(x, y) != null;
     }
 
     private void onMouseClick(final MouseEvent e) {

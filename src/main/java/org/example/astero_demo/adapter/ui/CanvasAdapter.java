@@ -3,8 +3,11 @@ package org.example.astero_demo.adapter.ui;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
+import org.example.astero_demo.adapter.ui.event.UIEvent;
+import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
+import org.example.astero_demo.logic.event.ui.CreateNewShapeLogicEvent;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
 
 import java.net.URL;
@@ -16,8 +19,8 @@ public class CanvasAdapter extends UIAdapter implements Initializable, CanvasVie
 
     private final StateHolder holder;
 
-    public CanvasAdapter(final ViewController controller, final StateHolder holder) {
-        super(controller);
+    public CanvasAdapter(final ViewController controller, final StateHolder holder, final UIState uiState) {
+        super(controller, uiState);
         this.holder = holder;
     }
 
@@ -35,6 +38,22 @@ public class CanvasAdapter extends UIAdapter implements Initializable, CanvasVie
 
     @Override
     public void primaryMouseBtnClicked(final int priority, final double x, final double y) {
-        controller.process(new CreateNewShapeEvent(priority, x, y));
+        if (uiState.isInInsertMode()) {
+            controller.process(new CreateNewShapeLogicEvent(priority, x, y));
+        }
+        else if (canvas.hasAnyElement(x, y)) {
+            processEvent(new SelectElementEvent(x, y));
+        }
+    }
+
+    @Override
+    protected void processEvent(UIEvent event) {
+        if (parent != null) {
+            parent.processEvent(event);
+        }
+    }
+
+    public void selectElement(final double x, final double y) {
+        canvas.selectElement(x, y);
     }
 }

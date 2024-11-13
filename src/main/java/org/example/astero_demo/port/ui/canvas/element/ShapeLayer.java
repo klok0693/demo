@@ -7,19 +7,19 @@ import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 
 import java.util.stream.Collectors;
 
-public class ElementLayer extends CanvasLayer {
-    private GraphicsContext gc;
+public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
+    private final GraphicsContext gc;
 
-    public ElementLayer(final GraphicsContext gc) {
+    public ShapeLayer(final GraphicsContext gc) {
         super(gc, 1);
         this.gc = gc;
     }
 
     public void update(final StateHolder holder) {
         removeAll();
-        var elements = holder.getShapes().stream()
+        final var elements = holder.getShapes().stream()
                 .map(shape -> new Object() {
-                    RectangleDrawable drawable = new RectangleDrawable(
+                    RectangleElement drawable = new RectangleElement(
                         shape.getX(),
                         shape.getY(),
                         shape.getWidth(),
@@ -31,9 +31,18 @@ public class ElementLayer extends CanvasLayer {
                 .collect(Collectors.groupingBy(obj -> obj.priority,
                         Collectors.mapping(obj -> obj.drawable, Collectors.toList())));
 
-        elements.keySet().forEach(key -> children.add(new CanvasLayer(gc, key)));
+        elements.keySet().forEach(key -> children.add(new CanvasLayer<>(gc, key)));
         children.stream()
                 .map(CanvasLayer.class::cast)
                 .forEach(layer -> elements.get(layer.getPriority()).forEach(layer::add));
+    }
+
+    public ShapeElement elementAt(final double x, final double y) {
+        return children.stream()
+                .sorted()
+                .flatMap(CanvasLayer::getChildren)
+                .filter(elem -> elem.isInBounds(x, y))
+                .findFirst()
+                .orElse(null);
     }
 }
