@@ -4,18 +4,18 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.WeakListChangeListener;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import lombok.Setter;
+import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
+import org.example.astero_demo.port.ui.canvas.element.ElementLayer;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Comparator;
 
 public class CanvasView extends Canvas {
-    private ObservableList<Drawable> layers = FXCollections.observableArrayList();
 
     private final ChangeListener<Boolean> redrawListener = new WeakChangeListener<>((observableValue, aBoolean, t1) -> {
         if (aBoolean) {
@@ -23,72 +23,59 @@ public class CanvasView extends Canvas {
         }
     });
 
+    private ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
+    private ElementLayer elementLayer;
+    @Setter
+    private CanvasDelegate delegate;
+
     public CanvasView() {
-        final CanvasLayer backgroundLayer = new CanvasLayer(getGraphicsContext2D());
-        backgroundLayer.add(new CanvasBackground());
+        final CanvasLayer backgroundLayer = new BackgroundLayer(getGraphicsContext2D());
         layers.add(backgroundLayer);
+
+        elementLayer = new ElementLayer(getGraphicsContext2D());
+        layers.add(elementLayer);
 
         visibleProperty().addListener(redrawListener);
         focusedProperty().addListener(redrawListener);
+
+        setOnMouseClicked(this::onMouseClick);
 
         redraw();
     }
 
     public final void redraw() {
         Platform.runLater(() -> {
-            layers.forEach(layer -> layer.draw(getGraphicsContext2D()));
+            layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsContext2D()));
+            //layers.forEach(layer -> layer.draw(getGraphicsContext2D()));
         });
     }
 
-    private interface Drawable {
-        void draw(GraphicsContext gc);
+    public void update(final StateHolder holder) {
+        elementLayer.update(holder);
+        redraw();
     }
 
-    private class CanvasLayer implements Drawable {
-        private ObservableList<Drawable> children = FXCollections.observableArrayList();
-
-        protected CanvasLayer(final GraphicsContext gc) {
-            children.addListener(new WeakListChangeListener<>(change -> {
-                draw(gc);
-            }));
+    private void onMouseClick(final MouseEvent e) {
+        if (delegate == null) {
+            return;
         }
 
-        @Override
-        public void draw(final GraphicsContext gc) {
-            children.forEach(ch -> ch.draw(gc));
-        }
-
-        void add(Drawable ch) {
-            children.add(ch);
-        }
-
-        void remove(Drawable ch) {
-            children.remove(ch);
+        if (e.getButton() == MouseButton.PRIMARY) {
+            delegate.primaryMouseBtnClicked(getTopLayer().getPriority(), e.getX(), e.getY());
+/*            final var rectangleUI = new RectangleUI(e.getX(), e.getY(), 100, 100, Color.GREEN);
+            getTopLayer().add(rectangleUI);
+            redraw();*/
         }
     }
 
-    class CanvasBackground implements Drawable {
+    private CanvasLayer getTopLayer() {
+        return layers.stream()
+                .max(Comparator.comparingInt(CanvasLayer::getPriority))
+                .get();
+    }
 
-        @Override
-        public void draw(final GraphicsContext gc) {
-            final int border = 10;
-            final int width = 630;
-            final int height = 380;
-            final int cellWidth = 25;
+    public interface CanvasDelegate {
 
-            gc.setFill(Color.LIGHTGRAY);
-            gc.fillRect(border, border, width, height);
-
-            gc.setFill(Color.WHITE);
-            for (int i = border; i < width; i+=cellWidth) {
-                int startJ = border;
-                if ((i / cellWidth) % 2 != 0) {
-                    startJ = cellWidth + border;
-                }
-                for (int j = startJ; j < height; j+=(cellWidth << 1)) {
-                    gc.fillRect(i, j, cellWidth, cellWidth);
-                }
-            }
-        }
+        void primaryMouseBtnClicked(int priority, double x, double y);
     }
 }
