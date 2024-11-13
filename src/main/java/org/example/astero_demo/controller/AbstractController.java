@@ -3,8 +3,9 @@ package org.example.astero_demo.controller;
 import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
-import org.example.astero_demo.logic.event.ui.CreateNewShapeLogicEvent;
-import org.example.astero_demo.logic.event.ui.UILogicEvent;
+import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
+import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
+import org.example.astero_demo.logic.event.ui.LogicEvent;
 
 public abstract class AbstractController {
     private final CommandFactory commandFactory;
@@ -15,11 +16,15 @@ public abstract class AbstractController {
         this.commandProcessor = commandProcessor;
     }
 
-    public void process(final UILogicEvent e) {
+    public void process(final LogicEvent e) {
         Command command = null;
-        if (e instanceof CreateNewShapeLogicEvent) {
-            final CreateNewShapeLogicEvent ev = (CreateNewShapeLogicEvent) e;
+        if (e instanceof CreateNewShapeEvent) {
+            final CreateNewShapeEvent ev = (CreateNewShapeEvent) e;
             command = commandFactory.createNewShapeCommand(ev.getPriority(), ev.getX(), ev.getY(), ev.getType());
+        }
+        else if (e instanceof RemoveShapeEvent) {
+            final RemoveShapeEvent ev = (RemoveShapeEvent) e;
+            command = commandFactory.createRemoveShapeCommand(ev.getShapeId());
         }
 
         if (command != null) {

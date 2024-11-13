@@ -70,7 +70,7 @@ public class CanvasView extends Canvas {
         selectElement(-1, -1);
     }
 
-    public void selectElement(final double x, final double y) {
+    public int selectElement(final double x, final double y) {
         toolLayer.removeAll();
 
         final ShapeElement element = shapeLayer.elementAt(x, y);
@@ -79,7 +79,16 @@ public class CanvasView extends Canvas {
             toolLayer.add(selectionTool);
         }
         redraw();
+        return element != null ? element.getModelRelatedId() : -1;
     }
+
+/*    public int getSelectedElementId() {
+        return toolLayer.getChildren()
+                .findAny()
+                .map(tool -> shapeLayer.elementAt(tool.x, tool.y))
+                .map(ShapeElement::getModelRelatedId)
+                .orElse(-1);
+    }*/
 
     public boolean hasAnyElement(final double x, final double y) {
         return shapeLayer.elementAt(x, y) != null;

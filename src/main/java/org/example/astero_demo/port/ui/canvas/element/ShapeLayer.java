@@ -20,6 +20,7 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
         final var elements = holder.getShapes().stream()
                 .map(shape -> new Object() {
                     RectangleElement drawable = new RectangleElement(
+                            shape.getId(),
                         shape.getX(),
                         shape.getY(),
                         shape.getWidth(),

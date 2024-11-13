@@ -6,12 +6,15 @@ import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
 import org.example.astero_demo.adapter.ui.event.UIEvent;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.logic.event.ApplicationEvent;
+import org.example.astero_demo.logic.event.ui.LogicEvent;
+import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RootAdapter extends UIAdapter implements Initializable {
+public class RootAdapter extends UIAdapter<MutableUIState> implements Initializable {
     /*@FXML*/
     public ToolBarAdapter toolBarRootController;
     /*@FXML*/
@@ -39,7 +42,8 @@ public class RootAdapter extends UIAdapter implements Initializable {
     }
 
     private void rollbackState() {
-        ((MutableUIState) uiState).setIsInInsertMode(false);
+        uiState.setIsInInsertMode(false);
+        uiState.removeSelection();
     }
 
     private void updateChildren() {
@@ -52,12 +56,11 @@ public class RootAdapter extends UIAdapter implements Initializable {
     protected void processEvent(final UIEvent event) {
         if (event instanceof SelectElementEvent) {
             final SelectElementEvent e = (SelectElementEvent) event;
-            canvasRootController.selectElement(e.getX(), e.getY());
+            final int selectedId = canvasRootController.selectElement(e.getX(), e.getY());
+            uiState.setSelectShape(selectedId);
         }
         if (event instanceof InsertModeEvent) {
-            final InsertModeEvent e = (InsertModeEvent) event;
-            ((MutableUIState) uiState).setIsInInsertMode(true);
-
+            uiState.setIsInInsertMode(true);
             updateChildren();
         }
     }

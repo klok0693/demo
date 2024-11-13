@@ -20,8 +20,8 @@ public class ModelController extends AbstractController {
         return modelAdapter.saveShape(priority, x, y, type);
     }
 
-    public void removeShape(final int id) {
-        modelAdapter.removeShape(id);
+    public Shape removeShape(final int id) {
+        return modelAdapter.removeShape(id);
     }
 
     @Override

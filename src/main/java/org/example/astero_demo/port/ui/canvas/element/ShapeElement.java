@@ -1,15 +1,20 @@
 package org.example.astero_demo.port.ui.canvas.element;
 
+import lombok.Getter;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
 public abstract class ShapeElement extends CanvasElement {
+    @Getter
+    private final int modelRelatedId;
 
     protected ShapeElement(
+            final int modelRelatedId,
             final double x,
             final double y,
             final double width,
             final double height) {
         super(x, y, width, height);
+        this.modelRelatedId = modelRelatedId;
     }
 
     public boolean isInBounds(final double x, final double y) {

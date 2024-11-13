@@ -18,7 +18,9 @@ public class ModelAdapter {
         return shape.getId();
     }
 
-    public void removeShape(final int id) {
+    public Shape removeShape(final int id) {
+        final Shape removed = holder.getShape(id);
         holder.removeShape(id);
+        return removed;
     }
 }

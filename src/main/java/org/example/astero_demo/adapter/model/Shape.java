@@ -27,4 +27,6 @@ public abstract class Shape {
         this.width = width;
         this.height = height;
     }
+
+    public abstract ShapeType getType();
 }

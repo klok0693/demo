@@ -1,4 +1,6 @@
 package org.example.astero_demo.adapter.ui.event;
 
-public class UIEvent {
+import org.example.astero_demo.logic.event.ApplicationEvent;
+
+public class UIEvent extends ApplicationEvent {
 }

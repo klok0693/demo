@@ -16,4 +16,8 @@ public class CommandFactory {
     public Command createNewShapeCommand(final int priority, final double x, final double y, final ShapeType type) {
         return new CreateNewShapeCommand(viewController, modelController, priority, x, y, type);
     }
+
+    public Command createRemoveShapeCommand(final int id) {
+        return new RemoveShapeCommand(modelController, viewController, id);
+    }
 }
