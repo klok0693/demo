@@ -58,16 +58,26 @@ public class CanvasView extends Canvas {
         });
     }
 
-    public void update(final StateHolder holder) {
+    public void update(final StateHolder holder, final boolean hideTools) {
         shapeLayer.update(holder);
+        if (hideTools) {
+            toolLayer.removeAll();
+        }
         redraw();
     }
 
-    public void selectElement(final double x, final double y) {
-        final ShapeElement element = shapeLayer.elementAt(x, y);
-        final ShapeSelectionTool selectionTool = new ShapeSelectionTool(element.x, element.y, 100, 100);
+    public void unselectAll() {
+        selectElement(-1, -1);
+    }
 
-        toolLayer.add(selectionTool);
+    public void selectElement(final double x, final double y) {
+        toolLayer.removeAll();
+
+        final ShapeElement element = shapeLayer.elementAt(x, y);
+        if (element != null) {
+            final ShapeSelectionTool selectionTool = new ShapeSelectionTool(element.x, element.y, 100, 100);
+            toolLayer.add(selectionTool);
+        }
         redraw();
     }
 

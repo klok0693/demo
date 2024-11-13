@@ -15,10 +15,14 @@
         <URL value="@../css/tool-bar.css"/>
     </stylesheets>
 
-    <Button fx:id="RectBtn" text="Rect"/>
-    <Button text="Square"/>
-    <Button text="Cycle"/>
-    <Button text="triangle"/>
+    <fx:define>
+        <ToggleGroup fx:id="insertElementButton" />
+    </fx:define>
+
+    <ToggleButton fx:id="RectBtn" text="Rect" onAction="#onInsertButtonAction" toggleGroup="$insertElementButton"/>
+    <ToggleButton text="Square" toggleGroup="$insertElementButton"/>
+    <ToggleButton text="Cycle" toggleGroup="$insertElementButton"/>
+    <ToggleButton text="triangle" toggleGroup="$insertElementButton"/>
 
 <!--    <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>

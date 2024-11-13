@@ -1,8 +1,11 @@
 package org.example.astero_demo.adapter.ui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import lombok.Setter;
+import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.event.UIEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
@@ -14,7 +17,7 @@ import java.util.ResourceBundle;
 public class ToolBarAdapter extends UIAdapter implements Initializable {
 
     public ToolBarView toolBar;
-    public Button RectBtn;
+    public ToggleButton RectBtn;
 
     public ToolBarAdapter(final ViewController controller, final UIState uiState) {
         super(controller, uiState);
@@ -27,6 +30,10 @@ public class ToolBarAdapter extends UIAdapter implements Initializable {
 
     @Override
     public void update() {}
+
+    public void onInsertButtonAction(final ActionEvent event) {
+        processEvent(new InsertModeEvent());
+    }
 
     @Override
     protected void processEvent(UIEvent event) {

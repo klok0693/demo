@@ -33,7 +33,7 @@ public class CanvasAdapter extends UIAdapter implements Initializable, CanvasVie
 
     @Override
     public void update() {
-        canvas.update(holder);
+        canvas.update(holder, uiState.isInInsertMode());
     }
 
     @Override
@@ -43,6 +43,9 @@ public class CanvasAdapter extends UIAdapter implements Initializable, CanvasVie
         }
         else if (canvas.hasAnyElement(x, y)) {
             processEvent(new SelectElementEvent(x, y));
+        }
+        else {
+            canvas.unselectAll();
         }
     }
 
