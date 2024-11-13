@@ -4,17 +4,16 @@ import lombok.Setter;
 import org.example.astero_demo.adapter.model.ModelAdapter;
 import org.example.astero_demo.adapter.model.ShapeType;
 import org.example.astero_demo.adapter.ui.RootAdapter;
+import org.example.astero_demo.controller.ModelController;
+import org.example.astero_demo.controller.ViewController;
 
 public class CommandFactory {
     @Setter
-    private RootAdapter rootAdapter;
-    private final ModelAdapter modelAdapter;
-
-    public CommandFactory(final ModelAdapter modelAdapter) {
-        this.modelAdapter = modelAdapter;
-    }
+    private ViewController viewController;
+    @Setter
+    private ModelController modelController;
 
     public Command createNewShapeCommand(final int priority, final double x, final double y, final ShapeType type) {
-        return new CreateNewShapeCommand(rootAdapter, modelAdapter, priority, x, y, type);
+        return new CreateNewShapeCommand(viewController, modelController, priority, x, y, type);
     }
 }

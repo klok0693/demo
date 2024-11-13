@@ -8,26 +8,16 @@ import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.UIEvent;
 
-public class ViewController {
+public class ViewController extends AbstractController {
     @Setter
     private RootAdapter adapter;
-    private final CommandFactory commandFactory;
-    private final CommandProcessor commandProcessor;
 
     public ViewController(final CommandFactory commandFactory, final CommandProcessor commandProcessor) {
-        this.commandFactory = commandFactory;
-        this.commandProcessor = commandProcessor;
+        super(commandFactory, commandProcessor);
     }
 
-    public void process(final UIEvent e) {
-        Command command = null;
-        if (e instanceof CreateNewShapeEvent) {
-            final CreateNewShapeEvent ev = (CreateNewShapeEvent) e;
-            command = commandFactory.createNewShapeCommand(ev.getPriority(), ev.getX(), ev.getY(), ev.getType());
-        }
-
-        if (command != null) {
-            commandProcessor.processCommand(command);
-        }
+    @Override
+    public void update() {
+        adapter.update();
     }
 }
