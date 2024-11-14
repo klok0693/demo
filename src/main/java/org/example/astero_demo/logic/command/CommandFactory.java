@@ -2,6 +2,7 @@ package org.example.astero_demo.logic.command;
 
 import lombok.Setter;
 import org.example.astero_demo.adapter.model.ModelAdapter;
+import org.example.astero_demo.adapter.model.ParamInfo;
 import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.model.ShapeType;
 import org.example.astero_demo.adapter.ui.RootAdapter;
@@ -18,8 +19,8 @@ public class CommandFactory {
         return new CreateNewShapeCommand(viewController, modelController, priority, x, y, type);
     }
 
-    public Command createModifyShapeCommand(final int shapeId, final ShapeParam param, final String newValue) {
-        return new ModifyShapeCommand(viewController, modelController, shapeId, param, newValue);
+    public Command createModifyShapeCommand(final int shapeId, final ParamInfo... infos) {
+        return new ModifyShapeCommand(viewController, modelController, shapeId, infos);
     }
 
     public Command createRemoveShapeCommand(final int id) {

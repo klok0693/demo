@@ -10,13 +10,16 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import lombok.Setter;
 import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
+import org.example.astero_demo.port.ui.canvas.tool.DragShapeTool;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
+import org.example.astero_demo.util.ColorUtils;
 
-import java.util.Comparator;
+import java.util.Optional;
 
 public class CanvasView extends Canvas {
 
@@ -29,6 +32,8 @@ public class CanvasView extends Canvas {
     private ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
+    @Setter
+    private UIState uiState;
 
     @Setter
     private CanvasDelegate delegate;
@@ -46,7 +51,44 @@ public class CanvasView extends Canvas {
         visibleProperty().addListener(redrawListener);
         focusedProperty().addListener(redrawListener);
 
-        setOnMouseClicked(this::onMouseClick);
+        setOnMousePressed(this::onMousePressed);
+
+        setOnDragDetected(mouseEvent -> {
+            final double mouseX = mouseEvent.getX();
+            final double mouseY = mouseEvent.getY();
+            if (uiState.hasSelectedId() && isSelectedElementAt(mouseX, mouseY)) {
+                final double xOffset = mouseX - uiState.getSelectedX();
+                final double yOffset = mouseY - uiState.getSelectedY();
+                toolLayer.createDragTool(
+                        mouseX,
+                        mouseY,
+                        uiState.getSelectedWidth(),
+                        uiState.getSelectedHeight(),
+                        ColorUtils.convert(uiState.getSelectedColor()),
+                        xOffset,
+                        yOffset
+                );
+                redraw();
+            }
+            else {
+                delegate.primaryMouseBtnPressed(-1, -1);
+            }
+        });
+
+        setOnMouseDragged(mouseEvent -> toolLayer.getDragTool()
+                .ifPresent(tool -> processDrag(mouseEvent, tool)));
+
+        setOnMouseReleased(mouseEvent -> {
+            final Optional<double[]> dragPosition = toolLayer.getDragTool().map(DragShapeTool::getCurrentPosition);
+            toolLayer.destroyDragTool();
+            redraw();
+
+            if (uiState.hasSelectedId() && getLayoutBounds().contains(mouseEvent.getX(), mouseEvent.getY())) {
+                dragPosition.ifPresent(doubles -> {
+                    delegate.onDragOver(doubles[0], doubles[1]);
+                });
+            }
+        });
 
         redraw();
     }
@@ -66,9 +108,9 @@ public class CanvasView extends Canvas {
         redraw();
     }
 
-    public void unselectAll() {
+/*    public void unselectAll() {
         selectElement(-1, -1);
-    }
+    }*/
 
     public ShapeElement selectElement(final double x, final double y) {
         toolLayer.removeAll();
@@ -90,31 +132,65 @@ public class CanvasView extends Canvas {
                 .orElse(-1);
     }*/
 
-    public boolean hasAnyElement(final double x, final double y) {
+/*    public boolean hasAnyElement(final double x, final double y) {
         return shapeLayer.elementAt(x, y) != null;
+    }*/
+
+    public boolean isSelectedElementAt(final double x, final double y) {
+        final ShapeElement element = shapeLayer.elementAt(x, y);
+        if (element != null) {
+            return element.getModelRelatedId() == uiState.getSelectedShapeId() && element.isInBounds(x, y);
+        }
+        return false;
     }
 
-    private void onMouseClick(final MouseEvent e) {
+    private void onMousePressed(final MouseEvent e) {
         if (delegate == null) {
             return;
         }
 
         if (e.getButton() == MouseButton.PRIMARY) {
-            delegate.primaryMouseBtnClicked(getTopLayer().getPriority(), e.getX(), e.getY());
-/*            final var rectangleUI = new RectangleUI(e.getX(), e.getY(), 100, 100, Color.GREEN);
-            getTopLayer().add(rectangleUI);
-            redraw();*/
+            delegate.primaryMouseBtnPressed(e.getX(), e.getY());
         }
     }
 
-    private CanvasLayer getTopLayer() {
+/*    private CanvasLayer getTopLayer() {
         return layers.stream()
                 .max(Comparator.comparingInt(CanvasLayer::getPriority))
                 .get();
+    }*/
+
+    private void processDrag(final MouseEvent mouseEvent, final DragShapeTool tool) {
+        final double mouseX = mouseEvent.getX();
+        final double mouseY = mouseEvent.getY();
+
+        final double startX = CanvasView.this.getLayoutX();
+        final double startY = CanvasView.this.getLayoutY();
+
+        final double endX = startX + getWidth();
+        final double endY = startY + getHeight();
+
+        final double dragX = Math.min(Math.max(0, mouseX), endX);
+        final double dragY = Math.min(Math.max(0, mouseY), endY);
+
+        tool.update(dragX, dragY);
+        redraw();
     }
+
+/*    private boolean isOnCanvas(final double x, final double y) {
+        final double startX = CanvasView.this.getLayoutX();
+        final double startY = CanvasView.this.getLayoutY();
+
+        final double endX = startX + getWidth();
+        final double endY = startY + getHeight();
+
+        return x >= startX && x
+    }*/
 
     public interface CanvasDelegate {
 
-        void primaryMouseBtnClicked(int priority, double x, double y);
+        void primaryMouseBtnPressed(double x, double y);
+
+        void onDragOver(final double x, final double y);
     }
 }

@@ -4,14 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
-public class ShapeSelectionTool extends CanvasElement {
+public class ShapeSelectionTool extends CanvasTool {
 
     public ShapeSelectionTool(
             final double x,
             final double y,
             final double width,
             final double height) {
-        super(x, y, width, height);
+        super(x, y, width, height, 0);
     }
 
     public void update(

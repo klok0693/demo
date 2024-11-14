@@ -7,6 +7,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import org.example.astero_demo.adapter.model.ParamInfo;
 import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
@@ -15,6 +16,8 @@ import org.example.astero_demo.util.ColorUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static org.example.astero_demo.adapter.model.ParamInfo.create;
 
 public class PropertyAdapter extends LeafAdapter {
 
@@ -86,13 +89,13 @@ public class PropertyAdapter extends LeafAdapter {
     private void updateField(final KeyEvent e, final ShapeParam param, final TextInputControl field) {
         if (e.getCode() == KeyCode.ENTER) {
             controller.process(new ModifyShapeEvent(
-                    uiState.getSelectedShapeId(), param, field.getText()));
+                    uiState.getSelectedShapeId(), create(param, field.getText())));
         }
     }
 
     public void updateColor(final ActionEvent event) {
         final Color selectedColor = colorField.getValue();
         controller.process(new ModifyShapeEvent(
-                uiState.getSelectedShapeId(), ShapeParam.COLOR, String.valueOf(ColorUtils.convert(selectedColor))));
+                uiState.getSelectedShapeId(), create(ShapeParam.COLOR, String.valueOf(ColorUtils.convert(selectedColor)))));
     }
 }

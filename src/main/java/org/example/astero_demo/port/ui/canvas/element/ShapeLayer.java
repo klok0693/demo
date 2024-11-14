@@ -45,7 +45,7 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
                 .sorted()
                 .flatMap(CanvasLayer::getChildren)
                 .filter(elem -> elem.isInBounds(x, y))
-                .findFirst()
+                .reduce((first, second) -> second)
                 .orElse(null);
     }
 }

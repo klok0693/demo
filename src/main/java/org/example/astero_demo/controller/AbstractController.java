@@ -32,7 +32,7 @@ public abstract class AbstractController {
         }
         else if (e instanceof final ModifyShapeEvent ev) {
             command = commandFactory.createModifyShapeCommand(
-                    ev.getShapeId(), ev.getParam(), valueOf(ev.getNewValue()));
+                    ev.getShapeId(), ev.getParamInfos());
         }
         else if (e instanceof final RemoveShapeEvent ev) {
             command = commandFactory.createRemoveShapeCommand(ev.getShapeId());

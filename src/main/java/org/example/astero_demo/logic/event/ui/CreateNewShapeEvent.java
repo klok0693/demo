@@ -9,8 +9,8 @@ public class CreateNewShapeEvent extends LogicEvent {
     private final double x, y;
     private final ShapeType type;
 
-    public CreateNewShapeEvent(final int priority, final double x, final double y) {
-        this.priority = priority;
+    public CreateNewShapeEvent(final double x, final double y) {
+        this.priority = 2;
         this.x = x;
         this.y = y;
         this.type = ShapeType.RECT;
