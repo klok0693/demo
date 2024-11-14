@@ -8,13 +8,13 @@ import org.example.astero_demo.util.MathUtils;
 public class ModifyShapeEvent extends LogicEvent {
     private final int shapeId;
     private final ShapeParam param;
-    private final Number newValue;
+    private final String newValue;
+
+/*    public ModifyShapeEvent(final int shapeId, final ShapeParam param, final String newValue) {
+        this(shapeId, param, MathUtils.isDouble(newValue) ? Double.parseDouble(newValue) : Integer.parseInt(newValue));
+    }*/
 
     public ModifyShapeEvent(final int shapeId, final ShapeParam param, final String newValue) {
-        this(shapeId, param, MathUtils.isDouble(newValue) ? Double.parseDouble(newValue) : Integer.parseInt(newValue));
-    }
-
-    public ModifyShapeEvent(final int shapeId, final ShapeParam param, final Number newValue) {
         this.shapeId = shapeId;
         this.param = param;
         this.newValue = newValue;

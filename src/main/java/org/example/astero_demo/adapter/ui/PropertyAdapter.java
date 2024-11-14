@@ -93,6 +93,6 @@ public class PropertyAdapter extends LeafAdapter {
     public void updateColor(final ActionEvent event) {
         final Color selectedColor = colorField.getValue();
         controller.process(new ModifyShapeEvent(
-                uiState.getSelectedShapeId(), ShapeParam.COLOR, ColorUtils.convert(selectedColor)));
+                uiState.getSelectedShapeId(), ShapeParam.COLOR, String.valueOf(ColorUtils.convert(selectedColor))));
     }
 }
