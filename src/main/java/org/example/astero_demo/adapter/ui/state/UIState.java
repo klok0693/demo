@@ -4,7 +4,7 @@ public interface UIState {
 
     boolean isInInsertMode();
 
-    int getSelectedShapeId();
+    Integer getSelectedShapeId();
 
     boolean hasSelectedId();
 

@@ -39,15 +39,18 @@ public class RootAdapter extends ParentAdapter {
         root.setUiState(uiState);
     }
 
-    @Override
-    public void update() {
-        rollbackState();
-        updateChildren();
+    public void onCreateUpdate(final double newShapeX, final double newShapeY) {
+        selectElement(newShapeX, newShapeY);
     }
 
-    private void rollbackState() {
+    public void onModifyUpdate() {
+        selectElement(uiState.getSelectedX(), uiState.getSelectedY());
+    }
+
+    public void onRemoveUpdate() {
         uiState.setIsInInsertMode(false);
         uiState.removeSelection();
+        updateChildren();
     }
 
     private void updateChildren() {
@@ -60,13 +63,22 @@ public class RootAdapter extends ParentAdapter {
     @Override
     protected void processEvent(final UIEvent event) {
         if (event instanceof final SelectElementEvent e) {
-            final ShapeElement selectedShape = canvasRootController.selectElement(e.getX(), e.getY());
-            uiState.setSelectShape(selectedShape);
-            updateChildren();
+            selectElement(e.getX(), e.getY());
         }
         if (event instanceof InsertModeEvent) {
             uiState.setIsInInsertMode(true);
             updateChildren();
         }
+    }
+
+    private void selectElement(final double shapeX, final double shapeY) {
+        uiState.setIsInInsertMode(false);
+        updateChildren();
+
+        final ShapeElement selectedShape = canvasRootController.selectElement(shapeX, shapeY);
+        final Integer shapeId = selectedShape != null ? selectedShape.getModelRelatedId() : null;
+
+        uiState.setSelectShape(shapeId);
+        updateChildren();
     }
 }

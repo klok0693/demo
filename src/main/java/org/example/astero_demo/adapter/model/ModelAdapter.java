@@ -9,36 +9,36 @@ public class ModelAdapter {
         this.holder = holder;
     }
 
-    public <T extends Number> T getShapeParam(final int id, final ShapeParam param) {
+    public String getShapeParam(final int id, final ShapeParam param) {
         final Shape shape = holder.getShape(id);
         if (shape == null) {
             return null;
         }
         return switch (param) {
-            case X -> (T) shape.getX();
-            case Y -> (T) shape.getY();
-            case WIDTH -> (T) shape.getWidth();
-            case HEIGHT -> (T) shape.getHeight();
-            case LAYER -> (T) shape.getPriority();
+            case X -> shape.getX();
+            case Y -> shape.getY();
+            case WIDTH -> shape.getWidth();
+            case HEIGHT -> shape.getHeight();
+            case LAYER -> shape.getPriority();
             default -> null;
         };
     }
 
-    public void modifyShapeParam(final int id, final ShapeParam param, final Number newValue) {
+    public void modifyShapeParam(final int id, final ShapeParam param, final String newValue) {
         final Shape shape = holder.getShape(id);
         if (shape == null) {
             return;
         }
         switch (param) {
-            case X: shape.setX(newValue.doubleValue()); break;
-            case Y: shape.setY(newValue.doubleValue()); break;
-            case WIDTH: shape.setWidth(newValue.doubleValue()); break;
-            case HEIGHT: shape.setHeight(newValue.doubleValue()); break;
-            case LAYER: shape.setPriority(newValue.intValue()); break;
+            case X: shape.setX(newValue); break;
+            case Y: shape.setY(newValue); break;
+            case WIDTH: shape.setWidth(newValue); break;
+            case HEIGHT: shape.setHeight(newValue); break;
+            case LAYER: shape.setPriority(newValue); break;
         }
     }
 
-    public int saveShape(final int priority, final double x, final double y, final ShapeType type) {
+    public int saveShape(final String priority, final String x, final String y, final ShapeType type) {
         final Shape shape = factory.createShape(priority, x, y, type);
         holder.saveShape(shape);
         return shape.getId();

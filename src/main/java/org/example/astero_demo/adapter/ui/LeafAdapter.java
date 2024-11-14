@@ -16,4 +16,6 @@ public abstract class LeafAdapter extends UIAdapter<UIState> {
     protected void sendEvent(final UIEvent event) {
         parent.processEvent(event);
     }
+
+    public abstract void update();
 }

@@ -29,7 +29,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final ViewController viewController = new ViewController(commandFactory, commandProcessor, shapeValidator);
     private final ModelController modelController = new ModelController(commandFactory, commandProcessor);
 
-    private MutableUIState uiState = UIStateHolder.INSTANCE;
+    private MutableUIState uiState = new UIStateHolder(holder);
 
     private final PropertyAdapter propertyAdapter = new PropertyAdapter(viewController, uiState);
     private final CanvasAdapter canvasAdapter = new CanvasAdapter(viewController, holder, uiState);

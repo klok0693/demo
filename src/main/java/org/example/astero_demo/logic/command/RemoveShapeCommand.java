@@ -7,7 +7,7 @@ import org.example.astero_demo.controller.ViewController;
 public class RemoveShapeCommand extends Command {
     private final ModelController modelController;
     private final ViewController viewController;
-    private final int shapeId;
+    private int shapeId;
 
     private Shape removedShape;
 
@@ -23,17 +23,17 @@ public class RemoveShapeCommand extends Command {
     @Override
     public void doCommand() {
         this.removedShape = modelController.removeShape(shapeId);
-        viewController.update();
+        viewController.onRemoveUpdate();
     }
 
     @Override
     public void undoCommand() {
-        modelController.saveShape(
+        this.shapeId = modelController.saveShape(
                 removedShape.getPriority(),
                 removedShape.getX(),
                 removedShape.getY(),
                 removedShape.getType());
 
-        viewController.update();
+        viewController.onCreateUpdate(removedShape.getX(), removedShape.getY());
     }
 }

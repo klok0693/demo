@@ -14,10 +14,6 @@ public class ShapeSelectionTool extends CanvasElement {
         super(x, y, width, height);
     }
 
-    public void update(final double x, final double y) {
-        update(x, y, width, height);
-    }
-
     public void update(
             final double x,
             final double y,

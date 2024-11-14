@@ -1,6 +1,8 @@
 package org.example.astero_demo.adapter.ui.state;
 
 import lombok.Getter;
+import org.example.astero_demo.adapter.model.Shape;
+import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
 import java.util.LinkedList;
@@ -8,13 +10,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public enum UIStateHolder implements MutableUIState {
-    INSTANCE;
+public class UIStateHolder implements MutableUIState {
 
     @Getter
     private boolean isInInsertMode = false;
 
-    private List<ShapeElement> selectedShapes = new LinkedList<>();
+    private List<Integer> selectedShapes = new LinkedList<>();
+    private final StateHolder shapeHolder;
+
+    public UIStateHolder(final StateHolder shapeHolder) {
+        this.shapeHolder = shapeHolder;
+    }
 
     @Override
     public void setIsInInsertMode(final boolean isInInsertMode) {
@@ -22,39 +28,47 @@ public enum UIStateHolder implements MutableUIState {
     }
 
     @Override
-    public int getSelectedShapeId() {
+    public Integer getSelectedShapeId() {
  /*       return Optional.ofNullable(selectedShapes).stream()
                 .flatMap(Collection::stream)
                 .map(ShapeElement::getModelRelatedId)
                 .findFirst()
                 .orElse(-1);*/
 
-        return getSelectedIntParam(ShapeElement::getModelRelatedId);
+        //return getSelectedIntParam(Shape::getId);
+        if (selectedShapes.isEmpty()) {
+            return null;
+        }
+        return shapeHolder.getShape(selectedShapes.get(0)).getId();
     }
 
     @Override
     public Double getSelectedX() {
-        return getSelectedDoubleParam(ShapeElement::getX);
+        return getSelectedDoubleParam(Shape::getX);
     }
 
     @Override
     public Double getSelectedY() {
-        return getSelectedDoubleParam(ShapeElement::getY);
+        return getSelectedDoubleParam(Shape::getY);
     }
 
     @Override
     public Double getSelectedWidth() {
-        return getSelectedDoubleParam(ShapeElement::getWidth);
+        return getSelectedDoubleParam(Shape::getWidth);
     }
 
     @Override
     public Double getSelectedHeight() {
-        return getSelectedDoubleParam(ShapeElement::getHeight);
+        return getSelectedDoubleParam(Shape::getHeight);
     }
 
     @Override
     public Integer getSelectedLayer() {
-        return getSelectedIntParam(ShapeElement::getLayer);
+        if (selectedShapes.isEmpty()) {
+            return null;
+        }
+        return Integer.valueOf(
+                shapeHolder.getShape(selectedShapes.get(0)).getPriority());
     }
 
     @Override
@@ -64,10 +78,10 @@ public enum UIStateHolder implements MutableUIState {
 
 
     @Override
-    public void setSelectShape(final ShapeElement shape) {
+    public void setSelectShape(final Integer id) {
         removeSelection();
-        if (shape != null) {
-            selectedShapes.add(shape);
+        if (id != null) {
+            selectedShapes.add(id);
         }
     }
 
@@ -76,17 +90,11 @@ public enum UIStateHolder implements MutableUIState {
         selectedShapes.clear();
     }
 
-    private Integer getSelectedIntParam(final Function<ShapeElement, Integer> func) {
+    private Double getSelectedDoubleParam(final Function<Shape, String> func) {
         if (selectedShapes.isEmpty()) {
             return null;
         }
-        return Optional.ofNullable(selectedShapes.get(0)).map(func).orElse(null);
-    }
-
-    private Double getSelectedDoubleParam(final Function<ShapeElement, Double> func) {
-        if (selectedShapes.isEmpty()) {
-            return null;
-        }
-        return Optional.ofNullable(selectedShapes.get(0)).map(func).orElse(null);
+        return Double.valueOf(func.apply(shapeHolder.getShape(selectedShapes.get(0))));
+/*        return Optional.ofNullable(selectedShapes.get(0)).map(func).orElse(null);*/
     }
 }

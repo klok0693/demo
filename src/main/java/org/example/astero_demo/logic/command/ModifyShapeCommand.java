@@ -9,16 +9,16 @@ public class ModifyShapeCommand extends Command {
     private final ModelController modelController;
     private final int modifyShapeId;
     private final ShapeParam param;
-    private final Number newValue;
+    private final String newValue;
 
-    private Number oldValue;
+    private String oldValue;
 
     public ModifyShapeCommand(
             final ViewController viewController,
             final ModelController modelController,
             final int modifyShapeId,
             final ShapeParam param,
-            final Number newValue) {
+            final String newValue) {
         this.viewController = viewController;
         this.modelController = modelController;
         this.modifyShapeId = modifyShapeId;
@@ -37,8 +37,8 @@ public class ModifyShapeCommand extends Command {
         modifyParam(oldValue);
     }
 
-    private void modifyParam(final Number value) {
+    private void modifyParam(final String value) {
         modelController.modifyShapeParam(modifyShapeId, param, value);
-        viewController.update();
+        viewController.onModifyUpdate();
     }
 }

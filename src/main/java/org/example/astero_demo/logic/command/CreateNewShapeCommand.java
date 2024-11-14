@@ -10,8 +10,8 @@ public class CreateNewShapeCommand extends Command {
     private final ViewController viewController;
     private final ModelController modelController;
 
-    private final int priority;
-    private final double x, y;
+    private final String priority;
+    private final String x, y;
     private final ShapeType type;
 
     private int createdShapeId;
@@ -19,9 +19,9 @@ public class CreateNewShapeCommand extends Command {
     public CreateNewShapeCommand(
             final ViewController viewController,
             final ModelController modelController,
-            final int priority,
-            final double x,
-            final double y,
+            final String priority,
+            final String x,
+            final String y,
             final ShapeType type) {
         this.viewController = viewController;
         this.modelController = modelController;
@@ -34,12 +34,12 @@ public class CreateNewShapeCommand extends Command {
     @Override
     public void doCommand() {
         this.createdShapeId = modelController.saveShape(priority, x, y, type);
-        viewController.update();
+        viewController.onCreateUpdate(x, y);
     }
 
     @Override
     public void undoCommand() {
         modelController.removeShape(createdShapeId);
-        viewController.update();
+        viewController.onRemoveUpdate();
     }
 }

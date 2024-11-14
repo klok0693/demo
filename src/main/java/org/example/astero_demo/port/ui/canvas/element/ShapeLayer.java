@@ -22,13 +22,13 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
                     RectangleElement drawable = new RectangleElement(
                             0,
                             shape.getId(),
-                        shape.getX(),
-                        shape.getY(),
-                        shape.getWidth(),
-                        shape.getHeight(),
+                        Double.valueOf(shape.getX()),
+                        Double.valueOf(shape.getY()),
+                        Double.valueOf(shape.getWidth()),
+                        Double.valueOf(shape.getHeight()),
                         Color.GREEN);
 
-                    int priority = shape.getPriority();
+                    int priority = Integer.valueOf(shape.getPriority());
                 })
                 .collect(Collectors.groupingBy(obj -> obj.priority,
                         Collectors.mapping(obj -> obj.drawable, Collectors.toList())));

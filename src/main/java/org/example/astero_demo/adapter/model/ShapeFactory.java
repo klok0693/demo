@@ -4,9 +4,9 @@ public enum ShapeFactory {
     INSTANCE;
 
     Shape createShape(
-            final int priority,
-            final double x,
-            final double y,
+            final String priority,
+            final String x,
+            final String y,
             final ShapeType type) {
 
         return switch (type) {

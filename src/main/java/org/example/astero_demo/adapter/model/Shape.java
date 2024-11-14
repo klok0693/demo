@@ -7,19 +7,19 @@ import lombok.Setter;
 @EqualsAndHashCode
 public abstract class Shape {
     @Getter
-    private final Integer id;
+    private final int id;
     @Getter @Setter
-    private Integer priority;
+    private String priority;
     @Getter @Setter
-    private Double x, y, width, height;
+    private String x, y, width, height;
     @Getter @Setter
-    private Integer color;
+    private String color;
 
-    protected Shape(final int priority, final double x, final double y) {
-        this(priority, x, y, 100, 100);
+    protected Shape(final String priority, final String x, final String y) {
+        this(priority, x, y, "100", "100");
     }
 
-    protected Shape(final int priority, final double x, final double y, final double width, final double height) {
+    protected Shape(final String priority, final String x, final String y, final String width, final String height) {
         id = (int) (Math.random() * 10_000);
         this.priority = priority;
         this.x = x;

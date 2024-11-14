@@ -7,7 +7,7 @@ public interface MutableUIState extends UIState {
 
     void setIsInInsertMode(boolean isInInsertMode);
 
-    void setSelectShape(ShapeElement shape);
+    void setSelectShape(Integer id);
 
     void removeSelection();
 }

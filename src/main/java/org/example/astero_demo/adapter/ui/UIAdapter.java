@@ -17,6 +17,4 @@ public abstract class UIAdapter<T extends UIState> implements Initializable {
         this.controller = controller;
         this.uiState = uiState;
     }
-
-    public abstract void update();
 }

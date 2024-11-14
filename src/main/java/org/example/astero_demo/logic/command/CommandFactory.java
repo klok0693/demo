@@ -14,11 +14,11 @@ public class CommandFactory {
     @Setter
     private ModelController modelController;
 
-    public Command createNewShapeCommand(final int priority, final double x, final double y, final ShapeType type) {
+    public Command createNewShapeCommand(final String priority, final String x, final String y, final ShapeType type) {
         return new CreateNewShapeCommand(viewController, modelController, priority, x, y, type);
     }
 
-    public Command createModifyShapeCommand(final int shapeId, final ShapeParam param, final Number newValue) {
+    public Command createModifyShapeCommand(final int shapeId, final ShapeParam param, final String newValue) {
         return new ModifyShapeCommand(viewController, modelController, shapeId, param, newValue);
     }
 

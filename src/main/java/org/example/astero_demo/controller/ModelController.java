@@ -17,24 +17,21 @@ public class ModelController extends AbstractController {
         super(commandFactory, commandProcessor);
     }
 
-    public <T extends Number> T getShapeParam(final int id, final ShapeParam param) {
+    public String getShapeParam(final int id, final ShapeParam param) {
         return modelAdapter.getShapeParam(id, param);
     }
 
-    public void modifyShapeParam(final int id, final ShapeParam param, final Number newValue) {
+    public void modifyShapeParam(final int id, final ShapeParam param, final String newValue) {
         modelAdapter.modifyShapeParam(id, param, newValue);
     }
 
-    public int saveShape(final int priority, final double x, final double y, final ShapeType type) {
+    public int saveShape(final String priority, final String x, final String y, final ShapeType type) {
         return modelAdapter.saveShape(priority, x, y, type);
     }
 
     public Shape removeShape(final int id) {
         return modelAdapter.removeShape(id);
     }
-
-    @Override
-    public void update() {}
 
     @Override
     protected boolean isValid(LogicEvent event) {

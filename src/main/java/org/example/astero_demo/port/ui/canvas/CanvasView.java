@@ -75,7 +75,7 @@ public class CanvasView extends Canvas {
 
         final ShapeElement element = shapeLayer.elementAt(x, y);
         if (element != null) {
-            final ShapeSelectionTool selectionTool = new ShapeSelectionTool(element.x, element.y, 100, 100);
+            final ShapeSelectionTool selectionTool = new ShapeSelectionTool(element.x, element.y, element.width, element.height);
             toolLayer.add(selectionTool);
         }
         redraw();

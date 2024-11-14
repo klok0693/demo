@@ -7,6 +7,8 @@ import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 
+import static java.lang.Double.parseDouble;
+
 public class ViewController extends AbstractController {
     @Setter
     private RootAdapter adapter;
@@ -20,9 +22,16 @@ public class ViewController extends AbstractController {
         this.validator = validator;
     }
 
-    @Override
-    public void update() {
-        adapter.update();
+    public void onCreateUpdate(final String newShapeX, final String newShapeY) {
+        adapter.onCreateUpdate(parseDouble(newShapeX), parseDouble(newShapeY));
+    }
+
+    public void onModifyUpdate() {
+        adapter.onModifyUpdate();
+    }
+
+    public void onRemoveUpdate() {
+        adapter.onRemoveUpdate();
     }
 
     @Override
