@@ -14,6 +14,10 @@
         <fx:include fx:id="toolBarRoot" source="tool-bar.fxml"/>
     </top>
 
+    <left>
+        <fx:include fx:id="layersRoot" source="layers.fxml"/>
+    </left>
+
     <center>
         <fx:include fx:id="canvasRoot" source="canvas.fxml"/>
     </center>

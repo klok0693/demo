@@ -18,7 +18,7 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
 
     public void update(final StateHolder holder) {
         removeAll();
-        final var elements = holder.getShapes().stream()
+        final var elements = holder.getShapes()
                 .map(shape -> new Object() {
                     RectangleElement drawable = new RectangleElement(
                             0,

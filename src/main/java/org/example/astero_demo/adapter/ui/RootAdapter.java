@@ -1,14 +1,10 @@
 package org.example.astero_demo.adapter.ui;
 
-import javafx.fxml.Initializable;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
 import org.example.astero_demo.adapter.ui.event.UIEvent;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.logic.event.ApplicationEvent;
-import org.example.astero_demo.logic.event.ui.LogicEvent;
-import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
@@ -21,6 +17,7 @@ public class RootAdapter extends ParentAdapter {
     /*@FXML*/
     public CanvasAdapter canvasRootController;
     public PropertyAdapter propertyRootController;
+    public LayersAdapter layersRootController;
     /*@FXML*/
     public RootView root;
 
@@ -35,6 +32,7 @@ public class RootAdapter extends ParentAdapter {
         this.toolBarRootController.setParent(this);
         this.canvasRootController.setParent(this);
         this.propertyRootController.setParent(this);
+        this.layersRootController.setParent(this);
 
         root.setUiState(uiState);
     }
@@ -57,6 +55,7 @@ public class RootAdapter extends ParentAdapter {
         toolBarRootController.update();
         canvasRootController.update();
         propertyRootController.update();
+        layersRootController.update();
         root.update();
     }
 

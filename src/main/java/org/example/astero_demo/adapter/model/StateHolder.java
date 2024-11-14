@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public enum StateHolder {
     INSTANCE;
@@ -22,7 +23,7 @@ public enum StateHolder {
         shapes.remove(id);
     }
 
-    public Collection<Shape> getShapes() {
-        return shapes.values();
+    public Stream<Shape> getShapes() {
+        return shapes.values().stream();
     }
 }
