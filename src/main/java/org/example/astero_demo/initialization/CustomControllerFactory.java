@@ -12,6 +12,7 @@ import org.example.astero_demo.adapter.ui.ToolBarAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.state.UIStateHolder;
 import org.example.astero_demo.controller.ModelController;
+import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
@@ -24,7 +25,8 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final CommandFactory commandFactory = new CommandFactory();
     private final CommandProcessor commandProcessor = CommandProcessor.INSTANCE;
 
-    private final ViewController viewController = new ViewController(commandFactory, commandProcessor);
+    private final ShapeValidator shapeValidator = ShapeValidator.INSTANCE;
+    private final ViewController viewController = new ViewController(commandFactory, commandProcessor, shapeValidator);
     private final ModelController modelController = new ModelController(commandFactory, commandProcessor);
 
     private MutableUIState uiState = UIStateHolder.INSTANCE;

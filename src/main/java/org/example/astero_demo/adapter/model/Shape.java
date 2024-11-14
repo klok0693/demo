@@ -7,13 +7,13 @@ import lombok.Setter;
 @EqualsAndHashCode
 public abstract class Shape {
     @Getter
-    private final int id;
+    private final Integer id;
     @Getter @Setter
-    private int priority;
+    private Integer priority;
     @Getter @Setter
-    private double x, y, width, height;
+    private Double x, y, width, height;
     @Getter @Setter
-    private int color;
+    private Integer color;
 
     protected Shape(final int priority, final double x, final double y) {
         this(priority, x, y, 100, 100);

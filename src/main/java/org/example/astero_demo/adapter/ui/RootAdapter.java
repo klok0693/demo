@@ -59,8 +59,7 @@ public class RootAdapter extends ParentAdapter {
 
     @Override
     protected void processEvent(final UIEvent event) {
-        if (event instanceof SelectElementEvent) {
-            final SelectElementEvent e = (SelectElementEvent) event;
+        if (event instanceof final SelectElementEvent e) {
             final ShapeElement selectedShape = canvasRootController.selectElement(e.getX(), e.getY());
             uiState.setSelectShape(selectedShape);
             updateChildren();

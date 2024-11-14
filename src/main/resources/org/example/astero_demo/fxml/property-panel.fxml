@@ -33,17 +33,17 @@
         </rowConstraints>
 
         <Label text="x:"          GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="xField" GridPane.rowIndex="0" GridPane.columnIndex="1" disable="true"/>
+        <TextField fx:id="xField" GridPane.rowIndex="0" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateX"/>
         <Label text="y:"          GridPane.rowIndex="0" GridPane.columnIndex="2" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="yField" GridPane.rowIndex="0" GridPane.columnIndex="3" disable="true"/>
+        <TextField fx:id="yField" GridPane.rowIndex="0" GridPane.columnIndex="3" disable="true" onKeyPressed="#updateY"/>
 
         <Label text="width:"           GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="widthField"  GridPane.rowIndex="1" GridPane.columnIndex="1" disable="true"/>
+        <TextField fx:id="widthField"  GridPane.rowIndex="1" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateWidth"/>
         <Label text="height:"          GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="heightField" GridPane.rowIndex="1" GridPane.columnIndex="3" disable="true"/>
+        <TextField fx:id="heightField" GridPane.rowIndex="1" GridPane.columnIndex="3" disable="true" onKeyPressed="#updateHeight"/>
 
         <Label text="layer:"          GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="layerField" GridPane.rowIndex="2" GridPane.columnIndex="1" disable="true"/>
+        <TextField fx:id="layerField" GridPane.rowIndex="2" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateLayer"/>
 
         <Label text="color:"          GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
         <TextField fx:id="colorField" GridPane.rowIndex="3" GridPane.columnIndex="1" disable="true"/>

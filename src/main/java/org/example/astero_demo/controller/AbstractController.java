@@ -4,6 +4,7 @@ import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
+import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 
@@ -17,13 +18,19 @@ public abstract class AbstractController {
     }
 
     public void process(final LogicEvent e) {
+        if (!isValid(e)) {
+            // TODO: log
+            return;
+        }
+
         Command command = null;
-        if (e instanceof CreateNewShapeEvent) {
-            final CreateNewShapeEvent ev = (CreateNewShapeEvent) e;
+        if (e instanceof final CreateNewShapeEvent ev) {
             command = commandFactory.createNewShapeCommand(ev.getPriority(), ev.getX(), ev.getY(), ev.getType());
         }
-        else if (e instanceof RemoveShapeEvent) {
-            final RemoveShapeEvent ev = (RemoveShapeEvent) e;
+        else if (e instanceof final ModifyShapeEvent ev) {
+            command = commandFactory.createModifyShapeCommand(ev.getShapeId(), ev.getParam(), ev.getNewValue());
+        }
+        else if (e instanceof final RemoveShapeEvent ev) {
             command = commandFactory.createRemoveShapeCommand(ev.getShapeId());
         }
 
@@ -33,4 +40,6 @@ public abstract class AbstractController {
     }
 
     public abstract void update();
+
+    protected abstract boolean isValid(final LogicEvent event);
 }
