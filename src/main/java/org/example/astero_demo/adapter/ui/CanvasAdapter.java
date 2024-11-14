@@ -10,11 +10,12 @@ import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ApplicationEvent;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
+import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CanvasAdapter extends UIAdapter<UIState> implements Initializable, CanvasView.CanvasDelegate {
+public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDelegate {
     public CanvasView canvas;
     public AnchorPane canvasRoot;
 
@@ -34,7 +35,7 @@ public class CanvasAdapter extends UIAdapter<UIState> implements Initializable, 
 
     @Override
     public void update() {
-        canvas.update(holder, true);
+        canvas.update(holder, uiState.isInInsertMode() || !uiState.hasSelectedId());
     }
 
     @Override
@@ -43,21 +44,14 @@ public class CanvasAdapter extends UIAdapter<UIState> implements Initializable, 
             controller.process(new CreateNewShapeEvent(priority, x, y));
         }
         else if (canvas.hasAnyElement(x, y)) {
-            processEvent(new SelectElementEvent(x, y));
+            sendEvent(new SelectElementEvent(x, y));
         }
         else {
-            processEvent(new SelectElementEvent(-1, -1));
+            sendEvent(new SelectElementEvent(-1, -1));
         }
     }
 
-    @Override
-    protected void processEvent(final UIEvent event) {
-        if (parent != null) {
-            parent.processEvent(event);
-        }
-    }
-
-    public int selectElement(final double x, final double y) {
+    public ShapeElement selectElement(final double x, final double y) {
         return canvas.selectElement(x, y);
     }
 }

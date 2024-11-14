@@ -10,13 +10,14 @@ public class RectangleElement extends ShapeElement {
     private double angle;
 
     public RectangleElement(
+            final int layer,
             final int modelRelatedId,
             final double x,
             final double y,
             final double width,
             final double height,
             final Color fillColor) {
-        super(modelRelatedId, x, y, width, height);
+        super(layer, modelRelatedId, x, y, width, height);
         this.fillColor = fillColor;
     }
 

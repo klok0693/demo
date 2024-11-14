@@ -18,4 +18,8 @@
         <fx:include fx:id="canvasRoot" source="canvas.fxml"/>
     </center>
 
+    <right>
+        <fx:include fx:id="propertyRoot" source="property-panel.fxml"/>
+    </right>
+
 </RootView>

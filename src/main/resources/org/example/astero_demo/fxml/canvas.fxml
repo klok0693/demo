@@ -15,6 +15,6 @@
         <URL value="@../css/canvas.css"/>
     </stylesheets>
 
-    <CanvasView fx:id="canvas" width="630" height="380"/>
+    <CanvasView fx:id="canvas" width="710" height="620"/>
 
 </AnchorPane>

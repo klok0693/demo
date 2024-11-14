@@ -6,8 +6,11 @@ import org.example.astero_demo.port.ui.canvas.CanvasElement;
 public abstract class ShapeElement extends CanvasElement {
     @Getter
     private final int modelRelatedId;
+    @Getter
+    private int layer;
 
     protected ShapeElement(
+            final int layer,
             final int modelRelatedId,
             final double x,
             final double y,
@@ -15,6 +18,7 @@ public abstract class ShapeElement extends CanvasElement {
             final double height) {
         super(x, y, width, height);
         this.modelRelatedId = modelRelatedId;
+        this.layer = layer;
     }
 
     public boolean isInBounds(final double x, final double y) {

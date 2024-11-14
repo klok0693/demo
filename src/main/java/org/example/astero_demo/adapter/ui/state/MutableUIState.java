@@ -1,10 +1,13 @@
 package org.example.astero_demo.adapter.ui.state;
 
+import org.example.astero_demo.adapter.model.Shape;
+import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
+
 public interface MutableUIState extends UIState {
 
     void setIsInInsertMode(boolean isInInsertMode);
 
-    void setSelectShape(int shapeId);
+    void setSelectShape(ShapeElement shape);
 
     void removeSelection();
 }

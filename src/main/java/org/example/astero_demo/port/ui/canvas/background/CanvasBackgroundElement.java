@@ -7,7 +7,7 @@ import org.example.astero_demo.port.ui.canvas.CanvasElement;
 class CanvasBackgroundElement extends CanvasElement {
 
     protected CanvasBackgroundElement() {
-        super(10, 10, 630, 380);
+        super(10, 10, 710, 620);
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.example.astero_demo.port.ui.ToolBarView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ToolBarAdapter extends UIAdapter<UIState> implements Initializable {
+public class ToolBarAdapter extends LeafAdapter {
 
     public ToolBarView toolBar;
     public ToggleButton RectBtn;
@@ -34,14 +34,7 @@ public class ToolBarAdapter extends UIAdapter<UIState> implements Initializable 
     public void update() {}
 
     public void onInsertButtonAction(final ActionEvent event) {
-        processEvent(new InsertModeEvent());
-    }
-
-    @Override
-    protected void processEvent(final UIEvent event) {
-        if (parent != null) {
-            parent.processEvent(event);
-        }
+        sendEvent(new InsertModeEvent());
     }
 
     public void onDeleteAction(final ActionEvent event) {

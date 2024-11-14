@@ -10,15 +10,17 @@ import org.example.astero_demo.logic.event.ApplicationEvent;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
+import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RootAdapter extends UIAdapter<MutableUIState> implements Initializable {
+public class RootAdapter extends ParentAdapter {
     /*@FXML*/
     public ToolBarAdapter toolBarRootController;
     /*@FXML*/
     public CanvasAdapter canvasRootController;
+    public PropertyAdapter propertyRootController;
     /*@FXML*/
     public RootView root;
 
@@ -32,6 +34,8 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements Initializa
 
         this.toolBarRootController.setParent(this);
         this.canvasRootController.setParent(this);
+        this.propertyRootController.setParent(this);
+
         root.setUiState(uiState);
     }
 
@@ -49,6 +53,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements Initializa
     private void updateChildren() {
         toolBarRootController.update();
         canvasRootController.update();
+        propertyRootController.update();
         root.update();
     }
 
@@ -56,8 +61,9 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements Initializa
     protected void processEvent(final UIEvent event) {
         if (event instanceof SelectElementEvent) {
             final SelectElementEvent e = (SelectElementEvent) event;
-            final int selectedId = canvasRootController.selectElement(e.getX(), e.getY());
-            uiState.setSelectShape(selectedId);
+            final ShapeElement selectedShape = canvasRootController.selectElement(e.getX(), e.getY());
+            uiState.setSelectShape(selectedShape);
+            updateChildren();
         }
         if (event instanceof InsertModeEvent) {
             uiState.setIsInInsertMode(true);

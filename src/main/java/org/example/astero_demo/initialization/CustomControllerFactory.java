@@ -6,6 +6,7 @@ import org.example.astero_demo.adapter.model.ModelAdapter;
 import org.example.astero_demo.adapter.model.ShapeFactory;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.CanvasAdapter;
+import org.example.astero_demo.adapter.ui.PropertyAdapter;
 import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.adapter.ui.ToolBarAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
@@ -27,6 +28,8 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final ModelController modelController = new ModelController(commandFactory, commandProcessor);
 
     private MutableUIState uiState = UIStateHolder.INSTANCE;
+
+    private final PropertyAdapter propertyAdapter = new PropertyAdapter(viewController, uiState);
     private final CanvasAdapter canvasAdapter = new CanvasAdapter(viewController, holder, uiState);
     private final ToolBarAdapter toolBarAdapter = new ToolBarAdapter(viewController, uiState);
     private final RootAdapter rootAdapter = new RootAdapter(viewController, uiState);
@@ -49,6 +52,9 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
         }
         if (aClass.isAssignableFrom(RootAdapter.class)) {
             return rootAdapter;
+        }
+        if (aClass.isAssignableFrom(PropertyAdapter.class)) {
+            return propertyAdapter;
         }
         return null;
     }

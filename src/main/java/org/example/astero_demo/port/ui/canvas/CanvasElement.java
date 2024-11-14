@@ -1,8 +1,10 @@
 package org.example.astero_demo.port.ui.canvas;
 
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Getter;
 
 public abstract class CanvasElement implements Drawable {
+    @Getter
     protected double x, y, width, height;
 
     protected CanvasElement(
