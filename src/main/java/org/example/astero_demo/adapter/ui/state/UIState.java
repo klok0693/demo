@@ -17,4 +17,6 @@ public interface UIState {
     Double getSelectedHeight();
 
     Integer getSelectedLayer();
+
+    Integer getSelectedColor();
 }

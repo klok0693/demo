@@ -20,6 +20,7 @@ public class ModelAdapter {
             case WIDTH -> shape.getWidth();
             case HEIGHT -> shape.getHeight();
             case LAYER -> shape.getPriority();
+            case COLOR -> shape.getColor();
             default -> null;
         };
     }
@@ -35,6 +36,7 @@ public class ModelAdapter {
             case WIDTH: shape.setWidth(newValue); break;
             case HEIGHT: shape.setHeight(newValue); break;
             case LAYER: shape.setPriority(newValue); break;
+            case COLOR: shape.setColor(newValue);
         }
     }
 

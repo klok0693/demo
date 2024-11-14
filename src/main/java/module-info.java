@@ -5,6 +5,7 @@ open module org.example.astero_demo {
     requires javafx.graphics;
 
     requires lombok;
+    requires org.apache.commons.lang3;
 
     exports org.example.astero_demo;
 }

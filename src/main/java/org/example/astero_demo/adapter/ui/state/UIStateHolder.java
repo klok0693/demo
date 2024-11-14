@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui.state;
 
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.adapter.model.Shape;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
@@ -69,6 +70,15 @@ public class UIStateHolder implements MutableUIState {
         }
         return Integer.valueOf(
                 shapeHolder.getShape(selectedShapes.get(0)).getPriority());
+    }
+
+    @Override
+    public Integer getSelectedColor() {
+        if (selectedShapes.isEmpty()) {
+            return null;
+        }
+        final String color = shapeHolder.getShape(selectedShapes.get(0)).getColor();
+        return StringUtils.isNotBlank(color) ? Integer.valueOf(color) : null;
     }
 
     @Override

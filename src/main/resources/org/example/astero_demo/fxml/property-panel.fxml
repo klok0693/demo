@@ -45,8 +45,8 @@
         <Label text="layer:"          GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
         <TextField fx:id="layerField" GridPane.rowIndex="2" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateLayer"/>
 
-        <Label text="color:"          GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="colorField" GridPane.rowIndex="3" GridPane.columnIndex="1" disable="true"/>
+        <Label text="color:"            GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
+        <ColorPicker fx:id="colorField" GridPane.rowIndex="3" GridPane.columnIndex="1" disable="true" onAction="#updateColor"/>
     </GridPane>
 
 </PropertyView>

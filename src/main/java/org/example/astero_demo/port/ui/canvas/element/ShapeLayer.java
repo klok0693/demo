@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
+import org.example.astero_demo.util.ColorUtils;
 
 import java.util.stream.Collectors;
 
@@ -22,12 +23,12 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
                     RectangleElement drawable = new RectangleElement(
                             0,
                             shape.getId(),
-                        Double.valueOf(shape.getX()),
-                        Double.valueOf(shape.getY()),
-                        Double.valueOf(shape.getWidth()),
-                        Double.valueOf(shape.getHeight()),
-                        Color.GREEN);
-
+                            Double.valueOf(shape.getX()),
+                            Double.valueOf(shape.getY()),
+                            Double.valueOf(shape.getWidth()),
+                            Double.valueOf(shape.getHeight()),
+                            ColorUtils.convert(Integer.valueOf(shape.getColor()))
+                    );
                     int priority = Integer.valueOf(shape.getPriority());
                 })
                 .collect(Collectors.groupingBy(obj -> obj.priority,

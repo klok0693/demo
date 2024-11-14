@@ -11,7 +11,8 @@ public enum ShapeValidator {
     public boolean isValid(final ShapeParam param, final Number value) {
         return switch (param) {
             case X, Y, WIDTH, HEIGHT, LAYER -> isNotNegative(value); // TODO: max value check;
-            case COLOR, ID -> false;
+            case COLOR -> true;
+            case ID -> false;
         };
     }
 }

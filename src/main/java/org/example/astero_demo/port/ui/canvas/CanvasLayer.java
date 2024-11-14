@@ -25,7 +25,7 @@ public class CanvasLayer<T extends Drawable> implements Drawable, Comparable<Can
 
     @Override
     public void draw(final GraphicsContext gc) {
-        children.forEach(ch -> ch.draw(gc));
+        children.stream().sorted().forEach(ch -> ch.draw(gc));
     }
 
     public final Stream<T> getChildren() {

@@ -1,13 +1,17 @@
 package org.example.astero_demo.adapter.ui;
 
+import javafx.event.ActionEvent;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
+import org.example.astero_demo.util.ColorUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,7 +23,7 @@ public class PropertyAdapter extends LeafAdapter {
     public TextField widthField;
     public TextField heightField;
     public TextField layerField;
-    public TextField colorField;
+    public ColorPicker colorField;
 
     public PropertyAdapter(final ViewController controller, final UIState uiState) {
         super(controller, uiState);
@@ -36,6 +40,16 @@ public class PropertyAdapter extends LeafAdapter {
         setUpField(widthField, uiState.getSelectedWidth());
         setUpField(heightField, uiState.getSelectedHeight());
         setUpField(layerField, uiState.getSelectedLayer());
+
+        final Integer color = uiState.getSelectedColor();
+        if (color != null) {
+            colorField.setValue(ColorUtils.convert(color));
+            colorField.setDisable(false);
+        }
+        else {
+            colorField.setValue(null);
+            colorField.setDisable(true);
+        }
     }
 
     private static void setUpField(final TextInputControl field, final Number number) {
@@ -74,5 +88,11 @@ public class PropertyAdapter extends LeafAdapter {
             controller.process(new ModifyShapeEvent(
                     uiState.getSelectedShapeId(), param, field.getText()));
         }
+    }
+
+    public void updateColor(final ActionEvent event) {
+        final Color selectedColor = colorField.getValue();
+        controller.process(new ModifyShapeEvent(
+                uiState.getSelectedShapeId(), ShapeParam.COLOR, ColorUtils.convert(selectedColor)));
     }
 }

@@ -2,8 +2,9 @@ package org.example.astero_demo.port.ui.canvas.element;
 
 import lombok.Getter;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
+import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 
-public abstract class ShapeElement extends CanvasElement {
+public abstract class ShapeElement extends CanvasElement implements Comparable<ShapeElement> {
     @Getter
     private final int modelRelatedId;
     @Getter
@@ -24,5 +25,10 @@ public abstract class ShapeElement extends CanvasElement {
     public boolean isInBounds(final double x, final double y) {
         return x >= this.x && x <= (this.x + this.width)
                 && y >= this.y && y <= (this.y + this.height);
+    }
+
+    @Override
+    public int compareTo(final ShapeElement o) {
+        return Integer.compare(this.layer, o.layer);
     }
 }
