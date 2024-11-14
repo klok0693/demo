@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class RectangleElement extends ShapeElement {
-    private Color fillColor;
     private double opacity;
     private double scale;
     private double angle;
@@ -17,8 +16,7 @@ public class RectangleElement extends ShapeElement {
             final double width,
             final double height,
             final Color fillColor) {
-        super(layer, modelRelatedId, x, y, width, height);
-        this.fillColor = fillColor;
+        super(layer, modelRelatedId, x, y, width, height, fillColor);
     }
 
     @Override

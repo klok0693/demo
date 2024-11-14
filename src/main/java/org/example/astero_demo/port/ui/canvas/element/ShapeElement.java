@@ -1,5 +1,6 @@
 package org.example.astero_demo.port.ui.canvas.element;
 
+import javafx.scene.paint.Color;
 import lombok.Getter;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
@@ -9,6 +10,8 @@ public abstract class ShapeElement extends CanvasElement implements Comparable<S
     private final int modelRelatedId;
     @Getter
     private int layer;
+    @Getter
+    protected Color fillColor;
 
     protected ShapeElement(
             final int layer,
@@ -16,10 +19,12 @@ public abstract class ShapeElement extends CanvasElement implements Comparable<S
             final double x,
             final double y,
             final double width,
-            final double height) {
+            final double height,
+            final Color fillColor) {
         super(x, y, width, height);
         this.modelRelatedId = modelRelatedId;
         this.layer = layer;
+        this.fillColor = fillColor;
     }
 
     public boolean isInBounds(final double x, final double y) {

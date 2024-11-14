@@ -86,7 +86,6 @@ public class UIStateHolder implements MutableUIState {
         return !selectedShapes.isEmpty();
     }
 
-
     @Override
     public void setSelectShape(final Integer id) {
         removeSelection();
