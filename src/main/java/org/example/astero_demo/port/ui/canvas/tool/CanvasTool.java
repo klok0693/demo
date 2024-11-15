@@ -5,7 +5,7 @@ import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
 public abstract class CanvasTool extends CanvasElement implements Comparable<CanvasTool> {
     private final int layer;
-    protected boolean isActive = false;
+    protected boolean isVisible = false;
 
     protected CanvasTool(
             final double x,
@@ -19,7 +19,7 @@ public abstract class CanvasTool extends CanvasElement implements Comparable<Can
 
     @Override
     public void draw(final GraphicsContext gc) {
-        if (isActive) {
+        if (isVisible) {
             super.draw(gc);
         }
     }
@@ -29,7 +29,7 @@ public abstract class CanvasTool extends CanvasElement implements Comparable<Can
         this.y = -1;
         this.width = -1;
         this.height = -1;
-        this.isActive = false;
+        this.isVisible = false;
     }
 
     @Override

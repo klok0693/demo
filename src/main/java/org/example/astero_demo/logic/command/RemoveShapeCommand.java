@@ -32,6 +32,8 @@ public class RemoveShapeCommand extends Command {
                 removedShape.getPriority(),
                 removedShape.getX(),
                 removedShape.getY(),
+                removedShape.getWidth(),
+                removedShape.getHeight(),
                 removedShape.getType());
 
         viewController.onCreateUpdate(removedShape.getX(), removedShape.getY());

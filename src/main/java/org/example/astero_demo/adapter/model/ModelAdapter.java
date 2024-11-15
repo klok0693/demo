@@ -40,8 +40,14 @@ public class ModelAdapter {
         }
     }
 
-    public int saveShape(final String priority, final String x, final String y, final ShapeType type) {
-        final Shape shape = factory.createShape(priority, x, y, type);
+    public int saveShape(
+            final String priority,
+            final String x,
+            final String y,
+            final String width,
+            final String height,
+            final ShapeType type) {
+        final Shape shape = factory.createShape(priority, x, y, width, height, type);
         holder.saveShape(shape);
         return shape.getId();
     }

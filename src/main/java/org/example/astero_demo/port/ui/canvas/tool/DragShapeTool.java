@@ -3,51 +3,28 @@ package org.example.astero_demo.port.ui.canvas.tool;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import lombok.Getter;
 import lombok.Setter;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
-import org.example.astero_demo.util.ColorUtils;
-
-import java.util.Arrays;
-import java.util.Optional;
 
 public class DragShapeTool extends DraggableTool {
-    private static final double OPACITY = 0.4;
 
     private final CanvasView canvasView;
     @Setter
     private UIState uiState;
-    private boolean needToDrag = false;
 
     private Color color;
 
     private double xOffset;
     private double yOffset;
 
-    public DragShapeTool(final CanvasView canvasView) {
-        super(-1, -1, -1, -1, 1);
+    public DragShapeTool(final CanvasView canvasView, final int layer) {
+        super(-1, -1, -1, -1, layer);
         this.color = null;
         this.xOffset = -1;
         this.yOffset = -1;
         this.canvasView = canvasView;
-    }
-
-    public DragShapeTool(
-            final double x,
-            final double y,
-            final double width,
-            final double height,
-            final Color color,
-            final double xOffset,
-            final double yOffset) {
-        super(x, y, width, height, 1);
-        this.color = color;
-        this.xOffset = xOffset;
-        this.yOffset = yOffset;
-        this.canvasView = null;
     }
 
     @Override
@@ -80,7 +57,7 @@ public class DragShapeTool extends DraggableTool {
         this.color = element.getFillColor();
         this.xOffset = mouseX - element.getX();
         this.yOffset = mouseY - element.getY();
-        this.needToDrag = true;
+        this.isActive = true;
         //this.isActive = true;
 
         return true;
@@ -88,7 +65,7 @@ public class DragShapeTool extends DraggableTool {
 
     @Override
     public void onMouseDragged(final MouseEvent event) {
-        if (!needToDrag) {
+        if (!isActive) {
             return;
         }
         final double mouseX = event.getX();
@@ -100,13 +77,13 @@ public class DragShapeTool extends DraggableTool {
         this.x = Math.min(Math.max(0, mouseX), endX);
         this.y = Math.min(Math.max(0, mouseY), endY);
 
-        this.isActive = true;
+        this.isVisible = true;
     }
 
     @Override
     public void onMouseReleased(final MouseEvent event) {
-        this.needToDrag = false;
-        if (!isActive) {
+        this.isActive = false;
+        if (!isVisible) {
             return;
         }
 

@@ -51,6 +51,12 @@ public class CanvasView extends Canvas {
             final double mouseX = e.getX();
             final double mouseY = e.getY();
 
+            if (uiState.isInInsertMode()) {
+                toolLayer.onMousePressed(mouseX, mouseY);
+                e.consume();
+                return;
+            }
+
             final ShapeElement element = elementAt(mouseX, mouseY);
             if (element == null && !toolLayer.isInBounds(mouseX, mouseY)) {
                 delegate.primaryMouseBtnPressed(mouseX, mouseY);

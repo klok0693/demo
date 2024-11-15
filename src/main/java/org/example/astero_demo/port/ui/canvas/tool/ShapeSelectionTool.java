@@ -16,10 +16,10 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     private CanvasView view;
     private final List<ContactPoint> contactPoints;
 
-    public ShapeSelectionTool(final CanvasView canvasView) {
-        super(-1, -1, -1, -1, 0);
+    public ShapeSelectionTool(final CanvasView canvasView, final int layer) {
+        super(-1, -1, -1, -1, layer);
         this.view = canvasView;
-        this.isActive = false;
+        this.isVisible = false;
 
         contactPoints = Arrays.asList(
                 new ContactPoint(0, TOP_LEFT),
@@ -79,7 +79,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
 
 
-        this.isActive = true;
+        this.isVisible = true;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         protected ContactPoint(final int layer, final Pos alignment) {
             super(-1, -1, RADIUS, RADIUS, layer);
             this.alignment = alignment;
-            this.isActive = true;
+            this.isVisible = true;
             this.isSelected = false;
         }
 
@@ -154,9 +154,9 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
         @Override
         public boolean onDragDetected(final MouseEvent event) {
-            if (isActive && isInBounds(event.getX(), event.getY())) {
+            if (isVisible && isInBounds(event.getX(), event.getY())) {
                 this.isSelected = true;
-                ShapeSelectionTool.this.isActive = true;
+                ShapeSelectionTool.this.isVisible = true;
                 return true;
             }
             return false;

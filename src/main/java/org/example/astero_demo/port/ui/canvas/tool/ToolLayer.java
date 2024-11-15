@@ -13,6 +13,7 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     private final ShapeSelectionTool selectionTool;
     private final DragShapeTool dragTool;
+    private final InsertTool insertTool;
 
     private UIState uiState;
 
@@ -20,11 +21,14 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
         super(gc, 2);
         this.canvasView = canvasView;
 
-        this.selectionTool = new ShapeSelectionTool(canvasView);
+        this.selectionTool = new ShapeSelectionTool(canvasView, 0);
         add(selectionTool);
 
-        this.dragTool = new DragShapeTool(canvasView);
+        this.dragTool = new DragShapeTool(canvasView, 1);
         add(dragTool);
+
+        this.insertTool = new InsertTool(canvasView, 2);
+        add(insertTool);
     }
 
     public boolean isInBounds(final double x, final double y) {
@@ -38,12 +42,20 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
     @Override
     public void onMousePressed(final double x, final double y) {
         resetAll();
-        selectionTool.onMousePressed(x, y);
+        if (uiState.isInInsertMode()) {
+            insertTool.onMousePressed(x, y);
+        }
+        else {
+            selectionTool.onMousePressed(x, y);
+        }
         //forEachChildren(CanvasClickable.class, clickable -> clickable.onMousePressed(x, y));
     }
 
     @Override
     public boolean onDragDetected(final MouseEvent event) {
+        if (uiState.isInInsertMode()) {
+            return insertTool.onDragDetected(event);
+        }
         final boolean isOnContactPoint = selectionTool.onDragDetected(event);
         if (!isOnContactPoint) {
             if (uiState.hasSelectedId()) {
@@ -73,8 +85,13 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     @Override
     public void onMouseReleased(final MouseEvent event) {
-        if (uiState.hasSelectedId()) {
-            forEachChildren(CanvasDraggable.class, draggable -> draggable.onMouseReleased(event));
+        if (uiState.isInInsertMode()) {
+            insertTool.onMouseReleased(event);
+        }
+        else if (uiState.hasSelectedId()) {
+            dragTool.onMouseReleased(event);
+            selectionTool.onMouseReleased(event);
+            //forEachChildren(CanvasDraggable.class, draggable -> draggable.onMouseReleased(event));
         }
     }
 

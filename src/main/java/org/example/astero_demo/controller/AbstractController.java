@@ -28,7 +28,12 @@ public abstract class AbstractController {
         Command command = null;
         if (e instanceof final CreateNewShapeEvent ev) {
             command = commandFactory.createNewShapeCommand(
-                    valueOf(ev.getPriority()), valueOf(ev.getX()), valueOf(ev.getY()), ev.getType());
+                    valueOf(ev.getPriority()),
+                    valueOf(ev.getX()),
+                    valueOf(ev.getY()),
+                    valueOf(ev.getWidth()),
+                    valueOf(ev.getHeight()),
+                    ev.getType());
         }
         else if (e instanceof final ModifyShapeEvent ev) {
             command = commandFactory.createModifyShapeCommand(

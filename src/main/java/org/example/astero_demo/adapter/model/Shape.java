@@ -17,10 +17,6 @@ public abstract class Shape {
     @Getter @Setter
     private String color;
 
-    protected Shape(final String priority, final String x, final String y) {
-        this(priority, x, y, "100", "100");
-    }
-
     protected Shape(final String priority, final String x, final String y, final String width, final String height) {
         id = (int) (Math.random() * 10_000);
         this.priority = priority;

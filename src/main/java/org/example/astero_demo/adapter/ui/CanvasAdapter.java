@@ -11,6 +11,7 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ApplicationEvent;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
+import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
@@ -48,7 +49,8 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
     @Override
     public void primaryMouseBtnPressed(final double x, final double y) {
         if (uiState.isInInsertMode()) {
-            controller.process(new CreateNewShapeEvent(x, y));
+            //sendEvent(new SelectElementEvent(-1, -1));
+            //controller.process(new CreateNewShapeEvent(x, y));
         }
         else {
             sendEvent(new SelectElementEvent(x, y));
@@ -63,20 +65,28 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
 
     @Override
     public void onDragOver(final double x, final double y) {
-        controller.process(new ModifyShapeEvent(
-                uiState.getSelectedShapeId(),
-                create(ShapeParam.X, valueOf(x)),
-                create(ShapeParam.Y, valueOf(y))));
+        final LogicEvent event = uiState.isInInsertMode() ?
+                new CreateNewShapeEvent(x, y, 100, 100) :
+                new ModifyShapeEvent(
+                        uiState.getSelectedShapeId(),
+                        create(ShapeParam.X, valueOf(x)),
+                        create(ShapeParam.Y, valueOf(y)));
+
+        controller.process(event);
     }
 
     @Override
     public void onDragOver(final double x, final double y, final double width, final double height) {
-        controller.process(new ModifyShapeEvent(
+        final LogicEvent event = uiState.isInInsertMode() ?
+                new CreateNewShapeEvent(x, y, width, height) :
+                new ModifyShapeEvent(
                 uiState.getSelectedShapeId(),
                 create(ShapeParam.X, valueOf(x)),
                 create(ShapeParam.Y, valueOf(y)),
                 create(ShapeParam.WIDTH, valueOf(width)),
-                create(ShapeParam.HEIGHT, valueOf(height))));
+                create(ShapeParam.HEIGHT, valueOf(height)));
+
+        controller.process(event);
     }
 
     public ShapeElement selectElement(final double x, final double y) {
