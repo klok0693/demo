@@ -3,10 +3,14 @@ package org.example.astero_demo.port.ui.canvas.tool;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import lombok.Setter;
+import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
 
 public class InsertTool extends DraggableTool implements CanvasClickable {
     private final CanvasView canvasView;
+    @Setter
+    private UIState uiState;
 
     protected InsertTool(final CanvasView canvasView, final int layer) {
         super(-1, -1, -1, -1, layer);
@@ -20,7 +24,15 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
         }
         gc.setFill(Color.GREEN);
         gc.setGlobalAlpha(OPACITY);
-        gc.fillRect(x, y, width, height);
+
+        switch (uiState.getInsertShapeType()) {
+            case RECT:
+                gc.fillRect(x, y, width, height);
+                break;
+            case OVAL:
+                gc.fillOval(x, y, width, height);
+                break;
+        }
     }
 
     @Override

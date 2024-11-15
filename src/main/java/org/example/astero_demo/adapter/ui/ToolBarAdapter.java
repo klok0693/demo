@@ -1,15 +1,11 @@
 package org.example.astero_demo.adapter.ui;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import lombok.Setter;
+import org.example.astero_demo.adapter.model.ShapeType;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
-import org.example.astero_demo.adapter.ui.event.UIEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.logic.event.ApplicationEvent;
 import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.port.ui.ToolBarView;
 
@@ -33,8 +29,12 @@ public class ToolBarAdapter extends LeafAdapter {
     @Override
     public void update() {}
 
-    public void onInsertButtonAction(final ActionEvent event) {
-        sendEvent(new InsertModeEvent());
+    public void onInsertRectAction(final ActionEvent event) {
+        sendEvent(new InsertModeEvent(ShapeType.RECT));
+    }
+
+    public void onInsertCycleAction(final ActionEvent event) {
+        sendEvent(new InsertModeEvent(ShapeType.OVAL));
     }
 
     public void onDeleteAction(final ActionEvent event) {

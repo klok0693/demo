@@ -1,8 +1,12 @@
 package org.example.astero_demo.adapter.ui.state;
 
+import org.example.astero_demo.adapter.model.ShapeType;
+
 public interface UIState {
 
     boolean isInInsertMode();
+
+    ShapeType getInsertShapeType();
 
     Integer getSelectedShapeId();
 
@@ -19,4 +23,6 @@ public interface UIState {
     Integer getSelectedLayer();
 
     Integer getSelectedColor();
+
+    ShapeType getSelectedShapeType();
 }

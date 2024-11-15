@@ -31,7 +31,14 @@ public class DragShapeTool extends DraggableTool {
     protected void drawElement(final GraphicsContext gc) {
         gc.setFill(color);
         gc.setGlobalAlpha(OPACITY);
-        gc.fillRect(x - xOffset, y - yOffset, width, height);
+        switch (uiState.getSelectedShapeType()) {
+            case RECT:
+                gc.fillRect(x - xOffset, y - yOffset, width, height);
+                break;
+            case OVAL:
+                gc.fillOval(x - xOffset, y - yOffset, width, height);
+                break;
+        }
     }
 
     @Override

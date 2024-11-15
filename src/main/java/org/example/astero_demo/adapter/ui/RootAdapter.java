@@ -64,8 +64,9 @@ public class RootAdapter extends ParentAdapter {
         if (event instanceof final SelectElementEvent e) {
             selectElement(e.getX(), e.getY());
         }
-        if (event instanceof InsertModeEvent) {
+        if (event instanceof final InsertModeEvent e) {
             uiState.setIsInInsertMode(true);
+            uiState.setInsertShapeType(e.getInsertShapeType());
             updateChildren();
         }
     }

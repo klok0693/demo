@@ -3,13 +3,9 @@ package org.example.astero_demo.port.ui.canvas.element;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class RectangleElement extends ShapeElement {
-    private double opacity;
-    private double scale;
-    private double angle;
-    private double pivotX, pivotY;
+public class OvalElement extends ShapeElement {
 
-    public RectangleElement(
+    protected OvalElement(
             final int layer,
             final int modelRelatedId,
             final double x,
@@ -21,11 +17,13 @@ public class RectangleElement extends ShapeElement {
     }
 
     @Override
-    protected void drawElement(final GraphicsContext gc) {
+    protected void drawElement(GraphicsContext gc) {
         gc.setFill(fillColor);
-        gc.fillRect(x, y, width, height);
+        gc.fillOval(x, y, width, height);
     }
 
     @Override
-    public void destroyLinks() {}
+    public void destroyLinks() {
+
+    }
 }

@@ -66,7 +66,7 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
     @Override
     public void onDragOver(final double x, final double y) {
         final LogicEvent event = uiState.isInInsertMode() ?
-                new CreateNewShapeEvent(x, y, 100, 100) :
+                new CreateNewShapeEvent(x, y, 100, 100, uiState.getInsertShapeType()) :
                 new ModifyShapeEvent(
                         uiState.getSelectedShapeId(),
                         create(ShapeParam.X, valueOf(x)),
@@ -78,7 +78,7 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
     @Override
     public void onDragOver(final double x, final double y, final double width, final double height) {
         final LogicEvent event = uiState.isInInsertMode() ?
-                new CreateNewShapeEvent(x, y, width, height) :
+                new CreateNewShapeEvent(x, y, width, height, uiState.getInsertShapeType()) :
                 new ModifyShapeEvent(
                 uiState.getSelectedShapeId(),
                 create(ShapeParam.X, valueOf(x)),

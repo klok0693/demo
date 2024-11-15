@@ -101,7 +101,8 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     public void setUIState(final UIState state) {
         this.uiState = state;
-        forEachChildren(DragShapeTool.class, dragTool -> dragTool.setUiState(state));
+        dragTool.setUiState(state);
+        insertTool.setUiState(uiState);
     }
 
     private <T> void forEachChildren(final Class<T> tClass, final Consumer<T> consumer) {

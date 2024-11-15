@@ -9,12 +9,17 @@ public class CreateNewShapeEvent extends LogicEvent {
     private final double x, y, width, height;
     private final ShapeType type;
 
-    public CreateNewShapeEvent(final double x, final double y, final double width, final double height) {
+    public CreateNewShapeEvent(
+            final double x,
+            final double y,
+            final double width,
+            final double height,
+            final ShapeType type) {
         this.priority = 2;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.type = ShapeType.RECT;
+        this.type = type;
     }
 }

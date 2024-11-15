@@ -1,8 +1,10 @@
 package org.example.astero_demo.adapter.ui.state;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.adapter.model.Shape;
+import org.example.astero_demo.adapter.model.ShapeType;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
@@ -15,6 +17,9 @@ public class UIStateHolder implements MutableUIState {
 
     @Getter
     private boolean isInInsertMode = false;
+    @Getter
+    @Setter
+    private ShapeType insertShapeType;
 
     private List<Integer> selectedShapes = new LinkedList<>();
     private final StateHolder shapeHolder;
@@ -26,6 +31,9 @@ public class UIStateHolder implements MutableUIState {
     @Override
     public void setIsInInsertMode(final boolean isInInsertMode) {
         this.isInInsertMode = isInInsertMode;
+        if (!isInInsertMode) {
+            this.insertShapeType = null;
+        }
     }
 
     @Override
@@ -79,6 +87,14 @@ public class UIStateHolder implements MutableUIState {
         }
         final String color = shapeHolder.getShape(selectedShapes.get(0)).getColor();
         return StringUtils.isNotBlank(color) ? Integer.valueOf(color) : null;
+    }
+
+    @Override
+    public ShapeType getSelectedShapeType() {
+        if (selectedShapes.isEmpty()) {
+            return null;
+        }
+        return shapeHolder.getShape(selectedShapes.getFirst()).getType();
     }
 
     @Override

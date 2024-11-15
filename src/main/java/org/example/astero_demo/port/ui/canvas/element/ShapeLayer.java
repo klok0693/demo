@@ -2,6 +2,7 @@ package org.example.astero_demo.port.ui.canvas.element;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import org.example.astero_demo.adapter.model.Shape;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.util.ColorUtils;
@@ -20,15 +21,7 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
         removeAll();
         final var elements = holder.getShapes()
                 .map(shape -> new Object() {
-                    RectangleElement drawable = new RectangleElement(
-                            0,
-                            shape.getId(),
-                            Double.valueOf(shape.getX()),
-                            Double.valueOf(shape.getY()),
-                            Double.valueOf(shape.getWidth()),
-                            Double.valueOf(shape.getHeight()),
-                            ColorUtils.convert(Integer.valueOf(shape.getColor()))
-                    );
+                    ShapeElement drawable = createElement(shape);
                     int priority = Integer.valueOf(shape.getPriority());
                 })
                 .collect(Collectors.groupingBy(obj -> obj.priority,
@@ -38,6 +31,29 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
         children.stream()
                 .map(CanvasLayer.class::cast)
                 .forEach(layer -> elements.get(layer.getPriority()).forEach(layer::add));
+    }
+
+    private ShapeElement createElement(final Shape shape) {
+        return switch (shape.getType()) {
+            case OVAL -> new OvalElement(
+                    0,
+                    shape.getId(),
+                    Double.valueOf(shape.getX()),
+                    Double.valueOf(shape.getY()),
+                    Double.valueOf(shape.getWidth()),
+                    Double.valueOf(shape.getHeight()),
+                    ColorUtils.convert(Integer.valueOf(shape.getColor()))
+            );
+            case RECT -> new RectangleElement(
+                    0,
+                    shape.getId(),
+                    Double.valueOf(shape.getX()),
+                    Double.valueOf(shape.getY()),
+                    Double.valueOf(shape.getWidth()),
+                    Double.valueOf(shape.getHeight()),
+                    ColorUtils.convert(Integer.valueOf(shape.getColor()))
+            );
+        };
     }
 
     public ShapeElement elementAt(final double x, final double y) {

@@ -13,7 +13,7 @@ public enum ShapeFactory {
 
         return switch (type) {
             case RECT -> new Rectangle(priority, x, y, width, height);
-            default -> throw new IllegalStateException("Unexpected value: " + type);
+            case OVAL -> new Oval(priority, x, y, width, height);
         };
     }
 }
