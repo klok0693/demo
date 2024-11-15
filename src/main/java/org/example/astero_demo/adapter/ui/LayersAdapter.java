@@ -43,7 +43,7 @@ public class LayersAdapter extends LeafAdapter {
         final TreeItem<String> rootItem = new TreeItem<>(StringUtils.EMPTY);
         layersTree.setRoot(rootItem);
         layers.forEach((key, value) -> {
-            final TreeItem<String> layerItem = new TreeItem<>(key);
+            final TreeItem<String> layerItem = new LayerItem(key);
             layerItem.setExpanded(true);
             rootItem.getChildren().add(layerItem);
 
@@ -67,7 +67,8 @@ public class LayersAdapter extends LeafAdapter {
         layersTree.setOnMouseClicked(event -> {
             final TreeItem<String> selectedItem = layersTree.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                final Shape shape = holder.getShape(parseInt(selectedItem.getValue()));
+                final String id = selectedItem instanceof final LayerItem item ? item.getFirstChildId() : selectedItem.getValue();
+                final Shape shape = holder.getShape(parseInt(id));
                 parent.processEvent(new SelectElementEvent(parseDouble(shape.getX()), parseDouble(shape.getY())));
             }
         });
@@ -79,5 +80,16 @@ public class LayersAdapter extends LeafAdapter {
             root.getChildren().clear();
             layersTree.setRoot(null);
         }
+    }
+
+    private static class LayerItem extends TreeItem<String> {
+
+        LayerItem(final String key) {
+            super(key);
+        }
+
+        String getFirstChildId() {
+            return getChildren().getFirst().getValue();
+        };
     }
 }
