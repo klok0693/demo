@@ -43,22 +43,40 @@ public class CanvasView extends Canvas {
         toolLayer = new ToolLayer(getGraphicsContext2D(), this);
         layers.add(toolLayer);
 
-        visibleProperty().addListener(redrawListener);
-        focusedProperty().addListener(redrawListener);
+        //visibleProperty().addListener(redrawListener);
+        //focusedProperty().addListener(redrawListener);
 
-        setOnMousePressed(this::onMousePressed);
+        setOnMousePressed(e -> {
+            if (delegate == null) {
+                return;
+            }
 
-        setOnDragDetected(mouseEvent -> {
+            if (toolLayer.isInBounds(e.getX(), e.getY())) {
+                toolLayer.onDragDetected(e);
+                redraw();
+            }
+            else if (e.getButton() == MouseButton.PRIMARY) {
+                delegate.primaryMouseBtnPressed(e.getX(), e.getY());
+                redraw();
+            }
+/*            else {
+                toolLayer.resetAll();
+                delegate.primaryMouseBtnPressed(-1, -1);
+                redraw();
+            }*/
+        });
+
+/*        setOnDragDetected(mouseEvent -> {
             final double mouseX = mouseEvent.getX();
             final double mouseY = mouseEvent.getY();
             if (uiState.hasSelectedId() && isSelectedElementAt(mouseX, mouseY)) {
                 toolLayer.onDragDetected(mouseEvent);
                 redraw();
             }
-            else {
+            else if (!toolLayer.onDragDetected(mouseEvent)) {
                 delegate.primaryMouseBtnPressed(-1, -1);
             }
-        });
+        });*/
 
         setOnMouseDragged(mouseEvent -> {
             toolLayer.onMouseDragged(mouseEvent);
@@ -117,16 +135,6 @@ public class CanvasView extends Canvas {
     public void setUiState(final UIState uiState) {
         this.uiState = uiState;
         toolLayer.setUIState(uiState);
-    }
-
-    private void onMousePressed(final MouseEvent e) {
-        if (delegate == null) {
-            return;
-        }
-
-        if (e.getButton() == MouseButton.PRIMARY) {
-            delegate.primaryMouseBtnPressed(e.getX(), e.getY());
-        }
     }
 
     public interface CanvasDelegate {

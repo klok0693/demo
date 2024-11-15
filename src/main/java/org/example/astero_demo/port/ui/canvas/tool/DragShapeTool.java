@@ -61,11 +61,14 @@ public class DragShapeTool extends DraggableTool {
     }
 
     @Override
-    public void onDragDetected(final MouseEvent event) {
+    public boolean onDragDetected(final MouseEvent event) {
         final double mouseX = event.getX();
         final double mouseY = event.getY();
 
         final ShapeElement element = canvasView.elementAt(mouseX, mouseY);
+        if (element == null || !element.isInBounds(mouseX, mouseY)) {
+            return false;
+        }
 
         this.x = mouseX;
         this.y = mouseY;
@@ -75,6 +78,8 @@ public class DragShapeTool extends DraggableTool {
         this.xOffset = mouseX - element.getX();
         this.yOffset = mouseY - element.getY();
         this.isActive = true;
+
+        return true;
     }
 
     @Override
@@ -98,7 +103,7 @@ public class DragShapeTool extends DraggableTool {
             return;
         }
         final double[] dragPosition = new double[] {x - xOffset, y - yOffset};
-        reset();
+        //reset();
 
         if (uiState.hasSelectedId() && canvasView.getLayoutBounds().contains(event.getX(), event.getY())) {
             canvasView.onDragOver(dragPosition[0], dragPosition[1]);
