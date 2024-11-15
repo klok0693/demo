@@ -77,6 +77,8 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         contactPoints.get(6).update(x, y + height, width, height);
         contactPoints.get(7).update(x, y + (height / 2), width, height);
 
+
+
         this.isActive = true;
     }
 
@@ -151,9 +153,10 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         }
 
         @Override
-        public boolean onDragDetected(MouseEvent event) {
+        public boolean onDragDetected(final MouseEvent event) {
             if (isActive && isInBounds(event.getX(), event.getY())) {
                 this.isSelected = true;
+                ShapeSelectionTool.this.isActive = true;
                 return true;
             }
             return false;
@@ -186,7 +189,17 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
         @Override
         public void onMouseReleased(MouseEvent event) {
+            if (!isSelected) {
+                return;
+            }
+
+            final double parentX = ShapeSelectionTool.this.x;
+            final double parentY = ShapeSelectionTool.this.y;
+            final double parentWidth = ShapeSelectionTool.this.width;
+            final double parentHeight = ShapeSelectionTool.this.height;
+
             reset();
+            view.onDragOver(parentX, parentY, parentWidth, parentHeight);
         }
     }
 }

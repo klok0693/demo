@@ -67,6 +67,7 @@ public class DragShapeTool extends DraggableTool {
 
         final ShapeElement element = canvasView.elementAt(mouseX, mouseY);
         if (element == null || !element.isInBounds(mouseX, mouseY)) {
+            // TODO: always false?
             return false;
         }
 

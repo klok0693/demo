@@ -62,9 +62,21 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
     }
 
     @Override
-    public void onDragOver(double x, double y) {
+    public void onDragOver(final double x, final double y) {
         controller.process(new ModifyShapeEvent(
-                uiState.getSelectedShapeId(), create(ShapeParam.X, valueOf(x)), create(ShapeParam.Y, valueOf(y))));
+                uiState.getSelectedShapeId(),
+                create(ShapeParam.X, valueOf(x)),
+                create(ShapeParam.Y, valueOf(y))));
+    }
+
+    @Override
+    public void onDragOver(final double x, final double y, final double width, final double height) {
+        controller.process(new ModifyShapeEvent(
+                uiState.getSelectedShapeId(),
+                create(ShapeParam.X, valueOf(x)),
+                create(ShapeParam.Y, valueOf(y)),
+                create(ShapeParam.WIDTH, valueOf(width)),
+                create(ShapeParam.HEIGHT, valueOf(height))));
     }
 
     public ShapeElement selectElement(final double x, final double y) {

@@ -47,36 +47,26 @@ public class CanvasView extends Canvas {
         //focusedProperty().addListener(redrawListener);
 
         setOnMousePressed(e -> {
-            if (delegate == null) {
-                return;
-            }
-
-            if (toolLayer.isInBounds(e.getX(), e.getY())) {
+            final double mouseX = e.getX();
+            final double mouseY = e.getY();
+            if (toolLayer.isInBounds(mouseX, mouseY)) {
                 toolLayer.onDragDetected(e);
                 redraw();
             }
-            else if (e.getButton() == MouseButton.PRIMARY) {
-                delegate.primaryMouseBtnPressed(e.getX(), e.getY());
-                redraw();
-            }
-/*            else {
-                toolLayer.resetAll();
-                delegate.primaryMouseBtnPressed(-1, -1);
-                redraw();
-            }*/
+            e.consume();
         });
 
-/*        setOnDragDetected(mouseEvent -> {
-            final double mouseX = mouseEvent.getX();
-            final double mouseY = mouseEvent.getY();
-            if (uiState.hasSelectedId() && isSelectedElementAt(mouseX, mouseY)) {
-                toolLayer.onDragDetected(mouseEvent);
-                redraw();
+        setOnMouseClicked(e -> {
+            if (delegate == null/*|| e.getButton() != MouseButton.PRIMARY*/) {
+                return;
             }
-            else if (!toolLayer.onDragDetected(mouseEvent)) {
-                delegate.primaryMouseBtnPressed(-1, -1);
-            }
-        });*/
+            final double mouseX = e.getX();
+            final double mouseY = e.getY();
+
+            delegate.primaryMouseBtnPressed(mouseX, mouseY);
+            redraw();
+            e.consume();
+        });
 
         setOnMouseDragged(mouseEvent -> {
             toolLayer.onMouseDragged(mouseEvent);
@@ -121,6 +111,9 @@ public class CanvasView extends Canvas {
     }
 
     public boolean isSelectedElementAt(final double x, final double y) {
+        if (!uiState.hasSelectedId()) {
+            return false;
+        }
         final ShapeElement element = elementAt(x, y);
         if (element != null) {
             return element.getModelRelatedId() == uiState.getSelectedShapeId() && element.isInBounds(x, y);
@@ -132,6 +125,10 @@ public class CanvasView extends Canvas {
         delegate.onDragOver(x, y);
     }
 
+    public void onDragOver(final double x, final double y, final double width, final double height) {
+        delegate.onDragOver(x, y, width, height);
+    }
+
     public void setUiState(final UIState uiState) {
         this.uiState = uiState;
         toolLayer.setUIState(uiState);
@@ -141,6 +138,8 @@ public class CanvasView extends Canvas {
 
         void primaryMouseBtnPressed(double x, double y);
 
-        void onDragOver(final double x, final double y);
+        void onDragOver(double x, double y);
+
+        void onDragOver(double x, double y, double width, double height);
     }
 }

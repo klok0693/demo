@@ -11,12 +11,20 @@ import java.util.function.Consumer;
 public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickable, CanvasDraggable {
     private final CanvasView canvasView;
 
+    private final ShapeSelectionTool selectionTool;
+    private final DragShapeTool dragTool;
+
+    private UIState uiState;
+
     public ToolLayer(final GraphicsContext gc, final CanvasView canvasView) {
         super(gc, 2);
         this.canvasView = canvasView;
 
-        add(new ShapeSelectionTool(canvasView));
-        add(new DragShapeTool(canvasView));
+        this.selectionTool = new ShapeSelectionTool(canvasView);
+        add(selectionTool);
+
+        this.dragTool = new DragShapeTool(canvasView);
+        add(dragTool);
     }
 
     public boolean isInBounds(final double x, final double y) {
@@ -24,23 +32,37 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
                 .filter(tool -> ShapeSelectionTool.class.isAssignableFrom(tool.getClass()))
                 .map(ShapeSelectionTool.class::cast)
                 .anyMatch(tool -> tool.isInBounds(x, y));
-
     }
 
     @Override
     public void onMousePressed(final double x, final double y) {
         resetAll();
-        forEachChildren(CanvasClickable.class, clickable -> clickable.onMousePressed(x, y));
+        selectionTool.onMousePressed(x, y);
+        //forEachChildren(CanvasClickable.class, clickable -> clickable.onMousePressed(x, y));
     }
 
     @Override
     public boolean onDragDetected(final MouseEvent event) {
-        return getChildren()
+        final boolean isOnContactPoint = selectionTool.onDragDetected(event);
+        if (!isOnContactPoint) {
+            if (uiState.hasSelectedId()) {
+                dragTool.onDragDetected(event);
+                return true;
+            }
+            else return false;
+        }
+        else return isOnContactPoint;
+
+/*        return getChildren()
                 .filter(tool -> CanvasDraggable.class.isAssignableFrom(tool.getClass()))
                 .map(CanvasDraggable.class::cast)
-                .anyMatch(draggable -> draggable.onDragDetected(event));
+                .anyMatch(draggable -> draggable.onDragDetected(event));*/
 
         //forEachChildren(CanvasDraggable.class, draggable -> draggable.onDragDetected(event));
+    }
+
+    public boolean hasActiveTool() {
+        return selectionTool.isActive || dragTool.isActive;
     }
 
     @Override
@@ -50,7 +72,9 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     @Override
     public void onMouseReleased(final MouseEvent event) {
-        forEachChildren(CanvasDraggable.class, draggable -> draggable.onMouseReleased(event));
+        if (uiState.hasSelectedId()) {
+            forEachChildren(CanvasDraggable.class, draggable -> draggable.onMouseReleased(event));
+        }
     }
 
     public void resetAll() {
@@ -58,6 +82,7 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
     }
 
     public void setUIState(final UIState state) {
+        this.uiState = state;
         forEachChildren(DragShapeTool.class, dragTool -> dragTool.setUiState(state));
     }
 
