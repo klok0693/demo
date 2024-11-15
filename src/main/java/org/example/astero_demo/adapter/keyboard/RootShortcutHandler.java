@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.keyboard;
 
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import lombok.Setter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
@@ -24,24 +25,28 @@ public class RootShortcutHandler implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(final KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
+        handle(keyEvent.getCode(), keyEvent.isControlDown());
+    }
+
+    public void handle(final KeyCode keyCode, final boolean isCtrlDown) {
+        switch (keyCode) {
             case DELETE:
                 if (state.hasSelectedId()) {
                     processor.process(new RemoveShapeEvent(state.getSelectedShapeId()));
                 }
                 break;
             case Z:
-                if (keyEvent.isControlDown()) {
+                if (isCtrlDown) {
                     processor.process(new UndoLastOperationEvent());
                 }
                 break;
             case C:
-                if (keyEvent.isControlDown() && state.hasSelectedId()) {
+                if (isCtrlDown && state.hasSelectedId()) {
                     parentAdapter.processEvent(new CopyShapeEvent());
                 }
                 break;
             case V:
-                if (keyEvent.isControlDown() && state.hasCopy()) {
+                if (isCtrlDown && state.hasCopy()) {
                     parentAdapter.processEvent(new PasteShapeEvent());
                 }
                 break;

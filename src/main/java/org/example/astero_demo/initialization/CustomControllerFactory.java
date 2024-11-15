@@ -33,7 +33,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final LayersAdapter layersAdapter = new LayersAdapter(viewController, uiState, holder);
     private final PropertyAdapter propertyAdapter = new PropertyAdapter(viewController, uiState);
     private final CanvasAdapter canvasAdapter = new CanvasAdapter(viewController, holder, uiState);
-    private final ToolBarAdapter toolBarAdapter = new ToolBarAdapter(viewController, uiState);
+    private final ToolBarAdapter toolBarAdapter = new ToolBarAdapter(viewController, uiState, rootShortcutHandler);
     private final RootAdapter rootAdapter = new RootAdapter(viewController, uiState, rootShortcutHandler);
 
     public CustomControllerFactory() {

@@ -63,21 +63,19 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     }
 
     void update(final double x, final double y, final double width, final double height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        this.x = Math.max(x, 0);
+        this.y = Math.max(y, 0);
+        this.width = Math.max(width, 1);
+        this.height = Math.max(height, 1);
 
-        contactPoints.get(0).update(x, y, width, height);
-        contactPoints.get(1).update(x + (width / 2), y, width, height);
-        contactPoints.get(2).update(x + width, y, width, height);
-        contactPoints.get(3).update(x + width, y + (height / 2), width, height);
-        contactPoints.get(4).update(x + width, y + height, width, height);
-        contactPoints.get(5).update(x + (width / 2), y + height, width, height);
-        contactPoints.get(6).update(x, y + height, width, height);
-        contactPoints.get(7).update(x, y + (height / 2), width, height);
-
-
+        contactPoints.get(0).update(this.x, this.y, this.width, this.height);
+        contactPoints.get(1).update(this.x + (this.width / 2), this.y, this.width, this.height);
+        contactPoints.get(2).update(this.x + this.width, this.y, this.width, this.height);
+        contactPoints.get(3).update(this.x + this.width, this.y + (this.height / 2), this.width, this.height);
+        contactPoints.get(4).update(this.x + this.width, this.y + this.height, this.width, this.height);
+        contactPoints.get(5).update(this.x + (this.width / 2), this.y + this.height, this.width, this.height);
+        contactPoints.get(6).update(this.x, this.y + this.height, this.width, this.height);
+        contactPoints.get(7).update(this.x, this.y + (this.height / 2), this.width, this.height);
 
         this.isVisible = true;
     }

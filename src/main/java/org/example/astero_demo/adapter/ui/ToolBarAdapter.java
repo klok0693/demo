@@ -1,7 +1,10 @@
 package org.example.astero_demo.adapter.ui;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
+import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.ShapeType;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
@@ -14,11 +17,17 @@ import java.util.ResourceBundle;
 
 public class ToolBarAdapter extends LeafAdapter {
 
-    public ToolBarView toolBar;
-    public ToggleButton RectBtn;
+    private final RootShortcutHandler shortcutHandler; // TODO: remove
 
-    public ToolBarAdapter(final ViewController controller, final UIState uiState) {
+    public ToolBarView toolBar;
+    public ToggleButton rectBtn;
+    public ToggleButton cycleBtn;
+    public Button deleteBtn;
+    public Button undoBtn;
+
+    public ToolBarAdapter(final ViewController controller, final UIState uiState, final RootShortcutHandler shortcutHandler) {
         super(controller, uiState);
+        this.shortcutHandler = shortcutHandler;
     }
 
     @Override
@@ -27,7 +36,14 @@ public class ToolBarAdapter extends LeafAdapter {
     }
 
     @Override
-    public void update() {}
+    public void update() {
+        final boolean needToUnStickBtn = uiState.isInInsertMode();
+        rectBtn.setSelected(needToUnStickBtn);
+        cycleBtn.setSelected(needToUnStickBtn);
+
+        final boolean disableRelated = uiState.isInInsertMode() || !uiState.hasSelectedId();
+        deleteBtn.setDisable(disableRelated);
+    }
 
     public void onInsertRectAction(final ActionEvent event) {
         sendEvent(new InsertModeEvent(ShapeType.RECT));
@@ -38,8 +54,10 @@ public class ToolBarAdapter extends LeafAdapter {
     }
 
     public void onDeleteAction(final ActionEvent event) {
-        if (uiState.hasSelectedId()) {
-            controller.process(new RemoveShapeEvent(uiState.getSelectedShapeId()));
-        }
+        shortcutHandler.handle(KeyCode.DELETE, true);
+    }
+
+    public void onUndoAction(final ActionEvent event) {
+        shortcutHandler.handle(KeyCode.Z, true);
     }
 }
