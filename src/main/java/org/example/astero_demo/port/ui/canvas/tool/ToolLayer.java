@@ -28,10 +28,11 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
     }
 
     public boolean isInBounds(final double x, final double y) {
-        return getChildren()
+        return selectionTool.isInBounds(x, y);
+/*        return getChildren()
                 .filter(tool -> ShapeSelectionTool.class.isAssignableFrom(tool.getClass()))
                 .map(ShapeSelectionTool.class::cast)
-                .anyMatch(tool -> tool.isInBounds(x, y));
+                .anyMatch(tool -> tool.isInBounds(x, y));*/
     }
 
     @Override
@@ -61,9 +62,9 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
         //forEachChildren(CanvasDraggable.class, draggable -> draggable.onDragDetected(event));
     }
 
-    public boolean hasActiveTool() {
-        return selectionTool.isActive || dragTool.isActive;
-    }
+/*    public boolean hasActiveTool() {
+        return selectionTool.isActive || dragTool.isNeedToDrag();
+    }*/
 
     @Override
     public void onMouseDragged(final MouseEvent event) {

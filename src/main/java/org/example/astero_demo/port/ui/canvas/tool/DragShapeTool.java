@@ -3,6 +3,7 @@ package org.example.astero_demo.port.ui.canvas.tool;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import lombok.Getter;
 import lombok.Setter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
@@ -19,6 +20,7 @@ public class DragShapeTool extends DraggableTool {
     private final CanvasView canvasView;
     @Setter
     private UIState uiState;
+    private boolean needToDrag = false;
 
     private Color color;
 
@@ -78,14 +80,15 @@ public class DragShapeTool extends DraggableTool {
         this.color = element.getFillColor();
         this.xOffset = mouseX - element.getX();
         this.yOffset = mouseY - element.getY();
-        this.isActive = true;
+        this.needToDrag = true;
+        //this.isActive = true;
 
         return true;
     }
 
     @Override
     public void onMouseDragged(final MouseEvent event) {
-        if (!isActive) {
+        if (!needToDrag) {
             return;
         }
         final double mouseX = event.getX();
@@ -96,16 +99,19 @@ public class DragShapeTool extends DraggableTool {
 
         this.x = Math.min(Math.max(0, mouseX), endX);
         this.y = Math.min(Math.max(0, mouseY), endY);
+
+        this.isActive = true;
     }
 
     @Override
     public void onMouseReleased(final MouseEvent event) {
+        this.needToDrag = false;
         if (!isActive) {
             return;
         }
+
         final double[] dragPosition = new double[] {x - xOffset, y - yOffset};
         //reset();
-
         if (uiState.hasSelectedId() && canvasView.getLayoutBounds().contains(event.getX(), event.getY())) {
             canvasView.onDragOver(dragPosition[0], dragPosition[1]);
         }

@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import lombok.Setter;
+import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
@@ -49,15 +50,28 @@ public class CanvasView extends Canvas {
         setOnMousePressed(e -> {
             final double mouseX = e.getX();
             final double mouseY = e.getY();
-            if (toolLayer.isInBounds(mouseX, mouseY)) {
+
+            final ShapeElement element = elementAt(mouseX, mouseY);
+            if (element == null && !toolLayer.isInBounds(mouseX, mouseY)) {
+                delegate.primaryMouseBtnPressed(mouseX, mouseY);
+                redraw();
+            }
+            else if (toolLayer.isInBounds(mouseX, mouseY)) {
                 toolLayer.onDragDetected(e);
+                redraw();
+            }
+            else {
+                delegate.primaryMouseBtnPressed(mouseX, mouseY);
+                //if (toolLayer.isInBounds(mouseX, mouseY)) {
+                    toolLayer.onDragDetected(e);
+                //}
                 redraw();
             }
             e.consume();
         });
 
-        setOnMouseClicked(e -> {
-            if (delegate == null/*|| e.getButton() != MouseButton.PRIMARY*/) {
+/*        setOnMouseClicked(e -> {
+            if (delegate == null*//*|| e.getButton() != MouseButton.PRIMARY*//*) {
                 return;
             }
             final double mouseX = e.getX();
@@ -66,7 +80,7 @@ public class CanvasView extends Canvas {
             delegate.primaryMouseBtnPressed(mouseX, mouseY);
             redraw();
             e.consume();
-        });
+        });*/
 
         setOnMouseDragged(mouseEvent -> {
             toolLayer.onMouseDragged(mouseEvent);
