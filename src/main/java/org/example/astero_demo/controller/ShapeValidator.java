@@ -14,7 +14,6 @@ public enum ShapeValidator {
         return switch (param) {
             case X, Y, WIDTH, HEIGHT, LAYER -> isNotNegative(parseDouble(value)); // TODO: max value check;
             case COLOR -> StringUtils.isNoneBlank(value);
-            case ID -> false;
         };
     }
 }

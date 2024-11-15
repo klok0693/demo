@@ -9,7 +9,7 @@ import org.example.astero_demo.util.ColorUtils;
 @EqualsAndHashCode
 public abstract class Shape {
     @Getter
-    private final int id;
+    private int id;
     @Getter @Setter
     private String priority;
     @Getter @Setter
@@ -17,8 +17,25 @@ public abstract class Shape {
     @Getter @Setter
     private String color;
 
-    protected Shape(final String priority, final String x, final String y, final String width, final String height) {
-        id = (int) (Math.random() * 10_000);
+    protected Shape(
+            final String priority,
+            final String x,
+            final String y,
+            final String width,
+            final String height) {
+
+        this((int) (Math.random() * 10_000), priority, x, y, width, height);
+    }
+
+    protected Shape(
+            final int id,
+            final String priority,
+            final String x,
+            final String y,
+            final String width,
+            final String height) {
+
+        this.id = id;
         this.priority = priority;
         this.x = x;
         this.y = y;

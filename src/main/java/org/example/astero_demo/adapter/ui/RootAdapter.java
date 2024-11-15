@@ -1,5 +1,6 @@
 package org.example.astero_demo.adapter.ui;
 
+import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
 import org.example.astero_demo.adapter.ui.event.UIEvent;
@@ -18,11 +19,14 @@ public class RootAdapter extends ParentAdapter {
     public CanvasAdapter canvasRootController;
     public PropertyAdapter propertyRootController;
     public LayersAdapter layersRootController;
+
+    private final RootShortcutHandler shortcutHandler;
     /*@FXML*/
     public RootView root;
 
-    public RootAdapter(final ViewController controller, final MutableUIState uiState) {
+    public RootAdapter(final ViewController controller, final MutableUIState uiState, final RootShortcutHandler shortcutHandler) {
         super(controller, uiState);
+        this.shortcutHandler = shortcutHandler;
     }
 
     @Override
@@ -35,6 +39,7 @@ public class RootAdapter extends ParentAdapter {
         this.layersRootController.setParent(this);
 
         root.setUiState(uiState);
+        root.setOnKeyPressed(shortcutHandler::handle);
     }
 
     public void onCreateUpdate(final double newShapeX, final double newShapeY) {

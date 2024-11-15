@@ -1,5 +1,7 @@
 package org.example.astero_demo.adapter.model;
 
+import static java.lang.Integer.parseInt;
+
 public class ModelAdapter {
     private final ShapeFactory factory;
     private final StateHolder holder;
@@ -47,7 +49,19 @@ public class ModelAdapter {
             final String width,
             final String height,
             final ShapeType type) {
-        final Shape shape = factory.createShape(priority, x, y, width, height, type);
+
+        return this.saveShape(null, priority, x, y, width, height, type);
+    }
+
+    public int saveShape(
+            final Integer id,
+            final String priority,
+            final String x,
+            final String y,
+            final String width,
+            final String height,
+            final ShapeType type) {
+        final Shape shape = factory.createShape(id, priority, x, y, width, height, type);
         holder.saveShape(shape);
         return shape.getId();
     }

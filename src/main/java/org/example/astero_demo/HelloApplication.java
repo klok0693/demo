@@ -12,10 +12,10 @@ public class HelloApplication extends Application {
     private final CustomControllerFactory controllerFactory = new CustomControllerFactory();
 
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
+    public void start(final Stage stage) throws IOException {
+        final FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
         fxmlLoader.setControllerFactory(controllerFactory);
-        Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
+        final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
 
         stage.setTitle("untitled");
         stage.setScene(scene);

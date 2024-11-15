@@ -4,6 +4,7 @@ public enum ShapeFactory {
     INSTANCE;
 
     Shape createShape(
+            final Integer id,
             final String priority,
             final String x,
             final String y,
@@ -12,8 +13,22 @@ public enum ShapeFactory {
             final ShapeType type) {
 
         return switch (type) {
-            case RECT -> new Rectangle(priority, x, y, width, height);
-            case OVAL -> new Oval(priority, x, y, width, height);
+            case RECT -> {
+                if (id != null) {
+                    yield new Rectangle(id, priority, x, y, width, height);
+                }
+                else {
+                    yield new Rectangle(priority, x, y, width, height);
+                }
+            }
+            case OVAL -> {
+                if (id != null) {
+                    yield new Oval(id, priority, x, y, width, height);
+                }
+                else {
+                    yield new Oval(priority, x, y, width, height);
+                }
+            }
         };
     }
 }

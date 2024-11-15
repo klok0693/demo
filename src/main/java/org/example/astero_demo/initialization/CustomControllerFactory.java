@@ -1,7 +1,7 @@
 package org.example.astero_demo.initialization;
 
 import javafx.util.Callback;
-import lombok.Getter;
+import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.ModelAdapter;
 import org.example.astero_demo.adapter.model.ShapeFactory;
 import org.example.astero_demo.adapter.model.StateHolder;
@@ -28,11 +28,13 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
     private MutableUIState uiState = new UIStateHolder(holder);
 
+    private RootShortcutHandler rootShortcutHandler = new RootShortcutHandler(viewController, uiState);
+
     private final LayersAdapter layersAdapter = new LayersAdapter(viewController, uiState, holder);
     private final PropertyAdapter propertyAdapter = new PropertyAdapter(viewController, uiState);
     private final CanvasAdapter canvasAdapter = new CanvasAdapter(viewController, holder, uiState);
     private final ToolBarAdapter toolBarAdapter = new ToolBarAdapter(viewController, uiState);
-    private final RootAdapter rootAdapter = new RootAdapter(viewController, uiState);
+    private final RootAdapter rootAdapter = new RootAdapter(viewController, uiState, rootShortcutHandler);
 
     public CustomControllerFactory() {
         this.commandFactory.setViewController(viewController);

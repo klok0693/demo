@@ -3,14 +3,11 @@ package org.example.astero_demo.controller;
 import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
-import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
-import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
-import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
-import org.example.astero_demo.logic.event.ui.LogicEvent;
+import org.example.astero_demo.logic.event.ui.*;
 
 import static java.lang.String.valueOf;
 
-public abstract class AbstractController {
+public abstract class AbstractController implements LogicEventProcessor {
     private final CommandFactory commandFactory;
     private final CommandProcessor commandProcessor;
 
@@ -19,6 +16,7 @@ public abstract class AbstractController {
         this.commandProcessor = commandProcessor;
     }
 
+    @Override
     public void process(final LogicEvent e) {
         if (!isValid(e)) {
             // TODO: log
@@ -45,6 +43,10 @@ public abstract class AbstractController {
 
         if (command != null) {
             commandProcessor.processCommand(command);
+        }
+
+        if (e instanceof final UndoLastOperationEvent ev) {
+            commandProcessor.undoLastCommand();
         }
     }
 

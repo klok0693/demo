@@ -35,6 +35,8 @@ public class CanvasView extends Canvas {
     private CanvasDelegate delegate;
 
     public CanvasView() {
+        setFocusTraversable(true);
+
         final CanvasLayer backgroundLayer = new BackgroundLayer(getGraphicsContext2D());
         layers.add(backgroundLayer);
 

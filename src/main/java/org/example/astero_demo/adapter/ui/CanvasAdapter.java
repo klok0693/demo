@@ -1,15 +1,11 @@
 package org.example.astero_demo.adapter.ui;
 
-import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
-import org.example.astero_demo.adapter.model.ParamInfo;
 import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
-import org.example.astero_demo.adapter.ui.event.UIEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.logic.event.ApplicationEvent;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
@@ -28,7 +24,10 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
 
     private final StateHolder holder;
 
-    public CanvasAdapter(final ViewController controller, final StateHolder holder, final UIState uiState) {
+    public CanvasAdapter(
+            final ViewController controller,
+            final StateHolder holder,
+            final UIState uiState) {
         super(controller, uiState);
         this.holder = holder;
     }
@@ -39,6 +38,7 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
 
         canvas.setDelegate(this);
         canvas.setUiState(uiState);
+        canvas.requestFocus();
     }
 
     @Override
