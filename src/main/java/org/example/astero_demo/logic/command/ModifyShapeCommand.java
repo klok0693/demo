@@ -5,21 +5,22 @@ import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ViewController;
 
-public class ModifyShapeCommand extends Command {
+public class ModifyShapeCommand extends ParamCommand {
     private final ViewController viewController;
     private final ModelController modelController;
-    private final int modifyShapeId;
-    private ParamInfo[] paramInfos;
+
+    protected final int modifyShapeId;
 
     public ModifyShapeCommand(
             final ViewController viewController,
             final ModelController modelController,
             final int modifyShapeId,
-            ParamInfo... infos) {
+            final ParamInfo... infos) {
+
+        super(infos);
         this.viewController = viewController;
         this.modelController = modelController;
         this.modifyShapeId = modifyShapeId;
-        this.paramInfos = infos;
     }
 
     @Override

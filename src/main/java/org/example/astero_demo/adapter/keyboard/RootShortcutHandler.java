@@ -2,6 +2,10 @@ package org.example.astero_demo.adapter.keyboard;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import lombok.Setter;
+import org.example.astero_demo.adapter.ui.ParentAdapter;
+import org.example.astero_demo.adapter.ui.event.CopyShapeEvent;
+import org.example.astero_demo.adapter.ui.event.PasteShapeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
@@ -9,6 +13,8 @@ import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
 
 public class RootShortcutHandler implements EventHandler<KeyEvent> {
     private final LogicEventProcessor processor;
+    @Setter
+    private ParentAdapter parentAdapter;
     private final UIState state;
 
     public RootShortcutHandler(final LogicEventProcessor processor, final UIState state) {
@@ -27,6 +33,16 @@ public class RootShortcutHandler implements EventHandler<KeyEvent> {
             case Z:
                 if (keyEvent.isControlDown()) {
                     processor.process(new UndoLastOperationEvent());
+                }
+                break;
+            case C:
+                if (keyEvent.isControlDown() && state.hasSelectedId()) {
+                    parentAdapter.processEvent(new CopyShapeEvent());
+                }
+                break;
+            case V:
+                if (keyEvent.isControlDown() && state.hasCopy()) {
+                    parentAdapter.processEvent(new PasteShapeEvent());
                 }
                 break;
         }

@@ -95,7 +95,7 @@ public class DragShapeTool extends DraggableTool {
         }
 
         final double[] dragPosition = new double[] {x - xOffset, y - yOffset};
-        //reset();
+        reset();
         if (uiState.hasSelectedId() && canvasView.getLayoutBounds().contains(event.getX(), event.getY())) {
             canvasView.onDragOver(dragPosition[0], dragPosition[1]);
         }

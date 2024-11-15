@@ -9,16 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-public class ModifyShapeEvent extends LogicEvent {
+public class ModifyShapeEvent extends ParamEvent {
     private final int shapeId;
-    private ParamInfo[] paramInfos;
 
 /*    public ModifyShapeEvent(final int shapeId, final ShapeParam param, final String newValue) {
         this(shapeId, param, MathUtils.isDouble(newValue) ? Double.parseDouble(newValue) : Integer.parseInt(newValue));
     }*/
 
     public ModifyShapeEvent(final int shapeId, ParamInfo... infos) {
+        super(infos);
         this.shapeId = shapeId;
-        this.paramInfos = infos;
     }
 }

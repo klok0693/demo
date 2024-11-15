@@ -21,7 +21,7 @@ public class ModelAdapter {
             case Y -> shape.getY();
             case WIDTH -> shape.getWidth();
             case HEIGHT -> shape.getHeight();
-            case LAYER -> shape.getPriority();
+            case PRIORITY -> shape.getPriority();
             case COLOR -> shape.getColor();
             default -> null;
         };
@@ -37,7 +37,7 @@ public class ModelAdapter {
             case Y: shape.setY(newValue); break;
             case WIDTH: shape.setWidth(newValue); break;
             case HEIGHT: shape.setHeight(newValue); break;
-            case LAYER: shape.setPriority(newValue); break;
+            case PRIORITY: shape.setPriority(newValue); break;
             case COLOR: shape.setColor(newValue);
         }
     }
@@ -48,9 +48,10 @@ public class ModelAdapter {
             final String y,
             final String width,
             final String height,
+            final String color,
             final ShapeType type) {
 
-        return this.saveShape(null, priority, x, y, width, height, type);
+        return this.saveShape(null, priority, x, y, width, height, color, type);
     }
 
     public int saveShape(
@@ -60,8 +61,9 @@ public class ModelAdapter {
             final String y,
             final String width,
             final String height,
+            final String color,
             final ShapeType type) {
-        final Shape shape = factory.createShape(id, priority, x, y, width, height, type);
+        final Shape shape = factory.createShape(id, priority, x, y, width, height, color, type);
         holder.saveShape(shape);
         return shape.getId();
     }

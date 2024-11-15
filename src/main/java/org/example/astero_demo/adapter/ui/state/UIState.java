@@ -1,6 +1,9 @@
 package org.example.astero_demo.adapter.ui.state;
 
+import org.example.astero_demo.adapter.model.ParamInfo;
 import org.example.astero_demo.adapter.model.ShapeType;
+
+import java.util.List;
 
 public interface UIState {
 
@@ -25,4 +28,16 @@ public interface UIState {
     Integer getSelectedColor();
 
     ShapeType getSelectedShapeType();
+
+    boolean hasCopy();
+
+    String getCopyWidth();
+
+    String getCopyHeight();
+
+    String getCopyPriority();
+
+    String getCopyColor();
+
+    String getCopyType();
 }

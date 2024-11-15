@@ -19,7 +19,9 @@
     </left>
 
     <center>
-        <fx:include fx:id="canvasRoot" source="canvas.fxml"/>
+        <AnchorPane fx:id="canvasContainer" stylesheets="@../css/canvas.css">
+            <fx:include fx:id="canvasRoot" source="canvas.fxml"/>
+        </AnchorPane>
     </center>
 
     <right>

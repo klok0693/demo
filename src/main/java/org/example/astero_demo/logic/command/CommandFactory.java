@@ -9,6 +9,8 @@ import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ViewController;
 
+import static org.example.astero_demo.adapter.model.ParamInfo.create;
+
 public class CommandFactory {
     @Setter
     private ViewController viewController;
@@ -21,8 +23,17 @@ public class CommandFactory {
             final String y,
             final String width,
             final String height,
+            final String color,
             final ShapeType type) {
-        return new CreateNewShapeCommand(viewController, modelController, priority, x, y, width, height, type);
+
+        return new CreateNewShapeCommand(viewController, modelController,
+                create(ShapeParam.PRIORITY, priority),
+                create(ShapeParam.X, x),
+                create(ShapeParam.Y, y),
+                create(ShapeParam.WIDTH, width),
+                create(ShapeParam.HEIGHT, height),
+                create(ShapeParam.COLOR, color),
+                create(ShapeParam.TYPE, type.name()));
     }
 
     public Command createModifyShapeCommand(final int shapeId, final ParamInfo... infos) {

@@ -10,23 +10,24 @@ public enum ShapeFactory {
             final String y,
             final String width,
             final String height,
+            final String color,
             final ShapeType type) {
 
         return switch (type) {
             case RECT -> {
                 if (id != null) {
-                    yield new Rectangle(id, priority, x, y, width, height);
+                    yield new Rectangle(id, priority, x, y, width, height, color);
                 }
                 else {
-                    yield new Rectangle(priority, x, y, width, height);
+                    yield new Rectangle(priority, x, y, width, height, color);
                 }
             }
             case OVAL -> {
                 if (id != null) {
-                    yield new Oval(id, priority, x, y, width, height);
+                    yield new Oval(id, priority, x, y, width, height, color);
                 }
                 else {
-                    yield new Oval(priority, x, y, width, height);
+                    yield new Oval(priority, x, y, width, height, color);
                 }
             }
         };

@@ -3,15 +3,17 @@ package org.example.astero_demo.adapter.ui.state;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.Shape;
-import org.example.astero_demo.adapter.model.ShapeType;
-import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.model.*;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+
+import static java.lang.String.valueOf;
+import static org.example.astero_demo.adapter.model.ParamInfo.create;
 
 public class UIStateHolder implements MutableUIState {
 
@@ -20,6 +22,9 @@ public class UIStateHolder implements MutableUIState {
     @Getter
     @Setter
     private ShapeType insertShapeType;
+
+    @Getter
+    private List<ParamInfo> copyParams;
 
     private List<Integer> selectedShapes = new LinkedList<>();
     private final StateHolder shapeHolder;
@@ -98,6 +103,47 @@ public class UIStateHolder implements MutableUIState {
     }
 
     @Override
+    public boolean hasCopy() {
+        return copyParams != null && !copyParams.isEmpty();
+    }
+
+    @Override
+    public String getCopyWidth() {
+        return getCopyParam(ShapeParam.WIDTH);
+    }
+
+    @Override
+    public String getCopyHeight() {
+        return getCopyParam(ShapeParam.HEIGHT);
+    }
+
+    @Override
+    public String getCopyPriority() {
+        return getCopyParam(ShapeParam.PRIORITY);
+    }
+
+    @Override
+    public String getCopyColor() {
+        return getCopyParam(ShapeParam.COLOR);
+    }
+
+    @Override
+    public String getCopyType() {
+        return getCopyParam(ShapeParam.TYPE);
+    }
+
+    private String getCopyParam(final ShapeParam param) {
+        if (copyParams == null || copyParams.isEmpty()) {
+            return StringUtils.EMPTY;
+        }
+        return copyParams.stream()
+                .filter(paramInfo -> paramInfo.getParam() == param)
+                .map(ParamInfo::getNewValue)
+                .findFirst()
+                .orElse(StringUtils.EMPTY);
+    }
+
+    @Override
     public boolean hasSelectedId() {
         return !selectedShapes.isEmpty();
     }
@@ -113,6 +159,24 @@ public class UIStateHolder implements MutableUIState {
     @Override
     public void removeSelection() {
         selectedShapes.clear();
+    }
+
+    @Override
+    public void storeCopyOf(final int originalId) {
+        copyParams = new LinkedList<>();
+
+        final Shape original = shapeHolder.getShape(originalId);
+        if (original == null) {
+            return;
+        }
+
+        copyParams.add(create(ShapeParam.X, original.getX()));
+        copyParams.add(create(ShapeParam.Y, original.getY()));
+        copyParams.add(create(ShapeParam.WIDTH, original.getWidth()));
+        copyParams.add(create(ShapeParam.HEIGHT, original.getHeight()));
+        copyParams.add(create(ShapeParam.COLOR, original.getColor()));
+        copyParams.add(create(ShapeParam.PRIORITY, original.getPriority()));
+        copyParams.add(create(ShapeParam.TYPE, valueOf(original.getType())));
     }
 
     private Double getSelectedDoubleParam(final Function<Shape, String> func) {

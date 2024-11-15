@@ -6,6 +6,7 @@ import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
+import org.example.astero_demo.logic.event.ui.ParamEvent;
 
 import java.util.Arrays;
 
@@ -38,7 +39,7 @@ public class ViewController extends AbstractController {
 
     @Override
     protected boolean isValid(final LogicEvent event) {
-        if (event instanceof final ModifyShapeEvent ev) {
+        if (event instanceof final ParamEvent ev) {
             return Arrays.stream(ev.getParamInfos())
                     .allMatch(info -> validator.isValid(info.getParam(), info.getNewValue()));
         }

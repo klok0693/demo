@@ -31,8 +31,9 @@ public class ModelController extends AbstractController {
             final String y,
             final String width,
             final String height,
+            final String color,
             final ShapeType type) {
-        return modelAdapter.saveShape(priority, x, y, width, height, type);
+        return modelAdapter.saveShape(priority, x, y, width, height, color, type);
     }
 
     public int saveShape(
@@ -42,8 +43,9 @@ public class ModelController extends AbstractController {
             final String y,
             final String width,
             final String height,
+            final String color,
             final ShapeType type) {
-        return modelAdapter.saveShape(id, priority, x, y, width, height, type);
+        return modelAdapter.saveShape(id, priority, x, y, width, height, color, type);
     }
 
     public Shape removeShape(final int id) {

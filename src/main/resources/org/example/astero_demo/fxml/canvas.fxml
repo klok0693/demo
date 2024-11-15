@@ -6,15 +6,16 @@
 <?import java.net.URL?>
 
 <?import javafx.scene.control.Button?>
-<AnchorPane xmlns="http://javafx.com/javafx"
+<CanvasView xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="canvasRoot"
-            fx:controller="org.example.astero_demo.adapter.ui.CanvasAdapter">
+            fx:controller="org.example.astero_demo.adapter.ui.CanvasAdapter"
+            width="710" height="620">
 
-    <stylesheets>
+<!--    <stylesheets>
         <URL value="@../css/canvas.css"/>
     </stylesheets>
 
-    <CanvasView fx:id="canvas" width="710" height="620"/>
+    <CanvasView fx:id="canvas" width="710" height="620"/>-->
 
-</AnchorPane>
+</CanvasView>

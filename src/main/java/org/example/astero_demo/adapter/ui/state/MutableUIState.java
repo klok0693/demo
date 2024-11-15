@@ -13,4 +13,6 @@ public interface MutableUIState extends UIState {
     void setSelectShape(Integer id);
 
     void removeSelection();
+
+    void storeCopyOf(int originalId);
 }

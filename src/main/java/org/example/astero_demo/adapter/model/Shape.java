@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.util.ColorUtils;
 
 @EqualsAndHashCode
@@ -24,7 +25,18 @@ public abstract class Shape {
             final String width,
             final String height) {
 
-        this((int) (Math.random() * 10_000), priority, x, y, width, height);
+        this((int) (Math.random() * 10_000), priority, x, y, width, height, null);
+    }
+
+    protected Shape(
+            final String priority,
+            final String x,
+            final String y,
+            final String width,
+            final String height,
+            final String color) {
+
+        this((int) (Math.random() * 10_000), priority, x, y, width, height, color);
     }
 
     protected Shape(
@@ -33,7 +45,8 @@ public abstract class Shape {
             final String x,
             final String y,
             final String width,
-            final String height) {
+            final String height,
+            final String color) {
 
         this.id = id;
         this.priority = priority;
@@ -41,7 +54,7 @@ public abstract class Shape {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.color = String.valueOf(ColorUtils.convert(Color.GREEN));
+        this.color = StringUtils.isNotBlank(color) ? color : String.valueOf(ColorUtils.convert(Color.GREEN));
     }
 
     public abstract ShapeType getType();

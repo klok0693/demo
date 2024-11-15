@@ -1,6 +1,5 @@
 package org.example.astero_demo.adapter.ui;
 
-import javafx.scene.layout.AnchorPane;
 import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
@@ -19,8 +18,7 @@ import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.ParamInfo.create;
 
 public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDelegate {
-    public CanvasView canvas;
-    public AnchorPane canvasRoot;
+    public CanvasView canvasRoot;
 
     private final StateHolder holder;
 
@@ -36,14 +34,14 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
         //canvas.redraw();
 
-        canvas.setDelegate(this);
-        canvas.setUiState(uiState);
-        canvas.requestFocus();
+        canvasRoot.setDelegate(this);
+        canvasRoot.setUiState(uiState);
+        canvasRoot.requestFocus();
     }
 
     @Override
     public void update() {
-        canvas.update(holder, uiState.isInInsertMode() || !uiState.hasSelectedId());
+        canvasRoot.update(holder, uiState.isInInsertMode() || !uiState.hasSelectedId());
     }
 
     @Override
@@ -65,6 +63,8 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
 
     @Override
     public void onDragOver(final double x, final double y) {
+        update();
+
         final LogicEvent event = uiState.isInInsertMode() ?
                 new CreateNewShapeEvent(x, y, 100, 100, uiState.getInsertShapeType()) :
                 new ModifyShapeEvent(
@@ -77,6 +77,8 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
 
     @Override
     public void onDragOver(final double x, final double y, final double width, final double height) {
+        update();
+
         final LogicEvent event = uiState.isInInsertMode() ?
                 new CreateNewShapeEvent(x, y, width, height, uiState.getInsertShapeType()) :
                 new ModifyShapeEvent(
@@ -90,6 +92,6 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
     }
 
     public ShapeElement selectElement(final double x, final double y) {
-        return canvas.selectElement(x, y);
+        return canvasRoot.selectElement(x, y);
     }
 }

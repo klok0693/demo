@@ -1,11 +1,17 @@
 package org.example.astero_demo.controller;
 
+import org.example.astero_demo.adapter.model.ParamInfo;
+import org.example.astero_demo.adapter.model.ShapeParam;
+import org.example.astero_demo.adapter.model.ShapeType;
 import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.*;
+import org.example.astero_demo.util.ParamUtils;
 
 import static java.lang.String.valueOf;
+import static org.example.astero_demo.adapter.model.ShapeType.valueOf;
+import static org.example.astero_demo.util.ParamUtils.getParamInfo;
 
 public abstract class AbstractController implements LogicEventProcessor {
     private final CommandFactory commandFactory;
@@ -25,13 +31,15 @@ public abstract class AbstractController implements LogicEventProcessor {
 
         Command command = null;
         if (e instanceof final CreateNewShapeEvent ev) {
+            final ParamInfo[] infos = ev.getParamInfos();
             command = commandFactory.createNewShapeCommand(
-                    valueOf(ev.getPriority()),
-                    valueOf(ev.getX()),
-                    valueOf(ev.getY()),
-                    valueOf(ev.getWidth()),
-                    valueOf(ev.getHeight()),
-                    ev.getType());
+                    getParamInfo(infos, ShapeParam.PRIORITY),
+                    getParamInfo(infos, ShapeParam.X),
+                    getParamInfo(infos, ShapeParam.Y),
+                    getParamInfo(infos, ShapeParam.WIDTH),
+                    getParamInfo(infos, ShapeParam.HEIGHT),
+                    getParamInfo(infos, ShapeParam.COLOR),
+                    valueOf(getParamInfo(infos, ShapeParam.TYPE)));
         }
         else if (e instanceof final ModifyShapeEvent ev) {
             command = commandFactory.createModifyShapeCommand(

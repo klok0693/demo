@@ -10,5 +10,5 @@ public abstract class ParentAdapter extends UIAdapter<MutableUIState> {
         super(controller, uiState);
     }
 
-    protected abstract void processEvent(UIEvent event);
+    public abstract void processEvent(UIEvent event);
 }

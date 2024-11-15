@@ -7,5 +7,7 @@ open module org.example.astero_demo {
     requires lombok;
     requires org.apache.commons.lang3;
 
+    requires java.desktop;
+
     exports org.example.astero_demo;
 }

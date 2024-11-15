@@ -7,7 +7,6 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import org.example.astero_demo.adapter.model.ParamInfo;
 import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
@@ -83,7 +82,7 @@ public class PropertyAdapter extends LeafAdapter {
     }
 
     public void updateLayer(final KeyEvent keyEvent) {
-        updateField(keyEvent, ShapeParam.LAYER, layerField);
+        updateField(keyEvent, ShapeParam.PRIORITY, layerField);
     }
 
     private void updateField(final KeyEvent e, final ShapeParam param, final TextInputControl field) {

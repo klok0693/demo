@@ -1,16 +1,24 @@
 package org.example.astero_demo.adapter.ui;
 
+import javafx.geometry.Point2D;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
-import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
-import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
-import org.example.astero_demo.adapter.ui.event.UIEvent;
+import org.example.astero_demo.adapter.model.ParamInfo;
+import org.example.astero_demo.adapter.model.ShapeType;
+import org.example.astero_demo.adapter.ui.event.*;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
+import org.example.astero_demo.port.ui.canvas.CanvasView;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
+import java.awt.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 public class RootAdapter extends ParentAdapter {
     /*@FXML*/
@@ -23,6 +31,8 @@ public class RootAdapter extends ParentAdapter {
     private final RootShortcutHandler shortcutHandler;
     /*@FXML*/
     public RootView root;
+
+    public CanvasView canvasRoot;
 
     public RootAdapter(final ViewController controller, final MutableUIState uiState, final RootShortcutHandler shortcutHandler) {
         super(controller, uiState);
@@ -39,7 +49,9 @@ public class RootAdapter extends ParentAdapter {
         this.layersRootController.setParent(this);
 
         root.setUiState(uiState);
+
         root.setOnKeyPressed(shortcutHandler::handle);
+        shortcutHandler.setParentAdapter(this);
     }
 
     public void onCreateUpdate(final double newShapeX, final double newShapeY) {
@@ -65,14 +77,33 @@ public class RootAdapter extends ParentAdapter {
     }
 
     @Override
-    protected void processEvent(final UIEvent event) {
+    public void processEvent(final UIEvent event) {
         if (event instanceof final SelectElementEvent e) {
             selectElement(e.getX(), e.getY());
         }
-        if (event instanceof final InsertModeEvent e) {
+        else if (event instanceof final InsertModeEvent e) {
             uiState.setIsInInsertMode(true);
             uiState.setInsertShapeType(e.getInsertShapeType());
             updateChildren();
+        }
+        else if (event instanceof final CopyShapeEvent e) {
+            uiState.storeCopyOf(uiState.getSelectedShapeId());
+        }
+        else if (event instanceof final PasteShapeEvent e) {
+            final Point cursorPosition = MouseInfo.getPointerInfo().getLocation(); // Get cursor position on screen
+            final Point2D localPosition = canvasRoot.screenToLocal(cursorPosition.getX(), cursorPosition.getY());
+
+            updateChildren();
+
+            controller.process(new CreateNewShapeEvent(
+                    parseInt(uiState.getCopyPriority()),
+                    localPosition.getX(),
+                    localPosition.getY(),
+                    parseDouble(uiState.getCopyWidth()),
+                    parseDouble(uiState.getCopyHeight()),
+                    parseInt(uiState.getCopyColor()),
+                    ShapeType.valueOf(uiState.getCopyType()))
+            );
         }
     }
 

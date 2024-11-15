@@ -8,8 +8,19 @@ public class Oval extends Shape {
             final String x,
             final String y,
             final String width,
-            final String height) {
-        super(id, priority, x, y, width, height);
+            final String height,
+            final String color) {
+        super(id, priority, x, y, width, height, color);
+    }
+
+    protected Oval(
+            final String priority,
+            final String x,
+            final String y,
+            final String width,
+            final String height,
+            final String color) {
+        super(priority, x, y, width, height, color);
     }
 
     protected Oval(
