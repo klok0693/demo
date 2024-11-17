@@ -10,13 +10,13 @@ import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 
 public class ModelController extends AbstractController {
-    @Setter
-    private ModelAdapter modelAdapter;
+    private final ModelAdapter modelAdapter;
 
     public ModelController(
             final CommandFactory commandFactory,
-            final CommandProcessor commandProcessor) {
+            final CommandProcessor commandProcessor, ModelAdapter modelAdapter) {
         super(commandFactory, commandProcessor);
+        this.modelAdapter = modelAdapter;
     }
 
     public String getShapeParam(final int id, final ShapeParam param) {

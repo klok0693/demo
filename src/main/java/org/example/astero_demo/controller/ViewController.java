@@ -12,15 +12,16 @@ import java.util.Arrays;
 import static java.lang.Double.parseDouble;
 
 public class ViewController extends AbstractController {
-    @Setter
-    private RootAdapter adapter;
+    protected RootAdapter adapter;
     private final ShapeValidator validator;
 
     public ViewController(
             final CommandFactory commandFactory,
             final CommandProcessor commandProcessor,
+            final RootAdapter adapter,
             final ShapeValidator validator) {
         super(commandFactory, commandProcessor);
+        this.adapter = adapter;
         this.validator = validator;
     }
 

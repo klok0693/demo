@@ -19,7 +19,7 @@ public class ProviderModule extends AbstractModule {
         bind(ModelControllerProvider.class).in(Scopes.SINGLETON);
 
         //UI
-        bind(ShortcutProvider.class).in(Scopes.SINGLETON);
+        bind(ShortcutHandlerProvider.class).in(Scopes.SINGLETON);
         bind(CanvasAdapterProvider.class).in(Scopes.SINGLETON);
         bind(LayersAdapterProvider.class).in(Scopes.SINGLETON);
         bind(PropertyAdapterProvider.class).in(Scopes.SINGLETON);

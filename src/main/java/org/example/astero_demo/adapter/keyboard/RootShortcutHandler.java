@@ -14,12 +14,12 @@ import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
 
 public class RootShortcutHandler implements EventHandler<KeyEvent> {
     private final LogicEventProcessor processor;
-    @Setter
-    private ParentAdapter parentAdapter;
     private final UIState state;
+    protected ParentAdapter parentAdapter;
 
-    public RootShortcutHandler(final LogicEventProcessor processor, final UIState state) {
+    public RootShortcutHandler(final LogicEventProcessor processor, final ParentAdapter parentAdapter, final UIState state) {
         this.processor = processor;
+        this.parentAdapter = parentAdapter;
         this.state = state;
     }
 

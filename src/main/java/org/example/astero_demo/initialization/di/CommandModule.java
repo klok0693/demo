@@ -12,7 +12,7 @@ public class CommandModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(CommandFactory.class).to(CommandFactoryImpl.class);
-        bind(CommandFactoryImpl.class).toProvider(CommandFactoryProvider.class).in(Scopes.SINGLETON);
+        bind(CommandFactoryImpl.class).toProvider(CommandFactoryProvider.class).asEagerSingleton();
         bind(CommandProcessor.class).toInstance(CommandProcessor.INSTANCE);
     }
 }

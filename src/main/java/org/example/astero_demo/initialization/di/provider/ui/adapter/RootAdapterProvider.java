@@ -5,21 +5,26 @@ import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.initialization.di.provider.controller.ViewControllerProvider;
+import org.example.astero_demo.initialization.di.provider.ui.ShortcutHandlerProvider;
 
 public class RootAdapterProvider extends AdapterProvider<MutableUIState, RootAdapter> {
-    private final RootShortcutHandler shortcutHandler;
+    private final ShortcutHandlerProvider shortcutHandler;
 
     @Inject
     RootAdapterProvider(
-            final ViewController controller,
+            final ViewControllerProvider controller,
             final MutableUIState uiState,
-            final RootShortcutHandler shortcutHandler) {
-        super(controller, uiState);
+            final ShortcutHandlerProvider shortcutHandler) {
+        super(controller.get(), uiState);
         this.shortcutHandler = shortcutHandler;
+
+        controller.setRootAdapter(get());
+        shortcutHandler.setParentAdapter(get());
     }
 
     @Override
     protected RootAdapter createInstance() {
-        return new RootAdapter(controller, uiState, shortcutHandler);
+        return new RootAdapter(controller, uiState, shortcutHandler.get());
     }
 }

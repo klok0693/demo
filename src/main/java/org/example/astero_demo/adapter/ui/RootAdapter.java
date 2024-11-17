@@ -51,7 +51,7 @@ public class RootAdapter extends ParentAdapter {
         root.setUiState(uiState);
 
         root.setOnKeyPressed(shortcutHandler::handle);
-        shortcutHandler.setParentAdapter(this);
+        //shortcutHandler.setParentAdapter(this);
     }
 
     public void onCreateUpdate(final double newShapeX, final double newShapeY) {

@@ -16,21 +16,6 @@ import org.example.astero_demo.logic.command.CommandProcessor;
 
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
-    private final StateHolder holder;
-    private final ShapeFactory factory;
-
-    private final ModelAdapter modelAdapter;
-    private final CommandFactory commandFactory;
-    private final CommandProcessor commandProcessor;
-
-    private final ShapeValidator shapeValidator;
-    private final ViewController viewController;
-    private final ModelController modelController;
-
-    private final MutableUIState uiState;
-
-    private final RootShortcutHandler rootShortcutHandler;
-
     private final LayersAdapter layersAdapter;
     private final PropertyAdapter propertyAdapter;
     private final CanvasAdapter canvasAdapter;
@@ -38,25 +23,17 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final RootAdapter rootAdapter;
 
     @Inject
-    public CustomControllerFactory(StateHolder holder, ShapeFactory factory, ModelAdapter modelAdapter, CommandFactory commandFactory, CommandProcessor commandProcessor, ShapeValidator shapeValidator, ViewController viewController, ModelController modelController, MutableUIState uiState, RootShortcutHandler rootShortcutHandler, LayersAdapter layersAdapter, PropertyAdapter propertyAdapter, CanvasAdapter canvasAdapter, ToolBarAdapter toolBarAdapter, RootAdapter rootAdapter) {
-        this.holder = holder;
-        this.factory = factory;
-        this.modelAdapter = modelAdapter;
-        this.commandFactory = commandFactory;
-        this.commandProcessor = commandProcessor;
-        this.shapeValidator = shapeValidator;
-        this.viewController = viewController;
-        this.modelController = modelController;
-        this.uiState = uiState;
-        this.rootShortcutHandler = rootShortcutHandler;
+    public CustomControllerFactory(
+            final LayersAdapter layersAdapter,
+            final PropertyAdapter propertyAdapter,
+            final CanvasAdapter canvasAdapter,
+            final ToolBarAdapter toolBarAdapter,
+            final RootAdapter rootAdapter) {
         this.layersAdapter = layersAdapter;
         this.propertyAdapter = propertyAdapter;
         this.canvasAdapter = canvasAdapter;
         this.toolBarAdapter = toolBarAdapter;
         this.rootAdapter = rootAdapter;
-
-        this.viewController.setAdapter(rootAdapter);
-        this.modelController.setModelAdapter(modelAdapter);
     }
 
     @Override

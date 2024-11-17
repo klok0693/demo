@@ -4,22 +4,44 @@ import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.initialization.di.provider.InstanceProvider;
 import org.example.astero_demo.initialization.di.provider.controller.ModelControllerProvider;
-import org.example.astero_demo.initialization.di.provider.controller.ViewControllerProvider;
 import org.example.astero_demo.logic.command.CommandFactoryImpl;
 
 public class CommandFactoryProvider extends InstanceProvider<CommandFactoryProvider.CommandFactoryProxy> {
+    private ViewController viewController;
+    private ModelController modelController;
+
+    public CommandFactoryProvider() {
+        get();
+    }
 
     @Override
     protected CommandFactoryProxy createInstance() {
-        return new CommandFactoryProxy();
+        final CommandFactoryProxy proxy = new CommandFactoryProxy();
+        if (viewController != null) {
+            proxy.setViewController(viewController);
+        }
+        if (modelController != null) {
+            proxy.setModelController(modelController);
+        }
+        return proxy;
     }
 
-    public void setViewController(final ViewControllerProvider viewController) {
-        this.instance.setViewController(viewController.get());
+    public void setViewController(final ViewController controller) {
+        if (instance != null) {
+            this.instance.setViewController(controller);
+        }
+        else {
+            this.viewController = controller;
+        }
     }
 
-    public void setModelController(final ModelControllerProvider modelController) {
-        this.instance.setModelController(modelController.get());
+    public void setModelController(final ModelController modelController) {
+        if (instance != null) {
+            this.instance.setModelController(modelController);
+        }
+        else {
+            this.modelController = modelController;
+        }
     }
 
     static class CommandFactoryProxy extends CommandFactoryImpl {
