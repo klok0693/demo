@@ -13,7 +13,9 @@ public class ModelController extends AbstractController {
     @Setter
     private ModelAdapter modelAdapter;
 
-    public ModelController(CommandFactory commandFactory, CommandProcessor commandProcessor) {
+    public ModelController(
+            final CommandFactory commandFactory,
+            final CommandProcessor commandProcessor) {
         super(commandFactory, commandProcessor);
     }
 

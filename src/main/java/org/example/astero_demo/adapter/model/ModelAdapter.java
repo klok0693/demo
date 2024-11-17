@@ -1,11 +1,14 @@
 package org.example.astero_demo.adapter.model;
 
+import com.google.inject.Inject;
+
 import static java.lang.Integer.parseInt;
 
 public class ModelAdapter {
     private final ShapeFactory factory;
     private final StateHolder holder;
 
+    @Inject
     public ModelAdapter(ShapeFactory factory, StateHolder holder) {
         this.factory = factory;
         this.holder = holder;

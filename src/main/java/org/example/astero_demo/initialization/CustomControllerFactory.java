@@ -1,5 +1,6 @@
 package org.example.astero_demo.initialization;
 
+import com.google.inject.Inject;
 import javafx.util.Callback;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.ModelAdapter;
@@ -7,7 +8,6 @@ import org.example.astero_demo.adapter.model.ShapeFactory;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.*;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
-import org.example.astero_demo.adapter.ui.state.UIStateHolder;
 import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.controller.ViewController;
@@ -15,30 +15,45 @@ import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
-    private final StateHolder holder = StateHolder.INSTANCE;
-    private final ShapeFactory factory = ShapeFactory.INSTANCE;
 
-    private final ModelAdapter modelAdapter = new ModelAdapter(factory, holder);
-    private final CommandFactory commandFactory = new CommandFactory();
-    private final CommandProcessor commandProcessor = CommandProcessor.INSTANCE;
+    private final StateHolder holder;
+    private final ShapeFactory factory;
 
-    private final ShapeValidator shapeValidator = ShapeValidator.INSTANCE;
-    private final ViewController viewController = new ViewController(commandFactory, commandProcessor, shapeValidator);
-    private final ModelController modelController = new ModelController(commandFactory, commandProcessor);
+    private final ModelAdapter modelAdapter;
+    private final CommandFactory commandFactory;
+    private final CommandProcessor commandProcessor;
 
-    private MutableUIState uiState = new UIStateHolder(holder);
+    private final ShapeValidator shapeValidator;
+    private final ViewController viewController;
+    private final ModelController modelController;
 
-    private RootShortcutHandler rootShortcutHandler = new RootShortcutHandler(viewController, uiState);
+    private final MutableUIState uiState;
 
-    private final LayersAdapter layersAdapter = new LayersAdapter(viewController, uiState, holder);
-    private final PropertyAdapter propertyAdapter = new PropertyAdapter(viewController, uiState);
-    private final CanvasAdapter canvasAdapter = new CanvasAdapter(viewController, holder, uiState);
-    private final ToolBarAdapter toolBarAdapter = new ToolBarAdapter(viewController, uiState, rootShortcutHandler);
-    private final RootAdapter rootAdapter = new RootAdapter(viewController, uiState, rootShortcutHandler);
+    private final RootShortcutHandler rootShortcutHandler;
 
-    public CustomControllerFactory() {
-        this.commandFactory.setViewController(viewController);
-        this.commandFactory.setModelController(modelController);
+    private final LayersAdapter layersAdapter;
+    private final PropertyAdapter propertyAdapter;
+    private final CanvasAdapter canvasAdapter;
+    private final ToolBarAdapter toolBarAdapter;
+    private final RootAdapter rootAdapter;
+
+    @Inject
+    public CustomControllerFactory(StateHolder holder, ShapeFactory factory, ModelAdapter modelAdapter, CommandFactory commandFactory, CommandProcessor commandProcessor, ShapeValidator shapeValidator, ViewController viewController, ModelController modelController, MutableUIState uiState, RootShortcutHandler rootShortcutHandler, LayersAdapter layersAdapter, PropertyAdapter propertyAdapter, CanvasAdapter canvasAdapter, ToolBarAdapter toolBarAdapter, RootAdapter rootAdapter) {
+        this.holder = holder;
+        this.factory = factory;
+        this.modelAdapter = modelAdapter;
+        this.commandFactory = commandFactory;
+        this.commandProcessor = commandProcessor;
+        this.shapeValidator = shapeValidator;
+        this.viewController = viewController;
+        this.modelController = modelController;
+        this.uiState = uiState;
+        this.rootShortcutHandler = rootShortcutHandler;
+        this.layersAdapter = layersAdapter;
+        this.propertyAdapter = propertyAdapter;
+        this.canvasAdapter = canvasAdapter;
+        this.toolBarAdapter = toolBarAdapter;
+        this.rootAdapter = rootAdapter;
 
         this.viewController.setAdapter(rootAdapter);
         this.modelController.setModelAdapter(modelAdapter);

@@ -5,7 +5,6 @@ import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
-import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 import org.example.astero_demo.logic.event.ui.ParamEvent;
 
 import java.util.Arrays;
