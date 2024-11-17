@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.astero_demo.initialization.CustomControllerFactory;
+import org.example.astero_demo.initialization.NodeBuilderFactory;
 
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ public class HelloApplication extends Application {
     public void start(final Stage stage) throws IOException {
         final FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
         fxmlLoader.setControllerFactory(controllerFactory);
+        fxmlLoader.setBuilderFactory(new NodeBuilderFactory());
         final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
 
         stage.setTitle("untitled");

@@ -19,13 +19,7 @@ import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 
 public class CanvasView extends Canvas {
 
-    private final ChangeListener<Boolean> redrawListener = new WeakChangeListener<>((observableValue, aBoolean, t1) -> {
-        if (aBoolean) {
-            redraw();
-        }
-    });
-
-    private ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
+    private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
 
@@ -45,9 +39,6 @@ public class CanvasView extends Canvas {
 
         toolLayer = new ToolLayer(getGraphicsContext2D(), this);
         layers.add(toolLayer);
-
-        //visibleProperty().addListener(redrawListener);
-        //focusedProperty().addListener(redrawListener);
 
         setOnMousePressed(e -> {
             final double mouseX = e.getX();
@@ -70,25 +61,11 @@ public class CanvasView extends Canvas {
             }
             else {
                 delegate.primaryMouseBtnPressed(mouseX, mouseY);
-                //if (toolLayer.isInBounds(mouseX, mouseY)) {
-                    toolLayer.onDragDetected(e);
-                //}
+                toolLayer.onDragDetected(e);
                 redraw();
             }
             e.consume();
         });
-
-/*        setOnMouseClicked(e -> {
-            if (delegate == null*//*|| e.getButton() != MouseButton.PRIMARY*//*) {
-                return;
-            }
-            final double mouseX = e.getX();
-            final double mouseY = e.getY();
-
-            delegate.primaryMouseBtnPressed(mouseX, mouseY);
-            redraw();
-            e.consume();
-        });*/
 
         setOnMouseDragged(mouseEvent -> {
             toolLayer.onMouseDragged(mouseEvent);
@@ -130,17 +107,6 @@ public class CanvasView extends Canvas {
 
     public ShapeElement elementAt(final double x, final double y) {
         return shapeLayer.elementAt(x, y);
-    }
-
-    public boolean isSelectedElementAt(final double x, final double y) {
-        if (!uiState.hasSelectedId()) {
-            return false;
-        }
-        final ShapeElement element = elementAt(x, y);
-        if (element != null) {
-            return element.getModelRelatedId() == uiState.getSelectedShapeId() && element.isInBounds(x, y);
-        }
-        return false;
     }
 
     public void onDragOver(final double x, final double y) {
