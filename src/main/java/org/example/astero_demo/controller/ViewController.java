@@ -30,8 +30,8 @@ public class ViewController extends AbstractController {
         adapter.onCreateUpdate(id);
     }
 
-    public void onModifyUpdate() {
-        adapter.onModifyUpdate();
+    public void onModifyUpdate(final int id) {
+        adapter.onModifyUpdate(id);
     }
 
     public void onRemoveUpdate() {

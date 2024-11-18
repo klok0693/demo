@@ -46,6 +46,8 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
             final double mouseX = e.getX();
             final double mouseY = e.getY();
 
+            requestFocus();
+
             if (uiState.isInInsertMode()) {
                 toolLayer.onMousePressed(mouseX, mouseY);
                 e.consume();

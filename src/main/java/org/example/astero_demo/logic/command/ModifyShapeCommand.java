@@ -30,7 +30,7 @@ public class ModifyShapeCommand extends ParamCommand {
 
             modelController.modifyShapeParam(modifyShapeId, info.getParam(), info.getNewValue());
         }
-        viewController.onModifyUpdate();
+        viewController.onModifyUpdate(modifyShapeId);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class ModifyShapeCommand extends ParamCommand {
         for (final ParamInfo info : paramInfos) {
             modelController.modifyShapeParam(modifyShapeId, info.getParam(), info.getOldValue());
         }
-        viewController.onModifyUpdate();
+        viewController.onModifyUpdate(modifyShapeId);
     }
 }

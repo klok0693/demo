@@ -49,10 +49,10 @@ public class UIModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public PropertyAdapter providePropertyAdapter(
+    public PropertyPanelAdapter providePropertyAdapter(
             final ViewController controller,
             final UIState uiState) {
-        return new PropertyAdapter(controller, uiState);
+        return new PropertyPanelAdapter(controller, uiState);
     }
 
     @Inject
@@ -77,11 +77,11 @@ public class UIModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public LayersAdapter provideLayersAdapter(
+    public LayersPanelAdapter provideLayersAdapter(
             final ViewController controller,
             final UIState uiState,
             final ModelState holder) {
-        return new LayersAdapter(controller, uiState, holder);
+        return new LayersPanelAdapter(controller, uiState, holder);
     }
 
     @Inject

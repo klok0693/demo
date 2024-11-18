@@ -6,16 +6,16 @@ import org.example.astero_demo.adapter.ui.*;
 
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
-    private final LayersAdapter layersAdapter;
-    private final PropertyAdapter propertyAdapter;
+    private final LayersPanelAdapter layersAdapter;
+    private final PropertyPanelAdapter propertyAdapter;
     private final CanvasAdapter canvasAdapter;
     private final ToolBarAdapter toolBarAdapter;
     private final RootAdapter rootAdapter;
 
     @Inject
     public CustomControllerFactory(
-            final LayersAdapter layersAdapter,
-            final PropertyAdapter propertyAdapter,
+            final LayersPanelAdapter layersAdapter,
+            final PropertyPanelAdapter propertyAdapter,
             final CanvasAdapter canvasAdapter,
             final ToolBarAdapter toolBarAdapter,
             final RootAdapter rootAdapter) {
@@ -37,10 +37,10 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
         if (aClass.isAssignableFrom(RootAdapter.class)) {
             return rootAdapter;
         }
-        if (aClass.isAssignableFrom(PropertyAdapter.class)) {
+        if (aClass.isAssignableFrom(PropertyPanelAdapter.class)) {
             return propertyAdapter;
         }
-        if (aClass.isAssignableFrom(LayersAdapter.class)) {
+        if (aClass.isAssignableFrom(LayersPanelAdapter.class)) {
             return layersAdapter;
         }
         return null;

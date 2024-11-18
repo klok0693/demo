@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
-public class PropertyAdapter extends LeafAdapter {
+public class PropertyPanelAdapter extends LeafAdapter {
 
     public TextField xField;
     public TextField yField;
@@ -27,7 +27,7 @@ public class PropertyAdapter extends LeafAdapter {
     public TextField layerField;
     public ColorPicker colorField;
 
-    public PropertyAdapter(final ViewController controller, final UIState uiState) {
+    public PropertyPanelAdapter(final ViewController controller, final UIState uiState) {
         super(controller, uiState);
     }
 

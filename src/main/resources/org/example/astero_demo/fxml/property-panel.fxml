@@ -6,13 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import org.example.astero_demo.port.ui.PropertyView?>
+<?import org.example.astero_demo.port.ui.PropertyPanelView?>
 <?import java.net.URL?>
-<PropertyView xmlns="http://javafx.com/javafx"
-              xmlns:fx="http://javafx.com/fxml"
-              fx:id="propertyRoot"
-              fx:controller="org.example.astero_demo.adapter.ui.PropertyAdapter"
-              prefHeight="380.0" prefWidth="240.0">
+<PropertyPanelView xmlns="http://javafx.com/javafx"
+                   xmlns:fx="http://javafx.com/fxml"
+                   fx:id="propertyRoot"
+                   fx:controller="org.example.astero_demo.adapter.ui.PropertyPanelAdapter"
+                   prefHeight="380.0" prefWidth="240.0">
 
     <stylesheets>
         <URL value="@../css/property-panel.css"/>
@@ -49,4 +49,4 @@
         <ColorPicker fx:id="colorField" GridPane.rowIndex="3" GridPane.columnIndex="1" disable="true" onAction="#updateColor"/>
     </GridPane>
 
-</PropertyView>
+</PropertyPanelView>

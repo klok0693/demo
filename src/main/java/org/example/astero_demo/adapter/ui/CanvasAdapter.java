@@ -2,13 +2,12 @@ package org.example.astero_demo.adapter.ui;
 
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
-import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
+import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
-import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +36,7 @@ public class CanvasAdapter extends LeafAdapter {
             //controller.process(new CreateNewShapeEvent(x, y));
         }
         else {
-            sendEvent(new SelectElementEvent(x, y));
+            sendEvent(new SelectElementByPositionEvent(x, y));
         }
 /*        else if (canvas.hasAnyElement(x, y)) {
             sendEvent(new SelectElementEvent(x, y));

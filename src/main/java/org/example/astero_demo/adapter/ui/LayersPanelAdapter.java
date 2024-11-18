@@ -5,7 +5,8 @@ import javafx.scene.control.TreeView;
 import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
-import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
+import org.example.astero_demo.adapter.ui.event.SelectElementById;
+import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 
@@ -17,12 +18,12 @@ import java.util.stream.Collectors;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class LayersAdapter extends LeafAdapter {
+public class LayersPanelAdapter extends LeafAdapter {
     private final ModelState modelState;
 
     public TreeView<String> layersTree;
 
-    public LayersAdapter(
+    public LayersPanelAdapter(
             final ViewController controller,
             final UIState uiState,
             final ModelState modelState) {
@@ -68,8 +69,7 @@ public class LayersAdapter extends LeafAdapter {
             final TreeItem<String> selectedItem = layersTree.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 final String id = selectedItem instanceof final LayerItem item ? item.getFirstChildId() : selectedItem.getValue();
-                final Shape shape = modelState.getShape(parseInt(id));
-                parent.processEvent(new SelectElementEvent(parseDouble(shape.getX()), parseDouble(shape.getY())));
+                parent.processEvent(new SelectElementById(Integer.parseInt(id)));
             }
         });
     }

@@ -23,8 +23,8 @@ public class RootAdapter extends ParentAdapter {
     public ToolBarAdapter toolBarRootController;
     /*@FXML*/
     public CanvasAdapter canvasRootController;
-    public PropertyAdapter propertyRootController;
-    public LayersAdapter layersRootController;
+    public PropertyPanelAdapter propertyRootController;
+    public LayersPanelAdapter layersRootController;
 
     private final RootShortcutHandler shortcutHandler;
     /*@FXML*/
@@ -55,10 +55,8 @@ public class RootAdapter extends ParentAdapter {
         selectElement(id);
     }
 
-    public void onModifyUpdate() {
-        // TODO: bug with ctrl+z without selection. Modify accrding to id, not position
-        //selectElement(uiState.getSelectedX(), uiState.getSelectedY());
-        selectElement(uiState.getSelectedShapeId());
+    public void onModifyUpdate(final int id) {
+        selectElement(id);
     }
 
     public void onRemoveUpdate() {
@@ -77,8 +75,11 @@ public class RootAdapter extends ParentAdapter {
 
     @Override
     public void processEvent(final UIEvent event) {
-        if (event instanceof final SelectElementEvent e) {
+        if (event instanceof final SelectElementByPositionEvent e) {
             selectElement(e.getX(), e.getY());
+        }
+        else if (event instanceof final SelectElementById e) {
+            selectElement(e.getSelectedId());
         }
         else if (event instanceof final InsertModeEvent e) {
             uiState.setIsInInsertMode(true);
