@@ -8,7 +8,7 @@ import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
-import org.example.astero_demo.port.ui.canvas.CanvasView;
+import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
-public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDelegate {
+public class CanvasAdapter extends LeafAdapter {
     public CanvasView canvasRoot;
 
     public CanvasAdapter(final ViewController controller, final UIState uiState) {
@@ -24,17 +24,13 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
     }
 
     @Override
-    public void initialize(final URL url, final ResourceBundle resourceBundle) {
-        //canvas.redraw();
-        canvasRoot.requestFocus();
-    }
+    public void initialize(final URL url, final ResourceBundle resourceBundle) {}
 
     @Override
     public void update() {
-        canvasRoot.update(uiState.isInInsertMode() || !uiState.hasSelectedId());
+        canvasRoot.update();
     }
 
-    @Override
     public void primaryMouseBtnPressed(final double x, final double y) {
         if (uiState.isInInsertMode()) {
             //sendEvent(new SelectElementEvent(-1, -1));
@@ -51,7 +47,6 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
         }*/
     }
 
-    @Override
     public void onDragOver(final double x, final double y) {
         update();
 
@@ -65,7 +60,6 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
         controller.process(event);
     }
 
-    @Override
     public void onDragOver(final double x, final double y, final double width, final double height) {
         update();
 
@@ -83,5 +77,12 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
 
     public Shape selectElement(final double x, final double y) {
         return canvasRoot.selectElement(x, y);
+    }
+
+    public interface CanvasView {
+
+        Shape selectElement(double mouseX, double mouseY);
+
+        void update();
     }
 }

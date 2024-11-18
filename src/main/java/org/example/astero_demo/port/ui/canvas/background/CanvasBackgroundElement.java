@@ -28,7 +28,4 @@ class CanvasBackgroundElement extends CanvasElement {
             }
         }
     }
-
-    @Override
-    public void destroyLinks() {}
 }

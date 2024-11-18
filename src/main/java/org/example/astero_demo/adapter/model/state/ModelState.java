@@ -16,6 +16,8 @@ public interface ModelState {
 
     Shape getShape(int id);
 
+    Stream<Shape> findShapeAt(double x, double y);
+
     Stream<Shape> findShapes(Predicate<Shape>... predicates);
 
     void saveShape(Shape shape);

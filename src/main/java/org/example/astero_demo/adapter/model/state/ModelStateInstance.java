@@ -22,6 +22,11 @@ public class ModelStateInstance implements ModelState {
     }
 
     @Override
+    public Stream<Shape> findShapeAt(final double x, final double y) {
+        return findShapes(shape -> shape.isInBounds(x, y));
+    }
+
+    @Override
     public Stream<Shape> findShapes(final Predicate<Shape>... predicates) {
         return filterShapes(getShapes(), new LinkedList<>(Arrays.asList(predicates)));
     }

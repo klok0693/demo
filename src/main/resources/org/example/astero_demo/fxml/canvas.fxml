@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import org.example.astero_demo.port.ui.canvas.CanvasView?>
+<?import org.example.astero_demo.port.ui.canvas.ShapeCanvasView?>
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.net.URL?>
 
 <?import javafx.scene.control.Button?>
-<CanvasView xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:id="canvasRoot"
-            fx:controller="org.example.astero_demo.adapter.ui.CanvasAdapter"
-            width="710" height="620">
+<ShapeCanvasView xmlns="http://javafx.com/javafx"
+                 xmlns:fx="http://javafx.com/fxml"
+                 fx:id="canvasRoot"
+                 fx:controller="org.example.astero_demo.adapter.ui.CanvasAdapter"
+                 width="710" height="620">
 
 <!--    <stylesheets>
         <URL value="@../css/canvas.css"/>
@@ -18,4 +18,4 @@
 
     <CanvasView fx:id="canvas" width="710" height="620"/>-->
 
-</CanvasView>
+</ShapeCanvasView>

@@ -9,7 +9,7 @@ import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
-import org.example.astero_demo.port.ui.canvas.CanvasView;
+import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 import java.awt.*;
 import java.net.URL;
@@ -30,7 +30,7 @@ public class RootAdapter extends ParentAdapter {
     /*@FXML*/
     public RootView root;
 
-    public CanvasView canvasRoot;
+    public ShapeCanvasView canvasRoot;
 
     public RootAdapter(final ViewController controller, final MutableUIState uiState, final RootShortcutHandler shortcutHandler) {
         super(controller, uiState);

@@ -5,31 +5,27 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.adapter.ui.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.port.ui.canvas.CanvasView;
 import org.example.astero_demo.util.ColorUtils;
 
 import static java.lang.Double.parseDouble;
-import static java.lang.String.valueOf;
 
 public class DragShapeTool extends DraggableTool {
-
-    //private final CanvasView canvasView;
-    private final CanvasView.CanvasDelegate delegate;
+    private final CanvasAdapter adapter;
     private final ModelState modelState;
     private final UIState uiState;
 
     private Color color;
-
     private double xOffset;
     private double yOffset;
 
     public DragShapeTool(
-            final CanvasView.CanvasDelegate delegate,
+            final CanvasAdapter adapter,
             final ModelState modelState,
             final UIState uiState) {
-        super(-1, -1, -1, -1, 1);
-        this.delegate = delegate;
+        super(1);
+        this.adapter = adapter;
         this.modelState = modelState;
         this.uiState = uiState;
         this.color = null;
@@ -41,6 +37,7 @@ public class DragShapeTool extends DraggableTool {
     protected void drawElement(final GraphicsContext gc) {
         gc.setFill(color);
         gc.setGlobalAlpha(OPACITY);
+
         switch (uiState.getSelectedShapeType()) {
             case RECT:
                 gc.fillRect(x - xOffset, y - yOffset, width, height);
@@ -52,21 +49,12 @@ public class DragShapeTool extends DraggableTool {
     }
 
     @Override
-    public void destroyLinks() {
-
-    }
-
-    @Override
     public boolean onDragDetected(final MouseEvent event) {
         final double mouseX = event.getX();
         final double mouseY = event.getY();
 
-        final Shape element =  modelState.findShapes(shape -> shape.isInBounds(mouseX, mouseY))
-                .findFirst()
-                .orElse(null);
-
+        final Shape element =  modelState.findShapeAt(mouseX, mouseY).findFirst().orElse(null);
         if (element == null || !element.isInBounds(mouseX, mouseY)) {
-            // TODO: always false?
             return false;
         }
 
@@ -78,19 +66,13 @@ public class DragShapeTool extends DraggableTool {
         this.xOffset = mouseX - parseDouble(element.getX());
         this.yOffset = mouseY - parseDouble(element.getY());
         this.isActive = true;
-        //this.isActive = true;
-
         return true;
     }
 
     @Override
-    public void onMouseDragged(final double mouseX, final double mouseY) {
-        if (!isActive) {
-            return;
-        }
-
-        this.x = mouseX;
-        this.y = mouseY;
+    protected void update(final double x, final double y) {
+        this.x = x;
+        this.y = y;
         this.isVisible = true;
     }
 
@@ -104,7 +86,7 @@ public class DragShapeTool extends DraggableTool {
         final double[] dragPosition = new double[] {x - xOffset, y - yOffset};
         reset();
         if (uiState.hasSelectedId() && isOnBounds) {
-            delegate.onDragOver(dragPosition[0], dragPosition[1]);
+            adapter.onDragOver(dragPosition[0], dragPosition[1]);
         }
     }
 }

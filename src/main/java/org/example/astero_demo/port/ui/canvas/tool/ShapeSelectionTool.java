@@ -6,7 +6,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
-import org.example.astero_demo.port.ui.canvas.CanvasView;
+import org.example.astero_demo.adapter.ui.CanvasAdapter;
+import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,13 +17,13 @@ import static java.lang.String.valueOf;
 import static javafx.geometry.Pos.*;
 
 public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, CanvasDraggable {
-    private final CanvasView.CanvasDelegate delegate;
+    private final CanvasAdapter adapter;
     private final ModelState modelState;
     private final List<ContactPoint> contactPoints;
 
-    public ShapeSelectionTool(final CanvasView.CanvasDelegate delegate, final ModelState holder) {
+    public ShapeSelectionTool(final CanvasAdapter adapter, final ModelState holder) {
         super(-1, -1, -1, -1, 0);
-        this.delegate = delegate;
+        this.adapter = adapter;
         this.modelState = holder;
         this.isVisible = false;
 
@@ -52,9 +53,6 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         super.reset();
         contactPoints.forEach(ContactPoint::reset);
     }
-
-    @Override
-    public void destroyLinks() {}
 
     @Override
     public void onMousePressed(final double mouseX, final double mouseY) {
@@ -100,7 +98,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     @Override
     public void onMouseDragged(final double mouseX, final double mouseY) {
         contactPoints.stream()
-                .filter(point -> point.isSelected)
+                .filter(point -> point.isActive)
                 .forEach(point -> point.onMouseDragged(mouseX, mouseY));
     }
 
@@ -117,17 +115,15 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         return isInShapeBounds ? isInShapeBounds : contactPoints.stream().anyMatch(contact -> contact.isInBounds(x, y));
     }
 
-    private class ContactPoint extends CanvasTool implements CanvasDraggable {
+    private class ContactPoint extends DraggableTool {
         private static final double RADIUS = 16.0;
 
         private final Pos alignment;
-        private boolean isSelected;
 
         protected ContactPoint(final int layer, final Pos alignment) {
-            super(-1, -1, RADIUS, RADIUS, layer);
+            super(RADIUS, RADIUS, layer);
             this.alignment = alignment;
-            this.isVisible = true;
-            this.isSelected = false;
+            this.isVisible = false;
         }
 
 /*        public void update(final double x, final double y) {
@@ -139,6 +135,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
             this.y = y;
             this.width = width;
             this.height = height;
+            this.isVisible = true;
         }
 
         @Override
@@ -153,19 +150,9 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         }
 
         @Override
-        public void reset() {
-            this.isSelected = false;
-        }
-
-        @Override
-        public void destroyLinks() {
-
-        }
-
-        @Override
         public boolean onDragDetected(final MouseEvent event) {
             if (isVisible && isInBounds(event.getX(), event.getY())) {
-                this.isSelected = true;
+                this.isActive = true;
                 ShapeSelectionTool.this.isVisible = true;
                 return true;
             }
@@ -173,11 +160,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         }
 
         @Override
-        public void onMouseDragged(final double mouseX, final double mouseY) {
-            if (!isSelected) {
-                return;
-            }
-
+        protected void update(double mouseX, double mouseY) {
             final double parentX = ShapeSelectionTool.this.x;
             final double parentY = ShapeSelectionTool.this.y;
             final double parentWidth = ShapeSelectionTool.this.width;
@@ -197,7 +180,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
         @Override
         public void onMouseReleased(final MouseEvent event, final boolean isOnBounds) {
-            if (!isSelected) {
+            if (!isActive) {
                 return;
             }
 
@@ -207,7 +190,12 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
             final double parentHeight = ShapeSelectionTool.this.height;
 
             reset();
-            delegate.onDragOver(parentX, parentY, parentWidth, parentHeight);
+            adapter.onDragOver(parentX, parentY, parentWidth, parentHeight);
+        }
+
+        @Override
+        public void reset() {
+            super.reset();
         }
     }
 }

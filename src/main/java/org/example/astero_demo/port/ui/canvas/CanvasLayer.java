@@ -38,13 +38,7 @@ public class CanvasLayer<T extends Drawable> implements Drawable, Comparable<Can
     }
 
     public void removeAll() {
-        children.forEach(Drawable::destroyLinks);
         children = FXCollections.observableArrayList();
-    }
-
-    @Override
-    public void destroyLinks() {
-        removeAll();
     }
 
     @Override

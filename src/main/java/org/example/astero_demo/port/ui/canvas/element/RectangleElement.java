@@ -25,7 +25,4 @@ public class RectangleElement extends ShapeElement {
         gc.setFill(fillColor);
         gc.fillRect(x, y, width, height);
     }
-
-    @Override
-    public void destroyLinks() {}
 }

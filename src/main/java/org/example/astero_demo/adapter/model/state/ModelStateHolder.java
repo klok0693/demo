@@ -30,6 +30,14 @@ public enum ModelStateHolder implements ModelState {
     }
 
     @Override
+    public Stream<Shape> findShapeAt(final double x, final double y) {
+        return Optional.ofNullable(currentState)
+                .map(state -> state.findShapeAt(x, y))
+                .orElse(null);
+    }
+
+
+    @Override
     public Stream<Shape> findShapes(final Predicate<Shape>... predicates) {
         return Optional.ofNullable(currentState)
                 .map(state -> state.findShapes(predicates))

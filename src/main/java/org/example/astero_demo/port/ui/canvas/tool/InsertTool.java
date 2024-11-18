@@ -3,17 +3,17 @@ package org.example.astero_demo.port.ui.canvas.tool;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import lombok.Setter;
+import org.example.astero_demo.adapter.ui.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.port.ui.canvas.CanvasView;
+import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 public class InsertTool extends DraggableTool implements CanvasClickable {
-    private final CanvasView.CanvasDelegate delegate;
+    private final CanvasAdapter adapter;
     private final UIState uiState;
 
-    public InsertTool(final CanvasView.CanvasDelegate delegate, final UIState uiState) {
-        super(-1, -1, -1, -1, 2);
-        this.delegate = delegate;
+    public InsertTool(final CanvasAdapter adapter, final UIState uiState) {
+        super(2);
+        this.adapter = adapter;
         this.uiState = uiState;
     }
 
@@ -36,11 +36,6 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
     }
 
     @Override
-    public void destroyLinks() {
-
-    }
-
-    @Override
     public void onMousePressed(final double x, final double y) {
         this.x = x;
         this.y = y;
@@ -53,13 +48,9 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
     }
 
     @Override
-    public void onMouseDragged(final double mouseX, final double mouseY) {
-        if (!isActive) {
-            return;
-        }
-        this.width = mouseX - this.x;
-        this.height = mouseY - this.y;
-
+    protected void update(double x, double y) {
+        this.width = x - this.x;
+        this.height = y - this.y;
         this.isVisible = true;
     }
 
@@ -69,7 +60,7 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
         if (!isActive) {
             return;
         }
-        delegate.onDragOver(this.x, this.y, this.width, this.height);
+        adapter.onDragOver(this.x, this.y, this.width, this.height);
         reset();
     }
 }

@@ -7,14 +7,23 @@ public abstract class DraggableTool extends CanvasTool implements CanvasDraggabl
     protected static final double OPACITY = 0.4;
     protected boolean isActive = false;
 
-    protected DraggableTool(
-            final double x,
-            final double y,
-            final double width,
-            final double height,
-            final int layer) {
-        super(x, y, width, height, layer);
+    protected DraggableTool(final int layer) {
+        super(-1, -1, -1, -1, layer);
     }
+
+    protected DraggableTool(final double width, final double height, final int layer) {
+        super(-1, -1, width, height, layer);
+    }
+
+    @Override
+    public void onMouseDragged(double x, double y) {
+        if (!isActive) {
+            return;
+        }
+        update(x, y);
+    }
+
+    protected abstract void update(double x, double y);
 
     @Override
     public void reset() {

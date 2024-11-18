@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.adapter.ui.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
@@ -15,20 +16,22 @@ import java.util.Optional;
 
 import static java.lang.String.valueOf;
 
-public class CanvasView extends Canvas {
+public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView {
 
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
+    private final UIState uiState;
     private final ModelState modelState;
 
-    public CanvasView(
+    public ShapeCanvasView(
             final UIState uiState,
             final ModelState modelState,
-            final CanvasDelegate delegate,
+            final CanvasAdapter adapter,
             final BackgroundLayer backgroundLayer,
             final ToolLayer toolLayer) {
         this.modelState = modelState;
+        this.uiState = uiState;
         setFocusTraversable(true);
 
         layers.add(backgroundLayer);
@@ -50,7 +53,7 @@ public class CanvasView extends Canvas {
             }
 
             if (!hasElementOn(mouseX, mouseY) && !toolLayer.isInBounds(mouseX, mouseY)) {
-                delegate.primaryMouseBtnPressed(mouseX, mouseY);
+                adapter.primaryMouseBtnPressed(mouseX, mouseY);
                 redraw();
             }
             else if (toolLayer.isInBounds(mouseX, mouseY)) {
@@ -58,7 +61,7 @@ public class CanvasView extends Canvas {
                 redraw();
             }
             else {
-                delegate.primaryMouseBtnPressed(mouseX, mouseY);
+                adapter.primaryMouseBtnPressed(mouseX, mouseY);
                 toolLayer.onDragDetected(e);
                 redraw();
             }
@@ -93,14 +96,16 @@ public class CanvasView extends Canvas {
         });
     }
 
-    public void update(final boolean hideTools) {
+    @Override
+    public void update() {
         shapeLayer.update();
-        if (hideTools) {
+        if (uiState.isInInsertMode() || !uiState.hasSelectedId()) {
             toolLayer.resetAll();
         }
         redraw();
     }
 
+    @Override
     public Shape selectElement(final double mouseX, final double mouseY) {
         final Shape element = findShape(mouseX, mouseY).orElse(null);;
         toolLayer.onMousePressed(mouseX, mouseY);
@@ -113,15 +118,6 @@ public class CanvasView extends Canvas {
     }
 
     private Optional<Shape> findShape(final double mouseX, final double mouseY) {
-        return modelState.findShapes(shape -> shape.isInBounds(mouseX, mouseY)).findFirst();
-    }
-
-    public interface CanvasDelegate {
-
-        void primaryMouseBtnPressed(double x, double y);
-
-        void onDragOver(double x, double y);
-
-        void onDragOver(double x, double y, double width, double height);
+        return modelState.findShapeAt(mouseX, mouseY).findFirst();
     }
 }

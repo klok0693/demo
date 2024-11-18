@@ -1,10 +1,8 @@
 package org.example.astero_demo.port.ui.canvas.tool;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
-import org.example.astero_demo.port.ui.canvas.CanvasView;
 
 import java.util.function.Consumer;
 
@@ -55,15 +53,10 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
         if (uiState.isInInsertMode()) {
             return insertTool.onDragDetected(event);
         }
-        final boolean isOnContactPoint = selectionTool.onDragDetected(event);
-        if (!isOnContactPoint) {
-            if (uiState.hasSelectedId()) {
-                dragTool.onDragDetected(event);
-                return true;
-            }
-            else return false;
+        if (selectionTool.onDragDetected(event)) {
+            return true;
         }
-        else return isOnContactPoint;
+        return uiState.hasSelectedId() && dragTool.onDragDetected(event);
     }
 
 /*    public boolean hasActiveTool() {

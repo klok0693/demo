@@ -21,9 +21,4 @@ public class OvalElement extends ShapeElement {
         gc.setFill(fillColor);
         gc.fillOval(x, y, width, height);
     }
-
-    @Override
-    public void destroyLinks() {
-
-    }
 }

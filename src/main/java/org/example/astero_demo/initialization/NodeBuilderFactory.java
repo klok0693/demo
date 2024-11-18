@@ -5,17 +5,17 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.canvas.Canvas;
 import javafx.util.Builder;
 import javafx.util.BuilderFactory;
-import org.example.astero_demo.port.ui.canvas.CanvasView;
+import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 import java.util.HashMap;
 
 public class NodeBuilderFactory implements BuilderFactory {
-    private final CanvasView canvasView;
+    private final ShapeCanvasView canvasView;
 
     private final BuilderFactory defaultBuilderFactory = new JavaFXBuilderFactory();
 
     @Inject
-    public NodeBuilderFactory(final CanvasView view) {
+    public NodeBuilderFactory(final ShapeCanvasView view) {
         this.canvasView = view;
     }
 
@@ -28,9 +28,9 @@ public class NodeBuilderFactory implements BuilderFactory {
     }
 
     static class CanvasBuilder extends HashMap<String, String> implements Builder<Canvas> {
-        private final CanvasView canvasView;
+        private final ShapeCanvasView canvasView;
 
-        CanvasBuilder(final CanvasView canvasView) {
+        CanvasBuilder(final ShapeCanvasView canvasView) {
             this.canvasView = canvasView;
         }
 
