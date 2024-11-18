@@ -1,12 +1,9 @@
 package org.example.astero_demo.initialization.di;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Scope;
-import com.google.inject.Scopes;
+import com.google.inject.*;
 import org.example.astero_demo.adapter.model.ModelAdapter;
 import org.example.astero_demo.adapter.model.ShapeFactory;
 import org.example.astero_demo.adapter.model.StateHolder;
-import org.example.astero_demo.initialization.di.provider.model.ModelAdapterProvider;
 
 public class ModelModule extends AbstractModule {
 
@@ -14,6 +11,13 @@ public class ModelModule extends AbstractModule {
     protected void configure() {
         bind(StateHolder.class).toInstance(StateHolder.INSTANCE);
         bind(ShapeFactory.class).toInstance(ShapeFactory.INSTANCE);
-        bind(ModelAdapter.class).toProvider(ModelAdapterProvider.class).in(Scopes.SINGLETON);
+        //bind(ModelAdapter.class).toProvider(ModelAdapterProvider.class).in(Scopes.SINGLETON);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public ModelAdapter provideModelAdapter(final ShapeFactory factory, final StateHolder holder) {
+        return new ModelAdapter(factory, holder);
     }
 }

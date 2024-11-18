@@ -5,10 +5,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
+import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 import org.example.astero_demo.util.ColorUtils;
 
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
+
 @EqualsAndHashCode
-public abstract class Shape {
+public abstract class Shape implements Comparable<Shape> {
     @Getter
     private int id;
     @Getter @Setter
@@ -55,6 +59,21 @@ public abstract class Shape {
         this.width = width;
         this.height = height;
         this.color = StringUtils.isNotBlank(color) ? color : String.valueOf(ColorUtils.convert(Color.GREEN));
+    }
+
+    public boolean isInBounds(final double x, final double y) {
+        final double shapeX = parseDouble(this.x);
+        final double shapeY = parseDouble(this.y);
+        final double shapeWidth = parseDouble(this.width);
+        final double shapeHeight = parseDouble(this.height);
+
+        return x >= shapeX && x <= (shapeX + shapeWidth)
+                && y >= shapeY && y <= (shapeY + shapeHeight);
+    }
+
+    @Override
+    public int compareTo(final Shape o) {
+        return Integer.compare(parseInt(priority), parseInt(o.priority));
     }
 
     public abstract ShapeType getType();

@@ -3,6 +3,7 @@ package org.example.astero_demo.adapter.ui;
 import javafx.geometry.Point2D;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.ParamInfo;
+import org.example.astero_demo.adapter.model.Shape;
 import org.example.astero_demo.adapter.model.ShapeType;
 import org.example.astero_demo.adapter.ui.event.*;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
@@ -49,9 +50,7 @@ public class RootAdapter extends ParentAdapter {
         this.layersRootController.setParent(this);
 
         root.setUiState(uiState);
-
         root.setOnKeyPressed(shortcutHandler::handle);
-        //shortcutHandler.setParentAdapter(this);
     }
 
     public void onCreateUpdate(final double newShapeX, final double newShapeY) {
@@ -111,8 +110,8 @@ public class RootAdapter extends ParentAdapter {
         uiState.setIsInInsertMode(false);
         updateChildren();
 
-        final ShapeElement selectedShape = canvasRootController.selectElement(shapeX, shapeY);
-        final Integer shapeId = selectedShape != null ? selectedShape.getModelRelatedId() : null;
+        final Shape selectedShape = canvasRootController.selectElement(shapeX, shapeY);
+        final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 
         uiState.setSelectShape(shapeId);
         updateChildren();

@@ -12,6 +12,7 @@ public class ProviderModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        // LOGIC
         bind(CommandFactoryProvider.class).in(Scopes.SINGLETON);
 
         //CONTROLLER
@@ -20,10 +21,6 @@ public class ProviderModule extends AbstractModule {
 
         //UI
         bind(ShortcutHandlerProvider.class).in(Scopes.SINGLETON);
-        bind(CanvasAdapterProvider.class).in(Scopes.SINGLETON);
-        bind(LayersAdapterProvider.class).in(Scopes.SINGLETON);
-        bind(PropertyAdapterProvider.class).in(Scopes.SINGLETON);
-        bind(ToolBarAdapterProvider.class).in(Scopes.SINGLETON);
         bind(RootAdapterProvider.class).in(Scopes.SINGLETON);
     }
 }

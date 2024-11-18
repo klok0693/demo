@@ -8,17 +8,17 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
 
 public class InsertTool extends DraggableTool implements CanvasClickable {
-    private final CanvasView canvasView;
-    @Setter
-    private UIState uiState;
+    private final CanvasView.CanvasDelegate delegate;
+    private final UIState uiState;
 
-    protected InsertTool(final CanvasView canvasView, final int layer) {
-        super(-1, -1, -1, -1, layer);
-        this.canvasView = canvasView;
+    public InsertTool(final CanvasView.CanvasDelegate delegate, final UIState uiState) {
+        super(-1, -1, -1, -1, 2);
+        this.delegate = delegate;
+        this.uiState = uiState;
     }
 
     @Override
-    protected void drawElement(GraphicsContext gc) {
+    protected void drawElement(final GraphicsContext gc) {
         if (!isVisible) {
             return;
         }
@@ -53,23 +53,23 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
     }
 
     @Override
-    public void onMouseDragged(final MouseEvent event) {
+    public void onMouseDragged(final double mouseX, final double mouseY) {
         if (!isActive) {
             return;
         }
-        this.width = event.getX() - this.x;
-        this.height = event.getY() - this.y;
+        this.width = mouseX - this.x;
+        this.height = mouseY - this.y;
 
         this.isVisible = true;
     }
 
     @Override
-    public void onMouseReleased(final MouseEvent event) {
+    public void onMouseReleased(final MouseEvent event, final boolean isOnBounds) {
         this.isVisible = false;
         if (!isActive) {
             return;
         }
-        canvasView.onDragOver(this.x, this.y, this.width, this.height);
+        delegate.onDragOver(this.x, this.y, this.width, this.height);
         reset();
     }
 }

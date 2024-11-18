@@ -4,27 +4,42 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import lombok.Setter;
+import org.example.astero_demo.adapter.model.ParamInfo;
+import org.example.astero_demo.adapter.model.Shape;
+import org.example.astero_demo.adapter.model.ShapeParam;
+import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
 import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
+import org.example.astero_demo.util.ColorUtils;
+
+import static java.lang.Double.parseDouble;
+import static java.lang.String.valueOf;
+import static org.example.astero_demo.adapter.model.ParamInfo.create;
 
 public class DragShapeTool extends DraggableTool {
 
-    private final CanvasView canvasView;
-    @Setter
-    private UIState uiState;
+    //private final CanvasView canvasView;
+    private final CanvasView.CanvasDelegate delegate;
+    private final StateHolder stateHolder;
+    private final UIState uiState;
 
     private Color color;
 
     private double xOffset;
     private double yOffset;
 
-    public DragShapeTool(final CanvasView canvasView, final int layer) {
-        super(-1, -1, -1, -1, layer);
+    public DragShapeTool(
+            final CanvasView.CanvasDelegate delegate,
+            final StateHolder stateHolder,
+            final UIState uiState) {
+        super(-1, -1, -1, -1, 1);
+        this.delegate = delegate;
+        this.stateHolder = stateHolder;
+        this.uiState = uiState;
         this.color = null;
         this.xOffset = -1;
         this.yOffset = -1;
-        this.canvasView = canvasView;
     }
 
     @Override
@@ -51,7 +66,10 @@ public class DragShapeTool extends DraggableTool {
         final double mouseX = event.getX();
         final double mouseY = event.getY();
 
-        final ShapeElement element = canvasView.elementAt(mouseX, mouseY);
+        final Shape element =  stateHolder.findShapes(shape -> shape.isInBounds(mouseX, mouseY))
+                .findFirst()
+                .orElse(null);
+
         if (element == null || !element.isInBounds(mouseX, mouseY)) {
             // TODO: always false?
             return false;
@@ -59,11 +77,11 @@ public class DragShapeTool extends DraggableTool {
 
         this.x = mouseX;
         this.y = mouseY;
-        this.width = element.getWidth();
-        this.height = element.getHeight();
-        this.color = element.getFillColor();
-        this.xOffset = mouseX - element.getX();
-        this.yOffset = mouseY - element.getY();
+        this.width = parseDouble(element.getWidth());
+        this.height = parseDouble(element.getHeight());
+        this.color = ColorUtils.convert(element.getColor());
+        this.xOffset = mouseX - parseDouble(element.getX());
+        this.yOffset = mouseY - parseDouble(element.getY());
         this.isActive = true;
         //this.isActive = true;
 
@@ -71,24 +89,18 @@ public class DragShapeTool extends DraggableTool {
     }
 
     @Override
-    public void onMouseDragged(final MouseEvent event) {
+    public void onMouseDragged(final double mouseX, final double mouseY) {
         if (!isActive) {
             return;
         }
-        final double mouseX = event.getX();
-        final double mouseY = event.getY();
 
-        final double endX = canvasView.getLayoutX() + canvasView.getWidth();
-        final double endY = canvasView.getLayoutY() + canvasView.getHeight();
-
-        this.x = Math.min(Math.max(0, mouseX), endX);
-        this.y = Math.min(Math.max(0, mouseY), endY);
-
+        this.x = mouseX;
+        this.y = mouseY;
         this.isVisible = true;
     }
 
     @Override
-    public void onMouseReleased(final MouseEvent event) {
+    public void onMouseReleased(final MouseEvent event, final boolean isOnBounds) {
         this.isActive = false;
         if (!isVisible) {
             return;
@@ -96,8 +108,8 @@ public class DragShapeTool extends DraggableTool {
 
         final double[] dragPosition = new double[] {x - xOffset, y - yOffset};
         reset();
-        if (uiState.hasSelectedId() && canvasView.getLayoutBounds().contains(event.getX(), event.getY())) {
-            canvasView.onDragOver(dragPosition[0], dragPosition[1]);
+        if (uiState.hasSelectedId() && isOnBounds) {
+            delegate.onDragOver(dragPosition[0], dragPosition[1]);
         }
     }
 }

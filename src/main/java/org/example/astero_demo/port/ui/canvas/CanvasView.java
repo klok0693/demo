@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import lombok.Setter;
+import org.example.astero_demo.adapter.model.Shape;
 import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.state.UIState;
@@ -17,27 +18,34 @@ import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 
+import java.util.Optional;
+import java.util.function.Predicate;
+
+import static java.lang.String.valueOf;
+import static org.example.astero_demo.adapter.model.ParamInfo.create;
+
 public class CanvasView extends Canvas {
 
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
+    private final StateHolder holder;
 
-    private UIState uiState;
-
-    @Setter
-    private CanvasDelegate delegate;
-
-    public CanvasView() {
+    public CanvasView(
+            final UIState uiState,
+            final StateHolder stateHolder,
+            final CanvasDelegate delegate,
+            final BackgroundLayer backgroundLayer,
+            final ToolLayer toolLayer) {
+        this.holder = stateHolder;
         setFocusTraversable(true);
 
-        final CanvasLayer backgroundLayer = new BackgroundLayer(getGraphicsContext2D());
         layers.add(backgroundLayer);
 
-        shapeLayer = new ShapeLayer(getGraphicsContext2D());
+        this.shapeLayer = new ShapeLayer(getGraphicsContext2D(), stateHolder);
         layers.add(shapeLayer);
 
-        toolLayer = new ToolLayer(getGraphicsContext2D(), this);
+        this.toolLayer = toolLayer;
         layers.add(toolLayer);
 
         setOnMousePressed(e -> {
@@ -50,8 +58,7 @@ public class CanvasView extends Canvas {
                 return;
             }
 
-            final ShapeElement element = elementAt(mouseX, mouseY);
-            if (element == null && !toolLayer.isInBounds(mouseX, mouseY)) {
+            if (!hasElementOn(mouseX, mouseY) && !toolLayer.isInBounds(mouseX, mouseY)) {
                 delegate.primaryMouseBtnPressed(mouseX, mouseY);
                 redraw();
             }
@@ -67,13 +74,22 @@ public class CanvasView extends Canvas {
             e.consume();
         });
 
-        setOnMouseDragged(mouseEvent -> {
-            toolLayer.onMouseDragged(mouseEvent);
+        setOnMouseDragged(event -> {
+            final double mouseX = event.getX();
+            final double mouseY = event.getY();
+
+            final double endX = getLayoutX() + getWidth();
+            final double endY = getLayoutY() + getHeight();
+
+            final double toolX = Math.min(Math.max(0, mouseX), endX);
+            final double toolY = Math.min(Math.max(0, mouseY), endY);
+
+            toolLayer.onMouseDragged(toolX, toolY);
             redraw();
         });
 
-        setOnMouseReleased(mouseEvent -> {
-            toolLayer.onMouseReleased(mouseEvent);
+        setOnMouseReleased(event -> {
+            toolLayer.onMouseReleased(event, getLayoutBounds().contains(event.getX(), event.getY()));
             redraw();
         });
 
@@ -86,40 +102,27 @@ public class CanvasView extends Canvas {
         });
     }
 
-    public void update(final StateHolder holder, final boolean hideTools) {
-        shapeLayer.update(holder);
+    public void update(final boolean hideTools) {
+        shapeLayer.update();
         if (hideTools) {
             toolLayer.resetAll();
         }
         redraw();
     }
 
-/*    public void unselectAll() {
-        selectElement(-1, -1);
-    }*/
-
-    public ShapeElement selectElement(final double x, final double y) {
-        final ShapeElement element = elementAt(x, y);
-        toolLayer.onMousePressed(x, y);
+    public Shape selectElement(final double mouseX, final double mouseY) {
+        final Shape element = findShape(mouseX, mouseY).orElse(null);;
+        toolLayer.onMousePressed(mouseX, mouseY);
         redraw();
         return element;
     }
 
-    public ShapeElement elementAt(final double x, final double y) {
-        return shapeLayer.elementAt(x, y);
+    private boolean hasElementOn(final double mouseX, final double mouseY) {
+        return findShape(mouseX, mouseY).isPresent();
     }
 
-    public void onDragOver(final double x, final double y) {
-        delegate.onDragOver(x, y);
-    }
-
-    public void onDragOver(final double x, final double y, final double width, final double height) {
-        delegate.onDragOver(x, y, width, height);
-    }
-
-    public void setUiState(final UIState uiState) {
-        this.uiState = uiState;
-        toolLayer.setUIState(uiState);
+    private Optional<Shape> findShape(final double mouseX, final double mouseY) {
+        return holder.findShapes(shape -> shape.isInBounds(mouseX, mouseY)).findFirst();
     }
 
     public interface CanvasDelegate {

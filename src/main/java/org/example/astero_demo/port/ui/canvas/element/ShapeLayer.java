@@ -1,5 +1,6 @@
 package org.example.astero_demo.port.ui.canvas.element;
 
+import javafx.collections.WeakListChangeListener;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.Shape;
@@ -10,14 +11,18 @@ import org.example.astero_demo.util.ColorUtils;
 import java.util.stream.Collectors;
 
 public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
-    private final GraphicsContext gc;
+    private final StateHolder holder;
 
-    public ShapeLayer(final GraphicsContext gc) {
-        super(gc, 1);
-        this.gc = gc;
+    public ShapeLayer(final GraphicsContext gc, final StateHolder holder) {
+        super(1);
+        this.holder = holder;
+
+        children.addListener(new WeakListChangeListener<>(change -> {
+            draw(gc);
+        }));
     }
 
-    public void update(final StateHolder holder) {
+    public void update() {
         removeAll();
         final var elements = holder.getShapes()
                 .map(shape -> new Object() {
@@ -27,7 +32,7 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
                 .collect(Collectors.groupingBy(obj -> obj.priority,
                         Collectors.mapping(obj -> obj.drawable, Collectors.toList())));
 
-        elements.keySet().forEach(key -> children.add(new CanvasLayer<>(gc, key)));
+        elements.keySet().forEach(key -> children.add(new CanvasLayer<>(key)));
         children.stream()
                 .map(CanvasLayer.class::cast)
                 .forEach(layer -> elements.get(layer.getPriority()).forEach(layer::add));
@@ -54,14 +59,5 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
                     ColorUtils.convert(Integer.valueOf(shape.getColor()))
             );
         };
-    }
-
-    public ShapeElement elementAt(final double x, final double y) {
-        return children.stream()
-                .sorted()
-                .flatMap(CanvasLayer::getChildren)
-                .filter(elem -> elem.isInBounds(x, y))
-                .reduce((first, second) -> second)
-                .orElse(null);
     }
 }

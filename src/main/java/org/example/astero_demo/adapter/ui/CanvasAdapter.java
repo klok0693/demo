@@ -1,5 +1,6 @@
 package org.example.astero_demo.adapter.ui;
 
+import org.example.astero_demo.adapter.model.Shape;
 import org.example.astero_demo.adapter.model.ShapeParam;
 import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
@@ -20,28 +21,19 @@ import static org.example.astero_demo.adapter.model.ParamInfo.create;
 public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDelegate {
     public CanvasView canvasRoot;
 
-    private final StateHolder holder;
-
-    public CanvasAdapter(
-            final ViewController controller,
-            final StateHolder holder,
-            final UIState uiState) {
+    public CanvasAdapter(final ViewController controller, final UIState uiState) {
         super(controller, uiState);
-        this.holder = holder;
     }
 
     @Override
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
         //canvas.redraw();
-
-        canvasRoot.setDelegate(this);
-        canvasRoot.setUiState(uiState);
         canvasRoot.requestFocus();
     }
 
     @Override
     public void update() {
-        canvasRoot.update(holder, uiState.isInInsertMode() || !uiState.hasSelectedId());
+        canvasRoot.update(uiState.isInInsertMode() || !uiState.hasSelectedId());
     }
 
     @Override
@@ -91,7 +83,7 @@ public class CanvasAdapter extends LeafAdapter implements CanvasView.CanvasDeleg
         controller.process(event);
     }
 
-    public ShapeElement selectElement(final double x, final double y) {
+    public Shape selectElement(final double x, final double y) {
         return canvasRoot.selectElement(x, y);
     }
 }

@@ -27,11 +27,6 @@ public abstract class ShapeElement extends CanvasElement implements Comparable<S
         this.fillColor = fillColor;
     }
 
-    public boolean isInBounds(final double x, final double y) {
-        return x >= this.x && x <= (this.x + this.width)
-                && y >= this.y && y <= (this.y + this.height);
-    }
-
     @Override
     public int compareTo(final ShapeElement o) {
         return Integer.compare(this.layer, o.layer);

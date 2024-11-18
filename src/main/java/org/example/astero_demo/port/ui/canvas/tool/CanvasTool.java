@@ -33,7 +33,7 @@ public abstract class CanvasTool extends CanvasElement implements Comparable<Can
     }
 
     @Override
-    public int compareTo(CanvasTool o) {
+    public int compareTo(final CanvasTool o) {
         return Integer.compare(this.layer, o.layer);
     }
 }

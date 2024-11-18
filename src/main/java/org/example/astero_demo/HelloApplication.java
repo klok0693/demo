@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(final Stage stage) throws IOException {
 
-        Injector injector = Guice.createInjector(
+        final Injector injector = Guice.createInjector(
                 new ProviderModule(),
                 new ModelModule(),
                 new InitializationModule(),
@@ -26,11 +26,12 @@ public class HelloApplication extends Application {
                 new ControllerModule(),
                 new UIModule());
 
-        CustomControllerFactory factory = injector.getInstance(CustomControllerFactory.class);
+        final CustomControllerFactory controllerFactory = injector.getInstance(CustomControllerFactory.class);
+        final NodeBuilderFactory nodeFactory = injector.getInstance(NodeBuilderFactory.class);
 
         final FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
-        fxmlLoader.setControllerFactory(factory);
-        fxmlLoader.setBuilderFactory(new NodeBuilderFactory());
+        fxmlLoader.setControllerFactory(controllerFactory);
+        fxmlLoader.setBuilderFactory(nodeFactory);
         final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
 
         stage.setTitle("untitled");

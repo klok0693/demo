@@ -9,25 +9,28 @@ import org.example.astero_demo.port.ui.canvas.CanvasView;
 import java.util.function.Consumer;
 
 public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickable, CanvasDraggable {
-    private final CanvasView canvasView;
 
     private final ShapeSelectionTool selectionTool;
     private final DragShapeTool dragTool;
     private final InsertTool insertTool;
 
-    private UIState uiState;
+    private final UIState uiState;
 
-    public ToolLayer(final GraphicsContext gc, final CanvasView canvasView) {
-        super(gc, 2);
-        this.canvasView = canvasView;
+    public ToolLayer(
+            final ShapeSelectionTool selectionTool,
+            final DragShapeTool dragTool,
+            final InsertTool insertTool,
+            final UIState uiState) {
+        super(2);
 
-        this.selectionTool = new ShapeSelectionTool(canvasView, 0);
+        this.selectionTool = selectionTool;
+        this.uiState = uiState;
         add(selectionTool);
 
-        this.dragTool = new DragShapeTool(canvasView, 1);
+        this.dragTool = dragTool;
         add(dragTool);
 
-        this.insertTool = new InsertTool(canvasView, 2);
+        this.insertTool = insertTool;
         add(insertTool);
     }
 
@@ -68,30 +71,23 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
     }*/
 
     @Override
-    public void onMouseDragged(final MouseEvent event) {
-        forEachChildren(CanvasDraggable.class, draggable -> draggable.onMouseDragged(event));
+    public void onMouseDragged(final double mouseX, final double mouseY) {
+        forEachChildren(CanvasDraggable.class, draggable -> draggable.onMouseDragged(mouseX, mouseY));
     }
 
     @Override
-    public void onMouseReleased(final MouseEvent event) {
+    public void onMouseReleased(final MouseEvent event, final boolean isOnBounds) {
         if (uiState.isInInsertMode()) {
-            insertTool.onMouseReleased(event);
+            insertTool.onMouseReleased(event, isOnBounds);
         }
         else if (uiState.hasSelectedId()) {
-            dragTool.onMouseReleased(event);
-            selectionTool.onMouseReleased(event);
-            //forEachChildren(CanvasDraggable.class, draggable -> draggable.onMouseReleased(event));
+            dragTool.onMouseReleased(event, isOnBounds);
+            selectionTool.onMouseReleased(event, isOnBounds);
         }
     }
 
     public void resetAll() {
         getChildren().forEach(CanvasTool::reset);
-    }
-
-    public void setUIState(final UIState state) {
-        this.uiState = state;
-        dragTool.setUiState(state);
-        insertTool.setUiState(uiState);
     }
 
     private <T> void forEachChildren(final Class<T> tClass, final Consumer<T> consumer) {

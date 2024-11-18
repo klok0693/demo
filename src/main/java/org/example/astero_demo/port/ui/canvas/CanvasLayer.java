@@ -16,11 +16,8 @@ public class CanvasLayer<T extends Drawable> implements Drawable, Comparable<Can
     @Getter
     private int priority;
 
-    public CanvasLayer(final GraphicsContext gc, final int priority) {
+    public CanvasLayer(final int priority) {
         this.priority = priority;
-        children.addListener(new WeakListChangeListener<>(change -> {
-            draw(gc);
-        }));
     }
 
     @Override

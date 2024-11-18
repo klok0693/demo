@@ -3,6 +3,8 @@ package org.example.astero_demo.util;
 import javafx.scene.paint.Color;
 import lombok.experimental.UtilityClass;
 
+import static java.lang.Integer.parseInt;
+
 @UtilityClass
 public class ColorUtils {
 
@@ -21,5 +23,9 @@ public class ColorUtils {
         final int blue = color & 0xFF;
 
         return Color.rgb(red, green, blue, alpha / 255.0);
+    }
+
+    public static Color convert(final String color) {
+        return convert(parseInt(color));
     }
 }

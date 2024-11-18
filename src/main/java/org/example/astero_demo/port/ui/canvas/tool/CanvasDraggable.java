@@ -6,7 +6,7 @@ public interface CanvasDraggable {
 
     boolean onDragDetected(MouseEvent event);
 
-    void onMouseDragged(MouseEvent event);
+    void onMouseDragged(double x, double y);
 
-    void onMouseReleased(MouseEvent event);
+    void onMouseReleased(MouseEvent event, boolean isOnBounds);
 }
