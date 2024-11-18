@@ -1,9 +1,8 @@
 package org.example.astero_demo.initialization.di;
 
 import com.google.inject.*;
-import javafx.scene.canvas.GraphicsContext;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
-import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.*;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.state.UIState;
@@ -43,8 +42,8 @@ public class UIModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public UIStateHolder provideUIHolder(final StateHolder holder) {
-        return new UIStateHolder(holder);
+    public UIStateHolder provideUIHolder(final ModelState modelState) {
+        return new UIStateHolder(modelState);
     }
 
     @Inject
@@ -81,7 +80,7 @@ public class UIModule extends AbstractModule {
     public LayersAdapter provideLayersAdapter(
             final ViewController controller,
             final UIState uiState,
-            final StateHolder holder) {
+            final ModelState holder) {
         return new LayersAdapter(controller, uiState, holder);
     }
 
@@ -90,16 +89,16 @@ public class UIModule extends AbstractModule {
     @Singleton
     public DragShapeTool provideDragTool(
             final CanvasView.CanvasDelegate delegate,
-            final StateHolder stateHolder,
+            final ModelState modelState,
             final UIState uiState) {
-        return new DragShapeTool(delegate, stateHolder, uiState);
+        return new DragShapeTool(delegate, modelState, uiState);
     }
 
     @Inject
     @Provides
     @Singleton
-    public ShapeSelectionTool provideSelectionTool(final CanvasView.CanvasDelegate delegate, final StateHolder holder) {
-        return new ShapeSelectionTool(delegate, holder);
+    public ShapeSelectionTool provideSelectionTool(final CanvasView.CanvasDelegate delegate, final ModelState modelState) {
+        return new ShapeSelectionTool(delegate, modelState);
     }
 
     @Inject
@@ -125,10 +124,10 @@ public class UIModule extends AbstractModule {
     @Singleton
     public CanvasView provideCanvasView(
             final UIState state,
-            final StateHolder holder,
+            final ModelState modelState,
             final CanvasView.CanvasDelegate delegate,
             final BackgroundLayer backgroundLayer,
             final ToolLayer toolLayer) {
-        return new CanvasView(state, holder, delegate, backgroundLayer, toolLayer);
+        return new CanvasView(state, modelState, delegate, backgroundLayer, toolLayer);
     }
 }

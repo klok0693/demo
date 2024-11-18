@@ -1,16 +1,22 @@
 package org.example.astero_demo.adapter.model;
 
+import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.model.entity.ShapeFactory;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
+import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.adapter.model.state.ModelState;
+
 public class ModelAdapter {
     private final ShapeFactory factory;
-    private final StateHolder holder;
+    private final ModelState modelState;
 
-    public ModelAdapter(final ShapeFactory factory, final StateHolder holder) {
+    public ModelAdapter(final ShapeFactory factory, final ModelState modelState) {
         this.factory = factory;
-        this.holder = holder;
+        this.modelState = modelState;
     }
 
     public String getShapeParam(final int id, final ShapeParam param) {
-        final Shape shape = holder.getShape(id);
+        final Shape shape = modelState.getShape(id);
         if (shape == null) {
             return null;
         }
@@ -26,7 +32,7 @@ public class ModelAdapter {
     }
 
     public void modifyShapeParam(final int id, final ShapeParam param, final String newValue) {
-        final Shape shape = holder.getShape(id);
+        final Shape shape = modelState.getShape(id);
         if (shape == null) {
             return;
         }
@@ -62,13 +68,13 @@ public class ModelAdapter {
             final String color,
             final ShapeType type) {
         final Shape shape = factory.createShape(id, priority, x, y, width, height, color, type);
-        holder.saveShape(shape);
+        modelState.saveShape(shape);
         return shape.getId();
     }
 
     public Shape removeShape(final int id) {
-        final Shape removed = holder.getShape(id);
-        holder.removeShape(id);
+        final Shape removed = modelState.getShape(id);
+        modelState.removeShape(id);
         return removed;
     }
 }

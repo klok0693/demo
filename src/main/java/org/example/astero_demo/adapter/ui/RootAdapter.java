@@ -2,20 +2,17 @@ package org.example.astero_demo.adapter.ui;
 
 import javafx.geometry.Point2D;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
-import org.example.astero_demo.adapter.model.ParamInfo;
-import org.example.astero_demo.adapter.model.Shape;
-import org.example.astero_demo.adapter.model.ShapeType;
+import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.event.*;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
-import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
 import java.awt.*;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static java.lang.Double.parseDouble;

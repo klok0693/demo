@@ -3,17 +3,18 @@ package org.example.astero_demo.adapter.ui.state;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.*;
-import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
+import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
+import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.adapter.model.state.ModelState;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 import static java.lang.String.valueOf;
-import static org.example.astero_demo.adapter.model.ParamInfo.create;
+import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
 public class UIStateHolder implements MutableUIState {
 
@@ -26,11 +27,11 @@ public class UIStateHolder implements MutableUIState {
     @Getter
     private List<ParamInfo> copyParams;
 
-    private List<Integer> selectedShapes = new LinkedList<>();
-    private final StateHolder shapeHolder;
+    private final List<Integer> selectedShapes = new LinkedList<>();
+    private final ModelState modelState;
 
-    public UIStateHolder(final StateHolder shapeHolder) {
-        this.shapeHolder = shapeHolder;
+    public UIStateHolder(final ModelState modelState) {
+        this.modelState = modelState;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class UIStateHolder implements MutableUIState {
         if (selectedShapes.isEmpty()) {
             return null;
         }
-        return shapeHolder.getShape(selectedShapes.get(0)).getId();
+        return modelState.getShape(selectedShapes.get(0)).getId();
     }
 
     @Override
@@ -82,7 +83,7 @@ public class UIStateHolder implements MutableUIState {
             return null;
         }
         return Integer.valueOf(
-                shapeHolder.getShape(selectedShapes.get(0)).getPriority());
+                modelState.getShape(selectedShapes.get(0)).getPriority());
     }
 
     @Override
@@ -90,7 +91,7 @@ public class UIStateHolder implements MutableUIState {
         if (selectedShapes.isEmpty()) {
             return null;
         }
-        final String color = shapeHolder.getShape(selectedShapes.get(0)).getColor();
+        final String color = modelState.getShape(selectedShapes.get(0)).getColor();
         return StringUtils.isNotBlank(color) ? Integer.valueOf(color) : null;
     }
 
@@ -99,7 +100,7 @@ public class UIStateHolder implements MutableUIState {
         if (selectedShapes.isEmpty()) {
             return null;
         }
-        return shapeHolder.getShape(selectedShapes.getFirst()).getType();
+        return modelState.getShape(selectedShapes.getFirst()).getType();
     }
 
     @Override
@@ -165,7 +166,7 @@ public class UIStateHolder implements MutableUIState {
     public void storeCopyOf(final int originalId) {
         copyParams = new LinkedList<>();
 
-        final Shape original = shapeHolder.getShape(originalId);
+        final Shape original = modelState.getShape(originalId);
         if (original == null) {
             return;
         }
@@ -183,7 +184,7 @@ public class UIStateHolder implements MutableUIState {
         if (selectedShapes.isEmpty()) {
             return null;
         }
-        return Double.valueOf(func.apply(shapeHolder.getShape(selectedShapes.get(0))));
+        return Double.valueOf(func.apply(modelState.getShape(selectedShapes.get(0))));
 /*        return Optional.ofNullable(selectedShapes.get(0)).map(func).orElse(null);*/
     }
 }

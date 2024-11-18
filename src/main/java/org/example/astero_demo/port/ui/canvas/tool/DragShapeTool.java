@@ -3,25 +3,20 @@ package org.example.astero_demo.port.ui.canvas.tool;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import lombok.Setter;
-import org.example.astero_demo.adapter.model.ParamInfo;
-import org.example.astero_demo.adapter.model.Shape;
-import org.example.astero_demo.adapter.model.ShapeParam;
-import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
-import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 import org.example.astero_demo.util.ColorUtils;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.String.valueOf;
-import static org.example.astero_demo.adapter.model.ParamInfo.create;
 
 public class DragShapeTool extends DraggableTool {
 
     //private final CanvasView canvasView;
     private final CanvasView.CanvasDelegate delegate;
-    private final StateHolder stateHolder;
+    private final ModelState modelState;
     private final UIState uiState;
 
     private Color color;
@@ -31,11 +26,11 @@ public class DragShapeTool extends DraggableTool {
 
     public DragShapeTool(
             final CanvasView.CanvasDelegate delegate,
-            final StateHolder stateHolder,
+            final ModelState modelState,
             final UIState uiState) {
         super(-1, -1, -1, -1, 1);
         this.delegate = delegate;
-        this.stateHolder = stateHolder;
+        this.modelState = modelState;
         this.uiState = uiState;
         this.color = null;
         this.xOffset = -1;
@@ -66,7 +61,7 @@ public class DragShapeTool extends DraggableTool {
         final double mouseX = event.getX();
         final double mouseY = event.getY();
 
-        final Shape element =  stateHolder.findShapes(shape -> shape.isInBounds(mouseX, mouseY))
+        final Shape element =  modelState.findShapes(shape -> shape.isInBounds(mouseX, mouseY))
                 .findFirst()
                 .orElse(null);
 

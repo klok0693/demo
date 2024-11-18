@@ -1,9 +1,6 @@
 package org.example.astero_demo.adapter.ui.state;
 
-import org.example.astero_demo.adapter.model.ParamInfo;
-import org.example.astero_demo.adapter.model.ShapeType;
-
-import java.util.List;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 
 public interface UIState {
 

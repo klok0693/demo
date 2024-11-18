@@ -3,8 +3,8 @@ package org.example.astero_demo.adapter.ui;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.Shape;
-import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.event.SelectElementEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
@@ -18,24 +18,24 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class LayersAdapter extends LeafAdapter {
-    private final StateHolder holder;
+    private final ModelState modelState;
 
     public TreeView<String> layersTree;
 
     public LayersAdapter(
             final ViewController controller,
             final UIState uiState,
-            final StateHolder holder) {
+            final ModelState modelState) {
 
         super(controller, uiState);
-        this.holder = holder;
+        this.modelState = modelState;
     }
 
     @Override
     public void update() {
         cleanUp();
 
-        final var layers = holder.getShapes().collect(Collectors.groupingBy(Shape::getPriority));
+        final var layers = modelState.getShapes().collect(Collectors.groupingBy(Shape::getPriority));
         if (layers.isEmpty()) {
             return;
         }
@@ -68,7 +68,7 @@ public class LayersAdapter extends LeafAdapter {
             final TreeItem<String> selectedItem = layersTree.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 final String id = selectedItem instanceof final LayerItem item ? item.getFirstChildId() : selectedItem.getValue();
-                final Shape shape = holder.getShape(parseInt(id));
+                final Shape shape = modelState.getShape(parseInt(id));
                 parent.processEvent(new SelectElementEvent(parseDouble(shape.getX()), parseDouble(shape.getY())));
             }
         });

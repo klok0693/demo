@@ -1,14 +1,14 @@
 package org.example.astero_demo.controller;
 
-import org.example.astero_demo.adapter.model.ParamInfo;
-import org.example.astero_demo.adapter.model.ShapeParam;
+import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.*;
 
 import static java.lang.String.valueOf;
-import static org.example.astero_demo.adapter.model.ShapeType.valueOf;
+import static org.example.astero_demo.adapter.model.entity.ShapeType.valueOf;
 import static org.example.astero_demo.util.ParamUtils.getParamInfo;
 
 public abstract class AbstractController implements LogicEventProcessor {

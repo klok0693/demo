@@ -2,8 +2,8 @@ package org.example.astero_demo.util;
 
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.ParamInfo;
-import org.example.astero_demo.adapter.model.ShapeParam;
+import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 
 import java.util.Arrays;
 

@@ -1,8 +1,8 @@
-package org.example.astero_demo.adapter.model;
+package org.example.astero_demo.adapter.model.entity;
 
 public class Oval extends Shape {
 
-    protected Oval(
+    public Oval(
             final int id,
             final String priority,
             final String x,
@@ -13,7 +13,7 @@ public class Oval extends Shape {
         super(id, priority, x, y, width, height, color);
     }
 
-    protected Oval(
+    public Oval(
             final String priority,
             final String x,
             final String y,
@@ -23,7 +23,7 @@ public class Oval extends Shape {
         super(priority, x, y, width, height, color);
     }
 
-    protected Oval(
+    public Oval(
             final String priority,
             final String x,
             final String y,

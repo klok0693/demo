@@ -1,9 +1,8 @@
 package org.example.astero_demo.controller;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.ShapeParam;
-import org.example.astero_demo.adapter.model.ShapeType;
+import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 
 import java.util.Arrays;
 import java.util.Objects;

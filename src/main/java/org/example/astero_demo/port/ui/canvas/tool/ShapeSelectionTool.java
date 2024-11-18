@@ -4,12 +4,9 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import org.example.astero_demo.adapter.model.ParamInfo;
-import org.example.astero_demo.adapter.model.Shape;
-import org.example.astero_demo.adapter.model.ShapeParam;
-import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.port.ui.canvas.CanvasView;
-import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,17 +14,16 @@ import java.util.List;
 import static java.lang.Double.parseDouble;
 import static java.lang.String.valueOf;
 import static javafx.geometry.Pos.*;
-import static org.example.astero_demo.adapter.model.ParamInfo.create;
 
 public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, CanvasDraggable {
     private final CanvasView.CanvasDelegate delegate;
-    private final StateHolder stateHolder;
+    private final ModelState modelState;
     private final List<ContactPoint> contactPoints;
 
-    public ShapeSelectionTool(final CanvasView.CanvasDelegate delegate, final StateHolder holder) {
+    public ShapeSelectionTool(final CanvasView.CanvasDelegate delegate, final ModelState holder) {
         super(-1, -1, -1, -1, 0);
         this.delegate = delegate;
-        this.stateHolder = holder;
+        this.modelState = holder;
         this.isVisible = false;
 
         contactPoints = Arrays.asList(
@@ -62,7 +58,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
     @Override
     public void onMousePressed(final double mouseX, final double mouseY) {
-        final Shape element = stateHolder.findShapes(shape -> shape.isInBounds(mouseX, mouseY))
+        final Shape element = modelState.findShapes(shape -> shape.isInBounds(mouseX, mouseY))
                 .reduce((first, second) -> second)
                 .orElse(null);
 

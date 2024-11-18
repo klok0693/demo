@@ -1,8 +1,6 @@
 package org.example.astero_demo.adapter.ui.state;
 
-import org.example.astero_demo.adapter.model.Shape;
-import org.example.astero_demo.adapter.model.ShapeType;
-import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 
 public interface MutableUIState extends UIState {
 

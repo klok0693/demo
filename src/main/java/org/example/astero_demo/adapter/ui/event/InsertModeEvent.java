@@ -1,7 +1,7 @@
 package org.example.astero_demo.adapter.ui.event;
 
 import lombok.Getter;
-import org.example.astero_demo.adapter.model.ShapeType;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 
 public class InsertModeEvent extends UIEvent {
     @Getter

@@ -1,11 +1,10 @@
-package org.example.astero_demo.adapter.model;
+package org.example.astero_demo.adapter.model.entity;
 
 import javafx.scene.paint.Color;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 import org.example.astero_demo.util.ColorUtils;
 
 import static java.lang.Double.parseDouble;

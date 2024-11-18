@@ -1,12 +1,7 @@
 package org.example.astero_demo.logic.event.ui;
 
 import lombok.Getter;
-import org.example.astero_demo.adapter.model.ParamInfo;
-import org.example.astero_demo.adapter.model.ShapeParam;
-import org.example.astero_demo.util.MathUtils;
-
-import java.util.List;
-import java.util.Map;
+import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 
 @Getter
 public class ModifyShapeEvent extends ParamEvent {

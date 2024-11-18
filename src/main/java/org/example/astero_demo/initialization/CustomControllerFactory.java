@@ -2,17 +2,7 @@ package org.example.astero_demo.initialization;
 
 import com.google.inject.Inject;
 import javafx.util.Callback;
-import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
-import org.example.astero_demo.adapter.model.ModelAdapter;
-import org.example.astero_demo.adapter.model.ShapeFactory;
-import org.example.astero_demo.adapter.model.StateHolder;
 import org.example.astero_demo.adapter.ui.*;
-import org.example.astero_demo.adapter.ui.state.MutableUIState;
-import org.example.astero_demo.controller.ModelController;
-import org.example.astero_demo.controller.ShapeValidator;
-import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.logic.command.CommandFactory;
-import org.example.astero_demo.logic.command.CommandProcessor;
 
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
 

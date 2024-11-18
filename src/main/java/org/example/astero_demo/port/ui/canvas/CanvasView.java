@@ -1,48 +1,39 @@
 package org.example.astero_demo.port.ui.canvas;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.WeakChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import lombok.Setter;
-import org.example.astero_demo.adapter.model.Shape;
-import org.example.astero_demo.adapter.model.ShapeParam;
-import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
-import org.example.astero_demo.port.ui.canvas.element.ShapeElement;
 import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import static java.lang.String.valueOf;
-import static org.example.astero_demo.adapter.model.ParamInfo.create;
 
 public class CanvasView extends Canvas {
 
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
-    private final StateHolder holder;
+    private final ModelState modelState;
 
     public CanvasView(
             final UIState uiState,
-            final StateHolder stateHolder,
+            final ModelState modelState,
             final CanvasDelegate delegate,
             final BackgroundLayer backgroundLayer,
             final ToolLayer toolLayer) {
-        this.holder = stateHolder;
+        this.modelState = modelState;
         setFocusTraversable(true);
 
         layers.add(backgroundLayer);
 
-        this.shapeLayer = new ShapeLayer(getGraphicsContext2D(), stateHolder);
+        this.shapeLayer = new ShapeLayer(getGraphicsContext2D(), modelState);
         layers.add(shapeLayer);
 
         this.toolLayer = toolLayer;
@@ -122,7 +113,7 @@ public class CanvasView extends Canvas {
     }
 
     private Optional<Shape> findShape(final double mouseX, final double mouseY) {
-        return holder.findShapes(shape -> shape.isInBounds(mouseX, mouseY)).findFirst();
+        return modelState.findShapes(shape -> shape.isInBounds(mouseX, mouseY)).findFirst();
     }
 
     public interface CanvasDelegate {

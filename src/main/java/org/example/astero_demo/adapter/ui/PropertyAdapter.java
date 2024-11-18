@@ -7,7 +7,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import org.example.astero_demo.adapter.model.ShapeParam;
+import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
@@ -16,7 +16,7 @@ import org.example.astero_demo.util.ColorUtils;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static org.example.astero_demo.adapter.model.ParamInfo.create;
+import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
 public class PropertyAdapter extends LeafAdapter {
 

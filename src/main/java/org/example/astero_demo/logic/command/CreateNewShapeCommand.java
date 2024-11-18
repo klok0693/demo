@@ -1,15 +1,10 @@
 package org.example.astero_demo.logic.command;
 
-import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.ModelAdapter;
-import org.example.astero_demo.adapter.model.ParamInfo;
-import org.example.astero_demo.adapter.model.ShapeParam;
-import org.example.astero_demo.adapter.model.ShapeType;
-import org.example.astero_demo.adapter.ui.RootAdapter;
+import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ViewController;
-
-import java.util.Arrays;
 
 import static org.example.astero_demo.util.ParamUtils.getParamInfo;
 

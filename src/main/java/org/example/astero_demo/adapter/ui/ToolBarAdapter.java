@@ -5,11 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
-import org.example.astero_demo.adapter.model.ShapeType;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.port.ui.ToolBarView;
 
 import java.net.URL;

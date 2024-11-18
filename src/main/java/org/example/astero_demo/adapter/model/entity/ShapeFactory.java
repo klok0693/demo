@@ -1,9 +1,9 @@
-package org.example.astero_demo.adapter.model;
+package org.example.astero_demo.adapter.model.entity;
 
 public enum ShapeFactory {
     INSTANCE;
 
-    Shape createShape(
+    public Shape createShape(
             final Integer id,
             final String priority,
             final String x,

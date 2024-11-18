@@ -2,20 +2,19 @@ package org.example.astero_demo.port.ui.canvas.element;
 
 import javafx.collections.WeakListChangeListener;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import org.example.astero_demo.adapter.model.Shape;
-import org.example.astero_demo.adapter.model.StateHolder;
+import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.util.ColorUtils;
 
 import java.util.stream.Collectors;
 
 public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
-    private final StateHolder holder;
+    private final ModelState modelState;
 
-    public ShapeLayer(final GraphicsContext gc, final StateHolder holder) {
+    public ShapeLayer(final GraphicsContext gc, final ModelState modelState) {
         super(1);
-        this.holder = holder;
+        this.modelState = modelState;
 
         children.addListener(new WeakListChangeListener<>(change -> {
             draw(gc);
@@ -24,7 +23,7 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
 
     public void update() {
         removeAll();
-        final var elements = holder.getShapes()
+        final var elements = modelState.getShapes()
                 .map(shape -> new Object() {
                     ShapeElement drawable = createElement(shape);
                     int priority = Integer.valueOf(shape.getPriority());
