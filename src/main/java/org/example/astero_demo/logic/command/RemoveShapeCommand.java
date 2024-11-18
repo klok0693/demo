@@ -40,6 +40,7 @@ public class RemoveShapeCommand extends Command {
                 removedShape.getColor(),
                 removedShape.getType());
 
-        viewController.onCreateUpdate(removedShape.getX(), removedShape.getY());
+        //viewController.onCreateUpdate(removedShape.getX(), removedShape.getY());
+        viewController.onCreateUpdate(removedShape.getId());
     }
 }

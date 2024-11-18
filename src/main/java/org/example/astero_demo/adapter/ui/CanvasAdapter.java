@@ -79,7 +79,13 @@ public class CanvasAdapter extends LeafAdapter {
         return canvasRoot.selectElement(x, y);
     }
 
+    public Shape selectElement(final int id) {
+        return canvasRoot.selectElement(id);
+    }
+
     public interface CanvasView {
+
+        Shape selectElement(int id);
 
         Shape selectElement(double mouseX, double mouseY);
 

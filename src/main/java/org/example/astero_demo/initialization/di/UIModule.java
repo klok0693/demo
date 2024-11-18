@@ -97,8 +97,8 @@ public class UIModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public ShapeSelectionTool provideSelectionTool(final CanvasAdapter adapter, final ModelState modelState) {
-        return new ShapeSelectionTool(adapter, modelState);
+    public ShapeSelectionTool provideSelectionTool(final CanvasAdapter adapter, final ModelState modelState, final UIState uiState) {
+        return new ShapeSelectionTool(adapter, modelState, uiState);
     }
 
     @Inject

@@ -22,7 +22,7 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
         if (!isVisible) {
             return;
         }
-        gc.setFill(Color.GREEN);
+        gc.setFill(Color.BLUE);
         gc.setGlobalAlpha(OPACITY);
 
         switch (uiState.getInsertShapeType()) {
@@ -43,7 +43,7 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
     }
 
     @Override
-    public boolean onDragDetected(final MouseEvent event) {
+    public boolean onDragDetected(final double mouseX, final double mouseY) {
         return isActive;
     }
 
@@ -55,12 +55,7 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
     }
 
     @Override
-    public void onMouseReleased(final MouseEvent event, final boolean isOnBounds) {
-        this.isVisible = false;
-        if (!isActive) {
-            return;
-        }
-        adapter.onDragOver(this.x, this.y, this.width, this.height);
-        reset();
+    protected void performOperation(final double[] toolValues) {
+        adapter.onDragOver(toolValues[0], toolValues[1], toolValues[2], toolValues[3]);
     }
 }

@@ -4,9 +4,9 @@ import javafx.scene.input.MouseEvent;
 
 public interface CanvasDraggable {
 
-    boolean onDragDetected(MouseEvent event);
+    boolean onDragDetected(double mouseX, double mouseY);
 
-    void onMouseDragged(double x, double y);
+    void onMouseDragged(double mouseX, double mouseY);
 
-    void onMouseReleased(MouseEvent event, boolean isOnBounds);
+    void onMouseReleased(MouseEvent event);
 }

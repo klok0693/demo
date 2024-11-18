@@ -26,8 +26,19 @@ public abstract class DraggableTool extends CanvasTool implements CanvasDraggabl
     protected abstract void update(double x, double y);
 
     @Override
-    public void reset() {
-        super.reset();
+    public void onMouseReleased(final MouseEvent event) {
+        if (!isActive) {
+            return;
+        }
+        final double[] values = reset();
+        performOperation(values);
+    }
+
+    protected abstract void performOperation(double[] toolValues);
+
+    @Override
+    public double[] reset() {
         this.isActive = false;
+        return super.reset();
     }
 }

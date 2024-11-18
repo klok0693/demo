@@ -7,6 +7,7 @@ import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -16,7 +17,11 @@ public interface ModelState {
 
     Shape getShape(int id);
 
-    Stream<Shape> findShapeAt(double x, double y);
+    Stream<Shape> findShapesAt(double x, double y);
+
+    Optional<Shape> findTopShapeAt(double x, double y);
+
+    Optional<Shape> findTopVisibleShape(double mouseX, double mouseY);
 
     Stream<Shape> findShapes(Predicate<Shape>... predicates);
 

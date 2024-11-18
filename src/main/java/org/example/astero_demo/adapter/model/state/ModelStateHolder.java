@@ -30,9 +30,23 @@ public enum ModelStateHolder implements ModelState {
     }
 
     @Override
-    public Stream<Shape> findShapeAt(final double x, final double y) {
+    public Stream<Shape> findShapesAt(final double x, final double y) {
         return Optional.ofNullable(currentState)
-                .map(state -> state.findShapeAt(x, y))
+                .map(state -> state.findShapesAt(x, y))
+                .orElse(null);
+    }
+
+    @Override
+    public Optional<Shape> findTopShapeAt(double x, double y) {
+        return Optional.ofNullable(currentState)
+                .map(state -> state.findTopShapeAt(x, y))
+                .orElse(null);
+    }
+
+    @Override
+    public Optional<Shape> findTopVisibleShape(double mouseX, double mouseY) {
+        return Optional.ofNullable(currentState)
+                .map(state -> state.findTopVisibleShape(mouseX, mouseY))
                 .orElse(null);
     }
 

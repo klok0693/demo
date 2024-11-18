@@ -25,8 +25,9 @@ public class ViewController extends AbstractController {
         this.validator = validator;
     }
 
-    public void onCreateUpdate(final String newShapeX, final String newShapeY) {
-        adapter.onCreateUpdate(parseDouble(newShapeX), parseDouble(newShapeY));
+    public void onCreateUpdate(final int id) {
+        //adapter.onCreateUpdate(parseDouble(newShapeX), parseDouble(newShapeY));
+        adapter.onCreateUpdate(id);
     }
 
     public void onModifyUpdate() {

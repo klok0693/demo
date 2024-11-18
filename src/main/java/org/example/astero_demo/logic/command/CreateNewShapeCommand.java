@@ -6,6 +6,7 @@ import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ViewController;
 
+import static java.lang.Integer.parseInt;
 import static org.example.astero_demo.util.ParamUtils.getParamInfo;
 
 public class CreateNewShapeCommand extends ParamCommand {
@@ -51,7 +52,8 @@ public class CreateNewShapeCommand extends ParamCommand {
                 getParamInfo(paramInfos, ShapeParam.COLOR),
                 ShapeType.valueOf(getParamInfo(paramInfos, ShapeParam.TYPE)));
 
-        viewController.onCreateUpdate(getParamInfo(paramInfos, ShapeParam.X), getParamInfo(paramInfos, ShapeParam.Y));
+        //viewController.onCreateUpdate(getParamInfo(paramInfos, ShapeParam.X), getParamInfo(paramInfos, ShapeParam.Y));
+        viewController.onCreateUpdate(createdShapeId);
     }
 
     @Override

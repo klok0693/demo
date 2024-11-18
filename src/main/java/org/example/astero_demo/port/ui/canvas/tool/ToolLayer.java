@@ -36,9 +36,13 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
         return selectionTool.isInBounds(x, y);
     }
 
+    public void selectElement(final int id) {
+        selectionTool.selectElement(id);
+    }
+
     @Override
     public void onMousePressed(final double x, final double y) {
-        resetAll();
+        //resetAll();
         if (uiState.isInInsertMode()) {
             insertTool.onMousePressed(x, y);
         }
@@ -49,14 +53,14 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
     }
 
     @Override
-    public boolean onDragDetected(final MouseEvent event) {
+    public boolean onDragDetected(final double mouseX, final double mouseY) {
         if (uiState.isInInsertMode()) {
-            return insertTool.onDragDetected(event);
+            return insertTool.onDragDetected(mouseX, mouseY);
         }
-        if (selectionTool.onDragDetected(event)) {
+        if (selectionTool.onDragDetected(mouseX, mouseY)) {
             return true;
         }
-        return uiState.hasSelectedId() && dragTool.onDragDetected(event);
+        return uiState.hasSelectedId() && dragTool.onDragDetected(mouseX, mouseY);
     }
 
 /*    public boolean hasActiveTool() {
@@ -69,13 +73,13 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
     }
 
     @Override
-    public void onMouseReleased(final MouseEvent event, final boolean isOnBounds) {
+    public void onMouseReleased(final MouseEvent event) {
         if (uiState.isInInsertMode()) {
-            insertTool.onMouseReleased(event, isOnBounds);
+            insertTool.onMouseReleased(event);
         }
         else if (uiState.hasSelectedId()) {
-            dragTool.onMouseReleased(event, isOnBounds);
-            selectionTool.onMouseReleased(event, isOnBounds);
+            dragTool.onMouseReleased(event);
+            selectionTool.onMouseReleased(event);
         }
     }
 

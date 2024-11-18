@@ -5,16 +5,15 @@ import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import static java.lang.String.valueOf;
+
 public class ModelStateInstance implements ModelState {
-    private final HashMap<Integer, Shape> shapes = new HashMap<>(32);
+    private final HashMap<Integer, Shape> shapes = new LinkedHashMap<>(32);
 
     @Override
     public Shape getShape(final int id) {
@@ -22,8 +21,18 @@ public class ModelStateInstance implements ModelState {
     }
 
     @Override
-    public Stream<Shape> findShapeAt(final double x, final double y) {
-        return findShapes(shape -> shape.isInBounds(x, y));
+    public Stream<Shape> findShapesAt(final double x, final double y) {
+        return findShapes(shape -> shape.isInVisibleBounds(x, y));
+    }
+
+    @Override
+    public Optional<Shape> findTopShapeAt(double x, double y) {
+        return findShapesAt(x, y).reduce((first, second) -> second);
+    }
+
+    @Override
+    public Optional<Shape> findTopVisibleShape(double mouseX, double mouseY) {
+        return findShapes(shape -> shape.isInBounds(mouseX, mouseY)).reduce((first, second) -> second);
     }
 
     @Override
@@ -43,7 +52,10 @@ public class ModelStateInstance implements ModelState {
 
     @Override
     public Stream<Shape> getShapes() {
-        return shapes.values().stream();
+/*        final List<Shape> shapeList = new LinkedList<>(shapes.values());
+        Collections.reverse(shapeList);
+        return shapeList.stream();*/
+        return shapes.values().stream().sorted(); //.sorted(Collections.reverseOrder());
     }
 
     private static Stream<Shape> filterShapes(final Stream<Shape> shapeStream, final Queue<Predicate<Shape>> predicates) {
@@ -57,6 +69,7 @@ public class ModelStateInstance implements ModelState {
     private static boolean compareShape(final Shape shape, final ParamInfo info) {
         final Function<String, Boolean> comparator = shapeValue -> StringUtils.equals(shapeValue, info.getNewValue());
         return switch (info.getParam()) {
+            case ID -> comparator.apply(valueOf(shape.getId()));
             case X -> comparator.apply(shape.getX());
             case Y -> comparator.apply(shape.getY());
             case WIDTH -> comparator.apply(shape.getWidth());

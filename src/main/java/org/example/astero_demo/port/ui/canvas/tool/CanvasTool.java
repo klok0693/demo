@@ -24,12 +24,17 @@ public abstract class CanvasTool extends CanvasElement implements Comparable<Can
         }
     }
 
-    public void reset() {
+    /**
+     * Every class, adding new mutable fields, must override this method
+     */
+    public double[] reset() {
+        final double[] values = new double[] {this.x, this.y, this.width, this.height};
         this.x = -1;
         this.y = -1;
         this.width = -1;
         this.height = -1;
         this.isVisible = false;
+        return values;
     }
 
     @Override

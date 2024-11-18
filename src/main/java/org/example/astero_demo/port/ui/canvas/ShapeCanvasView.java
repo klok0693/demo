@@ -52,20 +52,41 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
                 return;
             }
 
-            if (!hasElementOn(mouseX, mouseY) && !toolLayer.isInBounds(mouseX, mouseY)) {
+            if (!toolLayer.isInBounds(mouseX, mouseY) && !modelState.findTopVisibleShape(mouseX, mouseY).isPresent()) {
                 adapter.primaryMouseBtnPressed(mouseX, mouseY);
+                toolLayer.onMousePressed(mouseX, mouseY);
                 redraw();
             }
             else if (toolLayer.isInBounds(mouseX, mouseY)) {
-                toolLayer.onDragDetected(e);
+                //adapter.primaryMouseBtnPressed(mouseX, mouseY);
+                toolLayer.onMousePressed(mouseX, mouseY);
                 redraw();
             }
             else {
                 adapter.primaryMouseBtnPressed(mouseX, mouseY);
-                toolLayer.onDragDetected(e);
+                toolLayer.onMousePressed(mouseX, mouseY);
                 redraw();
             }
+
+/*            if (!hasElementOn(mouseX, mouseY) && !toolLayer.isInBounds(mouseX, mouseY)) {
+                adapter.primaryMouseBtnPressed(mouseX, mouseY);
+                redraw();
+            }
+            else if (toolLayer.isInBounds(mouseX, mouseY)) {
+                toolLayer.onMousePressed(mouseX, mouseY);//.onDragDetected(e);
+                redraw();
+            }
+            else {
+                adapter.primaryMouseBtnPressed(mouseX, mouseY);
+                toolLayer.onMousePressed(mouseX, mouseY);//.onDragDetected(e);
+                redraw();
+            }*/
             e.consume();
+        });
+
+        setOnDragDetected(event -> {
+            toolLayer.onDragDetected(event.getX(), event.getY());
+            redraw();
         });
 
         setOnMouseDragged(event -> {
@@ -83,7 +104,7 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
         });
 
         setOnMouseReleased(event -> {
-            toolLayer.onMouseReleased(event, getLayoutBounds().contains(event.getX(), event.getY()));
+            toolLayer.onMouseReleased(event);
             redraw();
         });
 
@@ -106,18 +127,24 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
     }
 
     @Override
+    public Shape selectElement(int id) {
+        final Shape element = modelState.getShape(id);
+        final double x = element == null ? -1 : element.getCenterX();
+        final double y = element == null ? -1 : element.getCenterY();
+        toolLayer.selectElement(id);
+        redraw();
+        return element;
+    }
+
+    @Override
     public Shape selectElement(final double mouseX, final double mouseY) {
-        final Shape element = findShape(mouseX, mouseY).orElse(null);;
+        final Shape element = modelState.findTopShapeAt(mouseX, mouseY).orElse(null);;
         toolLayer.onMousePressed(mouseX, mouseY);
         redraw();
         return element;
     }
 
     private boolean hasElementOn(final double mouseX, final double mouseY) {
-        return findShape(mouseX, mouseY).isPresent();
-    }
-
-    private Optional<Shape> findShape(final double mouseX, final double mouseY) {
-        return modelState.findShapeAt(mouseX, mouseY).findFirst();
+        return modelState.findTopShapeAt(mouseX, mouseY).isPresent();
     }
 }

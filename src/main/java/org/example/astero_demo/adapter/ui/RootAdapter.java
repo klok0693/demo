@@ -50,12 +50,15 @@ public class RootAdapter extends ParentAdapter {
         root.setOnKeyPressed(shortcutHandler::handle);
     }
 
-    public void onCreateUpdate(final double newShapeX, final double newShapeY) {
-        selectElement(newShapeX, newShapeY);
+    public void onCreateUpdate(final int id) {
+        //selectElement(newShapeX, newShapeY);
+        selectElement(id);
     }
 
     public void onModifyUpdate() {
-        selectElement(uiState.getSelectedX(), uiState.getSelectedY());
+        // TODO: bug with ctrl+z without selection. Modify accrding to id, not position
+        //selectElement(uiState.getSelectedX(), uiState.getSelectedY());
+        selectElement(uiState.getSelectedShapeId());
     }
 
     public void onRemoveUpdate() {
@@ -101,6 +104,17 @@ public class RootAdapter extends ParentAdapter {
                     ShapeType.valueOf(uiState.getCopyType()))
             );
         }
+    }
+
+    private void selectElement(final int id) {
+        uiState.setIsInInsertMode(false);
+        updateChildren();
+
+        final Shape selectedShape = canvasRootController.selectElement(id);
+        final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
+
+        uiState.setSelectShape(shapeId);
+        updateChildren();
     }
 
     private void selectElement(final double shapeX, final double shapeY) {

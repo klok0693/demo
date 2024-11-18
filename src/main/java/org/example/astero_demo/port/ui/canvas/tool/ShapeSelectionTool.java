@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.CanvasAdapter;
-import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
+import org.example.astero_demo.adapter.ui.state.UIState;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,14 +17,17 @@ import static java.lang.String.valueOf;
 import static javafx.geometry.Pos.*;
 
 public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, CanvasDraggable {
+    private static final double MINIMAL_SIDE = 1.0;
     private final CanvasAdapter adapter;
     private final ModelState modelState;
+    private final UIState uiState;
     private final List<ContactPoint> contactPoints;
 
-    public ShapeSelectionTool(final CanvasAdapter adapter, final ModelState holder) {
+    public ShapeSelectionTool(final CanvasAdapter adapter, final ModelState holder, final UIState uiState) {
         super(-1, -1, -1, -1, 0);
         this.adapter = adapter;
         this.modelState = holder;
+        this.uiState = uiState;
         this.isVisible = false;
 
         contactPoints = Arrays.asList(
@@ -49,34 +52,76 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     }
 
     @Override
-    public void reset() {
-        super.reset();
+    public double[] reset() {
         contactPoints.forEach(ContactPoint::reset);
+        return super.reset();
+    }
+
+    public boolean selectElement(final int id) {
+        final Shape s = modelState.getShape(id);
+        update(
+                parseDouble(s.getX()),
+                parseDouble(s.getY()),
+                parseDouble(s.getWidth()),
+                parseDouble(s.getHeight()));
+        return true;
     }
 
     @Override
     public void onMousePressed(final double mouseX, final double mouseY) {
-        final Shape element = modelState.findShapes(shape -> shape.isInBounds(mouseX, mouseY))
-                .reduce((first, second) -> second)
-                .orElse(null);
-
-        if (element != null) {
+        contactPoints.forEach(contact -> contact.onDragDetected(mouseX, mouseY));
+        final double pointX, pointY, width, height;
+        if (isVisible) {
+            final Shape s = modelState.getShape(uiState.getSelectedShapeId());
             update(
-                    parseDouble(element.getX()),
-                    parseDouble(element.getY()),
-                    parseDouble(element.getWidth()),
-                    parseDouble(element.getHeight()));
+                    parseDouble(s.getX()),
+                    parseDouble(s.getY()),
+                    parseDouble(s.getWidth()),
+                    parseDouble(s.getHeight()));
+            return;
+        }
+        Shape element = modelState.findTopShapeAt(mouseX, mouseY).orElse(null);
+        if (element == null) {
+            if (isInBounds(mouseX, mouseY)) {
+                // never true
+                return;
+                //element = modelState.findTopShapeAt(mouseX, mouseY).orElse(null);
+
+            }
+            else {
+                reset();
+                return;
+            }
         }
         else {
-            reset();
+            pointX = parseDouble(element.getX());
+            pointY = parseDouble(element.getY());
+            width = parseDouble(element.getWidth());
+            height = parseDouble(element.getHeight());
         }
+
+
+        //if (element != null) {
+            update(pointX, pointY, width, height);
+/*        }
+        else {
+            reset();
+        }*/
     }
 
+/*    private double[] getPointVal() {
+        for (final ContactPoint contactPoint : contactPoints) {
+            if (contactPoint.isActive) {
+                return new double[] {contactPoint.getPointX(), }
+            }
+        }
+    }*/
+
     void update(final double x, final double y, final double width, final double height) {
-        this.x = Math.max(x, 0);
-        this.y = Math.max(y, 0);
-        this.width = Math.max(width, 1);
-        this.height = Math.max(height, 1);
+        this.x = x ;//Math.max(x, 0);
+        this.y = y; //Math.max(y, 0);
+        this.width = Math.max(width, MINIMAL_SIDE);
+        this.height = Math.max(height, MINIMAL_SIDE);
 
         contactPoints.get(0).update(this.x, this.y, this.width, this.height);
         contactPoints.get(1).update(this.x + (this.width / 2), this.y, this.width, this.height);
@@ -91,8 +136,8 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     }
 
     @Override
-    public boolean onDragDetected(final MouseEvent event) {
-        return contactPoints.stream().anyMatch(contact -> contact.onDragDetected(event));
+    public boolean onDragDetected(final double mouseX, final double mouseY) {
+        return contactPoints.stream().anyMatch(contact -> contact.onDragDetected(mouseX, mouseY));
     }
 
     @Override
@@ -103,8 +148,8 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     }
 
     @Override
-    public void onMouseReleased(final MouseEvent event, final boolean isOnBounds) {
-        contactPoints.forEach(contact -> contact.onMouseReleased(event, isOnBounds));
+    public void onMouseReleased(final MouseEvent event) {
+        contactPoints.forEach(contact -> contact.onMouseReleased(event));
     }
 
     public boolean isInBounds(final double x, final double y) {
@@ -115,20 +160,17 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         return isInShapeBounds ? isInShapeBounds : contactPoints.stream().anyMatch(contact -> contact.isInBounds(x, y));
     }
 
-    private class ContactPoint extends DraggableTool {
-        private static final double RADIUS = 16.0;
+    private class ContactPoint extends DraggableTool implements CanvasClickable {
+        private static final double DIAMETER = 16.0;
+        private static final double RADIUS = DIAMETER / 2;
 
         private final Pos alignment;
 
         protected ContactPoint(final int layer, final Pos alignment) {
-            super(RADIUS, RADIUS, layer);
+            super(DIAMETER, DIAMETER, layer);
             this.alignment = alignment;
             this.isVisible = false;
         }
-
-/*        public void update(final double x, final double y) {
-            update(x, y, this.width, this.height);
-        }*/
 
         public void update(final double x, final double y, final double width, final double height) {
             this.x = x;
@@ -141,17 +183,28 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         @Override
         protected void drawElement(final GraphicsContext gc) {
             gc.setFill(Color.RED);
-            gc.fillOval(x - (RADIUS / 2), y - (RADIUS / 2), RADIUS, RADIUS);
+            gc.fillOval(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER);
         }
 
         public boolean isInBounds(final double x, final double y) {
-            return x >= (this.x - (RADIUS / 2)) && x <= (this.x + (RADIUS / 2))
-                    && y >= (this.y - (RADIUS / 2)) && y <= (this.y + (RADIUS / 2));
+            final double dx = x - this.x; // Distance from the point to the circle's center (x-axis)
+            final double dy = y - this.y; // Distance from the point to the circle's center (y-axis)
+            final double distanceSquared = dx * dx + dy * dy; // Square of the distance to the center
+            final double radiusSquared = RADIUS * RADIUS; // Square of the radius
+
+            return distanceSquared <= radiusSquared; // Check if the point is within the circle
         }
 
         @Override
-        public boolean onDragDetected(final MouseEvent event) {
-            if (isVisible && isInBounds(event.getX(), event.getY())) {
+        public void onMousePressed(final double x, final double y) {
+/*            if (isInBounds(x, y)) {
+                this.isVisible = true;
+            }*/
+        }
+
+        @Override
+        public boolean onDragDetected(final double mouseX, final double mouseY) {
+            if (isVisible && isInBounds(mouseX, mouseY)) {
                 this.isActive = true;
                 ShapeSelectionTool.this.isVisible = true;
                 return true;
@@ -167,35 +220,45 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
             final double parentHeight = ShapeSelectionTool.this.height;
 
             switch (alignment) {
-                case TOP_LEFT -> ShapeSelectionTool.this.update(mouseX, mouseY, parentWidth - (mouseX - parentX), parentHeight - (mouseY - parentY));
-                case TOP_CENTER -> ShapeSelectionTool.this.update(parentX, mouseY, parentWidth, parentHeight - (mouseY - parentY));
-                case TOP_RIGHT -> ShapeSelectionTool.this.update(parentX, parentY - (parentY - mouseY), mouseX - parentX, (parentY + parentHeight) - mouseY);
+                case TOP_LEFT -> {
+                    final double newX = Math.min(mouseX, parentX + parentWidth - MINIMAL_SIDE);
+                    final double newY = Math.min(mouseY, parentY + parentHeight - MINIMAL_SIDE);
+                    final double newWidth = parentWidth - (mouseX - parentX);
+                    final double newHeight = parentHeight - (mouseY - parentY);
+                    ShapeSelectionTool.this.update(newX, newY, newWidth, newHeight);
+                }
+                case TOP_CENTER -> {
+                    final double newY = Math.min(mouseY, parentY + parentHeight - MINIMAL_SIDE);
+                    ShapeSelectionTool.this.update(parentX, newY, parentWidth, parentHeight - (mouseY - parentY));
+                }
+                case TOP_RIGHT -> {
+                    final double newY = Math.min(parentY - (parentY - mouseY), parentY + parentHeight - MINIMAL_SIDE);
+                    ShapeSelectionTool.this.update(parentX, newY, mouseX - parentX, (parentY + parentHeight) - mouseY);
+                }
                 case CENTER_RIGHT -> ShapeSelectionTool.this.update(parentX, parentY, mouseX - parentX, parentHeight);
                 case BOTTOM_RIGHT -> ShapeSelectionTool.this.update(parentX, parentY, mouseX - parentX, mouseY - parentY);
                 case BOTTOM_CENTER -> ShapeSelectionTool.this.update(parentX, parentY, parentWidth, mouseY - parentY);
-                case BOTTOM_LEFT -> ShapeSelectionTool.this.update(parentX - (parentX - mouseX), parentY, (parentX + parentWidth) - mouseX, mouseY - parentY);
-                case CENTER_LEFT -> ShapeSelectionTool.this.update(parentX - (parentX - mouseX), parentY, (parentX + parentWidth) - mouseX, parentHeight);
+                case BOTTOM_LEFT -> {
+                    final double newX = Math.min(parentX - (parentX - mouseX), parentX + parentWidth - MINIMAL_SIDE);
+                    final double newY = Math.min(parentY, parentY + parentHeight - MINIMAL_SIDE);
+                    final double newWidth = (parentX + parentWidth) - mouseX;
+                    final double newHeight = mouseY - parentY;
+                    ShapeSelectionTool.this.update(newX, newY, newWidth, newHeight);
+                }
+                case CENTER_LEFT -> {
+                    final double newX = Math.min(parentX - (parentX - mouseX), parentX + parentWidth - MINIMAL_SIDE);
+                    ShapeSelectionTool.this.update(newX, parentY, (parentX + parentWidth) - mouseX, parentHeight);
+                }
             }
         }
 
         @Override
-        public void onMouseReleased(final MouseEvent event, final boolean isOnBounds) {
-            if (!isActive) {
-                return;
-            }
-
+        protected void performOperation(final double[] toolValues) {
             final double parentX = ShapeSelectionTool.this.x;
             final double parentY = ShapeSelectionTool.this.y;
             final double parentWidth = ShapeSelectionTool.this.width;
             final double parentHeight = ShapeSelectionTool.this.height;
-
-            reset();
             adapter.onDragOver(parentX, parentY, parentWidth, parentHeight);
-        }
-
-        @Override
-        public void reset() {
-            super.reset();
         }
     }
 }
