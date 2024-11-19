@@ -1,12 +1,12 @@
-package org.example.astero_demo.initialization.di;
+package org.example.astero_demo.realization.initialization.di;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
-import org.example.astero_demo.initialization.di.provider.controller.ModelControllerProvider;
-import org.example.astero_demo.initialization.di.provider.controller.ViewControllerProvider;
-import org.example.astero_demo.initialization.di.provider.logic.CommandFactoryProvider;
-import org.example.astero_demo.initialization.di.provider.ui.*;
-import org.example.astero_demo.initialization.di.provider.ui.adapter.*;
+import org.example.astero_demo.realization.initialization.di.provider.controller.ModelControllerProvider;
+import org.example.astero_demo.realization.initialization.di.provider.controller.ViewControllerProvider;
+import org.example.astero_demo.realization.initialization.di.provider.logic.CommandFactoryProvider;
+import org.example.astero_demo.realization.initialization.di.provider.ui.*;
+import org.example.astero_demo.realization.initialization.di.provider.ui.adapter.*;
 
 public class ProviderModule extends AbstractModule {
 

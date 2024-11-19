@@ -1,4 +1,4 @@
-package org.example.astero_demo.initialization.di.provider;
+package org.example.astero_demo.realization.initialization.di.provider;
 
 import com.google.inject.Provider;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;

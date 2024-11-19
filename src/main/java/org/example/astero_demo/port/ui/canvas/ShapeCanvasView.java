@@ -8,12 +8,13 @@ import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.CanvasAdapter;
+import org.example.astero_demo.adapter.ui.CanvasView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 
-public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView {
+public class ShapeCanvasView extends Canvas implements CanvasView {
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;

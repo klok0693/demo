@@ -1,9 +1,9 @@
-package org.example.astero_demo.initialization.di.provider.controller;
+package org.example.astero_demo.realization.initialization.di.provider.controller;
 
 import com.google.inject.Inject;
 import org.example.astero_demo.adapter.model.ModelAdapter;
 import org.example.astero_demo.controller.ModelController;
-import org.example.astero_demo.initialization.di.provider.logic.CommandFactoryProvider;
+import org.example.astero_demo.realization.initialization.di.provider.logic.CommandFactoryProvider;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 

@@ -1,11 +1,11 @@
-package org.example.astero_demo.initialization.di;
+package org.example.astero_demo.realization.initialization.di;
 
 import com.google.inject.AbstractModule;
 import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.initialization.di.provider.controller.ModelControllerProvider;
-import org.example.astero_demo.initialization.di.provider.controller.ViewControllerProvider;
+import org.example.astero_demo.realization.initialization.di.provider.controller.ModelControllerProvider;
+import org.example.astero_demo.realization.initialization.di.provider.controller.ViewControllerProvider;
 
 public class ControllerModule extends AbstractModule {
 

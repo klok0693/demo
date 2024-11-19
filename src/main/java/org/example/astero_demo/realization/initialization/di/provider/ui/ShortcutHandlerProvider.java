@@ -1,4 +1,4 @@
-package org.example.astero_demo.initialization.di.provider.ui;
+package org.example.astero_demo.realization.initialization.di.provider.ui;
 
 import com.google.inject.Inject;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
@@ -6,7 +6,7 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.initialization.di.provider.InstanceProvider;
+import org.example.astero_demo.realization.initialization.di.provider.InstanceProvider;
 
 public class ShortcutHandlerProvider extends InstanceProvider<ShortcutHandlerProvider.ShortcutHandlerProxy> {
     private final ViewController controller;

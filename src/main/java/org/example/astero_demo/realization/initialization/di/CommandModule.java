@@ -1,8 +1,8 @@
-package org.example.astero_demo.initialization.di;
+package org.example.astero_demo.realization.initialization.di;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
-import org.example.astero_demo.initialization.di.provider.logic.CommandFactoryProvider;
+import org.example.astero_demo.realization.initialization.di.provider.logic.CommandFactoryProvider;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandFactoryImpl;
 import org.example.astero_demo.logic.command.CommandProcessor;

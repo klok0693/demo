@@ -1,9 +1,9 @@
-package org.example.astero_demo.initialization.di.provider.ui.adapter;
+package org.example.astero_demo.realization.initialization.di.provider.ui.adapter;
 
 import org.example.astero_demo.adapter.ui.UIAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.initialization.di.provider.InstanceProvider;
+import org.example.astero_demo.realization.initialization.di.provider.InstanceProvider;
 
 abstract class AdapterProvider<U extends UIState,T extends UIAdapter<U>> extends InstanceProvider<T> {
     protected final ViewController controller;

@@ -1,4 +1,4 @@
-package org.example.astero_demo.initialization;
+package org.example.astero_demo.realization.initialization;
 
 import com.google.inject.Inject;
 import javafx.fxml.JavaFXBuilderFactory;

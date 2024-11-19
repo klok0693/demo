@@ -1,8 +1,8 @@
-package org.example.astero_demo.initialization.di.provider.controller;
+package org.example.astero_demo.realization.initialization.di.provider.controller;
 
 import org.example.astero_demo.controller.AbstractController;
-import org.example.astero_demo.initialization.di.provider.InstanceProvider;
-import org.example.astero_demo.initialization.di.provider.logic.CommandFactoryProvider;
+import org.example.astero_demo.realization.initialization.di.provider.InstanceProvider;
+import org.example.astero_demo.realization.initialization.di.provider.logic.CommandFactoryProvider;
 import org.example.astero_demo.logic.command.CommandProcessor;
 
 abstract class ControllerProvider<T extends AbstractController> extends InstanceProvider<T> {

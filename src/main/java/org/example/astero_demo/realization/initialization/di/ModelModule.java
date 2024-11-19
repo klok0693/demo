@@ -1,4 +1,4 @@
-package org.example.astero_demo.initialization.di;
+package org.example.astero_demo.realization.initialization.di;
 
 import com.google.inject.*;
 import org.example.astero_demo.adapter.model.ModelAdapter;

@@ -6,9 +6,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.astero_demo.initialization.CustomControllerFactory;
-import org.example.astero_demo.initialization.NodeBuilderFactory;
-import org.example.astero_demo.initialization.di.*;
+import org.example.astero_demo.realization.initialization.CustomControllerFactory;
+import org.example.astero_demo.realization.initialization.NodeBuilderFactory;
+import org.example.astero_demo.realization.initialization.di.*;
 
 import java.io.IOException;
 
@@ -19,6 +19,7 @@ public class HelloApplication extends Application {
     public void start(final Stage stage) throws IOException {
 
         final Injector injector = Guice.createInjector(
+                new AsyncModule(),
                 new ProviderModule(),
                 new ModelModule(),
                 new InitializationModule(),

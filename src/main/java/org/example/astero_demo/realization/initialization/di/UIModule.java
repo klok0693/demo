@@ -1,4 +1,4 @@
-package org.example.astero_demo.initialization.di;
+package org.example.astero_demo.realization.initialization.di;
 
 import com.google.inject.*;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
@@ -8,8 +8,8 @@ import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.UIStateHolder;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.initialization.di.provider.ui.*;
-import org.example.astero_demo.initialization.di.provider.ui.adapter.*;
+import org.example.astero_demo.realization.initialization.di.provider.ui.*;
+import org.example.astero_demo.realization.initialization.di.provider.ui.adapter.*;
 import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
@@ -25,18 +25,11 @@ public class UIModule extends AbstractModule {
         bind(MutableUIState.class).to(UIStateHolder.class).in(Scopes.SINGLETON);
 
         bind(RootShortcutHandler.class).toProvider(ShortcutHandlerProvider.class).asEagerSingleton();
-
-        bind(CanvasAdapter.CanvasView.class).to(ShapeCanvasView.class);
-
-
-        bind(ParentAdapter.class).to(RootAdapter.class);
         bind(RootAdapter.class).toProvider(RootAdapterProvider.class).asEagerSingleton();
 
+        bind(CanvasView.class).to(ShapeCanvasView.class);
+        bind(ParentAdapter.class).to(RootAdapter.class);
         bind(BackgroundLayer.class).in(Scopes.SINGLETON);
-        //bind(ShapeSelectionTool.class).in(Scopes.SINGLETON);
-        //bind(DragShapeTool.class).in(Scopes.SINGLETON);
-        //bind(InsertTool.class).in(Scopes.SINGLETON);
-        //bind(ToolLayer.class).in(Scopes.SINGLETON);
     }
 
     @Inject
@@ -68,10 +61,11 @@ public class UIModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public CanvasAdapter provideCanvasAdapter(
+    public ShapeCanvasAdapter provideCanvasAdapter(
             final ViewController controller,
-            final UIState uiState) {
-        return new CanvasAdapter(controller, uiState);
+            final UIState uiState,
+            final ShapeCanvasView canvasView) {
+        return new ShapeCanvasAdapter(controller, uiState, canvasView);
     }
 
     @Inject

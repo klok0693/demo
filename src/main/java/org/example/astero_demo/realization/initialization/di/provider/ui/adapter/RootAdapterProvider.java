@@ -1,12 +1,12 @@
-package org.example.astero_demo.initialization.di.provider.ui.adapter;
+package org.example.astero_demo.realization.initialization.di.provider.ui.adapter;
 
 import com.google.inject.Inject;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.initialization.di.provider.controller.ViewControllerProvider;
-import org.example.astero_demo.initialization.di.provider.ui.ShortcutHandlerProvider;
+import org.example.astero_demo.realization.initialization.di.provider.controller.ViewControllerProvider;
+import org.example.astero_demo.realization.initialization.di.provider.ui.ShortcutHandlerProvider;
 
 public class RootAdapterProvider extends AdapterProvider<MutableUIState, RootAdapter> {
     private final ShortcutHandlerProvider shortcutHandler;

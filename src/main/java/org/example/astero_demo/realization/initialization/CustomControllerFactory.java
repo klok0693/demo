@@ -1,4 +1,4 @@
-package org.example.astero_demo.initialization;
+package org.example.astero_demo.realization.initialization;
 
 import com.google.inject.Inject;
 import javafx.util.Callback;
@@ -28,7 +28,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
     @Override
     public Object call(Class<?> aClass) {
-        if (aClass.isAssignableFrom(CanvasAdapter.class)) {
+        if (aClass.isAssignableFrom(ShapeCanvasAdapter.class)) {
             return canvasAdapter;
         }
         if (aClass.isAssignableFrom(ToolBarAdapter.class)) {
