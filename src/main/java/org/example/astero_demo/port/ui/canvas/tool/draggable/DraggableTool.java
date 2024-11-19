@@ -1,7 +1,8 @@
-package org.example.astero_demo.port.ui.canvas.tool;
+package org.example.astero_demo.port.ui.canvas.tool.draggable;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import org.example.astero_demo.port.ui.canvas.tool.CanvasTool;
 
 public abstract class DraggableTool extends CanvasTool implements CanvasDraggable {
     protected static final double OPACITY = 0.4;

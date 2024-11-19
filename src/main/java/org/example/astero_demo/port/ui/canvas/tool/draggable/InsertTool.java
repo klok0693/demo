@@ -1,9 +1,10 @@
-package org.example.astero_demo.port.ui.canvas.tool;
+package org.example.astero_demo.port.ui.canvas.tool.draggable;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
+import org.example.astero_demo.port.ui.canvas.tool.CanvasClickable;
 
 public class InsertTool extends DraggableTool implements CanvasClickable {
     private final CanvasAdapter adapter;

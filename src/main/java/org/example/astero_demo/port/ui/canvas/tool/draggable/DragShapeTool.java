@@ -1,7 +1,6 @@
-package org.example.astero_demo.port.ui.canvas.tool;
+package org.example.astero_demo.port.ui.canvas.tool.draggable;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.CanvasAdapter;

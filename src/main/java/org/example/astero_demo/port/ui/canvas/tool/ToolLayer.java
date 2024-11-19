@@ -3,6 +3,9 @@ package org.example.astero_demo.port.ui.canvas.tool;
 import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
 
 import java.util.function.Consumer;
 
