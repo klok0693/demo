@@ -19,15 +19,11 @@ import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class RootAdapter extends ParentAdapter {
-    /*@FXML*/
     public ToolBarAdapter toolBarRootController;
-    /*@FXML*/
     public CanvasAdapter canvasRootController;
     public PropertyPanelAdapter propertyRootController;
     public LayersPanelAdapter layersRootController;
-
     private final RootShortcutHandler shortcutHandler;
-    /*@FXML*/
     public RootView root;
 
     public ShapeCanvasView canvasRoot;

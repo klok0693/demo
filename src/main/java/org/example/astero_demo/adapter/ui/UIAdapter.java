@@ -10,10 +10,9 @@ import org.example.astero_demo.logic.event.ApplicationEvent;
 
 public abstract class UIAdapter<T extends UIState> implements Initializable {
     protected final ViewController controller;
-
     protected final T uiState;
 
-    public UIAdapter(final ViewController controller, final T uiState) {
+    protected UIAdapter(final ViewController controller, final T uiState) {
         this.controller = controller;
         this.uiState = uiState;
     }

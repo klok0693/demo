@@ -6,17 +6,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.event.SelectElementById;
-import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-
-import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
 
 public class LayersPanelAdapter extends LeafAdapter {
     private final ModelState modelState;
@@ -27,7 +24,6 @@ public class LayersPanelAdapter extends LeafAdapter {
             final ViewController controller,
             final UIState uiState,
             final ModelState modelState) {
-
         super(controller, uiState);
         this.modelState = modelState;
     }
@@ -44,27 +40,15 @@ public class LayersPanelAdapter extends LeafAdapter {
         final TreeItem<String> rootItem = new TreeItem<>(StringUtils.EMPTY);
         layersTree.setRoot(rootItem);
         layers.forEach((key, value) -> {
-            final TreeItem<String> layerItem = new LayerItem(key);
-            layerItem.setExpanded(true);
+            final LayerItem layerItem = new LayerItem(key);
             rootItem.getChildren().add(layerItem);
-
-            value.stream()
-                    .map(Shape::getId)
-                    .map(String::valueOf)
-                    .forEach(id -> {
-                        final var item = new TreeItem<>(id);
-                        item.setExpanded(true);
-                        layerItem.getChildren().add(item);
-
-                        if (uiState.hasSelectedId() && Objects.equals(uiState.getSelectedShapeId(), Integer.valueOf(id))) {
-                            layersTree.getSelectionModel().select(item);
-                        }
-                    });
+            layerItem.setExpanded(true);
+            layerItem.addShapes(value);
         });
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         layersTree.setOnMouseClicked(event -> {
             final TreeItem<String> selectedItem = layersTree.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
@@ -82,10 +66,25 @@ public class LayersPanelAdapter extends LeafAdapter {
         }
     }
 
-    private static class LayerItem extends TreeItem<String> {
+    private class LayerItem extends TreeItem<String> {
 
         LayerItem(final String key) {
             super(key);
+        }
+
+        void addShapes(final Collection<Shape> shapes) {
+            shapes.stream()
+                    .map(Shape::getId)
+                    .map(String::valueOf)
+                    .forEach(id -> {
+                        final var item = new TreeItem<>(id);
+                        item.setExpanded(true);
+                        getChildren().add(item);
+
+                        if (uiState.hasSelectedId() && Objects.equals(uiState.getSelectedShapeId(), Integer.valueOf(id))) {
+                            layersTree.getSelectionModel().select(item);
+                        }
+                    });
         }
 
         String getFirstChildId() {

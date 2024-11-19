@@ -32,9 +32,8 @@ public class PropertyPanelAdapter extends LeafAdapter {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {}
 
-    }
     @Override
     public void update() {
         setUpField(xField, uiState.getSelectedX());

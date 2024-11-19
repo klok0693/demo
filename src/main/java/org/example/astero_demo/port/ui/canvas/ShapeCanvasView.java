@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.CanvasAdapter;
@@ -18,6 +19,7 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
     private final ToolLayer toolLayer;
     private final UIState uiState;
     private final ModelState modelState;
+    private final CanvasAdapter adapter;
 
     public ShapeCanvasView(
             final UIState uiState,
@@ -27,6 +29,8 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
             final ToolLayer toolLayer) {
         this.modelState = modelState;
         this.uiState = uiState;
+        this.adapter = adapter;
+
         setFocusTraversable(true);
 
         layers.add(backgroundLayer);
@@ -37,59 +41,78 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
         this.toolLayer = toolLayer;
         layers.add(toolLayer);
 
-        setOnMousePressed(e -> {
-            final double mouseX = e.getX();
-            final double mouseY = e.getY();
+        setOnMousePressed(this::onMousePressed);
+        setOnDragDetected(this::onDragDetected);
+        setOnMouseDragged(this::onMouseDragged);
+        setOnMouseReleased(this::onMouseReleased);
 
-            requestFocus();
+        redraw();
+    }
 
-            if (uiState.isInInsertMode()) {
-                toolLayer.onMousePressed(mouseX, mouseY);
-                e.consume();
-                return;
-            }
+    private void onMousePressed(final MouseEvent event) {
+        final double mouseX = event.getX();
+        final double mouseY = event.getY();
 
-            if (!toolLayer.isInBounds(mouseX, mouseY) && !modelState.findTopVisibleShape(mouseX, mouseY).isPresent()) {
-                adapter.primaryMouseBtnPressed(mouseX, mouseY);
-                toolLayer.onMousePressed(mouseX, mouseY);
-                redraw();
-            }
-            else if (toolLayer.isInBounds(mouseX, mouseY)) {
-                toolLayer.onMousePressed(mouseX, mouseY);
-                redraw();
-            }
-            else {
-                adapter.primaryMouseBtnPressed(mouseX, mouseY);
-                toolLayer.onMousePressed(mouseX, mouseY);
-                redraw();
-            }
-            e.consume();
-        });
+        requestFocus();
 
-        setOnDragDetected(event -> {
-            toolLayer.onDragDetected(event.getX(), event.getY());
+        if (uiState.isInInsertMode()) {
+            toolLayer.onMousePressed(mouseX, mouseY);
+            event.consume();
+            return;
+        }
+
+        /* For now, there are 4 possible logic ways, when we are not in insert mode:
+             1) There are no any shape or tool under the cursor
+             2) There are already selected shape under the cursor
+             3) There are some active tool under cursor(as the example, Ovals has round visible bounds, but
+                there's tool bounds are rectangle. So, situation, when the cursor would be not in visible,
+                but in tool border, is possible)
+             4) There are not selected shape under the cursor
+
+             Order of the checks is important*/
+
+        // First we check, is there are no shape or tool under the cursor
+        if (!toolLayer.isInBounds(mouseX, mouseY) && !modelState.findTopVisibleShape(mouseX, mouseY).isPresent()) {
+            adapter.primaryMouseBtnPressed(mouseX, mouseY);
+            toolLayer.onMousePressed(mouseX, mouseY);
             redraw();
-        });
-
-        setOnMouseDragged(event -> {
-            final double mouseX = event.getX();
-            final double mouseY = event.getY();
-
-            final double endX = getLayoutX() + getWidth();
-            final double endY = getLayoutY() + getHeight();
-
-            final double toolX = Math.min(Math.max(0, mouseX), endX);
-            final double toolY = Math.min(Math.max(0, mouseY), endY);
-
-            toolLayer.onMouseDragged(toolX, toolY);
+        }
+        // Second we check, is there is any tool
+        else if (toolLayer.isInBounds(mouseX, mouseY)) {
+            toolLayer.onMousePressed(mouseX, mouseY);
             redraw();
-        });
-
-        setOnMouseReleased(event -> {
-            toolLayer.onMouseReleased(event);
+        }
+        // If there is no tool but a shape under the cursor,
+        // we can select it(nothing badly, if it has already been selected)
+        else {
+            adapter.primaryMouseBtnPressed(mouseX, mouseY);
+            toolLayer.onMousePressed(mouseX, mouseY);
             redraw();
-        });
+        }
+        event.consume();
+    }
 
+    private void onDragDetected(final MouseEvent event) {
+        toolLayer.onDragDetected(event.getX(), event.getY());
+        redraw();
+    }
+
+    private void onMouseDragged(final MouseEvent event) {
+        final double mouseX = event.getX();
+        final double mouseY = event.getY();
+
+        final double endX = getLayoutX() + getWidth();
+        final double endY = getLayoutY() + getHeight();
+
+        final double toolX = Math.min(Math.max(0, mouseX), endX);
+        final double toolY = Math.min(Math.max(0, mouseY), endY);
+
+        toolLayer.onMouseDragged(toolX, toolY);
+        redraw();
+    }
+
+    private void onMouseReleased(final MouseEvent event) {
+        toolLayer.onMouseReleased(event);
         redraw();
     }
 

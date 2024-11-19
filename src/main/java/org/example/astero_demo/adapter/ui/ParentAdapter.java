@@ -6,7 +6,7 @@ import org.example.astero_demo.controller.ViewController;
 
 public abstract class ParentAdapter extends UIAdapter<MutableUIState> {
 
-    public ParentAdapter(final ViewController controller, final MutableUIState uiState) {
+    protected ParentAdapter(final ViewController controller, final MutableUIState uiState) {
         super(controller, uiState);
     }
 

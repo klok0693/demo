@@ -6,7 +6,6 @@ import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
-import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 
 import java.net.URL;
@@ -31,47 +30,34 @@ public class CanvasAdapter extends LeafAdapter {
     }
 
     public void primaryMouseBtnPressed(final double x, final double y) {
-        if (uiState.isInInsertMode()) {
-            //sendEvent(new SelectElementEvent(-1, -1));
-            //controller.process(new CreateNewShapeEvent(x, y));
-        }
-        else {
+        if (!uiState.isInInsertMode()) {
             sendEvent(new SelectElementByPositionEvent(x, y));
         }
-/*        else if (canvas.hasAnyElement(x, y)) {
-            sendEvent(new SelectElementEvent(x, y));
-        }
-        else {
-            sendEvent(new SelectElementEvent(-1, -1));
-        }*/
     }
 
-    public void onDragOver(final double x, final double y) {
+    public void createNewShapeAt(final double x, final double y, final double width, final double height) {
         update();
+        controller.process(
+                new CreateNewShapeEvent(x, y, width, height, uiState.getInsertShapeType()));
+    }
 
-        final LogicEvent event = uiState.isInInsertMode() ?
-                new CreateNewShapeEvent(x, y, 100, 100, uiState.getInsertShapeType()) :
+    public void modifySelectedShape(final double x, final double y, final double width, final double height) {
+        update();
+        controller.process(
                 new ModifyShapeEvent(
                         uiState.getSelectedShapeId(),
                         create(ShapeParam.X, valueOf(x)),
-                        create(ShapeParam.Y, valueOf(y)));
-
-        controller.process(event);
+                        create(ShapeParam.Y, valueOf(y)),
+                        create(ShapeParam.WIDTH, valueOf(width)),
+                        create(ShapeParam.HEIGHT, valueOf(height))));
     }
 
-    public void onDragOver(final double x, final double y, final double width, final double height) {
+    public void moveSelectedShapeTo(final double x, final double y) {
         update();
-
-        final LogicEvent event = uiState.isInInsertMode() ?
-                new CreateNewShapeEvent(x, y, width, height, uiState.getInsertShapeType()) :
-                new ModifyShapeEvent(
+        controller.process(new ModifyShapeEvent(
                 uiState.getSelectedShapeId(),
                 create(ShapeParam.X, valueOf(x)),
-                create(ShapeParam.Y, valueOf(y)),
-                create(ShapeParam.WIDTH, valueOf(width)),
-                create(ShapeParam.HEIGHT, valueOf(height)));
-
-        controller.process(event);
+                create(ShapeParam.Y, valueOf(y))));
     }
 
     public Shape selectElement(final double x, final double y) {

@@ -9,7 +9,7 @@ public abstract class LeafAdapter extends UIAdapter<UIState> {
     @Setter
     protected ParentAdapter parent;
 
-    public LeafAdapter(final ViewController controller, final UIState uiState) {
+    protected LeafAdapter(final ViewController controller, final UIState uiState) {
         super(controller, uiState);
     }
 

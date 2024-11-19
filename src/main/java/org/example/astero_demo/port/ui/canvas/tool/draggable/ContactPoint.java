@@ -76,6 +76,6 @@ public class ContactPoint extends DraggableTool {
         final double parentY = selectionTool.getY();
         final double parentWidth = selectionTool.getWidth();
         final double parentHeight = selectionTool.getHeight();
-        adapter.onDragOver(parentX, parentY, parentWidth, parentHeight);
+        adapter.modifySelectedShape(parentX, parentY, parentWidth, parentHeight);
     }
 }

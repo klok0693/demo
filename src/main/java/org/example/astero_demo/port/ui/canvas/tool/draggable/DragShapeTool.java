@@ -94,6 +94,6 @@ public class DragShapeTool extends DraggableTool {
         final double dragY = toolValues[1];
         final double offsetX = toolValues[4];
         final double offsetY = toolValues[5];
-        adapter.onDragOver(dragX - offsetX, dragY - offsetY);
+        adapter.moveSelectedShapeTo(dragX - offsetX, dragY - offsetY);
     }
 }

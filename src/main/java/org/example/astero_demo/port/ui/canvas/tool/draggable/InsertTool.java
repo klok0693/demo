@@ -52,6 +52,6 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
 
     @Override
     protected void performOperation(final double[] toolValues) {
-        adapter.onDragOver(toolValues[0], toolValues[1], toolValues[2], toolValues[3]);
+        adapter.createNewShapeAt(toolValues[0], toolValues[1], toolValues[2], toolValues[3]);
     }
 }
