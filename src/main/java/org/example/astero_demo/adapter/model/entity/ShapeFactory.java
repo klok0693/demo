@@ -22,12 +22,12 @@ public enum ShapeFactory {
                     yield new Rectangle(priority, x, y, width, height, color);
                 }
             }
-            case OVAL -> {
+            case ELLIPSE -> {
                 if (id != null) {
-                    yield new Oval(id, priority, x, y, width, height, color);
+                    yield new Ellipse(id, priority, x, y, width, height, color);
                 }
                 else {
-                    yield new Oval(priority, x, y, width, height, color);
+                    yield new Ellipse(priority, x, y, width, height, color);
                 }
             }
         };

@@ -36,7 +36,7 @@ public class DragShapeTool extends DraggableTool {
 
         switch (uiState.getSelectedShapeType()) {
             case RECT -> gc.fillRect(x - offsetX, y - offsetY, width, height);
-            case OVAL -> gc.fillOval(x - offsetX, y - offsetY, width, height);
+            case ELLIPSE -> gc.fillOval(x - offsetX, y - offsetY, width, height);
         }
     }
 

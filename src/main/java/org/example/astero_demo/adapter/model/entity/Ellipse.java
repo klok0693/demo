@@ -1,8 +1,8 @@
 package org.example.astero_demo.adapter.model.entity;
 
-public class Oval extends Shape {
+public class Ellipse extends Shape {
 
-    public Oval(
+    public Ellipse(
             final int id,
             final String priority,
             final String x,
@@ -13,7 +13,7 @@ public class Oval extends Shape {
         super(id, priority, x, y, width, height, color);
     }
 
-    public Oval(
+    public Ellipse(
             final String priority,
             final String x,
             final String y,
@@ -23,7 +23,7 @@ public class Oval extends Shape {
         super(priority, x, y, width, height, color);
     }
 
-    public Oval(
+    public Ellipse(
             final String priority,
             final String x,
             final String y,
@@ -41,20 +41,20 @@ public class Oval extends Shape {
             final double shapeWidth,
             final double shapeHeight) {
 
-        final double radiusX = shapeWidth / 2.0;
-        final double radiusY = shapeHeight / 2.0;
-        final double centerX = shapeX + radiusX; // Calculate center X
-        final double centerY = shapeY + radiusY; // Calculate center Y
-        final double dx = pointX - centerX; // Horizontal distance to the center
-        final double dy = pointY - centerY; // Vertical distance to the center
-        final double distanceSquared = dx * dx + dy * dy; // Squared distance to the center
-        final double radiusSquared = radiusX * radiusY; // Squared radius
+        final double centerX = shapeX + shapeWidth / 2.0; // Center X
+        final double centerY = shapeY + shapeHeight / 2.0; // Center Y
+        final double semiWidth = shapeWidth / 2.0; // Semi-major axis (horizontal)
+        final double semiHeight = shapeHeight / 2.0; // Semi-minor axis (vertical)
 
-        return distanceSquared <= radiusSquared; // Inside or on the boundary
+        final double dx = pointX - centerX; // Distance from point to center (x-axis)
+        final double dy = pointY - centerY; // Distance from point to center (y-axis)
+
+        // Equation of an ellipse
+        return (dx * dx) / (semiWidth * semiWidth) + (dy * dy) / (semiHeight * semiHeight) <= 1.0;
     }
 
     @Override
     public ShapeType getType() {
-        return ShapeType.OVAL;
+        return ShapeType.ELLIPSE;
     }
 }

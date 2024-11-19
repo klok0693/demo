@@ -3,9 +3,9 @@ package org.example.astero_demo.port.ui.canvas.element;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class OvalElement extends ShapeElement {
+public class EllipseElement extends ShapeElement {
 
-    protected OvalElement(
+    protected EllipseElement(
             final int layer,
             final int modelRelatedId,
             final double x,

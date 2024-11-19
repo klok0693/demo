@@ -47,7 +47,7 @@ public class ToolBarAdapter extends LeafAdapter {
     }
 
     public void onInsertCycleAction(final ActionEvent event) {
-        sendEvent(new InsertModeEvent(ShapeType.OVAL));
+        sendEvent(new InsertModeEvent(ShapeType.ELLIPSE));
     }
 
     public void onDeleteAction(final ActionEvent event) {

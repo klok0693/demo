@@ -27,7 +27,7 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
 
         switch (uiState.getInsertShapeType()) {
             case RECT -> gc.fillRect(x, y, width, height);
-            case OVAL -> gc.fillOval(x, y, width, height);
+            case ELLIPSE -> gc.fillOval(x, y, width, height);
         }
     }
 

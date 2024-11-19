@@ -47,7 +47,7 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
         final Color fillColor = ColorUtils.convert(shape.getColor());
 
         return switch (shape.getType()) {
-            case OVAL -> new OvalElement(layer, id, x, y, width, height, fillColor);
+            case ELLIPSE -> new EllipseElement(layer, id, x, y, width, height, fillColor);
             case RECT -> new RectangleElement(layer, id, x, y, width, height, fillColor);
         };
     }
