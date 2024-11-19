@@ -15,7 +15,6 @@ public class DragShapeTool extends DraggableTool {
     private final ModelState modelState;
     private final UIState uiState;
 
-    private Color color;
     private double offsetX;
     private double offsetY;
 
@@ -27,39 +26,30 @@ public class DragShapeTool extends DraggableTool {
         this.adapter = adapter;
         this.modelState = modelState;
         this.uiState = uiState;
-        this.color = null;
         this.offsetX = -1;
         this.offsetY = -1;
     }
 
     @Override
     protected void drawElement(final GraphicsContext gc) {
-        gc.setFill(color.darker());
+        gc.setFill(fillColor.darker());
         gc.setGlobalAlpha(OPACITY);
 
         switch (uiState.getSelectedShapeType()) {
-            case RECT:
-                gc.fillRect(x - offsetX, y - offsetY, width, height);
-                break;
-            case OVAL:
-                gc.fillOval(x - offsetX, y - offsetY, width, height);
-                break;
+            case RECT -> gc.fillRect(x - offsetX, y - offsetY, width, height);
+            case OVAL -> gc.fillOval(x - offsetX, y - offsetY, width, height);
         }
     }
 
     @Override
     public boolean onDragDetected(final double mouseX, final double mouseY) {
-        Shape element = null;
-        if (uiState.hasSelectedId()) {
-            Shape selected = modelState.getShape(uiState.getSelectedShapeId());
-            if (selected.isInBounds(mouseX, mouseY)) {
-                element = selected;
-            }
-        }
-        else {
-            element =  modelState.findTopShapeAt(mouseX, mouseY).orElse(null);
-        }
-        if (element == null || !element.isInVisibleBounds(mouseX, mouseY)) {
+        final Shape element = uiState.hasSelectedId()
+                ? modelState.getShape(uiState.getSelectedShapeId())
+                : modelState.findTopShapeAt(mouseX, mouseY).orElse(null);
+
+        if (element == null
+                || !element.isInBounds(mouseX, mouseY)
+                || !element.isInVisibleBounds(mouseX, mouseY)) {
             return false;
         }
 
@@ -67,7 +57,7 @@ public class DragShapeTool extends DraggableTool {
         this.y = mouseY;
         this.width = parseDouble(element.getWidth());
         this.height = parseDouble(element.getHeight());
-        this.color = ColorUtils.convert(element.getColor());
+        this.fillColor = ColorUtils.convert(element.getColor());
         this.offsetX = mouseX - parseDouble(element.getX());
         this.offsetY = mouseY - parseDouble(element.getY());
         this.isActive = true;

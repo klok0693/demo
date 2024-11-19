@@ -33,6 +33,10 @@ public class CanvasLayer<T extends Drawable> implements Drawable, Comparable<Can
         children.add(ch);
     }
 
+    public final void addAll(final Collection<T> newChildren) {
+        children.addAll(newChildren);
+    }
+
     public final void remove(final T ch) {
         children.remove(ch);
     }

@@ -2,12 +2,16 @@ package org.example.astero_demo.port.ui.canvas.element;
 
 import javafx.collections.WeakListChangeListener;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.util.ColorUtils;
 
 import java.util.stream.Collectors;
+
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
     private final ModelState modelState;
@@ -23,40 +27,28 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
 
     public void update() {
         removeAll();
-        final var elements = modelState.getShapes()
-                .map(shape -> new Object() {
-                    ShapeElement drawable = createElement(shape);
-                    int priority = Integer.valueOf(shape.getPriority());
-                })
-                .collect(Collectors.groupingBy(obj -> obj.priority,
-                        Collectors.mapping(obj -> obj.drawable, Collectors.toList())));
-
-        elements.keySet().forEach(key -> children.add(new CanvasLayer<>(key)));
-        children.stream()
-                .map(CanvasLayer.class::cast)
-                .forEach(layer -> elements.get(layer.getPriority()).forEach(layer::add));
+        modelState.getShapes()
+                .map(ShapeLayer::createElement)
+                .collect(Collectors.groupingBy(ShapeElement::getLayer, Collectors.toList()
+                )).forEach((layer, elements) -> {
+                    final CanvasLayer<ShapeElement> canvasLayer = new CanvasLayer<>(layer);
+                    canvasLayer.addAll(elements);
+                    children.add(canvasLayer);
+                });
     }
 
-    private ShapeElement createElement(final Shape shape) {
+    private static ShapeElement createElement(final Shape shape) {
+        final int layer = parseInt(shape.getPriority());
+        final int id = shape.getId();
+        final double x = parseDouble(shape.getX());
+        final double y = parseDouble(shape.getY());
+        final double width = parseDouble(shape.getWidth());
+        final double height = parseDouble(shape.getHeight());
+        final Color fillColor = ColorUtils.convert(shape.getColor());
+
         return switch (shape.getType()) {
-            case OVAL -> new OvalElement(
-                    0,
-                    shape.getId(),
-                    Double.valueOf(shape.getX()),
-                    Double.valueOf(shape.getY()),
-                    Double.valueOf(shape.getWidth()),
-                    Double.valueOf(shape.getHeight()),
-                    ColorUtils.convert(Integer.valueOf(shape.getColor()))
-            );
-            case RECT -> new RectangleElement(
-                    0,
-                    shape.getId(),
-                    Double.valueOf(shape.getX()),
-                    Double.valueOf(shape.getY()),
-                    Double.valueOf(shape.getWidth()),
-                    Double.valueOf(shape.getHeight()),
-                    ColorUtils.convert(Integer.valueOf(shape.getColor()))
-            );
+            case OVAL -> new OvalElement(layer, id, x, y, width, height, fillColor);
+            case RECT -> new RectangleElement(layer, id, x, y, width, height, fillColor);
         };
     }
 }

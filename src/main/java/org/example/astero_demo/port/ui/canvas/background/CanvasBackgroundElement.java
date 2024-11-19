@@ -5,26 +5,26 @@ import javafx.scene.paint.Color;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
 class CanvasBackgroundElement extends CanvasElement {
+    private static final int CELL_SIDE = 25;
+    private static final int PADDING = 10;
 
     protected CanvasBackgroundElement() {
-        super(10, 10, 710, 620);
+        super(PADDING, PADDING, 710, 620);
     }
 
     @Override
     protected void drawElement(final GraphicsContext gc) {
-        final int cellWidth = 25;
-
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(x, y, width, height);
 
         gc.setFill(Color.WHITE);
-        for (int i = (int) x; i < width; i += cellWidth) {
+        for (int i = (int) x; i < width; i += CELL_SIDE) {
             int startJ = (int) y;
-            if ((i / cellWidth) % 2 != 0) {
-                startJ = cellWidth + (int) y;
+            if ((i / CELL_SIDE) % 2 != 0) {
+                startJ = CELL_SIDE + (int) y;
             }
-            for (int j = startJ; j < height; j += (cellWidth << 1)) {
-                gc.fillRect(i, j, cellWidth, cellWidth);
+            for (int j = startJ; j < height; j += (CELL_SIDE << 1)) {
+                gc.fillRect(i, j, CELL_SIDE, CELL_SIDE);
             }
         }
     }

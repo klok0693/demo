@@ -1,11 +1,9 @@
 package org.example.astero_demo.port.ui.canvas.tool;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 public class InsertTool extends DraggableTool implements CanvasClickable {
     private final CanvasAdapter adapter;
@@ -15,6 +13,7 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
         super(2);
         this.adapter = adapter;
         this.uiState = uiState;
+        this.fillColor = Color.BLUE;
     }
 
     @Override
@@ -22,16 +21,12 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
         if (!isVisible) {
             return;
         }
-        gc.setFill(Color.BLUE);
+        gc.setFill(fillColor);
         gc.setGlobalAlpha(OPACITY);
 
         switch (uiState.getInsertShapeType()) {
-            case RECT:
-                gc.fillRect(x, y, width, height);
-                break;
-            case OVAL:
-                gc.fillOval(x, y, width, height);
-                break;
+            case RECT -> gc.fillRect(x, y, width, height);
+            case OVAL -> gc.fillOval(x, y, width, height);
         }
     }
 

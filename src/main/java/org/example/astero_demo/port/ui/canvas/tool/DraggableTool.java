@@ -1,11 +1,12 @@
 package org.example.astero_demo.port.ui.canvas.tool;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 public abstract class DraggableTool extends CanvasTool implements CanvasDraggable {
     protected static final double OPACITY = 0.4;
     protected boolean isActive = false;
+    protected Color fillColor;
 
     protected DraggableTool(final int layer) {
         super(-1, -1, -1, -1, layer);
@@ -16,7 +17,7 @@ public abstract class DraggableTool extends CanvasTool implements CanvasDraggabl
     }
 
     @Override
-    public void onMouseDragged(double x, double y) {
+    public void onMouseDragged(final double x, final double y) {
         if (!isActive) {
             return;
         }

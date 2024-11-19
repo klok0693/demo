@@ -18,10 +18,13 @@ import static javafx.geometry.Pos.*;
 
 public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, CanvasDraggable {
     private static final double MINIMAL_SIDE = 1.0;
+    private static final double FRAME_WIDTH = 3.0;
     private final CanvasAdapter adapter;
     private final ModelState modelState;
     private final UIState uiState;
     private final List<ContactPoint> contactPoints;
+
+    private final Color fillColor;
 
     public ShapeSelectionTool(final CanvasAdapter adapter, final ModelState holder, final UIState uiState) {
         super(-1, -1, -1, -1, 0);
@@ -29,23 +32,24 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         this.modelState = holder;
         this.uiState = uiState;
         this.isVisible = false;
+        this.fillColor = Color.RED;
 
         contactPoints = Arrays.asList(
-                new ContactPoint(0, TOP_LEFT),
-                new ContactPoint(0, TOP_CENTER),
-                new ContactPoint(0, TOP_RIGHT),
-                new ContactPoint(0, CENTER_RIGHT),
-                new ContactPoint(0, BOTTOM_RIGHT),
-                new ContactPoint(0, BOTTOM_CENTER),
-                new ContactPoint(0, BOTTOM_LEFT),
-                new ContactPoint(0, CENTER_LEFT)
+                new ContactPoint(0, fillColor, TOP_LEFT),
+                new ContactPoint(0, fillColor, TOP_CENTER),
+                new ContactPoint(0, fillColor, TOP_RIGHT),
+                new ContactPoint(0, fillColor, CENTER_RIGHT),
+                new ContactPoint(0, fillColor, BOTTOM_RIGHT),
+                new ContactPoint(0, fillColor, BOTTOM_CENTER),
+                new ContactPoint(0, fillColor, BOTTOM_LEFT),
+                new ContactPoint(0, fillColor, CENTER_LEFT)
         );
     }
 
     @Override
     protected void drawElement(final GraphicsContext gc) {
-        gc.setStroke(Color.RED);
-        gc.setLineWidth(3);
+        gc.setStroke(fillColor);
+        gc.setLineWidth(FRAME_WIDTH);
         gc.strokeRect(x, y, width, height);
 
         contactPoints.forEach(point -> point.draw(gc));
@@ -58,64 +62,38 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     }
 
     public boolean selectElement(final int id) {
-        final Shape s = modelState.getShape(id);
+        final Shape selection = modelState.getShape(id);
         update(
-                parseDouble(s.getX()),
-                parseDouble(s.getY()),
-                parseDouble(s.getWidth()),
-                parseDouble(s.getHeight()));
+                parseDouble(selection.getX()),
+                parseDouble(selection.getY()),
+                parseDouble(selection.getWidth()),
+                parseDouble(selection.getHeight()));
         return true;
     }
 
     @Override
     public void onMousePressed(final double mouseX, final double mouseY) {
         contactPoints.forEach(contact -> contact.onDragDetected(mouseX, mouseY));
-        final double pointX, pointY, width, height;
+
         if (isVisible) {
-            final Shape s = modelState.getShape(uiState.getSelectedShapeId());
+            final Shape selection = modelState.getShape(uiState.getSelectedShapeId());
             update(
-                    parseDouble(s.getX()),
-                    parseDouble(s.getY()),
-                    parseDouble(s.getWidth()),
-                    parseDouble(s.getHeight()));
+                    parseDouble(selection.getX()),
+                    parseDouble(selection.getY()),
+                    parseDouble(selection.getWidth()),
+                    parseDouble(selection.getHeight())
+            );
             return;
         }
-        Shape element = modelState.findTopShapeAt(mouseX, mouseY).orElse(null);
-        if (element == null) {
-            if (isInBounds(mouseX, mouseY)) {
-                // never true
-                return;
-                //element = modelState.findTopShapeAt(mouseX, mouseY).orElse(null);
 
-            }
-            else {
-                reset();
-                return;
-            }
-        }
-        else {
-            pointX = parseDouble(element.getX());
-            pointY = parseDouble(element.getY());
-            width = parseDouble(element.getWidth());
-            height = parseDouble(element.getHeight());
-        }
-
-
-        //if (element != null) {
-            update(pointX, pointY, width, height);
-/*        }
-        else {
-            reset();
-        }*/
+        modelState.findTopShapeAt(mouseX, mouseY)
+                .ifPresentOrElse(element -> update(
+                        parseDouble(element.getX()),
+                        parseDouble(element.getY()),
+                        parseDouble(element.getWidth()),
+                        parseDouble(element.getHeight())
+                ), this::reset);
     }
-
-/*    private double[] getPointVal() {
-        for (final ContactPoint contactPoint : contactPoints) {
-            if (contactPoint.isActive) {
-                return new double[] {contactPoint.getPointX(), }
-            }
-        }
-    }*/
 
     void update(final double x, final double y, final double width, final double height) {
         this.x = x ;//Math.max(x, 0);
@@ -142,9 +120,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
     @Override
     public void onMouseDragged(final double mouseX, final double mouseY) {
-        contactPoints.stream()
-                .filter(point -> point.isActive)
-                .forEach(point -> point.onMouseDragged(mouseX, mouseY));
+        contactPoints.forEach(point -> point.onMouseDragged(mouseX, mouseY));
     }
 
     @Override
@@ -160,14 +136,15 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         return isInShapeBounds ? isInShapeBounds : contactPoints.stream().anyMatch(contact -> contact.isInBounds(x, y));
     }
 
-    private class ContactPoint extends DraggableTool implements CanvasClickable {
+    private class ContactPoint extends DraggableTool {
         private static final double DIAMETER = 16.0;
         private static final double RADIUS = DIAMETER / 2;
 
         private final Pos alignment;
 
-        protected ContactPoint(final int layer, final Pos alignment) {
+        protected ContactPoint(final int layer, final Color fillColor, final Pos alignment) {
             super(DIAMETER, DIAMETER, layer);
+            this.fillColor = fillColor;
             this.alignment = alignment;
             this.isVisible = false;
         }
@@ -196,13 +173,6 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         }
 
         @Override
-        public void onMousePressed(final double x, final double y) {
-/*            if (isInBounds(x, y)) {
-                this.isVisible = true;
-            }*/
-        }
-
-        @Override
         public boolean onDragDetected(final double mouseX, final double mouseY) {
             if (isVisible && isInBounds(mouseX, mouseY)) {
                 this.isActive = true;
@@ -213,7 +183,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         }
 
         @Override
-        protected void update(double mouseX, double mouseY) {
+        protected void update(final double mouseX, final double mouseY) {
             final double parentX = ShapeSelectionTool.this.x;
             final double parentY = ShapeSelectionTool.this.y;
             final double parentWidth = ShapeSelectionTool.this.width;
