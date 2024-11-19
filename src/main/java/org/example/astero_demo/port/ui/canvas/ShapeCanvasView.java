@@ -12,12 +12,7 @@ import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 
-import java.util.Optional;
-
-import static java.lang.String.valueOf;
-
 public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView {
-
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
@@ -60,7 +55,6 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
                 redraw();
             }
             else if (toolLayer.isInBounds(mouseX, mouseY)) {
-                //adapter.primaryMouseBtnPressed(mouseX, mouseY);
                 toolLayer.onMousePressed(mouseX, mouseY);
                 redraw();
             }
@@ -69,20 +63,6 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
                 toolLayer.onMousePressed(mouseX, mouseY);
                 redraw();
             }
-
-/*            if (!hasElementOn(mouseX, mouseY) && !toolLayer.isInBounds(mouseX, mouseY)) {
-                adapter.primaryMouseBtnPressed(mouseX, mouseY);
-                redraw();
-            }
-            else if (toolLayer.isInBounds(mouseX, mouseY)) {
-                toolLayer.onMousePressed(mouseX, mouseY);//.onDragDetected(e);
-                redraw();
-            }
-            else {
-                adapter.primaryMouseBtnPressed(mouseX, mouseY);
-                toolLayer.onMousePressed(mouseX, mouseY);//.onDragDetected(e);
-                redraw();
-            }*/
             e.consume();
         });
 
@@ -114,9 +94,7 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
     }
 
     public final void redraw() {
-        Platform.runLater(() -> {
-            layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsContext2D()));
-        });
+        Platform.runLater(() -> layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsContext2D())));
     }
 
     @Override
@@ -129,10 +107,8 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
     }
 
     @Override
-    public Shape selectElement(int id) {
+    public Shape selectElement(final int id) {
         final Shape element = modelState.getShape(id);
-        final double x = element == null ? -1 : element.getCenterX();
-        final double y = element == null ? -1 : element.getCenterY();
         toolLayer.selectElement(id);
         redraw();
         return element;
@@ -144,9 +120,5 @@ public class ShapeCanvasView extends Canvas implements CanvasAdapter.CanvasView 
         toolLayer.onMousePressed(mouseX, mouseY);
         redraw();
         return element;
-    }
-
-    private boolean hasElementOn(final double mouseX, final double mouseY) {
-        return modelState.findTopShapeAt(mouseX, mouseY).isPresent();
     }
 }

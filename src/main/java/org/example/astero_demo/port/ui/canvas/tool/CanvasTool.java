@@ -3,6 +3,9 @@ package org.example.astero_demo.port.ui.canvas.tool;
 import javafx.scene.canvas.GraphicsContext;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
+/**
+ * Note: this class has a natural ordering that is inconsistent with equals.
+ */
 public abstract class CanvasTool extends CanvasElement implements Comparable<CanvasTool> {
     private final int layer;
     protected boolean isVisible = false;

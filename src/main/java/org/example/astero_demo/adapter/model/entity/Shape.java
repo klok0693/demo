@@ -86,14 +86,6 @@ public abstract class Shape implements Comparable<Shape> {
             double shapeWidth,
             double shapeHeight);
 
-    public double getCenterX() {
-        return parseDouble(this.x) + (parseDouble(this.width) / 2);
-    }
-
-    public double getCenterY() {
-        return parseDouble(this.y) + (parseDouble(this.height) / 2);
-    }
-
     public abstract ShapeType getType();
 
     @Override

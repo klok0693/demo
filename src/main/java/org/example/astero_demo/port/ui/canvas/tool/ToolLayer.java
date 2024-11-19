@@ -10,11 +10,9 @@ import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
 import java.util.function.Consumer;
 
 public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickable, CanvasDraggable {
-
     private final ShapeSelectionTool selectionTool;
     private final DragShapeTool dragTool;
     private final InsertTool insertTool;
-
     private final UIState uiState;
 
     public ToolLayer(
@@ -23,9 +21,9 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
             final InsertTool insertTool,
             final UIState uiState) {
         super(2);
+        this.uiState = uiState;
 
         this.selectionTool = selectionTool;
-        this.uiState = uiState;
         add(selectionTool);
 
         this.dragTool = dragTool;
@@ -45,14 +43,12 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     @Override
     public void onMousePressed(final double x, final double y) {
-        //resetAll();
         if (uiState.isInInsertMode()) {
             insertTool.onMousePressed(x, y);
         }
         else {
             selectionTool.onMousePressed(x, y);
         }
-        //forEachChildren(CanvasClickable.class, clickable -> clickable.onMousePressed(x, y));
     }
 
     @Override
@@ -65,10 +61,6 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
         }
         return uiState.hasSelectedId() && dragTool.onDragDetected(mouseX, mouseY);
     }
-
-/*    public boolean hasActiveTool() {
-        return selectionTool.isActive || dragTool.isNeedToDrag();
-    }*/
 
     @Override
     public void onMouseDragged(final double mouseX, final double mouseY) {
@@ -91,7 +83,6 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
     }
 
     private <T> void forEachChildren(final Class<T> tClass, final Consumer<T> consumer) {
-
         getChildren()
                 .filter(tool -> tClass.isAssignableFrom(tool.getClass()))
                 .map(tClass::cast)
