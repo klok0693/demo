@@ -1,34 +1,34 @@
-package org.example.astero_demo.adapter.ui;
+package org.example.astero_demo.port.ui.elements;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
-import org.example.astero_demo.adapter.ui.event.SelectElementById;
+import org.example.astero_demo.adapter.ui.ShapeSelector;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.ViewController;
 
-import java.net.URL;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-public class LayersPanelAdapter extends LeafAdapter {
+public class LayersTree extends TreeView<String> {
     private final ModelState modelState;
+    private final UIState uiState;
 
-    public TreeView<String> layersTree;
-
-    public LayersPanelAdapter(
-            final ViewController controller,
-            final UIState uiState,
-            final ModelState modelState) {
-        super(controller, uiState);
+    public LayersTree(final ModelState modelState, final UIState uiState, final ShapeSelector shapeSelector) {
         this.modelState = modelState;
+        this.uiState = uiState;
+
+        setOnMouseClicked(event -> {
+            final TreeItem<String> selectedItem = getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                final String id = selectedItem instanceof final LayerItem item ? item.getFirstChildId() : selectedItem.getValue();
+                shapeSelector.selectShape(id);
+            }
+        });
     }
 
-    @Override
     public void update() {
         cleanUp();
 
@@ -38,7 +38,7 @@ public class LayersPanelAdapter extends LeafAdapter {
         }
 
         final TreeItem<String> rootItem = new TreeItem<>(StringUtils.EMPTY);
-        layersTree.setRoot(rootItem);
+        setRoot(rootItem);
         layers.forEach((key, value) -> {
             final LayerItem layerItem = new LayerItem(key);
             rootItem.getChildren().add(layerItem);
@@ -47,22 +47,11 @@ public class LayersPanelAdapter extends LeafAdapter {
         });
     }
 
-    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
-        layersTree.setOnMouseClicked(event -> {
-            final TreeItem<String> selectedItem = layersTree.getSelectionModel().getSelectedItem();
-            if (selectedItem != null) {
-                final String id = selectedItem instanceof final LayerItem item ? item.getFirstChildId() : selectedItem.getValue();
-                parent.processEvent(new SelectElementById(Integer.parseInt(id)));
-            }
-        });
-    }
-
     private void cleanUp() {
-        final TreeItem<String> root = layersTree.getRoot();
+        final TreeItem<String> root = getRoot();
         if (root != null) {
             root.getChildren().clear();
-            layersTree.setRoot(null);
+            setRoot(null);
         }
     }
 
@@ -82,7 +71,7 @@ public class LayersPanelAdapter extends LeafAdapter {
                         getChildren().add(item);
 
                         if (uiState.hasSelectedId() && Objects.equals(uiState.getSelectedShapeId(), Integer.valueOf(id))) {
-                            layersTree.getSelectionModel().select(item);
+                            getSelectionModel().select(item);
                         }
                     });
         }

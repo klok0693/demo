@@ -5,7 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
-import org.example.astero_demo.adapter.ui.CanvasAdapter;
+import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.ContactPoint;

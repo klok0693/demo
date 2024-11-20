@@ -4,10 +4,17 @@ import com.google.inject.*;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.*;
+import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
+import org.example.astero_demo.adapter.ui.canvas.CanvasView;
+import org.example.astero_demo.adapter.ui.canvas.ShapeCanvasAdapter;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.UIStateHolder;
 import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.port.ui.LayersPanel;
+import org.example.astero_demo.port.ui.elements.LayersTree;
 import org.example.astero_demo.realization.initialization.di.provider.ui.*;
 import org.example.astero_demo.realization.initialization.di.provider.ui.adapter.*;
 import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
@@ -16,6 +23,9 @@ import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
+import org.example.astero_demo.realization.initialization.ui.builder.CanvasBuilder;
+import org.example.astero_demo.realization.initialization.ui.builder.LayersPanelBuilder;
+import org.example.astero_demo.realization.initialization.ui.builder.LayersTreeBuilder;
 
 public class UIModule extends AbstractModule {
 
@@ -26,6 +36,9 @@ public class UIModule extends AbstractModule {
 
         bind(RootShortcutHandler.class).toProvider(ShortcutHandlerProvider.class).asEagerSingleton();
         bind(RootAdapter.class).toProvider(RootAdapterProvider.class).asEagerSingleton();
+
+        //bind(LayersTree.class).toProvider(LayersTreeProvider.class).asEagerSingleton();
+        bind(LayersPanelAdapter.class).toProvider(LayersPanelAdapterProvider.class).asEagerSingleton();
 
         bind(CanvasView.class).to(ShapeCanvasView.class);
         bind(ParentAdapter.class).to(RootAdapter.class);
@@ -63,20 +76,19 @@ public class UIModule extends AbstractModule {
     @Singleton
     public ShapeCanvasAdapter provideCanvasAdapter(
             final ViewController controller,
-            final UIState uiState,
-            final ShapeCanvasView canvasView) {
-        return new ShapeCanvasAdapter(controller, uiState, canvasView);
+            final UIState uiState) {
+        return new ShapeCanvasAdapter(controller, uiState);
     }
 
-    @Inject
+/*    @Inject
     @Provides
     @Singleton
     public LayersPanelAdapter provideLayersAdapter(
             final ViewController controller,
             final UIState uiState,
-            final ModelState holder) {
-        return new LayersPanelAdapter(controller, uiState, holder);
-    }
+            final LayersPanel panel) {
+        return new LayersPanelAdapter(controller, uiState, panel);
+    }*/
 
     @Inject
     @Provides
@@ -123,5 +135,43 @@ public class UIModule extends AbstractModule {
             final BackgroundLayer backgroundLayer,
             final ToolLayer toolLayer) {
         return new ShapeCanvasView(state, modelState, adapter, backgroundLayer, toolLayer);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public LayersPanel provideLayersPanel(final LayersTree tree) {
+        return new LayersPanel(tree);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public LayersTree provideLayersTree(
+            final ModelState modelState,
+            final UIState uiState,
+            final LayersAdapter shapeSelector) {
+        return new LayersTree(modelState, uiState, shapeSelector);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public CanvasBuilder provideCanvasBuilder(final ShapeCanvasView canvasView) {
+        return new CanvasBuilder(canvasView);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public LayersPanelBuilder provideLayersPanelBuilder(final LayersPanel panel) {
+        return new LayersPanelBuilder(panel);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public LayersTreeBuilder provideLayersTreeBuilder(final LayersTree layersTree) {
+        return new LayersTreeBuilder(layersTree);
     }
 }

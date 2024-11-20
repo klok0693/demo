@@ -1,0 +1,23 @@
+package org.example.astero_demo.realization.async.wrappers.adapter;
+
+import org.example.astero_demo.adapter.ui.ParentAdapter;
+import org.example.astero_demo.adapter.ui.UpdatableAdapter;
+import org.example.astero_demo.realization.async.AppExecutor;
+import org.example.astero_demo.realization.async.wrappers.AsynchWrapper;
+
+public class UpdatableAdapterAsyncWrapper<T extends UpdatableAdapter> extends AsynchWrapper<T> implements UpdatableAdapter {
+
+    protected UpdatableAdapterAsyncWrapper(final AppExecutor executor, final T wrappedElement) {
+        super(executor, wrappedElement);
+    }
+
+    @Override
+    public void update() {
+        executeInFXThread(wrappedElement::update);
+    }
+
+    @Override
+    public void setParent(final ParentAdapter parentAdapter) {
+        wrappedElement.setParent(parentAdapter);
+    }
+}

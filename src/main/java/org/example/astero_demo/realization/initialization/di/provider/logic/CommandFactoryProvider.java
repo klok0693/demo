@@ -3,7 +3,6 @@ package org.example.astero_demo.realization.initialization.di.provider.logic;
 import org.example.astero_demo.controller.ModelController;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.realization.initialization.di.provider.InstanceProvider;
-import org.example.astero_demo.realization.initialization.di.provider.controller.ModelControllerProvider;
 import org.example.astero_demo.logic.command.CommandFactoryImpl;
 
 public class CommandFactoryProvider extends InstanceProvider<CommandFactoryProvider.CommandFactoryProxy> {

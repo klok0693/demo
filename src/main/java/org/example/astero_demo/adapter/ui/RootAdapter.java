@@ -4,7 +4,9 @@ import javafx.geometry.Point2D;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
+import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.event.*;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
@@ -22,7 +24,7 @@ public class RootAdapter extends ParentAdapter {
     public ToolBarAdapter toolBarRootController;
     public CanvasAdapter canvasRootController;
     public PropertyPanelAdapter propertyRootController;
-    public LayersPanelAdapter layersRootController;
+    public LayersAdapter layersRootController;
     private final RootShortcutHandler shortcutHandler;
     public RootView root;
 

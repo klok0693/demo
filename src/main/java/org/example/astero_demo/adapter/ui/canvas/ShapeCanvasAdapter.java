@@ -1,7 +1,8 @@
-package org.example.astero_demo.adapter.ui;
+package org.example.astero_demo.adapter.ui.canvas;
 
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
@@ -15,11 +16,10 @@ import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
 public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
-    public final CanvasView canvasRoot;
+    public CanvasView canvasRoot;
 
-    public ShapeCanvasAdapter(final ViewController controller, final UIState uiState, final CanvasView canvasRoot) {
+    public ShapeCanvasAdapter(final ViewController controller, final UIState uiState) {
         super(controller, uiState);
-        this.canvasRoot = canvasRoot;
     }
 
     @Override

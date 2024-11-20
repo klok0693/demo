@@ -1,8 +1,9 @@
-package org.example.astero_demo.adapter.ui;
+package org.example.astero_demo.adapter.ui.canvas;
 
 import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.adapter.ui.UpdatableAdapter;
 
-public interface CanvasAdapter {
+public interface CanvasAdapter extends UpdatableAdapter {
 
     void primaryMouseBtnPressed(double x, double y);
 
@@ -15,8 +16,4 @@ public interface CanvasAdapter {
     Shape selectElement(double x, double y);
 
     Shape selectElement(int id);
-
-    void setParent(ParentAdapter parentAdapter);
-
-    void update();
 }

@@ -1,12 +1,16 @@
-package org.example.astero_demo.realization.initialization;
+package org.example.astero_demo.realization.initialization.ui;
 
 import com.google.inject.Inject;
 import javafx.util.Callback;
 import org.example.astero_demo.adapter.ui.*;
+import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
+import org.example.astero_demo.adapter.ui.canvas.ShapeCanvasAdapter;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
 
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
-    private final LayersPanelAdapter layersAdapter;
+    private final LayersAdapter layersAdapter;
     private final PropertyPanelAdapter propertyAdapter;
     private final CanvasAdapter canvasAdapter;
     private final ToolBarAdapter toolBarAdapter;
@@ -14,7 +18,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
     @Inject
     public CustomControllerFactory(
-            final LayersPanelAdapter layersAdapter,
+            final LayersAdapter layersAdapter,
             final PropertyPanelAdapter propertyAdapter,
             final CanvasAdapter canvasAdapter,
             final ToolBarAdapter toolBarAdapter,

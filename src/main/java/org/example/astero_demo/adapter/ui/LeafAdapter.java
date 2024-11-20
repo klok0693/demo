@@ -5,7 +5,7 @@ import org.example.astero_demo.adapter.ui.event.UIEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 
-public abstract class LeafAdapter extends UIAdapter<UIState> {
+public abstract class LeafAdapter extends UIAdapter<UIState> implements UpdatableAdapter {
     @Setter
     protected ParentAdapter parent;
 
@@ -16,6 +16,4 @@ public abstract class LeafAdapter extends UIAdapter<UIState> {
     protected void sendEvent(final UIEvent event) {
         parent.processEvent(event);
     }
-
-    public abstract void update();
 }

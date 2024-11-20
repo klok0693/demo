@@ -4,10 +4,11 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadListener;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.astero_demo.realization.initialization.CustomControllerFactory;
-import org.example.astero_demo.realization.initialization.NodeBuilderFactory;
+import org.example.astero_demo.realization.initialization.ui.CustomControllerFactory;
+import org.example.astero_demo.realization.initialization.ui.NodeBuilderFactory;
 import org.example.astero_demo.realization.initialization.di.*;
 
 import java.io.IOException;
@@ -29,12 +30,14 @@ public class HelloApplication extends Application {
 
         final CustomControllerFactory controllerFactory = injector.getInstance(CustomControllerFactory.class);
         final NodeBuilderFactory nodeFactory = injector.getInstance(NodeBuilderFactory.class);
+        final LoadListener loadListener = injector.getInstance(LoadListener.class);
 
         final FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
         fxmlLoader.setControllerFactory(controllerFactory);
         fxmlLoader.setBuilderFactory(nodeFactory);
-        final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
+        fxmlLoader.setLoadListener(loadListener);
 
+        final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
         stage.setTitle("untitled");
         stage.setScene(scene);
         stage.show();

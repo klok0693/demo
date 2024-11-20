@@ -1,0 +1,24 @@
+package org.example.astero_demo.realization.initialization.ui.builder;
+
+import javafx.scene.canvas.Canvas;
+import javafx.util.Builder;
+import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
+
+import java.util.HashMap;
+
+import static java.lang.Double.parseDouble;
+
+public class CanvasBuilder extends HashMap<String, String> implements Builder<Canvas> {
+    private final ShapeCanvasView canvasView;
+
+    public CanvasBuilder(final ShapeCanvasView canvasView) {
+        this.canvasView = canvasView;
+    }
+
+    @Override
+    public Canvas build() {
+        canvasView.setWidth(parseDouble(get("width")));
+        canvasView.setHeight(parseDouble(get("height")));
+        return canvasView;
+    }
+}

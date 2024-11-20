@@ -2,7 +2,7 @@ package org.example.astero_demo.port.ui.canvas.tool.draggable;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import org.example.astero_demo.adapter.ui.CanvasAdapter;
+import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 
 public class ContactPoint extends DraggableTool {

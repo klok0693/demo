@@ -7,16 +7,18 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:id="layersRoot"
-      fx:controller="org.example.astero_demo.adapter.ui.LayersPanelAdapter"
-      prefHeight="380.0" prefWidth="240.0">
+<?import org.example.astero_demo.port.ui.LayersPanel?>
+<?import org.example.astero_demo.port.ui.elements.LayersTree?>
+<LayersPanel xmlns="http://javafx.com/javafx"
+             xmlns:fx="http://javafx.com/fxml"
+             fx:id="layersRoot"
+             fx:controller="org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter"
+             prefHeight="380.0" prefWidth="240.0">
 
     <stylesheets>
         <URL value="@../css/layers-panel.css"/>
     </stylesheets>
 
-    <TreeView fx:id="layersTree" showRoot="false"/>
+    <LayersTree fx:id="layersTree" showRoot="false"/>
 
-</VBox>
+</LayersPanel>
