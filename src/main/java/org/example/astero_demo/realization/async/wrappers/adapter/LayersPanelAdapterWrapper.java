@@ -6,7 +6,6 @@ import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
 import org.example.astero_demo.realization.async.AppExecutor;
 
 public class LayersPanelAdapterWrapper extends UpdatableAdapterAsyncWrapper<LayersAdapter> implements LayersAdapter {
-    //public TreeView<String> layersTree;
 
     @Inject
     protected LayersPanelAdapterWrapper(final AppExecutor executor, final LayersPanelAdapter wrappedElement) {

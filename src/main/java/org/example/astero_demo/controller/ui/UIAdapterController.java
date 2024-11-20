@@ -1,7 +1,7 @@
-package org.example.astero_demo.controller;
+package org.example.astero_demo.controller.ui;
 
-import lombok.Setter;
-import org.example.astero_demo.adapter.ui.RootAdapter;
+import org.example.astero_demo.controller.AbstractController;
+import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
@@ -9,30 +9,31 @@ import org.example.astero_demo.logic.event.ui.ParamEvent;
 
 import java.util.Arrays;
 
-import static java.lang.Double.parseDouble;
-
-public class ViewController extends AbstractController {
-    protected RootAdapter adapter;
+public class UIAdapterController extends AbstractController implements UIController {
+    private final ControllerAdapter adapter;
     private final ShapeValidator validator;
 
-    public ViewController(
+    public UIAdapterController(
             final CommandFactory commandFactory,
             final CommandProcessor commandProcessor,
-            final RootAdapter adapter,
+            final ControllerAdapter adapter,
             final ShapeValidator validator) {
         super(commandFactory, commandProcessor);
         this.adapter = adapter;
         this.validator = validator;
     }
 
+    @Override
     public void onCreateUpdate(final int id) {
         adapter.onCreateUpdate(id);
     }
 
+    @Override
     public void onModifyUpdate(final int id) {
         adapter.onModifyUpdate(id);
     }
 
+    @Override
     public void onRemoveUpdate() {
         adapter.onRemoveUpdate();
     }

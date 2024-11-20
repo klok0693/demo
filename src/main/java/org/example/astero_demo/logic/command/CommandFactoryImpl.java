@@ -3,16 +3,17 @@ package org.example.astero_demo.logic.command;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.controller.ModelController;
-import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.controller.model.ModelAdapterController;
+import org.example.astero_demo.controller.model.ModelController;
+import org.example.astero_demo.controller.ui.UIController;
 
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
 public class CommandFactoryImpl implements CommandFactory {
-    protected ViewController viewController;
-    protected ModelController modelController;
+    private final UIController viewController;
+    private final ModelController modelController;
 
-    public CommandFactoryImpl(final ViewController viewController, final ModelController modelController) {
+    public CommandFactoryImpl(final UIController viewController, final ModelController modelController) {
         this.viewController = viewController;
         this.modelController = modelController;
     }
@@ -44,6 +45,6 @@ public class CommandFactoryImpl implements CommandFactory {
 
     @Override
     public Command createRemoveShapeCommand(final int id) {
-        return new RemoveShapeCommand(modelController, viewController, id);
+        return new RemoveShapeCommand(viewController, modelController, id);
     }
 }

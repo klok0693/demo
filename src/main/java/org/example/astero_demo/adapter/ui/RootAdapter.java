@@ -6,12 +6,11 @@ import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.event.*;
 import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
-import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
 import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
-import org.example.astero_demo.adapter.ui.toolbar.ToolBarPanelAdapter;
-import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.controller.ui.ControllerAdapter;
+import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
@@ -21,7 +20,7 @@ import java.awt.*;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdapter {
+public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdapter, ControllerAdapter {
     public ToolBarAdapter toolBarAdapter;
     public CanvasAdapter canvasAdapter;
     public PropertiesAdapter propertyAdapter;
@@ -31,11 +30,11 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     public ShapeCanvasView canvasRoot;
 
     public RootAdapter(
-            final ViewController controller,
+            final LogicEventProcessor controller,
             final MutableUIState uiState,
             final RootView rootView,
             final CanvasAdapter canvasAdapter,
-            final LayersPanelAdapter layersAdapter,
+            final LayersAdapter layersAdapter,
             final PropertiesAdapter propertyAdapter,
             final ToolBarAdapter toolBarAdapter) {
         super(controller, uiState);
@@ -44,32 +43,19 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         this.layersAdapter = layersAdapter;
         this.propertyAdapter = propertyAdapter;
         this.toolBarAdapter = toolBarAdapter;
-
-        rootView.setUiState(uiState);
     }
 
-/*    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("root init " + this.toolBarRootController.toString());
-
-        this.toolBarRootController.setParent(this);
-        this.canvasRootController.setParent(this);
-        this.propertyRootController.setParent(this);
-        //this.layersRootController.setParent(this);
-
-        rootView.setUiState(uiState);
-        //rootView.setOnKeyPressed(shortcutHandler::handle);
-    }*/
-
+    @Override
     public void onCreateUpdate(final int id) {
-        //selectElement(newShapeX, newShapeY);
         selectElement(id);
     }
 
+    @Override
     public void onModifyUpdate(final int id) {
         selectElement(id);
     }
 
+    @Override
     public void onRemoveUpdate() {
         uiState.setIsInInsertMode(false);
         uiState.removeSelection();
@@ -77,10 +63,10 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     }
 
     private void updateChildren() {
-/*        toolBarRootController.update();
-        canvasRootController.update();
-        propertyRootController.update();*/
-        //layersRootController.update();
+        toolBarAdapter.update();
+        canvasAdapter.update();
+        propertyAdapter.update();
+        layersAdapter.update();
         rootView.update();
     }
 

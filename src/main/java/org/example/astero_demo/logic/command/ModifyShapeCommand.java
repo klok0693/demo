@@ -1,17 +1,18 @@
 package org.example.astero_demo.logic.command;
 
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
-import org.example.astero_demo.controller.ModelController;
-import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.controller.model.ModelAdapterController;
+import org.example.astero_demo.controller.model.ModelController;
+import org.example.astero_demo.controller.ui.UIController;
 
 public class ModifyShapeCommand extends ParamCommand {
-    private final ViewController viewController;
+    private final UIController viewController;
     private final ModelController modelController;
 
     protected final int modifyShapeId;
 
     public ModifyShapeCommand(
-            final ViewController viewController,
+            final UIController viewController,
             final ModelController modelController,
             final int modifyShapeId,
             final ParamInfo... infos) {

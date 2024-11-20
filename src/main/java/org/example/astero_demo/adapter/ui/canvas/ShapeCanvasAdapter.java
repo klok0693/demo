@@ -6,12 +6,9 @@ import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
@@ -20,7 +17,7 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     private final CanvasView canvasRoot;
 
     public ShapeCanvasAdapter(
-            final ViewController controller,
+            final LogicEventProcessor controller,
             final UIState uiState,
             final CanvasView canvasRoot,
             final ParentAdapter parentAdapter) {

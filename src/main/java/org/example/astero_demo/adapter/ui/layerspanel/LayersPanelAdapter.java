@@ -5,17 +5,14 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.event.SelectElementById;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.ViewController;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import org.example.astero_demo.controller.LogicEventProcessor;
 
 public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
 
     public UpdatableView layersRoot;
 
     public LayersPanelAdapter(
-            final ViewController controller,
+            final LogicEventProcessor controller,
             final UIState uiState,
             final UpdatableView layersRoot,
             final ParentAdapter parentAdapter) {

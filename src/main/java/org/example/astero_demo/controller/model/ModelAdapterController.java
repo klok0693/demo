@@ -1,31 +1,36 @@
-package org.example.astero_demo.controller;
+package org.example.astero_demo.controller.model;
 
 import org.example.astero_demo.adapter.model.ModelAdapter;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
+import org.example.astero_demo.controller.AbstractController;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 
-public class ModelController extends AbstractController {
+public class ModelAdapterController extends AbstractController implements ModelController {
     private final ModelAdapter modelAdapter;
 
-    public ModelController(
+    public ModelAdapterController(
             final CommandFactory commandFactory,
-            final CommandProcessor commandProcessor, ModelAdapter modelAdapter) {
+            final CommandProcessor commandProcessor,
+            final ModelAdapter modelAdapter) {
         super(commandFactory, commandProcessor);
         this.modelAdapter = modelAdapter;
     }
 
+    @Override
     public String getShapeParam(final int id, final ShapeParam param) {
         return modelAdapter.getShapeParam(id, param);
     }
 
+    @Override
     public void modifyShapeParam(final int id, final ShapeParam param, final String newValue) {
         modelAdapter.modifyShapeParam(id, param, newValue);
     }
 
+    @Override
     public int saveShape(
             final String priority,
             final String x,
@@ -37,6 +42,7 @@ public class ModelController extends AbstractController {
         return modelAdapter.saveShape(priority, x, y, width, height, color, type);
     }
 
+    @Override
     public int saveShape(
             final Integer id,
             final String priority,
@@ -49,6 +55,7 @@ public class ModelController extends AbstractController {
         return modelAdapter.saveShape(id, priority, x, y, width, height, color, type);
     }
 
+    @Override
     public Shape removeShape(final int id) {
         return modelAdapter.removeShape(id);
     }

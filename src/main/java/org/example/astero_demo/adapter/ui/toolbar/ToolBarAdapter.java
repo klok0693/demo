@@ -1,6 +1,8 @@
 package org.example.astero_demo.adapter.ui.toolbar;
 
-public interface ToolBarAdapter {
+import org.example.astero_demo.adapter.ui.UpdatableAdapter;
+
+public interface ToolBarAdapter extends UpdatableAdapter {
     void onInsertRectAction();
 
     void onInsertCycleAction();

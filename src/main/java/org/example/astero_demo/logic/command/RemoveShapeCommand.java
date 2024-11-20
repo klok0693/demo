@@ -1,21 +1,22 @@
 package org.example.astero_demo.logic.command;
 
 import org.example.astero_demo.adapter.model.entity.Shape;
-import org.example.astero_demo.controller.ModelController;
-import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.controller.model.ModelAdapterController;
+import org.example.astero_demo.controller.model.ModelController;
+import org.example.astero_demo.controller.ui.UIController;
 
 import static java.lang.String.valueOf;
 
 public class RemoveShapeCommand extends Command {
+    private final UIController viewController;
     private final ModelController modelController;
-    private final ViewController viewController;
     private int shapeId;
 
     private Shape removedShape;
 
     public RemoveShapeCommand(
+            final UIController viewController,
             final ModelController modelController,
-            final ViewController viewController,
             final int shapeId) {
         this.modelController = modelController;
         this.viewController = viewController;

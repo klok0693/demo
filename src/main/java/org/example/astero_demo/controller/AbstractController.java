@@ -56,5 +56,5 @@ public abstract class AbstractController implements LogicEventProcessor {
         }
     }
 
-    protected abstract boolean isValid(final LogicEvent event);
+    protected abstract boolean isValid(LogicEvent event);
 }

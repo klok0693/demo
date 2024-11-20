@@ -2,8 +2,6 @@ package org.example.astero_demo.realization.initialization.di.module.ui;
 
 import com.google.inject.*;
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
-import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasView;
@@ -89,8 +87,8 @@ public class UIViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public RootView provideRootView(final EventHandler shortcutHandler) {
-        return new RootView(shortcutHandler);
+    public RootView provideRootView(final EventHandler shortcutHandler, final UIState uiState) {
+        return new RootView(shortcutHandler, uiState);
     }
 
     @Inject

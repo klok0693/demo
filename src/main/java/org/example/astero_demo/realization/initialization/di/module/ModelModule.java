@@ -13,7 +13,6 @@ public class ModelModule extends AbstractModule {
         bind(ModelState.class).to(ModelStateHolder.class);
         bind(ModelStateHolder.class).toInstance(ModelStateHolder.INSTANCE);
         bind(ShapeFactory.class).toInstance(ShapeFactory.INSTANCE);
-        //bind(ModelAdapter.class).toProvider(ModelAdapterProvider.class).in(Scopes.SINGLETON);
     }
 
     @Inject

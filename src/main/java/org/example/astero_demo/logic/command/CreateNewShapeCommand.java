@@ -3,14 +3,15 @@ package org.example.astero_demo.logic.command;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.controller.ModelController;
-import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.controller.model.ModelAdapterController;
+import org.example.astero_demo.controller.model.ModelController;
+import org.example.astero_demo.controller.ui.UIController;
 
 import static java.lang.Integer.parseInt;
 import static org.example.astero_demo.util.ParamUtils.getParamInfo;
 
 public class CreateNewShapeCommand extends ParamCommand {
-    private final ViewController viewController;
+    private final UIController viewController;
     private final ModelController modelController;
 
 /*    private final String priority;
@@ -20,7 +21,7 @@ public class CreateNewShapeCommand extends ParamCommand {
     private int createdShapeId;
 
     public CreateNewShapeCommand(
-            final ViewController viewController,
+            final UIController viewController,
             final ModelController modelController,
             final ParamInfo... infos
  /*           final String priority,
