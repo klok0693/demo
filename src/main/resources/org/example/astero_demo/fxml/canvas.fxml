@@ -5,7 +5,7 @@
 <ShapeCanvasView xmlns="http://javafx.com/javafx"
                  xmlns:fx="http://javafx.com/fxml"
                  fx:id="canvasRoot"
-                 fx:controller="org.example.astero_demo.adapter.ui.canvas.ShapeCanvasAdapter"
+                 fx:controller="org.example.astero_demo.port.ui.canvas.ShapeCanvasView"
                  width="710" height="620">
 
 <!--    <stylesheets>

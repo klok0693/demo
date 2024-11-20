@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.port.ui.LayersPanel;
+import org.example.astero_demo.port.ui.LayersPanelView;
 
 public class LayersPanelAdapterProvider extends AdapterProvider<UIState, LayersPanelAdapterProvider.LayersAdapterProxy> {
 
@@ -13,7 +13,7 @@ public class LayersPanelAdapterProvider extends AdapterProvider<UIState, LayersP
         super(controller, uiState);
     }
 
-    public void setLayersPanel(final LayersPanel panel) {
+    public void setLayersPanel(final LayersPanelView panel) {
         this.instance.setLayersPanel(panel);
     }
 
@@ -28,7 +28,7 @@ public class LayersPanelAdapterProvider extends AdapterProvider<UIState, LayersP
             super(controller, uiState, null);
         }
 
-        public void setLayersPanel(final LayersPanel panel) {
+        public void setLayersPanel(final LayersPanelView panel) {
             this.layersRoot = panel;
         }
     }

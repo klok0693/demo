@@ -16,14 +16,15 @@ import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
 public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
-    public CanvasView canvasRoot;
+    private final CanvasView canvasRoot;
 
-    public ShapeCanvasAdapter(final ViewController controller, final UIState uiState) {
+    public ShapeCanvasAdapter(
+            final ViewController controller,
+            final UIState uiState,
+            final CanvasView canvasRoot) {
         super(controller, uiState);
+        this.canvasRoot = canvasRoot;
     }
-
-    @Override
-    public void initialize(final URL url, final ResourceBundle resourceBundle) {}
 
     @Override
     public void update() {

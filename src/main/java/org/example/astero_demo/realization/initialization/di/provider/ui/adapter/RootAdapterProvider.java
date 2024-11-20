@@ -3,21 +3,39 @@ package org.example.astero_demo.realization.initialization.di.provider.ui.adapte
 import com.google.inject.Inject;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.ui.RootAdapter;
+import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
+import org.example.astero_demo.adapter.ui.property.PropertyPanelAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
+import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.realization.initialization.di.provider.controller.ViewControllerProvider;
 import org.example.astero_demo.realization.initialization.di.provider.ui.ShortcutHandlerProvider;
 
 public class RootAdapterProvider extends AdapterProvider<MutableUIState, RootAdapter> {
-    private final ShortcutHandlerProvider shortcutHandler;
+    private final RootView rootView;
+    private final CanvasAdapter canvasAdapter;
+    private final LayersPanelAdapter layersAdapter;
+    private final PropertyPanelAdapter propertyAdapter;
+    private final ToolBarAdapter toolBarAdapter;
 
     @Inject
     RootAdapterProvider(
             final ViewControllerProvider controller,
             final MutableUIState uiState,
-            final ShortcutHandlerProvider shortcutHandler) {
+            final ShortcutHandlerProvider shortcutHandler,
+            final RootView rootView,
+            final CanvasAdapter canvasAdapter,
+            final LayersPanelAdapter layersAdapter,
+            final PropertyPanelAdapter propertyAdapter,
+            final ToolBarAdapter toolBarAdapter) {
         super(controller.get(), uiState);
-        this.shortcutHandler = shortcutHandler;
+        this.rootView = rootView;
+        this.canvasAdapter = canvasAdapter;
+        this.layersAdapter = layersAdapter;
+        this.propertyAdapter = propertyAdapter;
+        this.toolBarAdapter = toolBarAdapter;
 
         controller.setRootAdapter(get());
         shortcutHandler.setParentAdapter(get());
@@ -25,6 +43,13 @@ public class RootAdapterProvider extends AdapterProvider<MutableUIState, RootAda
 
     @Override
     protected RootAdapter createInstance() {
-        return new RootAdapter(controller, uiState, shortcutHandler.get());
+        return new RootAdapter(
+                controller,
+                uiState,
+                rootView,
+                canvasAdapter,
+                layersAdapter,
+                propertyAdapter,
+                toolBarAdapter);
     }
 }

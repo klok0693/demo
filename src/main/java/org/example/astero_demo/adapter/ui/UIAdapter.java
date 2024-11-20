@@ -8,7 +8,7 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ApplicationEvent;
 
-public abstract class UIAdapter<T extends UIState> implements Initializable {
+public abstract class UIAdapter<T extends UIState> {
     protected final ViewController controller;
     protected final T uiState;
 

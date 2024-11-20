@@ -7,9 +7,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.LoadListener;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.astero_demo.realization.initialization.di.module.*;
+import org.example.astero_demo.realization.initialization.di.module.ui.UIElementModule;
+import org.example.astero_demo.realization.initialization.di.module.ui.UIModule;
+import org.example.astero_demo.realization.initialization.di.module.ui.UIViewModule;
 import org.example.astero_demo.realization.initialization.ui.CustomControllerFactory;
 import org.example.astero_demo.realization.initialization.ui.NodeBuilderFactory;
-import org.example.astero_demo.realization.initialization.di.*;
 
 import java.io.IOException;
 
@@ -26,7 +29,9 @@ public class HelloApplication extends Application {
                 new InitializationModule(),
                 new CommandModule(),
                 new ControllerModule(),
-                new UIModule());
+                new UIModule(),
+                new UIViewModule(),
+                new UIElementModule());
 
         final CustomControllerFactory controllerFactory = injector.getInstance(CustomControllerFactory.class);
         final NodeBuilderFactory nodeFactory = injector.getInstance(NodeBuilderFactory.class);

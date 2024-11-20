@@ -1,4 +1,4 @@
-package org.example.astero_demo.adapter.ui;
+package org.example.astero_demo.adapter.ui.toolbar;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -6,6 +6,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
+import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
@@ -14,47 +15,43 @@ import org.example.astero_demo.port.ui.ToolBarView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ToolBarAdapter extends LeafAdapter {
+public class ToolBarAdapter extends LeafAdapter implements OperationProcessor {
 
     private final RootShortcutHandler shortcutHandler; // TODO: remove
+    private final ToolBarView toolBarView;
 
-    public ToolBarView toolBar;
-    public ToggleButton rectBtn;
-    public ToggleButton cycleBtn;
-    public Button deleteBtn;
-    public Button undoBtn;
-
-    public ToolBarAdapter(final ViewController controller, final UIState uiState, final RootShortcutHandler shortcutHandler) {
+    public ToolBarAdapter(
+            final ViewController controller,
+            final UIState uiState,
+            final RootShortcutHandler shortcutHandler,
+            final ToolBarView toolBarView) {
         super(controller, uiState);
         this.shortcutHandler = shortcutHandler;
+        this.toolBarView = toolBarView;
     }
-
-    @Override
-    public void initialize(final URL url, final ResourceBundle resourceBundle) {}
 
     @Override
     public void update() {
-        final boolean needToUnStickBtn = uiState.isInInsertMode();
-        rectBtn.setSelected(needToUnStickBtn);
-        cycleBtn.setSelected(needToUnStickBtn);
-
-        final boolean disableRelated = uiState.isInInsertMode() || !uiState.hasSelectedId();
-        deleteBtn.setDisable(disableRelated);
+        toolBarView.update();
     }
 
-    public void onInsertRectAction(final ActionEvent event) {
+    @Override
+    public void onInsertRectAction() {
         sendEvent(new InsertModeEvent(ShapeType.RECT));
     }
 
-    public void onInsertCycleAction(final ActionEvent event) {
+    @Override
+    public void onInsertCycleAction() {
         sendEvent(new InsertModeEvent(ShapeType.ELLIPSE));
     }
 
-    public void onDeleteAction(final ActionEvent event) {
+    @Override
+    public void onDeleteAction() {
         shortcutHandler.handle(KeyCode.DELETE, true);
     }
 
-    public void onUndoAction(final ActionEvent event) {
+    @Override
+    public void onUndoAction() {
         shortcutHandler.handle(KeyCode.Z, true);
     }
 }

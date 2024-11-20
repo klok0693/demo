@@ -2,50 +2,52 @@ package org.example.astero_demo.realization.initialization.ui;
 
 import com.google.inject.Inject;
 import javafx.util.Callback;
-import org.example.astero_demo.adapter.ui.*;
-import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
-import org.example.astero_demo.adapter.ui.canvas.ShapeCanvasAdapter;
-import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
-import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
+import org.example.astero_demo.adapter.ui.canvas.CanvasView;
+import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
+import org.example.astero_demo.port.ui.LayersPanelView;
+import org.example.astero_demo.port.ui.PropertyPanelView;
+import org.example.astero_demo.port.ui.RootView;
+import org.example.astero_demo.port.ui.ToolBarView;
+import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
-    private final LayersAdapter layersAdapter;
-    private final PropertyPanelAdapter propertyAdapter;
-    private final CanvasAdapter canvasAdapter;
-    private final ToolBarAdapter toolBarAdapter;
-    private final RootAdapter rootAdapter;
+    private final LayersPanelView layersPanelView;
+    private final PropertyPanelView propertyPanelView;
+    private final CanvasView canvasView;
+    private final ToolBarView toolBarView;
+    private final RootView rootView;
 
     @Inject
     public CustomControllerFactory(
-            final LayersAdapter layersAdapter,
-            final PropertyPanelAdapter propertyAdapter,
-            final CanvasAdapter canvasAdapter,
-            final ToolBarAdapter toolBarAdapter,
-            final RootAdapter rootAdapter) {
-        this.layersAdapter = layersAdapter;
-        this.propertyAdapter = propertyAdapter;
-        this.canvasAdapter = canvasAdapter;
-        this.toolBarAdapter = toolBarAdapter;
-        this.rootAdapter = rootAdapter;
+            final LayersPanelView layersPanelView,
+            final PropertyPanelView propertyPanelView,
+            final CanvasView canvasView,
+            final ToolBarView toolBarView,
+            final RootView rootView) {
+        this.layersPanelView = layersPanelView;
+        this.propertyPanelView = propertyPanelView;
+        this.canvasView = canvasView;
+        this.toolBarView = toolBarView;
+        this.rootView = rootView;
     }
 
     @Override
     public Object call(Class<?> aClass) {
-        if (aClass.isAssignableFrom(ShapeCanvasAdapter.class)) {
-            return canvasAdapter;
+        if (aClass.isAssignableFrom(ShapeCanvasView.class)) {
+            return canvasView;
         }
-        if (aClass.isAssignableFrom(ToolBarAdapter.class)) {
-            return toolBarAdapter;
+        if (aClass.isAssignableFrom(ToolBarView.class)) {
+            return toolBarView;
         }
-        if (aClass.isAssignableFrom(RootAdapter.class)) {
-            return rootAdapter;
+        if (aClass.isAssignableFrom(RootView.class)) {
+            return rootView;
         }
-        if (aClass.isAssignableFrom(PropertyPanelAdapter.class)) {
-            return propertyAdapter;
+        if (aClass.isAssignableFrom(PropertyPanelView.class)) {
+            return propertyPanelView;
         }
-        if (aClass.isAssignableFrom(LayersPanelAdapter.class)) {
-            return layersAdapter;
+        if (aClass.isAssignableFrom(LayersPanelView.class)) {
+            return layersPanelView;
         }
         return null;
     }

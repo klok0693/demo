@@ -15,7 +15,7 @@ public class LayersPanelAdapterWrapper extends UpdatableAdapterAsyncWrapper<Laye
 
     @Override
     public boolean hasInjectedField(final String fieldName) {
-        return super.hasInjectedField(fieldName) || "layersRoot".equals(fieldName);
+        return super.hasInjectedField(fieldName) /*|| "layersRoot".equals(fieldName)*/;
     }
 
     @Override

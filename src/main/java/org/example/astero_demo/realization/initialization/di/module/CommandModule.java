@@ -1,4 +1,4 @@
-package org.example.astero_demo.realization.initialization.di;
+package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;

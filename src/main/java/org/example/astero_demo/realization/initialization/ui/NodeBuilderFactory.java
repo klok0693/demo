@@ -5,13 +5,11 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.canvas.Canvas;
 import javafx.util.Builder;
 import javafx.util.BuilderFactory;
-import org.example.astero_demo.port.ui.LayersPanel;
+import org.example.astero_demo.port.ui.LayersPanelView;
 import org.example.astero_demo.port.ui.elements.LayersTree;
 import org.example.astero_demo.realization.initialization.ui.builder.CanvasBuilder;
 import org.example.astero_demo.realization.initialization.ui.builder.LayersPanelBuilder;
 import org.example.astero_demo.realization.initialization.ui.builder.LayersTreeBuilder;
-
-import java.util.HashMap;
 
 public class NodeBuilderFactory implements BuilderFactory {
     private final CanvasBuilder canvasBuilder;
@@ -38,9 +36,9 @@ public class NodeBuilderFactory implements BuilderFactory {
         if (LayersTree.class.isAssignableFrom(aClass)) {
             return layersTreeBuilder;
         }
-        if (LayersPanel.class.isAssignableFrom(aClass)) {
+/*        if (LayersPanelView.class.isAssignableFrom(aClass)) {
             return layersPanelBuilder;
-        }
+        }*/
         return defaultBuilderFactory.getBuilder(aClass);
     }
 }

@@ -1,52 +1,64 @@
 package org.example.astero_demo.adapter.ui;
 
 import javafx.geometry.Point2D;
-import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.event.*;
 import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
+import org.example.astero_demo.adapter.ui.property.PropertyPanelAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
+import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 import java.awt.*;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class RootAdapter extends ParentAdapter {
-    public ToolBarAdapter toolBarRootController;
-    public CanvasAdapter canvasRootController;
-    public PropertyPanelAdapter propertyRootController;
-    public LayersAdapter layersRootController;
-    private final RootShortcutHandler shortcutHandler;
-    public RootView root;
+    public ToolBarAdapter toolBarAdapter;
+    public CanvasAdapter canvasAdapter;
+    public PropertyPanelAdapter propertyAdapter;
+    public LayersAdapter layersAdapter;
+    public RootView rootView;
 
     public ShapeCanvasView canvasRoot;
 
-    public RootAdapter(final ViewController controller, final MutableUIState uiState, final RootShortcutHandler shortcutHandler) {
+    public RootAdapter(
+            final ViewController controller,
+            final MutableUIState uiState,
+            final RootView rootView,
+            final CanvasAdapter canvasAdapter,
+            final LayersPanelAdapter layersAdapter,
+            final PropertyPanelAdapter propertyAdapter,
+            final ToolBarAdapter toolBarAdapter) {
         super(controller, uiState);
-        this.shortcutHandler = shortcutHandler;
+        this.rootView = rootView;
+        this.canvasAdapter = canvasAdapter;
+        this.layersAdapter = layersAdapter;
+        this.propertyAdapter = propertyAdapter;
+        this.toolBarAdapter = toolBarAdapter;
+
+        rootView.setUiState(uiState);
     }
 
-    @Override
+/*    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("root init " + this.toolBarRootController.toString());
 
         this.toolBarRootController.setParent(this);
         this.canvasRootController.setParent(this);
         this.propertyRootController.setParent(this);
-        this.layersRootController.setParent(this);
+        //this.layersRootController.setParent(this);
 
-        root.setUiState(uiState);
-        root.setOnKeyPressed(shortcutHandler::handle);
-    }
+        rootView.setUiState(uiState);
+        //rootView.setOnKeyPressed(shortcutHandler::handle);
+    }*/
 
     public void onCreateUpdate(final int id) {
         //selectElement(newShapeX, newShapeY);
@@ -64,11 +76,11 @@ public class RootAdapter extends ParentAdapter {
     }
 
     private void updateChildren() {
-        toolBarRootController.update();
+/*        toolBarRootController.update();
         canvasRootController.update();
-        propertyRootController.update();
-        layersRootController.update();
-        root.update();
+        propertyRootController.update();*/
+        //layersRootController.update();
+        rootView.update();
     }
 
     @Override
@@ -109,7 +121,7 @@ public class RootAdapter extends ParentAdapter {
         uiState.setIsInInsertMode(false);
         updateChildren();
 
-        final Shape selectedShape = canvasRootController.selectElement(id);
+        final Shape selectedShape = canvasAdapter.selectElement(id);
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 
         uiState.setSelectShape(shapeId);
@@ -120,7 +132,7 @@ public class RootAdapter extends ParentAdapter {
         uiState.setIsInInsertMode(false);
         updateChildren();
 
-        final Shape selectedShape = canvasRootController.selectElement(shapeX, shapeY);
+        final Shape selectedShape = canvasAdapter.selectElement(shapeX, shapeY);
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 
         uiState.setSelectShape(shapeId);

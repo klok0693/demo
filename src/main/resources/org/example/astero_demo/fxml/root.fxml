@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import org.example.astero_demo.port.ui.RootView?>
-
-<RootView xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
          fx:id="root"
-         fx:controller="org.example.astero_demo.adapter.ui.RootAdapter">
+         fx:controller="org.example.astero_demo.port.ui.RootView">
 
     <top>
         <fx:include fx:id="toolBarRoot" source="tool-bar.fxml"/>
@@ -28,4 +25,4 @@
         <fx:include fx:id="propertyRoot" source="property-panel.fxml"/>
     </right>
 
-</RootView>
+</BorderPane>

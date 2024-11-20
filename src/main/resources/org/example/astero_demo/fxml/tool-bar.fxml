@@ -7,10 +7,10 @@
 <?import java.net.URL?>
 
 <?import javafx.scene.layout.HBox?>
-<ToolBarView xmlns="http://javafx.com/javafx"
+<HBox xmlns="http://javafx.com/javafx"
              xmlns:fx="http://javafx.com/fxml"
              fx:id="toolBarRoot"
-             fx:controller="org.example.astero_demo.adapter.ui.ToolBarAdapter">
+             fx:controller="org.example.astero_demo.port.ui.ToolBarView">
 
     <stylesheets>
         <URL value="@../css/tool-bar.css"/>
@@ -36,4 +36,4 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>-->
 
-</ToolBarView>
+</HBox>

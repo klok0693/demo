@@ -30,7 +30,4 @@ public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
     public void selectShape(final String id) {
         parent.processEvent(new SelectElementById(Integer.parseInt(id)));
     }
-
-    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {}
 }

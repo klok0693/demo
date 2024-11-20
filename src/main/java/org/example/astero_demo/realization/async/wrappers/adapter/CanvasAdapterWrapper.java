@@ -53,6 +53,6 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
 
     @Override
     public boolean hasInjectedField(final String fieldName) {
-        return super.hasInjectedField(fieldName) || "canvasRoot".equals(fieldName);
+        return super.hasInjectedField(fieldName) /*|| "canvasRoot".equals(fieldName)*/;
     }
 }
