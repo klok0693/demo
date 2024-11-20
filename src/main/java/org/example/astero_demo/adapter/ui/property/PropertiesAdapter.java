@@ -2,7 +2,7 @@ package org.example.astero_demo.adapter.ui.property;
 
 import org.example.astero_demo.adapter.ui.UpdatableAdapter;
 
-public interface PropertyPanelUpdatable extends UpdatableAdapter {
+public interface PropertiesAdapter extends UpdatableAdapter {
 
     void updateX(String x);
 

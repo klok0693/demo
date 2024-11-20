@@ -26,7 +26,6 @@ public class ViewController extends AbstractController {
     }
 
     public void onCreateUpdate(final int id) {
-        //adapter.onCreateUpdate(parseDouble(newShapeX), parseDouble(newShapeY));
         adapter.onCreateUpdate(id);
     }
 

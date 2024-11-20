@@ -7,17 +7,12 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import org.example.astero_demo.adapter.model.metadata.ShapeParam;
-import org.example.astero_demo.adapter.ui.UpdatableView;
-import org.example.astero_demo.adapter.ui.property.PropertyPanelUpdatable;
+import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;
+import org.example.astero_demo.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.ViewController;
-import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 import org.example.astero_demo.util.ColorUtils;
 
-import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
-
-public class PropertyPanelView implements UpdatableView {
+public class PropertiesPanelView implements PropertiesView {
     public TextField xField;
     public TextField yField;
     public TextField widthField;
@@ -25,10 +20,10 @@ public class PropertyPanelView implements UpdatableView {
     public TextField layerField;
     public ColorPicker colorField;
 
-    private final PropertyPanelUpdatable propertyUpdatable;
+    private final PropertiesAdapter propertyUpdatable;
     private final UIState uiState;
 
-    public PropertyPanelView(final PropertyPanelUpdatable propertyUpdatable, final UIState uiState) {
+    public PropertiesPanelView(final PropertiesAdapter propertyUpdatable, final UIState uiState) {
         this.propertyUpdatable = propertyUpdatable;
         this.uiState = uiState;
     }

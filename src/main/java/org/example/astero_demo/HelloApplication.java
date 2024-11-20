@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.astero_demo.realization.initialization.di.module.*;
 import org.example.astero_demo.realization.initialization.di.module.ui.UIElementModule;
-import org.example.astero_demo.realization.initialization.di.module.ui.UIModule;
+import org.example.astero_demo.realization.initialization.di.module.ui.UIAdapterModule;
 import org.example.astero_demo.realization.initialization.di.module.ui.UIViewModule;
 import org.example.astero_demo.realization.initialization.ui.CustomControllerFactory;
 import org.example.astero_demo.realization.initialization.ui.NodeBuilderFactory;
@@ -29,7 +29,7 @@ public class HelloApplication extends Application {
                 new InitializationModule(),
                 new CommandModule(),
                 new ControllerModule(),
-                new UIModule(),
+                new UIAdapterModule(),
                 new UIViewModule(),
                 new UIElementModule());
 

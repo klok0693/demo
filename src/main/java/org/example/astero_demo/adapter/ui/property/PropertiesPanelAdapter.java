@@ -1,34 +1,23 @@
 package org.example.astero_demo.adapter.ui.property;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
-import org.example.astero_demo.adapter.ui.UpdatableView;
+import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
-import org.example.astero_demo.port.ui.PropertyPanelView;
-import org.example.astero_demo.util.ColorUtils;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
-public class PropertyPanelAdapter extends LeafAdapter implements PropertyPanelUpdatable {
-    private final UpdatableView propertyView;
+public class PropertiesPanelAdapter extends LeafAdapter implements PropertiesAdapter {
+    private final PropertiesView propertyView;
 
-    public PropertyPanelAdapter(
+    public PropertiesPanelAdapter(
             final ViewController controller,
             final UIState uiState,
-            final UpdatableView propertyView) {
-        super(controller, uiState);
+            final PropertiesView propertyView,
+            final ParentAdapter parentAdapter) {
+        super(controller, uiState, parentAdapter);
         this.propertyView = propertyView;
     }
 

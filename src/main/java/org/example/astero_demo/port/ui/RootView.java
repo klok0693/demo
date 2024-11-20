@@ -1,7 +1,9 @@
 package org.example.astero_demo.port.ui;
 
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import lombok.Setter;
 import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
@@ -22,14 +24,14 @@ public class RootView implements Initializable, UpdatableView {
     public ShapeCanvasView canvasRootController;
     //public PropertyPanelAdapter propertyRootController;
     public LayersPanelView layersRootController;
-    private final RootShortcutHandler shortcutHandler;
+    private final EventHandler shortcutHandler;
     public BorderPane root;
 
     public ShapeCanvasView canvasRoot;
 
 /*    private final RootAdapter rootAdapter;*/
 
-    public RootView(/*final RootAdapter rootAdapter, */final RootShortcutHandler shortcutHandler) {
+    public RootView(/*final RootAdapter rootAdapter, */final EventHandler shortcutHandler) {
         /*this.rootAdapter = rootAdapter;*/
         this.shortcutHandler = shortcutHandler;
     }

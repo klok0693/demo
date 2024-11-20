@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui.layerspanel;
 
 import org.example.astero_demo.adapter.ui.LeafAdapter;
+import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.event.SelectElementById;
 import org.example.astero_demo.adapter.ui.state.UIState;
@@ -16,8 +17,9 @@ public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
     public LayersPanelAdapter(
             final ViewController controller,
             final UIState uiState,
-            final UpdatableView layersRoot) {
-        super(controller, uiState);
+            final UpdatableView layersRoot,
+            final ParentAdapter parentAdapter) {
+        super(controller, uiState, parentAdapter);
         this.layersRoot = layersRoot;
     }
 

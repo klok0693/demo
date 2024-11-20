@@ -15,9 +15,4 @@ public class UpdatableAdapterAsyncWrapper<T extends UpdatableAdapter> extends As
     public void update() {
         executeInFXThread(wrappedElement::update);
     }
-
-    @Override
-    public void setParent(final ParentAdapter parentAdapter) {
-        wrappedElement.setParent(parentAdapter);
-    }
 }

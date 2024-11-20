@@ -3,25 +3,19 @@ package org.example.astero_demo.port.ui;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.UpdatableView;
-import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.adapter.ui.toolbar.OperationProcessor;
-import org.example.astero_demo.controller.ViewController;
+import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 
 public class ToolBarView implements UpdatableView {
-    private final OperationProcessor operationProcessor;
+    private final ToolBarAdapter operationProcessor;
     private final UIState uiState;
     public ToggleButton rectBtn;
     public ToggleButton cycleBtn;
     public Button deleteBtn;
     public Button undoBtn;
 
-    public ToolBarView(final UIState uiState, final OperationProcessor operationProcessor) {
+    public ToolBarView(final UIState uiState, final ToolBarAdapter operationProcessor) {
         this.uiState = uiState;
         this.operationProcessor = operationProcessor;
     }

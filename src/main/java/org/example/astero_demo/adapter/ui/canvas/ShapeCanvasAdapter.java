@@ -3,6 +3,7 @@ package org.example.astero_demo.adapter.ui.canvas;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
+import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.ViewController;
@@ -21,8 +22,9 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     public ShapeCanvasAdapter(
             final ViewController controller,
             final UIState uiState,
-            final CanvasView canvasRoot) {
-        super(controller, uiState);
+            final CanvasView canvasRoot,
+            final ParentAdapter parentAdapter) {
+        super(controller, uiState, parentAdapter);
         this.canvasRoot = canvasRoot;
     }
 

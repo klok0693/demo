@@ -12,11 +12,6 @@ import org.example.astero_demo.realization.initialization.ui.builder.LayersTreeB
 
 public class UIElementModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-
-    }
-
     @Inject
     @Provides
     @Singleton

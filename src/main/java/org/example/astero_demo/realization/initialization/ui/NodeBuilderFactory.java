@@ -36,9 +36,6 @@ public class NodeBuilderFactory implements BuilderFactory {
         if (LayersTree.class.isAssignableFrom(aClass)) {
             return layersTreeBuilder;
         }
-/*        if (LayersPanelView.class.isAssignableFrom(aClass)) {
-            return layersPanelBuilder;
-        }*/
         return defaultBuilderFactory.getBuilder(aClass);
     }
 }

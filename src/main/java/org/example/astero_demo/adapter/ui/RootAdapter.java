@@ -7,9 +7,10 @@ import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.event.*;
 import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.adapter.ui.layerspanel.LayersPanelAdapter;
-import org.example.astero_demo.adapter.ui.property.PropertyPanelAdapter;
+import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
+import org.example.astero_demo.adapter.ui.toolbar.ToolBarPanelAdapter;
 import org.example.astero_demo.controller.ViewController;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
@@ -20,10 +21,10 @@ import java.awt.*;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class RootAdapter extends ParentAdapter {
+public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdapter {
     public ToolBarAdapter toolBarAdapter;
     public CanvasAdapter canvasAdapter;
-    public PropertyPanelAdapter propertyAdapter;
+    public PropertiesAdapter propertyAdapter;
     public LayersAdapter layersAdapter;
     public RootView rootView;
 
@@ -35,7 +36,7 @@ public class RootAdapter extends ParentAdapter {
             final RootView rootView,
             final CanvasAdapter canvasAdapter,
             final LayersPanelAdapter layersAdapter,
-            final PropertyPanelAdapter propertyAdapter,
+            final PropertiesAdapter propertyAdapter,
             final ToolBarAdapter toolBarAdapter) {
         super(controller, uiState);
         this.rootView = rootView;
