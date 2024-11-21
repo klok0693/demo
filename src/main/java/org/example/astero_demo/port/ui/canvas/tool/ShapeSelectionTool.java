@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
@@ -17,7 +18,7 @@ import static java.lang.Double.parseDouble;
 import static org.example.astero_demo.port.ui.UIConsrants.MINIMAL_SIDE_SIZE;
 import static org.example.astero_demo.port.ui.canvas.tool.draggable.ContactAlignment.*;
 
-public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, CanvasDraggable {
+public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, CanvasDraggable, UpdatableView {
     private static final double FRAME_WIDTH = 3.0;
 
     private final ModelState modelState;
@@ -52,6 +53,21 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         gc.strokeRect(x, y, width, height);
 
         contactPoints.forEach(point -> point.draw(gc));
+    }
+
+    @Override
+    public void update() {
+        reset();
+
+        if (uiState.hasSelectedId()) {
+            final Shape selection = modelState.getShape(uiState.getSelectedShapeId());
+            update(
+                    parseDouble(selection.getX()),
+                    parseDouble(selection.getY()),
+                    parseDouble(selection.getWidth()),
+                    parseDouble(selection.getHeight())
+            );
+        }
     }
 
     @Override

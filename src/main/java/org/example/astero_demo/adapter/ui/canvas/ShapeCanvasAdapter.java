@@ -64,14 +64,4 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
                 create(ShapeParam.X, valueOf(x)),
                 create(ShapeParam.Y, valueOf(y))));
     }
-
-    @Override
-    public Shape selectElement(final double x, final double y) {
-        return canvasRoot.selectElement(x, y);
-    }
-
-    @Override
-    public Shape selectElement(final int id) {
-        return canvasRoot.selectElement(id);
-    }
 }

@@ -124,25 +124,7 @@ public class ShapeCanvasView extends Canvas implements CanvasView {
     @Override
     public void update() {
         shapeLayer.update();
-        if (uiState.isInInsertMode() || !uiState.hasSelectedId()) {
-            toolLayer.resetAll();
-        }
+        toolLayer.update();
         redraw();
-    }
-
-    @Override
-    public Shape selectElement(final int id) {
-        final Shape element = modelState.getShape(id);
-        toolLayer.selectElement(id);
-        redraw();
-        return element;
-    }
-
-    @Override
-    public Shape selectElement(final double mouseX, final double mouseY) {
-        final Shape element = modelState.findTopShapeAt(mouseX, mouseY).orElse(null);;
-        toolLayer.onMousePressed(mouseX, mouseY);
-        redraw();
-        return element;
     }
 }

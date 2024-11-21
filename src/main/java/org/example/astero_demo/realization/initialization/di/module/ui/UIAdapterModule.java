@@ -58,6 +58,7 @@ public class UIAdapterModule extends AbstractModule {
     @Provides
     @Singleton
     public RootAdapter provideRootAdapter(
+            final ModelState modelState,
             final LogicEventProcessor controller,
             final MutableUIState uiState,
             final RootView rootView,
@@ -65,7 +66,15 @@ public class UIAdapterModule extends AbstractModule {
             final LayersAdapter layersAdapter,
             final PropertiesAdapter propertyAdapter,
             final ToolBarAdapter toolBarAdapter) {
-        return new RootAdapter(controller, uiState, rootView, canvasAdapter, layersAdapter, propertyAdapter, toolBarAdapter);
+        return new RootAdapter(
+                modelState,
+                controller,
+                uiState,
+                rootView,
+                canvasAdapter,
+                layersAdapter,
+                propertyAdapter,
+                toolBarAdapter);
     }
 
     @Inject

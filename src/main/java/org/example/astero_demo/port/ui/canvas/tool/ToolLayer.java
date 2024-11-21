@@ -1,6 +1,7 @@
 package org.example.astero_demo.port.ui.canvas.tool;
 
 import javafx.scene.input.MouseEvent;
+import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
@@ -9,7 +10,7 @@ import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
 
 import java.util.function.Consumer;
 
-public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickable, CanvasDraggable {
+public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickable, CanvasDraggable, UpdatableView {
     private final ShapeSelectionTool selectionTool;
     private final DragShapeTool dragTool;
     private final InsertTool insertTool;
@@ -31,6 +32,14 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
         this.insertTool = insertTool;
         add(insertTool);
+    }
+
+    @Override
+    public void update() {
+        if (uiState.isInInsertMode() || !uiState.hasSelectedId()) {
+            resetAll();
+        }
+        selectionTool.update();
     }
 
     public boolean isInBounds(final double x, final double y) {

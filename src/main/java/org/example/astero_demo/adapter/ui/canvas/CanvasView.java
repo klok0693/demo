@@ -4,8 +4,4 @@ import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.ui.UpdatableView;
 
 public interface CanvasView extends UpdatableView {
-
-    Shape selectElement(int id);
-
-    Shape selectElement(double mouseX, double mouseY);
 }

@@ -54,7 +54,7 @@ public class UIStateHolder implements MutableUIState {
         if (selectedShapes.isEmpty()) {
             return null;
         }
-        return modelState.getShape(selectedShapes.get(0)).getId();
+        return modelState.getShape(selectedShapes.getFirst()).getId();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class UIStateHolder implements MutableUIState {
             return null;
         }
         return Integer.valueOf(
-                modelState.getShape(selectedShapes.get(0)).getPriority());
+                modelState.getShape(selectedShapes.getFirst()).getPriority());
     }
 
     @Override
@@ -91,7 +91,7 @@ public class UIStateHolder implements MutableUIState {
         if (selectedShapes.isEmpty()) {
             return null;
         }
-        final String color = modelState.getShape(selectedShapes.get(0)).getColor();
+        final String color = modelState.getShape(selectedShapes.getFirst()).getColor();
         return StringUtils.isNotBlank(color) ? Integer.valueOf(color) : null;
     }
 
@@ -184,7 +184,7 @@ public class UIStateHolder implements MutableUIState {
         if (selectedShapes.isEmpty()) {
             return null;
         }
-        return Double.valueOf(func.apply(modelState.getShape(selectedShapes.get(0))));
+        return Double.valueOf(func.apply(modelState.getShape(selectedShapes.getFirst())));
 /*        return Optional.ofNullable(selectedShapes.get(0)).map(func).orElse(null);*/
     }
 }

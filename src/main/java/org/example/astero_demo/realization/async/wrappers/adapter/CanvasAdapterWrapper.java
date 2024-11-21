@@ -42,16 +42,6 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
     }
 
     @Override
-    public Shape selectElement(final double x, final double y) {
-        return wrappedElement.selectElement(x, y);
-    }
-
-    @Override
-    public Shape selectElement(final int id) {
-        return wrappedElement.selectElement(id);
-    }
-
-    @Override
     public boolean hasInjectedField(final String fieldName) {
         return super.hasInjectedField(fieldName) /*|| "canvasRoot".equals(fieldName)*/;
     }

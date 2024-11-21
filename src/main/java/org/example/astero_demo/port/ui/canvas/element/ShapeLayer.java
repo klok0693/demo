@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.util.ColorUtils;
 
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
+public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements UpdatableView {
     private final ModelState modelState;
 
     public ShapeLayer(final GraphicsContext gc, final ModelState modelState) {
@@ -25,6 +26,7 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> {
         }));
     }
 
+    @Override
     public void update() {
         removeAll();
         modelState.getShapes()

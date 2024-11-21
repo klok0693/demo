@@ -3,6 +3,7 @@ package org.example.astero_demo.adapter.ui;
 import javafx.geometry.Point2D;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
+import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.event.*;
 import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
@@ -16,20 +17,23 @@ import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 import java.awt.*;
+import java.util.function.Supplier;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdapter, ControllerAdapter {
-    public ToolBarAdapter toolBarAdapter;
-    public CanvasAdapter canvasAdapter;
-    public PropertiesAdapter propertyAdapter;
-    public LayersAdapter layersAdapter;
-    public RootView rootView;
+    private final ModelState modelState;
+    private final ToolBarAdapter toolBarAdapter;
+    private final CanvasAdapter canvasAdapter;
+    private final PropertiesAdapter propertyAdapter;
+    private final LayersAdapter layersAdapter;
 
+    private final RootView rootView;
     public ShapeCanvasView canvasRoot;
 
     public RootAdapter(
+            final ModelState modelState,
             final LogicEventProcessor controller,
             final MutableUIState uiState,
             final RootView rootView,
@@ -38,6 +42,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             final PropertiesAdapter propertyAdapter,
             final ToolBarAdapter toolBarAdapter) {
         super(controller, uiState);
+        this.modelState = modelState;
         this.rootView = rootView;
         this.canvasAdapter = canvasAdapter;
         this.layersAdapter = layersAdapter;
@@ -79,6 +84,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             selectElement(e.getSelectedId());
         }
         else if (event instanceof final InsertModeEvent e) {
+            uiState.removeSelection();
             uiState.setIsInInsertMode(true);
             uiState.setInsertShapeType(e.getInsertShapeType());
             updateChildren();
@@ -105,21 +111,18 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     }
 
     private void selectElement(final int id) {
-        uiState.setIsInInsertMode(false);
-        updateChildren();
-
-        final Shape selectedShape = canvasAdapter.selectElement(id);
-        final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
-
-        uiState.setSelectShape(shapeId);
-        updateChildren();
+        selectElement(() -> modelState.getShape(id));
     }
 
     private void selectElement(final double shapeX, final double shapeY) {
-        uiState.setIsInInsertMode(false);
-        updateChildren();
+        selectElement(() -> modelState.findTopShapeAt(shapeX, shapeY).orElse(null));
+    }
 
-        final Shape selectedShape = canvasAdapter.selectElement(shapeX, shapeY);
+    private void selectElement(final Supplier<Shape> shapeSupplier) {
+        uiState.setIsInInsertMode(false);
+        uiState.removeSelection();
+
+        final Shape selectedShape = shapeSupplier.get();
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 
         uiState.setSelectShape(shapeId);
