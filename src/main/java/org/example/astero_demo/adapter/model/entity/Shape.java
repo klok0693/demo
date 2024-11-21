@@ -33,22 +33,13 @@ public abstract class Shape implements Comparable<Shape> {
     protected String color;
 
     protected Shape(
+            final int id,
             final String priority,
             final String x,
             final String y,
             final String width,
             final String height) {
-        this(priority, x, y, width, height, null);
-    }
-
-    protected Shape(
-            final String priority,
-            final String x,
-            final String y,
-            final String width,
-            final String height,
-            final String color) {
-        this((int) (Math.random() * RANDOM_RANGE), priority, x, y, width, height, color);
+        this(id, priority, x, y, width, height, null);
     }
 
     protected Shape(

@@ -18,22 +18,13 @@ public class Ellipse extends Shape {
     }
 
     public Ellipse(
-            final String priority,
-            final String x,
-            final String y,
-            final String width,
-            final String height,
-            final String color) {
-        super(priority, x, y, width, height, color);
-    }
-
-    public Ellipse(
+            final int id,
             final String priority,
             final String x,
             final String y,
             final String width,
             final String height) {
-        super(priority, x, y, width, height);
+        super(id, priority, x, y, width, height);
     }
 
     @Override

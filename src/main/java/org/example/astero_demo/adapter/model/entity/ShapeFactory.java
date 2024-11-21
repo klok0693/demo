@@ -1,6 +1,10 @@
 package org.example.astero_demo.adapter.model.entity;
 
+import org.apache.commons.math3.random.RandomDataGenerator;
+
 import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Factory for creating different shapes based on the provided parameters.
@@ -10,6 +14,8 @@ import javax.annotation.Nullable;
  */
 public enum ShapeFactory {
     INSTANCE;
+
+    private final IdGenerator idGenerator = new IdGenerator();
 
     /**
      * Creates a {@link Shape} based on the provided parameters and type.<p>
@@ -25,23 +31,29 @@ public enum ShapeFactory {
             final String color,
             final ShapeType type) {
 
+        final int generatedId = id != null ? id : idGenerator.generateId();
         return switch (type) {
-            case RECT -> {
-                if (id != null) {
-                    yield new Rectangle(id, priority, x, y, width, height, color);
-                }
-                else {
-                    yield new Rectangle(priority, x, y, width, height, color);
-                }
-            }
-            case ELLIPSE -> {
-                if (id != null) {
-                    yield new Ellipse(id, priority, x, y, width, height, color);
-                }
-                else {
-                    yield new Ellipse(priority, x, y, width, height, color);
-                }
-            }
+            case RECT -> new Rectangle(generatedId, priority, x, y, width, height, color);
+            case ELLIPSE -> new Ellipse(generatedId, priority, x, y, width, height, color);
         };
+    }
+
+    private static class IdGenerator {
+        private static final int SIZE = 10_000;
+        private final Collection<Integer> generatedNumbers = new HashSet<>(SIZE);
+        private final RandomDataGenerator idGenerator = new RandomDataGenerator();
+
+        public Integer generateId() {
+            if (generatedNumbers.size() >= SIZE) {
+                throw new IllegalStateException("All unique numbers have been generated.");
+            }
+
+            int number;
+            do {
+                number = idGenerator.nextInt(0, SIZE);
+            } while (!generatedNumbers.add(number));
+
+            return number;
+        }
     }
 }
