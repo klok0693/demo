@@ -6,7 +6,12 @@
                  xmlns:fx="http://javafx.com/fxml"
                  fx:id="canvasRoot"
                  fx:controller="org.example.astero_demo.port.ui.canvas.ShapeCanvasView"
-                 width="710" height="620">
+                 width="710" height="620"
+                 focusTraversable="true"
+                 onMousePressed="#handleMousePressed"
+                 onDragDetected="#handleDragDetected"
+                 onMouseDragged="#handleMouseDragged"
+                 onMouseReleased="#handleMouseReleased">
 
 <!--    <stylesheets>
         <URL value="@../css/canvas.css"/>

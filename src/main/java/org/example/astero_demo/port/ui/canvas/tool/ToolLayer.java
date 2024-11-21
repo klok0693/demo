@@ -8,8 +8,6 @@ import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
 
-import java.util.function.Consumer;
-
 public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickable, CanvasDraggable, UpdatableView {
     private final ShapeSelectionTool selectionTool;
     private final DragShapeTool dragTool;
@@ -46,10 +44,6 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
         return selectionTool.isInBounds(x, y);
     }
 
-    public void selectElement(final int id) {
-        selectionTool.selectElement(id);
-    }
-
     @Override
     public void onMousePressed(final double x, final double y) {
         if (uiState.isInInsertMode()) {
@@ -73,7 +67,9 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     @Override
     public void onMouseDragged(final double mouseX, final double mouseY) {
-        forEachChildren(CanvasDraggable.class, draggable -> draggable.onMouseDragged(mouseX, mouseY));
+        selectionTool.onMouseDragged(mouseX, mouseY);
+        dragTool.onMouseDragged(mouseX, mouseY);
+        insertTool.onMouseDragged(mouseX, mouseY);
     }
 
     @Override
@@ -87,14 +83,7 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
         }
     }
 
-    public void resetAll() {
+    private void resetAll() {
         getChildren().forEach(CanvasTool::reset);
-    }
-
-    private <T> void forEachChildren(final Class<T> tClass, final Consumer<T> consumer) {
-        getChildren()
-                .filter(tool -> tClass.isAssignableFrom(tool.getClass()))
-                .map(tClass::cast)
-                .forEach(consumer::accept);
     }
 }

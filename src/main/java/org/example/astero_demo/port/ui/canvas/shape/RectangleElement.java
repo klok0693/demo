@@ -1,11 +1,15 @@
-package org.example.astero_demo.port.ui.canvas.element;
+package org.example.astero_demo.port.ui.canvas.shape;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class EllipseElement extends ShapeElement {
+public class RectangleElement extends ShapeElement {
+    private double opacity;
+    private double scale;
+    private double angle;
+    private double pivotX, pivotY;
 
-    protected EllipseElement(
+    public RectangleElement(
             final int layer,
             final int modelRelatedId,
             final double x,
@@ -17,8 +21,8 @@ public class EllipseElement extends ShapeElement {
     }
 
     @Override
-    protected void drawElement(GraphicsContext gc) {
+    protected void drawElement(final GraphicsContext gc) {
         gc.setFill(fillColor);
-        gc.fillOval(x, y, width, height);
+        gc.fillRect(x, y, width, height);
     }
 }

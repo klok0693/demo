@@ -1,15 +1,14 @@
-package org.example.astero_demo.port.ui.canvas.element;
+package org.example.astero_demo.port.ui.canvas.shape;
 
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
-import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 
 public abstract class ShapeElement extends CanvasElement implements Comparable<ShapeElement> {
     @Getter
     private final int modelRelatedId;
     @Getter
-    private int layer;
+    private final int layer;
     @Getter
     protected Color fillColor;
 

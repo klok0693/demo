@@ -76,16 +76,6 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         return super.reset();
     }
 
-    public boolean selectElement(final int id) {
-        final Shape selection = modelState.getShape(id);
-        update(
-                parseDouble(selection.getX()),
-                parseDouble(selection.getY()),
-                parseDouble(selection.getWidth()),
-                parseDouble(selection.getHeight()));
-        return true;
-    }
-
     @Override
     public void onMousePressed(final double mouseX, final double mouseY) {
         contactPoints.forEach(contact -> contact.onDragDetected(mouseX, mouseY));

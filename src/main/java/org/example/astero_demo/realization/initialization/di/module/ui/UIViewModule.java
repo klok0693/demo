@@ -2,6 +2,8 @@ package org.example.astero_demo.realization.initialization.di.module.ui;
 
 import com.google.inject.*;
 import javafx.event.EventHandler;
+import org.example.astero_demo.adapter.keyboard.KeyBoardAdapter;
+import org.example.astero_demo.port.ui.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasView;
@@ -15,6 +17,7 @@ import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.ToolBarView;
 import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
+import org.example.astero_demo.port.ui.canvas.shape.ShapeLayer;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
@@ -25,6 +28,7 @@ public class UIViewModule extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(EventHandler.class).to(RootShortcutHandler.class);
         bind(CanvasView.class).to(ShapeCanvasView.class);
         bind(PropertiesView.class).to(PropertiesPanelView.class);
         bind(BackgroundLayer.class).in(Scopes.SINGLETON);
@@ -45,8 +49,9 @@ public class UIViewModule extends AbstractModule {
             final ModelState modelState,
             final CanvasAdapter adapter,
             final BackgroundLayer backgroundLayer,
+            final ShapeLayer shapeLayer,
             final ToolLayer toolLayer) {
-        return new ShapeCanvasView(state, modelState, adapter, backgroundLayer, toolLayer);
+        return new ShapeCanvasView(state, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
     }
 
     @Inject
@@ -71,6 +76,13 @@ public class UIViewModule extends AbstractModule {
     @Singleton
     public InsertTool provideInsertTool(final CanvasAdapter adapter, final UIState uiState) {
         return new InsertTool(adapter, uiState);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public ShapeLayer provideShapeLayer(final ModelState modelState) {
+        return new ShapeLayer(modelState);
     }
 
     @Inject
@@ -112,5 +124,12 @@ public class UIViewModule extends AbstractModule {
     @Singleton
     public ToolBarView provideToolBarView(final UIState uiState, final ToolBarAdapter operationProcessor) {
         return new ToolBarView(uiState, operationProcessor);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public RootShortcutHandler provideShortcutHandler(final KeyBoardAdapter adapter) {
+        return new RootShortcutHandler(adapter);
     }
 }

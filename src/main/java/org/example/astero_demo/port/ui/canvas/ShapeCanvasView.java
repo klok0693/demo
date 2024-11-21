@@ -3,21 +3,23 @@ package org.example.astero_demo.port.ui.canvas;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
-import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
-import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
+import org.example.astero_demo.port.ui.canvas.shape.ShapeLayer;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 
 import java.awt.*;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ShapeCanvasView extends Canvas implements CanvasView {
+public class ShapeCanvasView extends Canvas implements CanvasView, Initializable {
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
@@ -30,30 +32,27 @@ public class ShapeCanvasView extends Canvas implements CanvasView {
             final ModelState modelState,
             final CanvasAdapter adapter,
             final BackgroundLayer backgroundLayer,
+            final ShapeLayer shapeLayer,
             final ToolLayer toolLayer) {
         this.modelState = modelState;
         this.uiState = uiState;
         this.adapter = adapter;
 
-        setFocusTraversable(true);
-
         layers.add(backgroundLayer);
 
-        this.shapeLayer = new ShapeLayer(getGraphicsContext2D(), modelState);
+        this.shapeLayer = shapeLayer;
         layers.add(shapeLayer);
 
         this.toolLayer = toolLayer;
         layers.add(toolLayer);
+    }
 
-        setOnMousePressed(this::onMousePressed);
-        setOnDragDetected(this::onDragDetected);
-        setOnMouseDragged(this::onMouseDragged);
-        setOnMouseReleased(this::onMouseReleased);
-
+    @Override
+    public void initialize(final URL location, final ResourceBundle resources) {
         redraw();
     }
 
-    private void onMousePressed(final MouseEvent event) {
+    public void handleMousePressed(final MouseEvent event) {
         final double mouseX = event.getX();
         final double mouseY = event.getY();
 
@@ -96,12 +95,13 @@ public class ShapeCanvasView extends Canvas implements CanvasView {
         event.consume();
     }
 
-    private void onDragDetected(final MouseEvent event) {
+    public void handleDragDetected(final MouseEvent event) {
         toolLayer.onDragDetected(event.getX(), event.getY());
         redraw();
+        event.consume();
     }
 
-    private void onMouseDragged(final MouseEvent event) {
+    public void handleMouseDragged(final MouseEvent event) {
         final double mouseX = event.getX();
         final double mouseY = event.getY();
 
@@ -113,15 +113,17 @@ public class ShapeCanvasView extends Canvas implements CanvasView {
 
         toolLayer.onMouseDragged(toolX, toolY);
         redraw();
+        event.consume();
     }
 
-    private void onMouseReleased(final MouseEvent event) {
+    public void handleMouseReleased(final MouseEvent event) {
         toolLayer.onMouseReleased(event);
         redraw();
+        event.consume();
     }
 
-    public final void redraw() {
-        Platform.runLater(() -> layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsContext2D())));
+    private void redraw() {
+        layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsContext2D()));
     }
 
     @Override
@@ -133,7 +135,7 @@ public class ShapeCanvasView extends Canvas implements CanvasView {
 
     @Override
     public double[] getLocalCursorPosition() {
-        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation(); // Get cursor position on screen
+        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
         final Point2D localPosition = screenToLocal(cursorPosition.getX(), cursorPosition.getY());
         return new double[] {localPosition.getX(), localPosition.getY()};
     }

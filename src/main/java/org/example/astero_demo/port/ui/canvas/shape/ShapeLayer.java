@@ -1,7 +1,5 @@
-package org.example.astero_demo.port.ui.canvas.element;
+package org.example.astero_demo.port.ui.canvas.shape;
 
-import javafx.collections.WeakListChangeListener;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
@@ -17,13 +15,9 @@ import static java.lang.Integer.parseInt;
 public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements UpdatableView {
     private final ModelState modelState;
 
-    public ShapeLayer(final GraphicsContext gc, final ModelState modelState) {
+    public ShapeLayer(final ModelState modelState) {
         super(1);
         this.modelState = modelState;
-
-        children.addListener(new WeakListChangeListener<>(change -> {
-            draw(gc);
-        }));
     }
 
     @Override
@@ -31,8 +25,8 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implement
         removeAll();
         modelState.getShapes()
                 .map(ShapeLayer::createElement)
-                .collect(Collectors.groupingBy(ShapeElement::getLayer, Collectors.toList()
-                )).forEach((layer, elements) -> {
+                .collect(Collectors.groupingBy(ShapeElement::getLayer, Collectors.toList()))
+                .forEach((layer, elements) -> {
                     final CanvasLayer<ShapeElement> canvasLayer = new CanvasLayer<>(layer);
                     canvasLayer.addAll(elements);
                     children.add(canvasLayer);

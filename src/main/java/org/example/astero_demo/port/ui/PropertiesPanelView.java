@@ -12,6 +12,8 @@ import org.example.astero_demo.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.util.ColorUtils;
 
+import java.util.function.Consumer;
+
 public class PropertiesPanelView implements PropertiesView {
     public TextField xField;
     public TextField yField;
@@ -59,31 +61,31 @@ public class PropertiesPanelView implements PropertiesView {
     }
 
     public void updateX(final KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
+        if (needToHandle(event)) {
             propertyUpdatable.updateX(xField.getText());
         }
     }
 
     public void updateY(final KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
+        if (needToHandle(event)) {
             propertyUpdatable.updateY(yField.getText());
         }
     }
 
     public void updateWidth(final KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
+        if (needToHandle(event)) {
             propertyUpdatable.updateWidth(widthField.getText());
         }
     }
 
     public void updateHeight(final KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
+        if (needToHandle(event)) {
             propertyUpdatable.updateHeight(heightField.getText());
         }
     }
 
     public void updateLayer(final KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
+        if (needToHandle(event)) {
             propertyUpdatable.updateLayer(layerField.getText());
         }
     }
@@ -91,5 +93,9 @@ public class PropertiesPanelView implements PropertiesView {
     public void updateColor(final ActionEvent event) {
         final Color selectedColor = colorField.getValue();
         propertyUpdatable.updateColor(String.valueOf(ColorUtils.convert(selectedColor)));
+    }
+
+    private static boolean needToHandle(final KeyEvent event) {
+        return event.getCode() == KeyCode.ENTER;
     }
 }

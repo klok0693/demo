@@ -6,6 +6,7 @@ import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
 import java.util.HashMap;
 
+import static java.lang.Boolean.parseBoolean;
 import static java.lang.Double.parseDouble;
 
 public class CanvasBuilder extends HashMap<String, String> implements Builder<Canvas> {
@@ -19,6 +20,7 @@ public class CanvasBuilder extends HashMap<String, String> implements Builder<Ca
     public Canvas build() {
         canvasView.setWidth(parseDouble(get("width")));
         canvasView.setHeight(parseDouble(get("height")));
+        canvasView.setFocusTraversable(parseBoolean(get("focusTraversable")));
         return canvasView;
     }
 }

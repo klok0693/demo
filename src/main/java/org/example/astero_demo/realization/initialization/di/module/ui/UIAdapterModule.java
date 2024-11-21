@@ -1,8 +1,7 @@
 package org.example.astero_demo.realization.initialization.di.module.ui;
 
 import com.google.inject.*;
-import javafx.event.EventHandler;
-import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
+import org.example.astero_demo.adapter.keyboard.KeyBoardAdapter;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.*;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
@@ -31,8 +30,6 @@ public class UIAdapterModule extends AbstractModule {
         bind(UIState.class).to(MutableUIState.class);
         bind(MutableUIState.class).to(UIStateHolder.class).in(Scopes.SINGLETON);
 
-        bind(EventHandler.class).to(RootShortcutHandler.class);
-
         bind(ParentAdapter.class).to(RootAdapter.class);
         bind(ControllerAdapter.class).to(RootAdapter.class);
     }
@@ -47,11 +44,11 @@ public class UIAdapterModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public RootShortcutHandler provideShortcutHandler(
+    public KeyBoardAdapter provideKeyboardAdapte(
             final LogicEventProcessor processor,
-            final ParentAdapter parentAdapter,
-            final UIState state) {
-        return new RootShortcutHandler(processor, parentAdapter, state);
+            final UIState state,
+            final ParentAdapter parentAdapter) {
+        return new KeyBoardAdapter(processor, state, parentAdapter);
     }
 
     @Inject
@@ -105,10 +102,10 @@ public class UIAdapterModule extends AbstractModule {
     public ToolBarPanelAdapter provideToolBarAdapter(
             final LogicEventProcessor controller,
             final UIState uiState,
-            final RootShortcutHandler shortcutHandler,
+            final KeyBoardAdapter keyBoardAdapter,
             final ToolBarView toolBarView,
             final ParentAdapter parentAdapter) {
-        return new ToolBarPanelAdapter(controller, uiState, shortcutHandler, toolBarView, parentAdapter);
+        return new ToolBarPanelAdapter(controller, uiState, keyBoardAdapter, toolBarView, parentAdapter);
     }
 
     @Inject

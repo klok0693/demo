@@ -5,9 +5,10 @@ import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 
+import static org.example.astero_demo.port.ui.UIConsrants.CONTACT_DIAMETER;
+
 public class ContactPoint extends DraggableTool {
-    private static final double DIAMETER = 16.0;
-    private static final double RADIUS = DIAMETER / 2;
+    private static final double RADIUS = CONTACT_DIAMETER / 2;
 
     private final ShapeSelectionTool selectionTool;
     private final CanvasAdapter adapter;
@@ -20,7 +21,7 @@ public class ContactPoint extends DraggableTool {
             final int layer,
             final Color fillColor,
             final ContactAlignment alignment) {
-        super(DIAMETER, DIAMETER, layer);
+        super(CONTACT_DIAMETER, CONTACT_DIAMETER, layer);
         this.selectionTool = selectionTool;
         this.adapter = adapter;
         this.fillColor = fillColor;
@@ -43,7 +44,7 @@ public class ContactPoint extends DraggableTool {
     @Override
     protected void drawElement(final GraphicsContext gc) {
         gc.setFill(Color.RED);
-        gc.fillOval(x - RADIUS, y - RADIUS, DIAMETER, DIAMETER);
+        gc.fillOval(x - RADIUS, y - RADIUS, CONTACT_DIAMETER, CONTACT_DIAMETER);
     }
 
     public boolean isInBounds(final double x, final double y) {

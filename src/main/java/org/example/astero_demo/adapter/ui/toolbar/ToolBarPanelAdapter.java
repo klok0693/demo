@@ -1,7 +1,6 @@
 package org.example.astero_demo.adapter.ui.toolbar;
 
-import javafx.scene.input.KeyCode;
-import org.example.astero_demo.adapter.keyboard.RootShortcutHandler;
+import org.example.astero_demo.adapter.keyboard.KeyBoardAdapter;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
@@ -12,17 +11,17 @@ import org.example.astero_demo.port.ui.ToolBarView;
 
 public class ToolBarPanelAdapter extends LeafAdapter implements ToolBarAdapter {
 
-    private final RootShortcutHandler shortcutHandler; // TODO: remove
+    private final KeyBoardAdapter keyBoardAdapter;
     private final ToolBarView toolBarView;
 
     public ToolBarPanelAdapter(
             final LogicEventProcessor controller,
             final UIState uiState,
-            final RootShortcutHandler shortcutHandler,
+            final KeyBoardAdapter keyBoardAdapter,
             final ToolBarView toolBarView,
             final ParentAdapter parentAdapter) {
         super(controller, uiState, parentAdapter);
-        this.shortcutHandler = shortcutHandler;
+        this.keyBoardAdapter = keyBoardAdapter;
         this.toolBarView = toolBarView;
     }
 
@@ -43,11 +42,11 @@ public class ToolBarPanelAdapter extends LeafAdapter implements ToolBarAdapter {
 
     @Override
     public void onDeleteAction() {
-        shortcutHandler.handle(KeyCode.DELETE, true);
+        keyBoardAdapter.handleDelete();
     }
 
     @Override
     public void onUndoAction() {
-        shortcutHandler.handle(KeyCode.Z, true);
+        keyBoardAdapter.handleUndo();
     }
 }
