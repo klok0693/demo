@@ -1,11 +1,14 @@
 package org.example.astero_demo.realization.async.wrappers.adapter;
 
 import com.google.inject.Inject;
-import org.example.astero_demo.adapter.model.entity.Shape;
+import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.ShapeCanvasAdapter;
 import org.example.astero_demo.realization.async.AppExecutor;
 
+import static org.example.astero_demo.realization.logging.MarkerStorage.USER_INPUT_MARKER;
+
+@Slf4j
 public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAdapter> implements CanvasAdapter {
 
     @Inject
@@ -15,11 +18,13 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
 
     @Override
     public void primaryMouseBtnPressed(final double x, final double y) {
+        log.debug(USER_INPUT_MARKER, "Press canvas at {},{}", x, y);
         wrappedElement.primaryMouseBtnPressed(x, y);
     }
 
     @Override
     public void selectNextShapeAt(double x, double y) {
+        log.debug(USER_INPUT_MARKER, "Select next shape at {},{}", x, y);
         wrappedElement.selectNextShapeAt(x, y);
     }
 
@@ -29,6 +34,7 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
             final double y,
             final double width,
             final double height) {
+        log.debug(USER_INPUT_MARKER, "Create new shape at {},{}, size: {},{}", x, y, width, height);
         executeInBackground(() -> wrappedElement.createNewShapeAt(x, y, width, height));
     }
 
@@ -38,11 +44,13 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
             final double y,
             final double width,
             final double height) {
+        log.debug(USER_INPUT_MARKER, "Modify selected shape to x:{}, y:{}, w:{}, h{}", x, y, width, height);
         executeInBackground(() -> wrappedElement.modifySelectedShape(x, y, width, height));
     }
 
     @Override
     public void moveSelectedShapeTo(final double x, final double y) {
+        log.debug(USER_INPUT_MARKER, "Move selected shape to {},{}", x, y);
         executeInBackground(() -> wrappedElement.moveSelectedShapeTo(x, y));
     }
 

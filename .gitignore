@@ -40,6 +40,7 @@ build/
 
 ### Temporary files ###
 temp/
+logs/
 
 ## Additional for IntelliJ
 out/

@@ -2,6 +2,7 @@ package org.example.astero_demo.realization.initialization.di.module.ui;
 
 import com.google.inject.*;
 import org.example.astero_demo.adapter.keyboard.KeyBoardAdapter;
+import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.*;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
@@ -102,7 +103,7 @@ public class UIAdapterModule extends AbstractModule {
     public ToolBarPanelAdapter provideToolBarAdapter(
             final LogicEventProcessor controller,
             final UIState uiState,
-            final KeyBoardAdapter keyBoardAdapter,
+            final OperationAdapter keyBoardAdapter,
             final ToolBarView toolBarView,
             final ParentAdapter parentAdapter) {
         return new ToolBarPanelAdapter(controller, uiState, keyBoardAdapter, toolBarView, parentAdapter);

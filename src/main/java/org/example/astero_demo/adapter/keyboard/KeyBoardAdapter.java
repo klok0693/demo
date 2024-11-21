@@ -8,7 +8,7 @@ import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
 
-public class KeyBoardAdapter {
+public class KeyBoardAdapter implements OperationAdapter {
 
     private final LogicEventProcessor processor;
     private final UIState state;
@@ -23,22 +23,26 @@ public class KeyBoardAdapter {
         parentAdapter = adapter;
     }
 
+    @Override
     public void handleDelete() {
         if (state.hasSelectedId()) {
             processor.process(new RemoveShapeEvent(state.getSelectedShapeId()));
         }
     }
 
+    @Override
     public void handleUndo() {
         processor.process(new UndoLastOperationEvent());
     }
 
+    @Override
     public void handleCopy() {
         if (state.hasSelectedId()) {
             parentAdapter.processEvent(new CopyShapeEvent());
         }
     }
 
+    @Override
     public void handlePaste() {
         if (state.hasCopy()) {
             parentAdapter.processEvent(new PasteShapeEvent());

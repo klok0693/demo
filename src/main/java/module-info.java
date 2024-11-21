@@ -7,6 +7,7 @@ open module org.example.astero_demo {
     requires com.google.guice;
     requires lombok;
     requires org.apache.commons.lang3;
+    requires org.slf4j;
 
     requires java.desktop;
 

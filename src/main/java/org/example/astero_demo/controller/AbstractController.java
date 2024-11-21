@@ -7,6 +7,8 @@ import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.*;
 
+import java.util.List;
+
 import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.entity.ShapeType.valueOf;
 import static org.example.astero_demo.util.ParamUtils.getParamInfo;
@@ -29,7 +31,7 @@ public abstract class AbstractController implements LogicEventProcessor {
 
         Command command = null;
         if (e instanceof final CreateNewShapeEvent ev) {
-            final ParamInfo[] infos = ev.getParamInfos();
+            final List<ParamInfo> infos = List.of(ev.getParamInfos());
             command = commandFactory.createNewShapeCommand(
                     getParamInfo(infos, ShapeParam.PRIORITY),
                     getParamInfo(infos, ShapeParam.X),

@@ -1,6 +1,6 @@
 package org.example.astero_demo.adapter.ui.toolbar;
 
-import org.example.astero_demo.adapter.keyboard.KeyBoardAdapter;
+import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
@@ -11,13 +11,13 @@ import org.example.astero_demo.port.ui.ToolBarView;
 
 public class ToolBarPanelAdapter extends LeafAdapter implements ToolBarAdapter {
 
-    private final KeyBoardAdapter keyBoardAdapter;
+    private final OperationAdapter keyBoardAdapter;
     private final ToolBarView toolBarView;
 
     public ToolBarPanelAdapter(
             final LogicEventProcessor controller,
             final UIState uiState,
-            final KeyBoardAdapter keyBoardAdapter,
+            final OperationAdapter keyBoardAdapter,
             final ToolBarView toolBarView,
             final ParentAdapter parentAdapter) {
         super(controller, uiState, parentAdapter);

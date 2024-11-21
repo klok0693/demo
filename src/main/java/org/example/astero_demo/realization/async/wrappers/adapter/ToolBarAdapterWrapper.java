@@ -1,10 +1,14 @@
 package org.example.astero_demo.realization.async.wrappers.adapter;
 
 import com.google.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarPanelAdapter;
 import org.example.astero_demo.realization.async.AppExecutor;
 
+import static org.example.astero_demo.realization.logging.MarkerStorage.USER_INPUT_MARKER;
+
+@Slf4j
 public class ToolBarAdapterWrapper extends UpdatableAdapterAsyncWrapper<ToolBarAdapter> implements ToolBarAdapter {
 
     @Inject
@@ -14,11 +18,13 @@ public class ToolBarAdapterWrapper extends UpdatableAdapterAsyncWrapper<ToolBarA
 
     @Override
     public void onInsertRectAction() {
+        log.debug(USER_INPUT_MARKER, "Insert new Rect");
         executeInBackground(wrappedElement::onInsertRectAction);
     }
 
     @Override
     public void onInsertCycleAction() {
+        log.debug(USER_INPUT_MARKER, "Insert new Cycle");
         executeInBackground(wrappedElement::onInsertCycleAction);
     }
 

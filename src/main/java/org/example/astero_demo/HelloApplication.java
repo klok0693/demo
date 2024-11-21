@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.LoadListener;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
+import org.example.astero_demo.realization.configuration.AppConfiguration;
+import org.example.astero_demo.realization.configuration.BeforeLaunchConfiguration;
 import org.example.astero_demo.realization.initialization.di.module.*;
 import org.example.astero_demo.realization.initialization.di.module.ui.UIElementModule;
 import org.example.astero_demo.realization.initialization.di.module.ui.UIAdapterModule;
@@ -15,13 +18,16 @@ import org.example.astero_demo.realization.initialization.ui.CustomControllerFac
 import org.example.astero_demo.realization.initialization.ui.NodeBuilderFactory;
 
 import java.io.IOException;
+import java.util.List;
 
+import static org.example.astero_demo.realization.logging.MarkerStorage.INITIALIZATION_MARKER;
+
+@Slf4j
 public class HelloApplication extends Application {
-    //private final CustomControllerFactory controllerFactory = new CustomControllerFactory();
 
     @Override
     public void start(final Stage stage) throws IOException {
-
+        log.debug(INITIALIZATION_MARKER, "Init DI container");
         final Injector injector = Guice.createInjector(
                 new AsyncModule(),
                 new ProviderModule(),
@@ -37,6 +43,7 @@ public class HelloApplication extends Application {
         final NodeBuilderFactory nodeFactory = injector.getInstance(NodeBuilderFactory.class);
         final LoadListener loadListener = injector.getInstance(LoadListener.class);
 
+        log.debug(INITIALIZATION_MARKER, "Load root fxml");
         final FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
         fxmlLoader.setControllerFactory(controllerFactory);
         fxmlLoader.setBuilderFactory(nodeFactory);
@@ -48,7 +55,10 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
+        log.debug(INITIALIZATION_MARKER, "Start application with args:{}", List.of(args));
+
+        AppConfiguration.INSTANCE.setUp();
         launch();
     }
 }

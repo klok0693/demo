@@ -1,10 +1,14 @@
 package org.example.astero_demo.logic.command;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.controller.model.ModelAdapterController;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
 
+import static org.example.astero_demo.realization.logging.MarkerStorage.COMMAND_MARKER;
+
+@Slf4j
 public class ModifyShapeCommand extends ParamCommand {
     private final UIController viewController;
     private final ModelController modelController;
@@ -16,7 +20,6 @@ public class ModifyShapeCommand extends ParamCommand {
             final ModelController modelController,
             final int modifyShapeId,
             final ParamInfo... infos) {
-
         super(infos);
         this.viewController = viewController;
         this.modelController = modelController;
@@ -25,20 +28,24 @@ public class ModifyShapeCommand extends ParamCommand {
 
     @Override
     public void doCommand() {
+        log.debug(COMMAND_MARKER, "Update existed shape {} with new params {}", modifyShapeId, paramInfos);
         for (final ParamInfo info : paramInfos) {
             final String oldValue = modelController.getShapeParam(modifyShapeId, info.getParam());
             info.setOldValue(oldValue);
 
             modelController.modifyShapeParam(modifyShapeId, info.getParam(), info.getNewValue());
         }
+        log.debug(COMMAND_MARKER, "Update ui for {}", modifyShapeId);
         viewController.onModifyUpdate(modifyShapeId);
     }
 
     @Override
     public void undoCommand() {
+        log.debug(COMMAND_MARKER, "Undo shape {} modification", modifyShapeId);
         for (final ParamInfo info : paramInfos) {
             modelController.modifyShapeParam(modifyShapeId, info.getParam(), info.getOldValue());
         }
+        log.debug(COMMAND_MARKER, "Update ui for {}", modifyShapeId);
         viewController.onModifyUpdate(modifyShapeId);
     }
 }

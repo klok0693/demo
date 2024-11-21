@@ -18,4 +18,9 @@ public class ParamInfo {
     public static ParamInfo create(final ShapeParam param, final String newValue) {
         return new ParamInfo(param, newValue);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: new %s, old %s", param.name(), newValue, oldValue);
+    }
 }

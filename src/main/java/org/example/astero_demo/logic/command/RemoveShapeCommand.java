@@ -1,12 +1,15 @@
 package org.example.astero_demo.logic.command;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.controller.model.ModelAdapterController;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
 
 import static java.lang.String.valueOf;
+import static org.example.astero_demo.realization.logging.MarkerStorage.COMMAND_MARKER;
 
+@Slf4j
 public class RemoveShapeCommand extends Command {
     private final UIController viewController;
     private final ModelController modelController;
@@ -25,12 +28,15 @@ public class RemoveShapeCommand extends Command {
 
     @Override
     public void doCommand() {
+        log.debug(COMMAND_MARKER, "Remove shape {}", shapeId);
         this.removedShape = modelController.removeShape(shapeId);
+        log.debug("Update ui");
         viewController.onRemoveUpdate();
     }
 
     @Override
     public void undoCommand() {
+        log.debug(COMMAND_MARKER, "Undo removing of the shape {}", removedShape);
         this.shapeId = modelController.saveShape(
                 removedShape.getId(),
                 removedShape.getPriority(),
@@ -40,8 +46,7 @@ public class RemoveShapeCommand extends Command {
                 removedShape.getHeight(),
                 removedShape.getColor(),
                 removedShape.getType());
-
-        //viewController.onCreateUpdate(removedShape.getX(), removedShape.getY());
+        log.debug(COMMAND_MARKER, "Update ui for {}", shapeId);
         viewController.onCreateUpdate(removedShape.getId());
     }
 }

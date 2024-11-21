@@ -1,5 +1,6 @@
 package org.example.astero_demo.adapter.ui;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.model.state.ModelState;
@@ -19,6 +20,7 @@ import java.util.function.Supplier;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+@Slf4j
 public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdapter, ControllerAdapter {
     private final ModelState modelState;
     private final ToolBarAdapter toolBarAdapter;
@@ -103,7 +105,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     }
 
     private void selectElement(final Supplier<Shape> shapeSupplier) {
-        uiState.reset();
+        //uiState.reset();
 
         final Shape selectedShape = shapeSupplier.get();
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
@@ -124,6 +126,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     }
 
     private void updateChildren() {
+        log.debug("Updating ui root children");
         toolBarAdapter.update();
         canvasAdapter.update();
         propertyAdapter.update();
