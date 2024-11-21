@@ -8,11 +8,11 @@
          fx:controller="org.example.astero_demo.port.ui.RootView">
 
     <top>
-        <fx:include fx:id="toolBarRoot" source="tool-bar.fxml"/>
+        <fx:include fx:id="toolBarRoot" source="tool-bar-panel.fxml"/>
     </top>
 
     <left>
-        <fx:include fx:id="layersRoot" source="layers.fxml"/>
+        <fx:include fx:id="layersRoot" source="layers-panel.fxml"/>
     </left>
 
     <center>
