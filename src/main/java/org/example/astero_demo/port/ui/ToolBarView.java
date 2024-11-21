@@ -16,8 +16,8 @@ import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 public class ToolBarView implements UpdatableView {
     private final ToolBarAdapter operationProcessor;
     private final UIState uiState;
-    public ToggleButton rectBtn;
-    public ToggleButton cycleBtn;
+    public ToggleButton insertRectBtn;
+    public ToggleButton insertCycleBtn;
     public Button deleteBtn;
     public Button undoBtn;
 
@@ -29,8 +29,8 @@ public class ToolBarView implements UpdatableView {
     @Override
     public void update() {
         final boolean needToUnStickBtn = uiState.isInInsertMode();
-        rectBtn.setSelected(needToUnStickBtn);
-        cycleBtn.setSelected(needToUnStickBtn);
+        insertRectBtn.setSelected(needToUnStickBtn);
+        insertCycleBtn.setSelected(needToUnStickBtn);
 
         final boolean disableRelated = uiState.isInInsertMode() || !uiState.hasSelectedId();
         deleteBtn.setDisable(disableRelated);

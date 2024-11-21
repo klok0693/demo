@@ -48,7 +48,7 @@ public class UIAdapterController extends AbstractController implements UIControl
     protected boolean isValid(final LogicEvent event) {
         if (event instanceof final ParamEvent ev) {
             return Arrays.stream(ev.getParamInfos())
-                    .allMatch(info -> ShapeValidator.isValid(info.getParam(), info.getNewValue()));
+                    .allMatch(info -> validator.isValid(info.getParam(), info.getNewValue()));
         }
         return true;
     }

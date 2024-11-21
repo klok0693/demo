@@ -1,9 +1,6 @@
 package org.example.astero_demo.realization.initialization.di.module;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
+import com.google.inject.*;
 import org.example.astero_demo.adapter.model.ModelAdapter;
 import org.example.astero_demo.controller.*;
 import org.example.astero_demo.controller.model.ModelAdapterController;
@@ -24,7 +21,7 @@ public class ControllerModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(ShapeValidator.class).toInstance(ShapeValidator.INSTANCE);
+        bind(ShapeValidator.class).in(Scopes.SINGLETON);
         bind(ModelController.class).to(ModelAdapterController.class);
         bind(LogicEventProcessor.class).to(UIAdapterController.class);
         bind(UIController.class).to(UIAdapterController.class);

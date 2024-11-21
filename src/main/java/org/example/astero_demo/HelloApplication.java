@@ -24,11 +24,12 @@ import static org.example.astero_demo.realization.logging.MarkerStorage.INITIALI
 
 @Slf4j
 public class HelloApplication extends Application {
+    protected Injector injector;
 
     @Override
     public void start(final Stage stage) throws IOException {
         log.debug(INITIALIZATION_MARKER, "Init DI container");
-        final Injector injector = Guice.createInjector(
+        this.injector = Guice.createInjector(
                 new AsyncModule(),
                 new ProviderModule(),
                 new ModelModule(),

@@ -21,8 +21,8 @@
             <ToggleGroup fx:id="insertElementButton"/>
         </fx:define>
 
-        <ToggleButton fx:id="rectBtn"  text="Rect"  onAction="#onInsertRectAction"  toggleGroup="$insertElementButton"/>
-        <ToggleButton fx:id="cycleBtn" text="Cycle" onAction="#onInsertCycleAction" toggleGroup="$insertElementButton"/>
+        <ToggleButton fx:id="insertRectBtn" text="Rect" onAction="#onInsertRectAction" toggleGroup="$insertElementButton"/>
+        <ToggleButton fx:id="insertCycleBtn" text="Cycle" onAction="#onInsertCycleAction" toggleGroup="$insertElementButton"/>
     </HBox>
 
     <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">

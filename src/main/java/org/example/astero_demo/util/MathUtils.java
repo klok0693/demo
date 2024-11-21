@@ -4,6 +4,8 @@ import lombok.experimental.UtilityClass;
 
 import java.util.regex.Pattern;
 
+import static java.lang.Double.parseDouble;
+
 /**
  * @author Pilip Yurchanka
  * @since v1.0
@@ -11,9 +13,19 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class MathUtils {
     private static final Pattern NON_NEGATIVE_INTEGER_PATTERN = Pattern.compile("^\\d+$");
+    private static final Pattern NUMBER_PATTERN = Pattern.compile("-?\\d+(\\.\\d+)?");
 
-    public static boolean isNonNegative(final Number value) {
-        return value.doubleValue() >= 0.0;
+    /**
+     *
+     * @param value
+     * @return
+     */
+    public static boolean isNumber(final String value) {
+        return NUMBER_PATTERN.matcher(value).matches();
+    }
+
+    public static boolean isNonNegative(final String value) {
+        return isNumber(value) && parseDouble(value) >= 0.0;
     }
 
     public static boolean isNonNegativeInteger(final String input) {
