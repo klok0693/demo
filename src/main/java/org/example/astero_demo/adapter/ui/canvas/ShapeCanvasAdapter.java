@@ -39,16 +39,12 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
 
     @Override
     public void createNewShapeAt(final double x, final double y, final double width, final double height) {
-        update();
-        controller.process(
-                new CreateNewShapeEvent(x, y, width, height, uiState.getInsertShapeType()));
+        controller.process(new CreateNewShapeEvent(x, y, width, height, uiState.getInsertShapeType()));
     }
 
     @Override
     public void modifySelectedShape(final double x, final double y, final double width, final double height) {
-        update();
-        controller.process(
-                new ModifyShapeEvent(
+        controller.process(new ModifyShapeEvent(
                         uiState.getSelectedShapeId(),
                         create(ShapeParam.X, valueOf(x)),
                         create(ShapeParam.Y, valueOf(y)),
@@ -58,10 +54,14 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
 
     @Override
     public void moveSelectedShapeTo(final double x, final double y) {
-        update();
         controller.process(new ModifyShapeEvent(
                 uiState.getSelectedShapeId(),
                 create(ShapeParam.X, valueOf(x)),
                 create(ShapeParam.Y, valueOf(y))));
+    }
+
+    @Override
+    public double[] getLocalCursorPosition() {
+        return canvasRoot.getLocalCursorPosition();
     }
 }

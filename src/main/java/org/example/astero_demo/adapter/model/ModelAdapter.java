@@ -5,12 +5,13 @@ import org.example.astero_demo.adapter.model.entity.ShapeFactory;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.adapter.model.state.MutableModelState;
 
 public class ModelAdapter {
     private final ShapeFactory factory;
-    private final ModelState modelState;
+    private final MutableModelState modelState;
 
-    public ModelAdapter(final ShapeFactory factory, final ModelState modelState) {
+    public ModelAdapter(final ShapeFactory factory, final MutableModelState modelState) {
         this.factory = factory;
         this.modelState = modelState;
     }

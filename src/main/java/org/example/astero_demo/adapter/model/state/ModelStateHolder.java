@@ -11,13 +11,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public enum ModelStateHolder implements ModelState {
+public enum ModelStateHolder implements MutableModelState {
     INSTANCE(new ModelStateInstance());
 
-    private final List<ModelState> instances;
-    private ModelState currentState;
+    private final List<MutableModelState> instances;
+    private MutableModelState currentState;
 
-    private ModelStateHolder(final ModelState state) {
+    ModelStateHolder(final MutableModelState state) {
         this.instances = Collections.singletonList(state);
         this.currentState = state;
     }

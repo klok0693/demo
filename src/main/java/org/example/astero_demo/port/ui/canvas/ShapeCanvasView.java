@@ -3,6 +3,7 @@ package org.example.astero_demo.port.ui.canvas;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.adapter.model.entity.Shape;
@@ -13,6 +14,8 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.port.ui.canvas.element.ShapeLayer;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
+
+import java.awt.*;
 
 public class ShapeCanvasView extends Canvas implements CanvasView {
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
@@ -126,5 +129,12 @@ public class ShapeCanvasView extends Canvas implements CanvasView {
         shapeLayer.update();
         toolLayer.update();
         redraw();
+    }
+
+    @Override
+    public double[] getLocalCursorPosition() {
+        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation(); // Get cursor position on screen
+        final Point2D localPosition = screenToLocal(cursorPosition.getX(), cursorPosition.getY());
+        return new double[] {localPosition.getX(), localPosition.getY()};
     }
 }

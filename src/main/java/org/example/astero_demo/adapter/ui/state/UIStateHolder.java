@@ -17,11 +17,7 @@ import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
 public class UIStateHolder implements MutableUIState {
-
     @Getter
-    private boolean isInInsertMode = false;
-    @Getter
-    @Setter
     private ShapeType insertShapeType;
 
     @Getter
@@ -35,11 +31,14 @@ public class UIStateHolder implements MutableUIState {
     }
 
     @Override
-    public void setIsInInsertMode(final boolean isInInsertMode) {
-        this.isInInsertMode = isInInsertMode;
-        if (!isInInsertMode) {
-            this.insertShapeType = null;
-        }
+    public boolean isInInsertMode() {
+        return insertShapeType != null;
+    }
+
+    @Override
+    public void setInsertShapeType(final ShapeType type) {
+        removeSelection();
+        this.insertShapeType = type;
     }
 
     @Override
@@ -151,14 +150,19 @@ public class UIStateHolder implements MutableUIState {
 
     @Override
     public void setSelectShape(final Integer id) {
-        removeSelection();
+        reset();
         if (id != null) {
             selectedShapes.add(id);
         }
     }
 
     @Override
-    public void removeSelection() {
+    public void reset() {
+        removeSelection();
+        setInsertShapeType(null);
+    }
+
+    private void removeSelection() {
         selectedShapes.clear();
     }
 

@@ -12,4 +12,6 @@ public interface CanvasAdapter extends UpdatableAdapter {
     void modifySelectedShape(double x, double y, double width, double height);
 
     void moveSelectedShapeTo(double x, double y);
+
+    double[] getLocalCursorPosition();
 }

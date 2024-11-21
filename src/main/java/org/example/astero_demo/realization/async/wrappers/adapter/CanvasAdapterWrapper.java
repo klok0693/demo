@@ -42,6 +42,11 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
     }
 
     @Override
+    public double[] getLocalCursorPosition() {
+        return wrappedElement.getLocalCursorPosition();
+    }
+
+    @Override
     public boolean hasInjectedField(final String fieldName) {
         return super.hasInjectedField(fieldName) /*|| "canvasRoot".equals(fieldName)*/;
     }

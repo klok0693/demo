@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import static java.lang.String.valueOf;
 
-public class ModelStateInstance implements ModelState {
+public class ModelStateInstance implements MutableModelState {
     private final HashMap<Integer, Shape> shapes = new LinkedHashMap<>(32);
 
     @Override

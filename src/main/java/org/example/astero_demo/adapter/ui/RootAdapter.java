@@ -1,6 +1,5 @@
 package org.example.astero_demo.adapter.ui;
 
-import javafx.geometry.Point2D;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.model.state.ModelState;
@@ -14,9 +13,7 @@ import org.example.astero_demo.controller.ui.ControllerAdapter;
 import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
-import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
-import java.awt.*;
 import java.util.function.Supplier;
 
 import static java.lang.Double.parseDouble;
@@ -30,7 +27,6 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     private final LayersAdapter layersAdapter;
 
     private final RootView rootView;
-    public ShapeCanvasView canvasRoot;
 
     public RootAdapter(
             final ModelState modelState,
@@ -62,17 +58,8 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
 
     @Override
     public void onRemoveUpdate() {
-        uiState.setIsInInsertMode(false);
-        uiState.removeSelection();
+        uiState.reset();
         updateChildren();
-    }
-
-    private void updateChildren() {
-        toolBarAdapter.update();
-        canvasAdapter.update();
-        propertyAdapter.update();
-        layersAdapter.update();
-        rootView.update();
     }
 
     @Override
@@ -84,8 +71,6 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             selectElement(e.getSelectedId());
         }
         else if (event instanceof final InsertModeEvent e) {
-            uiState.removeSelection();
-            uiState.setIsInInsertMode(true);
             uiState.setInsertShapeType(e.getInsertShapeType());
             updateChildren();
         }
@@ -93,15 +78,11 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             uiState.storeCopyOf(uiState.getSelectedShapeId());
         }
         else if (event instanceof final PasteShapeEvent e) {
-            final Point cursorPosition = MouseInfo.getPointerInfo().getLocation(); // Get cursor position on screen
-            final Point2D localPosition = canvasRoot.screenToLocal(cursorPosition.getX(), cursorPosition.getY());
-
-            updateChildren();
-
+            final double[] currentPosition = canvasAdapter.getLocalCursorPosition();
             controller.process(new CreateNewShapeEvent(
                     parseInt(uiState.getCopyPriority()),
-                    localPosition.getX(),
-                    localPosition.getY(),
+                    currentPosition[0],
+                    currentPosition[1],
                     parseDouble(uiState.getCopyWidth()),
                     parseDouble(uiState.getCopyHeight()),
                     parseInt(uiState.getCopyColor()),
@@ -119,13 +100,20 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     }
 
     private void selectElement(final Supplier<Shape> shapeSupplier) {
-        uiState.setIsInInsertMode(false);
-        uiState.removeSelection();
+        uiState.reset();
 
         final Shape selectedShape = shapeSupplier.get();
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 
         uiState.setSelectShape(shapeId);
         updateChildren();
+    }
+
+    private void updateChildren() {
+        toolBarAdapter.update();
+        canvasAdapter.update();
+        propertyAdapter.update();
+        layersAdapter.update();
+        rootView.update();
     }
 }

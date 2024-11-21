@@ -4,13 +4,11 @@ import org.example.astero_demo.adapter.model.entity.ShapeType;
 
 public interface MutableUIState extends UIState {
 
-    void setIsInInsertMode(boolean isInInsertMode);
-
     void setInsertShapeType(ShapeType type);
 
     void setSelectShape(Integer id);
 
-    void removeSelection();
+    void reset();
 
     void storeCopyOf(int originalId);
 }

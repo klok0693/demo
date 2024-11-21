@@ -5,12 +5,14 @@ import org.example.astero_demo.adapter.model.ModelAdapter;
 import org.example.astero_demo.adapter.model.entity.ShapeFactory;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.model.state.ModelStateHolder;
+import org.example.astero_demo.adapter.model.state.MutableModelState;
 
 public class ModelModule extends AbstractModule {
 
     @Override
     protected void configure() {
         bind(ModelState.class).to(ModelStateHolder.class);
+        bind(MutableModelState.class).to(ModelStateHolder.class);
         bind(ModelStateHolder.class).toInstance(ModelStateHolder.INSTANCE);
         bind(ShapeFactory.class).toInstance(ShapeFactory.INSTANCE);
     }
@@ -18,7 +20,7 @@ public class ModelModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public ModelAdapter provideModelAdapter(final ShapeFactory factory, final ModelState holder) {
+    public ModelAdapter provideModelAdapter(final ShapeFactory factory, final MutableModelState holder) {
         return new ModelAdapter(factory, holder);
     }
 }

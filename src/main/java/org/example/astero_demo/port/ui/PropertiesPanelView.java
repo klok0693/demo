@@ -66,25 +66,25 @@ public class PropertiesPanelView implements PropertiesView {
 
     public void updateY(final KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            propertyUpdatable.updateX(yField.getText());
+            propertyUpdatable.updateY(yField.getText());
         }
     }
 
     public void updateWidth(final KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            propertyUpdatable.updateX(widthField.getText());
+            propertyUpdatable.updateWidth(widthField.getText());
         }
     }
 
     public void updateHeight(final KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            propertyUpdatable.updateX(heightField.getText());
+            propertyUpdatable.updateHeight(heightField.getText());
         }
     }
 
     public void updateLayer(final KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
-            propertyUpdatable.updateX(layerField.getText());
+            propertyUpdatable.updateLayer(layerField.getText());
         }
     }
 
