@@ -1,5 +1,6 @@
 package org.example.astero_demo.port.ui.canvas.background;
 
+import org.example.astero_demo.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 
 /**
@@ -8,10 +9,10 @@ import org.example.astero_demo.port.ui.canvas.CanvasLayer;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class BackgroundLayer extends CanvasLayer<CanvasBackgroundElement> {
+public class BackgroundLayer extends CanvasLayer<CanvasElement> {
 
     public BackgroundLayer() {
         super(0);
-        add(new CanvasBackgroundElement());
+        add(new BackgroundTilesElement());
     }
 }
