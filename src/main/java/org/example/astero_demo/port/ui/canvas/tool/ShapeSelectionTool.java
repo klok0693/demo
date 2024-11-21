@@ -23,14 +23,16 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
     private final ModelState modelState;
     private final UIState uiState;
-    private final List<ContactPoint> contactPoints;
+    private final CanvasAdapter adapter;
 
+    private final List<ContactPoint> contactPoints;
     private final Color fillColor;
 
     public ShapeSelectionTool(final CanvasAdapter adapter, final ModelState holder, final UIState uiState) {
         super(-1, -1, -1, -1, 0);
         this.modelState = holder;
         this.uiState = uiState;
+        this.adapter = adapter;
         this.isVisible = false;
         this.fillColor = Color.RED;
 
@@ -77,9 +79,16 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     }
 
     @Override
-    public void onMousePressed(final double mouseX, final double mouseY) {
-        contactPoints.forEach(contact -> contact.onDragDetected(mouseX, mouseY));
+    public void onMousePressed(final MouseEvent event) {
+        final double mouseX = event.getX();
+        final double mouseY = event.getY();
 
+        if (event.isShiftDown() && uiState.hasSelectedId()) {
+            adapter.selectNextShapeAt(mouseX, mouseY);
+            return;
+        }
+
+        contactPoints.forEach(contact -> contact.onDragDetected(event));
         if (isVisible && uiState.hasSelectedId()) {
             final Shape selection = modelState.getShape(uiState.getSelectedShapeId());
             update(
@@ -111,8 +120,8 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     }
 
     @Override
-    public boolean onDragDetected(final double mouseX, final double mouseY) {
-        return contactPoints.stream().anyMatch(contact -> contact.onDragDetected(mouseX, mouseY));
+    public boolean onDragDetected(final MouseEvent event) {
+        return contactPoints.stream().anyMatch(contact -> contact.onDragDetected(event));
     }
 
     @Override

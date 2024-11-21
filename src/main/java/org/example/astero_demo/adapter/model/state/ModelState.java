@@ -12,6 +12,8 @@ public interface ModelState {
 
     Stream<Shape> findShapesAt(double x, double y);
 
+    Shape findNextShapeAt(int currentId, double x, double y);
+
     Optional<Shape> findTopShapeAt(double x, double y);
 
     Optional<Shape> findTopVisibleShape(double mouseX, double mouseY);

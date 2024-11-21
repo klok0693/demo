@@ -37,6 +37,14 @@ public enum ModelStateHolder implements MutableModelState {
     }
 
     @Override
+    public Shape findNextShapeAt(final int currentId, final double x, final double y) {
+        return Optional.ofNullable(currentState)
+                .map(state -> state.findNextShapeAt(currentId, x, y))
+                .orElse(null);
+    }
+
+
+    @Override
     public Optional<Shape> findTopShapeAt(double x, double y) {
         return Optional.ofNullable(currentState)
                 .map(state -> state.findTopShapeAt(x, y))

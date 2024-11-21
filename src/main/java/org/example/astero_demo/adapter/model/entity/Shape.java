@@ -88,6 +88,10 @@ public abstract class Shape implements Comparable<Shape> {
 
     public abstract ShapeType getType();
 
+    public boolean isTheSame(final int id) {
+        return this.id == id;
+    }
+
     @Override
     public int compareTo(final Shape o) {
         return Integer.compare(parseInt(priority), parseInt(o.priority));

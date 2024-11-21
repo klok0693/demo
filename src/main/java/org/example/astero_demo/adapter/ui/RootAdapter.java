@@ -70,6 +70,9 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         else if (event instanceof final SelectElementById e) {
             selectElement(e.getSelectedId());
         }
+        if (event instanceof final SelectNextElementAt e) {
+            selectNextElement(e.getCurrentId(), e.getX(), e.getY());
+        }
         else if (event instanceof final InsertModeEvent e) {
             uiState.setInsertShapeType(e.getInsertShapeType());
             updateChildren();
@@ -107,6 +110,17 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
 
         uiState.setSelectShape(shapeId);
         updateChildren();
+    }
+
+    private void selectNextElement(final int id, final double x, final double y) {
+        final Shape nextShape = modelState.findNextShapeAt(id, x, y);
+        if (nextShape != null) {
+            selectElement(nextShape.getId());
+        }
+        else {
+            uiState.reset();
+            updateChildren();
+        }
     }
 
     private void updateChildren() {

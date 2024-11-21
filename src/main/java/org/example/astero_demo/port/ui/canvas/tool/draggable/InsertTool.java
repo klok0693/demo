@@ -1,6 +1,7 @@
 package org.example.astero_demo.port.ui.canvas.tool.draggable;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
@@ -32,14 +33,14 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
     }
 
     @Override
-    public void onMousePressed(final double x, final double y) {
-        this.x = x;
-        this.y = y;
+    public void onMousePressed(final MouseEvent event) {
+        this.x = event.getX();
+        this.y = event.getY();
         this.isActive = true;
     }
 
     @Override
-    public boolean onDragDetected(final double mouseX, final double mouseY) {
+    public boolean onDragDetected(final MouseEvent event) {
         return isActive;
     }
 

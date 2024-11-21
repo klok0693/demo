@@ -1,6 +1,7 @@
 package org.example.astero_demo.port.ui.canvas.tool.draggable;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
@@ -41,7 +42,9 @@ public class DragShapeTool extends DraggableTool {
     }
 
     @Override
-    public boolean onDragDetected(final double mouseX, final double mouseY) {
+    public boolean onDragDetected(final MouseEvent event) {
+        final double mouseX = event.getX();
+        final double mouseY = event.getY();
         final Shape element = uiState.hasSelectedId()
                 ? modelState.getShape(uiState.getSelectedShapeId())
                 : modelState.findTopShapeAt(mouseX, mouseY).orElse(null);

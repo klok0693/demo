@@ -5,6 +5,7 @@ import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
+import org.example.astero_demo.adapter.ui.event.SelectNextElementAt;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
@@ -34,6 +35,18 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     public void primaryMouseBtnPressed(final double x, final double y) {
         if (!uiState.isInInsertMode()) {
             sendEvent(new SelectElementByPositionEvent(x, y));
+        }
+    }
+
+    @Override
+    public void selectNextShapeAt(double x, double y) {
+        if (!uiState.isInInsertMode()) {
+            if (uiState.hasSelectedId()) {
+                sendEvent(new SelectNextElementAt(uiState.getSelectedShapeId(), x, y));
+            }
+            else {
+                sendEvent(new SelectElementByPositionEvent(x, y));
+            }
         }
     }
 

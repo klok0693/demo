@@ -19,6 +19,11 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
     }
 
     @Override
+    public void selectNextShapeAt(double x, double y) {
+        wrappedElement.selectNextShapeAt(x, y);
+    }
+
+    @Override
     public void createNewShapeAt(
             final double x,
             final double y,

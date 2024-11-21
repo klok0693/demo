@@ -45,24 +45,24 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
     }
 
     @Override
-    public void onMousePressed(final double x, final double y) {
+    public void onMousePressed(final MouseEvent event) {
         if (uiState.isInInsertMode()) {
-            insertTool.onMousePressed(x, y);
+            insertTool.onMousePressed(event);
         }
         else {
-            selectionTool.onMousePressed(x, y);
+            selectionTool.onMousePressed(event);
         }
     }
 
     @Override
-    public boolean onDragDetected(final double mouseX, final double mouseY) {
+    public boolean onDragDetected(final MouseEvent event) {
         if (uiState.isInInsertMode()) {
-            return insertTool.onDragDetected(mouseX, mouseY);
+            return insertTool.onDragDetected(event);
         }
-        if (selectionTool.onDragDetected(mouseX, mouseY)) {
+        if (selectionTool.onDragDetected(event)) {
             return true;
         }
-        return uiState.hasSelectedId() && dragTool.onDragDetected(mouseX, mouseY);
+        return uiState.hasSelectedId() && dragTool.onDragDetected(event);
     }
 
     @Override

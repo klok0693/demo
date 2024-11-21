@@ -8,6 +8,7 @@ import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.lang.String.valueOf;
@@ -28,6 +29,24 @@ public class ModelStateInstance implements MutableModelState {
     @Override
     public Optional<Shape> findTopShapeAt(double x, double y) {
         return findShapesAt(x, y).reduce((first, second) -> second);
+    }
+
+    @Override
+    public Shape findNextShapeAt(final int currentId, final double x, final double y) {
+        final List<Shape> positionedShapes = findShapesAt(x, y)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
+                    Collections.reverse(list);
+                    return list;
+                }));
+
+        return positionedShapes.stream()
+                .filter(shape -> shape.isTheSame(currentId))
+                .findFirst()
+                .map(currentShape -> {
+                    final int nextIndex = (positionedShapes.indexOf(currentShape) + 1) % positionedShapes.size();
+                    return positionedShapes.get(nextIndex);
+                })
+                .orElse(null);
     }
 
     @Override

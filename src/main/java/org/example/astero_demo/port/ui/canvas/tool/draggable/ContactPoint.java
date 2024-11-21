@@ -1,6 +1,7 @@
 package org.example.astero_demo.port.ui.canvas.tool.draggable;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
@@ -57,8 +58,8 @@ public class ContactPoint extends DraggableTool {
     }
 
     @Override
-    public boolean onDragDetected(final double mouseX, final double mouseY) {
-        if (isVisible && isInBounds(mouseX, mouseY)) {
+    public boolean onDragDetected(final MouseEvent event) {
+        if (isVisible && isInBounds(event.getX(), event.getY())) {
             this.isActive = true;
             selectionTool.makeVisible();
             return true;

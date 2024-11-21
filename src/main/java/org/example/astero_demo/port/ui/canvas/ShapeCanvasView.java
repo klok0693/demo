@@ -1,6 +1,5 @@
 package org.example.astero_demo.port.ui.canvas;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -59,7 +58,7 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
         requestFocus();
 
         if (uiState.isInInsertMode()) {
-            toolLayer.onMousePressed(mouseX, mouseY);
+            toolLayer.onMousePressed(event);
             event.consume();
             return;
         }
@@ -77,26 +76,26 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
         // First we check, is there are no shape or tool under the cursor
         if (!toolLayer.isInBounds(mouseX, mouseY) && !modelState.findTopVisibleShape(mouseX, mouseY).isPresent()) {
             adapter.primaryMouseBtnPressed(mouseX, mouseY);
-            toolLayer.onMousePressed(mouseX, mouseY);
+            toolLayer.onMousePressed(event);
             redraw();
         }
         // Second we check, is there is any tool
         else if (toolLayer.isInBounds(mouseX, mouseY)) {
-            toolLayer.onMousePressed(mouseX, mouseY);
+            toolLayer.onMousePressed(event);
             redraw();
         }
         // If there is no tool but a shape under the cursor,
         // we can select it(nothing badly, if it has already been selected)
         else {
             adapter.primaryMouseBtnPressed(mouseX, mouseY);
-            toolLayer.onMousePressed(mouseX, mouseY);
+            update();
             redraw();
         }
         event.consume();
     }
 
     public void handleDragDetected(final MouseEvent event) {
-        toolLayer.onDragDetected(event.getX(), event.getY());
+        toolLayer.onDragDetected(event);
         redraw();
         event.consume();
     }

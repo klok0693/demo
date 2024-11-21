@@ -7,6 +7,8 @@ public interface CanvasAdapter extends UpdatableAdapter {
 
     void primaryMouseBtnPressed(double x, double y);
 
+    void selectNextShapeAt(double x, double y);
+
     void createNewShapeAt(double x, double y, double width, double height);
 
     void modifySelectedShape(double x, double y, double width, double height);
