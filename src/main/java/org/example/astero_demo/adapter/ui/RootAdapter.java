@@ -10,8 +10,8 @@ import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
-import org.example.astero_demo.controller.ui.ControllerAdapter;
 import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.ui.ControllerAdapter;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
 

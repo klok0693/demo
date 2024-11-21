@@ -1,11 +1,10 @@
 package org.example.astero_demo.logic.event.ui;
 
 import lombok.Getter;
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
 
-import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
 /**

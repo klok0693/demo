@@ -3,7 +3,9 @@ package org.example.astero_demo.adapter.model.state;
 import org.example.astero_demo.adapter.model.entity.Shape;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 

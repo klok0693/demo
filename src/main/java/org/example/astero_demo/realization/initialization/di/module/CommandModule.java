@@ -1,6 +1,9 @@
 package org.example.astero_demo.realization.initialization.di.module;
 
-import com.google.inject.*;
+import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
 import org.example.astero_demo.logic.command.CommandFactory;

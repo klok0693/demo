@@ -24,11 +24,6 @@ public class LayersPanelAdapterWrapper extends UpdatableAdapterAsyncWrapper<Laye
     }
 
     @Override
-    public boolean hasInjectedField(final String fieldName) {
-        return super.hasInjectedField(fieldName) /*|| "layersRoot".equals(fieldName)*/;
-    }
-
-    @Override
     public void selectShape(final String id) {
         log.debug(USER_INPUT_MARKER, "Select shape with id:{}", id);
         wrappedElement.selectShape(id);

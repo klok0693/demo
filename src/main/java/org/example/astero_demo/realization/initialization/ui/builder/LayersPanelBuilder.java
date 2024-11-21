@@ -2,14 +2,10 @@ package org.example.astero_demo.realization.initialization.ui.builder;
 
 import com.google.inject.Inject;
 import javafx.beans.DefaultProperty;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.util.Builder;
 import org.example.astero_demo.port.ui.LayersPanelView;
 
 import java.util.HashMap;
-
-import static java.lang.Double.parseDouble;
 
 /**
  * {@link Builder} for {@link LayersPanelView}

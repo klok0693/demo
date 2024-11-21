@@ -3,8 +3,8 @@ package org.example.astero_demo.realization.initialization.di.provider.logic;
 import com.google.inject.Inject;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
-import org.example.astero_demo.realization.initialization.di.provider.InstanceProvider;
 import org.example.astero_demo.logic.command.CommandFactoryImpl;
+import org.example.astero_demo.realization.initialization.di.provider.InstanceProvider;
 
 /**
  * Instance provider for {@link CommandFactoryImpl}

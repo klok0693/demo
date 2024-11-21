@@ -2,11 +2,9 @@ package org.example.astero_demo.logic.command;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.model.entity.Shape;
-import org.example.astero_demo.controller.model.ModelAdapterController;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
 
-import static java.lang.String.valueOf;
 import static org.example.astero_demo.realization.logging.MarkerStorage.COMMAND_MARKER;
 
 /**

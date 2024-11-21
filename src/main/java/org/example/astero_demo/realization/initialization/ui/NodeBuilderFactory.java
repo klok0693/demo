@@ -5,7 +5,6 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.canvas.Canvas;
 import javafx.util.Builder;
 import javafx.util.BuilderFactory;
-import org.example.astero_demo.port.ui.LayersPanelView;
 import org.example.astero_demo.port.ui.elements.LayersTree;
 import org.example.astero_demo.realization.initialization.ui.builder.CanvasBuilder;
 import org.example.astero_demo.realization.initialization.ui.builder.LayersPanelBuilder;

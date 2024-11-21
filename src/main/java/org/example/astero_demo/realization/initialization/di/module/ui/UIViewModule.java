@@ -3,7 +3,6 @@ package org.example.astero_demo.realization.initialization.di.module.ui;
 import com.google.inject.*;
 import javafx.event.EventHandler;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
-import org.example.astero_demo.port.ui.keyboard.RootShortcutHandler;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasView;
@@ -22,6 +21,7 @@ import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
+import org.example.astero_demo.port.ui.keyboard.RootShortcutHandler;
 import org.example.astero_demo.realization.initialization.ui.builder.CanvasBuilder;
 
 /**

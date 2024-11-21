@@ -15,7 +15,7 @@ import java.util.HashSet;
 public enum ShapeFactory {
     INSTANCE;
 
-    private final IdGenerator idGenerator = new IdGenerator();
+    private final UniqueIdGenerator idGenerator = new UniqueIdGenerator();
 
     /**
      * Creates a {@link Shape} based on the provided parameters and type.<p>
@@ -38,7 +38,7 @@ public enum ShapeFactory {
         };
     }
 
-    private static class IdGenerator {
+    private static class UniqueIdGenerator {
         private static final int SIZE = 10_000;
         private final Collection<Integer> generatedNumbers = new HashSet<>(SIZE);
         private final RandomDataGenerator idGenerator = new RandomDataGenerator();

@@ -1,8 +1,8 @@
 package org.example.astero_demo.logic.command;
 
+import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
 

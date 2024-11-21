@@ -2,7 +2,8 @@ package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.*;
 import org.example.astero_demo.adapter.model.ModelAdapter;
-import org.example.astero_demo.controller.*;
+import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.controller.model.ModelAdapterController;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.ControllerAdapter;

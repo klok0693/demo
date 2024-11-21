@@ -12,8 +12,6 @@ import org.example.astero_demo.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.util.ColorUtils;
 
-import java.util.function.Consumer;
-
 /**
  * Represents the view for displaying and updating properties in a Properties Panel.
  *
