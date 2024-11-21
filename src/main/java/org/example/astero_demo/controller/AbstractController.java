@@ -1,5 +1,6 @@
 package org.example.astero_demo.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.logic.command.Command;
@@ -9,15 +10,21 @@ import org.example.astero_demo.logic.event.ui.*;
 
 import java.util.List;
 
-import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.entity.ShapeType.valueOf;
 import static org.example.astero_demo.util.ParamUtils.getParamInfo;
 
+/**
+ * An abstract class representing a controller that delegates LogicEvents to the CommandProcessor
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
+@Slf4j
 public abstract class AbstractController implements LogicEventProcessor {
     private final CommandFactory commandFactory;
     private final CommandProcessor commandProcessor;
 
-    public AbstractController(final CommandFactory commandFactory, final CommandProcessor commandProcessor) {
+    protected AbstractController(final CommandFactory commandFactory, final CommandProcessor commandProcessor) {
         this.commandFactory = commandFactory;
         this.commandProcessor = commandProcessor;
     }
@@ -25,7 +32,7 @@ public abstract class AbstractController implements LogicEventProcessor {
     @Override
     public void process(final LogicEvent e) {
         if (!isValid(e)) {
-            // TODO: log
+            log.warn("Provided params are not valid! {}", e);
             return;
         }
 

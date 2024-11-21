@@ -9,6 +9,12 @@ import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 
+/**
+ * This controller is responsible for handling logic events and updating the model through a ModelController.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ModelAdapterController extends AbstractController implements ModelController {
     private final ModelAdapter modelAdapter;
 
@@ -61,7 +67,7 @@ public class ModelAdapterController extends AbstractController implements ModelC
     }
 
     @Override
-    protected boolean isValid(LogicEvent event) {
+    protected boolean isValid(final LogicEvent event) {
         return true;
     }
 }

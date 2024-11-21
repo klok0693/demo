@@ -24,6 +24,12 @@ import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
 import org.example.astero_demo.realization.initialization.ui.builder.CanvasBuilder;
 
+/**
+ * DI config for UI views
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class UIViewModule extends AbstractModule {
 
     @Override

@@ -18,6 +18,15 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Represents a canvas view that displays shapes and provide tools<p>
+ * to perform operations with its content. All elements are drawn on<p>
+ * a separate layers: first background, next shapes and tools on top of it<p>
+ * Also delegate mouse events to its child elements
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ShapeCanvasView extends Canvas implements CanvasView, Initializable {
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;

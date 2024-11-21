@@ -6,13 +6,19 @@ import java.util.List;
 
 import static org.example.astero_demo.realization.logging.MarkerStorage.INITIALIZATION_MARKER;
 
+/**
+ * Main configuration class, delegation operations to stored {@link Configuration}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @Slf4j
 public enum AppConfiguration implements Configuration {
     INSTANCE(BeforeLaunchConfiguration.INSTANCE, SystemPropertiesConfiguration.INSTANCE);
 
     private final List<Configuration> configurations;
 
-    AppConfiguration(Configuration... configurations) {
+    AppConfiguration(final Configuration... configurations) {
         this.configurations = List.of(configurations);
     }
 

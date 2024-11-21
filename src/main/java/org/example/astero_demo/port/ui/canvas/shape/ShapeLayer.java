@@ -12,6 +12,12 @@ import java.util.stream.Collectors;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+/**
+ * Layer to for a shape elements
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements UpdatableView {
     private final ModelState modelState;
 

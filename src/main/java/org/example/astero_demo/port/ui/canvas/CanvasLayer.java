@@ -2,15 +2,19 @@ package org.example.astero_demo.port.ui.canvas;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.WeakListChangeListener;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 
-import java.util.ArrayDeque;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.stream.Stream;
 
+/**
+ * Container for a {@link Drawable}. CanvasLayers can be nested<p>
+ * within each other, creating a tree-like structure
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class CanvasLayer<T extends Drawable> implements Drawable, Comparable<CanvasLayer<T>> {
     protected ObservableList<T> children = FXCollections.observableArrayList();
     @Getter

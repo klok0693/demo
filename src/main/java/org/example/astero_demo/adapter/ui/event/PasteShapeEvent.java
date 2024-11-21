@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui.event;
 
-import lombok.Getter;
-
+/**
+ * Event to paste new shape from previously saved values
+ */
 public class PasteShapeEvent extends UIEvent {
 }

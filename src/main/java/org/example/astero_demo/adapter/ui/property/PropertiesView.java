@@ -2,5 +2,11 @@ package org.example.astero_demo.adapter.ui.property;
 
 import org.example.astero_demo.adapter.ui.UpdatableView;
 
+/**
+ * Represents a view for a Properties Panel
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public interface PropertiesView extends UpdatableView {
 }

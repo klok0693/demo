@@ -4,6 +4,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.port.ui.canvas.tool.CanvasTool;
 
+/**
+ * Draggable tool on a canvas
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public abstract class DraggableTool extends CanvasTool implements CanvasDraggable {
     protected static final double OPACITY = 0.4;
     protected boolean isActive = false;

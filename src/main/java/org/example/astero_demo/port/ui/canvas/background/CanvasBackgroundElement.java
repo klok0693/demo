@@ -4,6 +4,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
+/**
+ * Background element, splited all work area on squares, make navigation easier
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 class CanvasBackgroundElement extends CanvasElement {
     private static final int CELL_SIDE = 25;
     private static final int PADDING = 10;

@@ -8,6 +8,12 @@ import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
 
+/**
+ * Layer to for a tool elements
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickable, CanvasDraggable, UpdatableView {
     private final ShapeSelectionTool selectionTool;
     private final DragShapeTool dragTool;

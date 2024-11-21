@@ -1,10 +1,15 @@
 package org.example.astero_demo.port.ui.keyboard;
 
 import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 
+/**
+ * Bind keyboard shortcuts with specific operations and delegate it to the {@link OperationAdapter}.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class RootShortcutHandler implements EventHandler<KeyEvent> {
     private final OperationAdapter keyBoardAdapter;
 
@@ -14,11 +19,8 @@ public class RootShortcutHandler implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(final KeyEvent keyEvent) {
-        handle(keyEvent.getCode(), keyEvent.isControlDown());
-    }
-
-    public void handle(final KeyCode keyCode, final boolean isCtrlDown) {
-        switch (keyCode) {
+        final boolean isCtrlDown = keyEvent.isControlDown();
+        switch (keyEvent.getCode()) {
             case DELETE:
                 keyBoardAdapter.handleDelete();
                 break;

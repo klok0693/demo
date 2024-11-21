@@ -3,12 +3,17 @@ package org.example.astero_demo.logic.command;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.controller.model.ModelAdapterController;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
 
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
+/**
+ * A factory implementation that provides methods to create different types of commands
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class CommandFactoryImpl implements CommandFactory {
     private final UIController viewController;
     private final ModelController modelController;

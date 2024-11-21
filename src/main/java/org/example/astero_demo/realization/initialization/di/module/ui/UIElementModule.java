@@ -10,6 +10,12 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.elements.LayersTree;
 import org.example.astero_demo.realization.initialization.ui.builder.LayersTreeBuilder;
 
+/**
+ * DI config for UI elements
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class UIElementModule extends AbstractModule {
 
     @Inject

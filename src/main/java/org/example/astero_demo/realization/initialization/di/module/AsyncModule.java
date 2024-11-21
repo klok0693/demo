@@ -11,6 +11,12 @@ import org.example.astero_demo.realization.async.AppExecutor;
 import org.example.astero_demo.realization.async.FXExecutor;
 import org.example.astero_demo.realization.async.wrappers.adapter.*;
 
+/**
+ * DI config for async wrappers
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class AsyncModule extends AbstractModule {
 
     @Override

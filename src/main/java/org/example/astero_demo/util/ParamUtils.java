@@ -9,6 +9,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @UtilityClass
 public class ParamUtils {
 

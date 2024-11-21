@@ -8,6 +8,13 @@ import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 
 import static org.example.astero_demo.port.ui.UIConsrants.CONTACT_DIAMETER;
 
+/**
+ * Represent a special contact points, which allows {@link ShapeSelectionTool} to modify shape dimensions.<p>
+ * Every point has it own {@link ContactAlignment}, based on which all necessary calculations are made
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ContactPoint extends DraggableTool {
     private static final double RADIUS = CONTACT_DIAMETER / 2;
 

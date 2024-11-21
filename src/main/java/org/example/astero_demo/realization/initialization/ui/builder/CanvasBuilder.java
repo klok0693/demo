@@ -9,6 +9,12 @@ import java.util.HashMap;
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.Double.parseDouble;
 
+/**
+ * {@link Builder} for {@link org.example.astero_demo.adapter.ui.canvas.CanvasView}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class CanvasBuilder extends HashMap<String, String> implements Builder<Canvas> {
     private final ShapeCanvasView canvasView;
 

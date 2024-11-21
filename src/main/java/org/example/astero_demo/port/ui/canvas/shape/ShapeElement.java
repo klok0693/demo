@@ -4,12 +4,17 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
+/**
+ * Represents an shape element that can be drawn on a canvas.<p>
+ * <b>Note:</b> this class has a natural ordering that is inconsistent with equals.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
+@Getter
 public abstract class ShapeElement extends CanvasElement implements Comparable<ShapeElement> {
-    @Getter
     private final int modelRelatedId;
-    @Getter
     private final int layer;
-    @Getter
     protected Color fillColor;
 
     protected ShapeElement(

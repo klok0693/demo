@@ -7,6 +7,12 @@ import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.model.state.ModelStateHolder;
 import org.example.astero_demo.adapter.model.state.MutableModelState;
 
+/**
+ * DI config for model classes
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ModelModule extends AbstractModule {
 
     @Override

@@ -1,16 +1,26 @@
 package org.example.astero_demo.adapter.model.state;
 
-import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.ModelAdapter;
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.adapter.model.entity.Shape;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
 
+import javax.annotation.Nullable;
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+/**
+ * An application can manage multiple model states simultaneously.<p>
+ * For instance, this might occur when the application supports opening<p>
+ * several projects in different tabs at the same time. In such scenarios,<p>
+ * it’s necessary to switch between these states. This class serves as a<p>
+ * container for all states and implements the same interface as the state<p>
+ * class, enabling it to be passed to components in place of an individual state.<p>
+ * To switch states, the holder's current state is updated, and the adapters are<p>
+ * refreshed. This approach ensures seamless state transitions without the adapters<p>
+ * being directly affected.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public enum ModelStateHolder implements MutableModelState {
     INSTANCE(new ModelStateInstance());
 
@@ -23,6 +33,7 @@ public enum ModelStateHolder implements MutableModelState {
     }
 
     @Override
+    @Nullable
     public Shape getShape(final int id) {
         return Optional.ofNullable(currentState)
                 .map(state -> state.getShape(id))
@@ -37,6 +48,7 @@ public enum ModelStateHolder implements MutableModelState {
     }
 
     @Override
+    @Nullable
     public Shape findNextShapeAt(final int currentId, final double x, final double y) {
         return Optional.ofNullable(currentState)
                 .map(state -> state.findNextShapeAt(currentId, x, y))

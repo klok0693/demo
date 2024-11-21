@@ -7,9 +7,11 @@ import org.example.astero_demo.adapter.ui.event.SelectElementById;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.LogicEventProcessor;
 
+/**
+ * Leaf adapter for interacting with a Layers Panel.
+ */
 public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
-
-    public UpdatableView layersRoot;
+    private final UpdatableView layersRoot;
 
     public LayersPanelAdapter(
             final LogicEventProcessor controller,

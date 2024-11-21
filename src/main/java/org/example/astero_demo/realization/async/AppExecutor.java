@@ -1,7 +1,9 @@
 package org.example.astero_demo.realization.async;
 
-import java.util.concurrent.Executor;
-
+/**
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public interface AppExecutor {
 
     void executeInBackground(Runnable runnable);

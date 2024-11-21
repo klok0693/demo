@@ -8,6 +8,13 @@ import org.example.astero_demo.realization.async.AppExecutor;
 
 import static org.example.astero_demo.realization.logging.MarkerStorage.USER_INPUT_MARKER;
 
+/**
+ * Wrapper class that adapts interactions with a layers panel
+ * by delegating to a wrapped {@link LayersPanelAdapter} instance.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @Slf4j
 public class LayersPanelAdapterWrapper extends UpdatableAdapterAsyncWrapper<LayersAdapter> implements LayersAdapter {
 

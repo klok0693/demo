@@ -4,6 +4,9 @@ import lombok.experimental.UtilityClass;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
+/**
+ * Set of {@link Marker} to manage the logger output
+ */
 @UtilityClass
 public class MarkerStorage {
     public static final Marker USER_INPUT_MARKER = MarkerFactory.getMarker("user_input");

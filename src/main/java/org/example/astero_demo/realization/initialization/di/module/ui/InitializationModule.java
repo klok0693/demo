@@ -1,4 +1,4 @@
-package org.example.astero_demo.realization.initialization.di.module;
+package org.example.astero_demo.realization.initialization.di.module.ui;
 
 import com.google.inject.*;
 import javafx.fxml.LoadListener;
@@ -8,6 +8,12 @@ import org.example.astero_demo.realization.initialization.ui.CustomControllerFac
 import org.example.astero_demo.realization.initialization.ui.NodeBuilderFactory;
 import org.example.astero_demo.realization.initialization.ui.WrapperLoadListener;
 
+/**
+ * DI config for javafx factories
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class InitializationModule extends AbstractModule {
 
     @Override

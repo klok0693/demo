@@ -7,6 +7,12 @@ import java.util.HashMap;
 
 import static java.lang.Boolean.parseBoolean;
 
+/**
+ * {@link Builder} for {@link LayersTree}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class LayersTreeBuilder extends HashMap<String, String> implements Builder<LayersTree> {
     private final LayersTree layersTree;
 

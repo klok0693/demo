@@ -11,6 +11,12 @@ import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Represents the root view of the application, responsible for managing the main View components.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class RootView implements Initializable, UpdatableView {
     private final EventHandler shortcutHandler;
     private final UIState uiState;

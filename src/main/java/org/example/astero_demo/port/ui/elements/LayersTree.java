@@ -12,6 +12,12 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a tree view for displaying and managing layers of shapes.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class LayersTree extends TreeView<String> {
     private final ModelState modelState;
     private final UIState uiState;

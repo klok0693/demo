@@ -9,6 +9,12 @@ import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
+/**
+ * Leaf adapter for interacting with a Properties Panel
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class PropertiesPanelAdapter extends LeafAdapter implements PropertiesAdapter {
     private final PropertiesView propertyView;
 

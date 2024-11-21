@@ -9,12 +9,15 @@ import org.example.astero_demo.controller.ui.UIController;
 import static java.lang.String.valueOf;
 import static org.example.astero_demo.realization.logging.MarkerStorage.COMMAND_MARKER;
 
+/**
+ * Represents a command to remove a shape.
+ */
 @Slf4j
 public class RemoveShapeCommand extends Command {
     private final UIController viewController;
     private final ModelController modelController;
-    private int shapeId;
 
+    private int shapeId;
     private Shape removedShape;
 
     public RemoveShapeCommand(

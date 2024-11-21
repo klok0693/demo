@@ -14,6 +14,12 @@ import org.example.astero_demo.util.ColorUtils;
 
 import java.util.function.Consumer;
 
+/**
+ * Represents the view for displaying and updating properties in a Properties Panel.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class PropertiesPanelView implements PropertiesView {
     public TextField xField;
     public TextField yField;

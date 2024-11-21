@@ -7,6 +7,12 @@ import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandFactoryImpl;
 import org.example.astero_demo.logic.command.CommandProcessor;
 
+/**
+ * DI config for logic commands
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class CommandModule extends AbstractModule {
 
     @Override

@@ -4,6 +4,12 @@ import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 
+/**
+ * Represents a controller for managing models.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public interface ModelController {
 
     String getShapeParam(int id, ShapeParam param);

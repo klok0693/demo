@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Represents an event for removing a shape with a specified shape ID.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @AllArgsConstructor
 public class RemoveShapeEvent extends LogicEvent {
     @Getter

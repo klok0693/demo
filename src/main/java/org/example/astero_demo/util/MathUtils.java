@@ -4,17 +4,19 @@ import lombok.experimental.UtilityClass;
 
 import java.util.regex.Pattern;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @UtilityClass
 public class MathUtils {
-
-    //private static final Pattern PATTERN = Pattern.compile("-?\\d+(\\.\\d+)?");
+    private static final Pattern NON_NEGATIVE_INTEGER_PATTERN = Pattern.compile("^\\d+$");
 
     public static boolean isNonNegative(final Number value) {
         return value.doubleValue() >= 0.0;
     }
 
     public static boolean isNonNegativeInteger(final String input) {
-        final String regex = "^\\d+$";
-        return Pattern.matches(regex, input);
+        return NON_NEGATIVE_INTEGER_PATTERN.matcher(input).matches();
     }
 }

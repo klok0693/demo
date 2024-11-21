@@ -12,6 +12,12 @@ import static java.lang.Integer.parseInt;
 import static org.example.astero_demo.realization.logging.MarkerStorage.COMMAND_MARKER;
 import static org.example.astero_demo.util.ParamUtils.getParamInfo;
 
+/**
+ * A command implementation for creating a new shape with the provided parameters.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @Slf4j
 public class CreateNewShapeCommand extends ParamCommand {
     private final UIController viewController;

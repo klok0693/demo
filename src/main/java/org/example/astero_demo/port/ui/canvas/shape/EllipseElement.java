@@ -3,6 +3,12 @@ package org.example.astero_demo.port.ui.canvas.shape;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Ellipse element
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class EllipseElement extends ShapeElement {
 
     protected EllipseElement(

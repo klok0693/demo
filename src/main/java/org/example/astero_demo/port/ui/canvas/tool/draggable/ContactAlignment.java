@@ -4,6 +4,12 @@ import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 
 import static org.example.astero_demo.port.ui.UIConsrants.MINIMAL_SIDE_SIZE;
 
+/**
+ * Enum representing different alignments for a {@link ContactPoint} within a selected tool's frame
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public enum ContactAlignment {
     TOP_LEFT {
         @Override

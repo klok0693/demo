@@ -1,7 +1,9 @@
 package org.example.astero_demo.adapter.model.entity;
 
-import static java.lang.Double.parseDouble;
-
+/**
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class Rectangle extends Shape {
 
     public Rectangle(

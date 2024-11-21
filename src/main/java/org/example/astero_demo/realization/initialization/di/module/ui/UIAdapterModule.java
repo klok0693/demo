@@ -1,7 +1,7 @@
 package org.example.astero_demo.realization.initialization.di.module.ui;
 
 import com.google.inject.*;
-import org.example.astero_demo.adapter.keyboard.KeyBoardAdapter;
+import org.example.astero_demo.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.adapter.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.*;
@@ -15,7 +15,7 @@ import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.adapter.ui.state.UIStateHolder;
+import org.example.astero_demo.adapter.ui.state.UIStateInstance;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarPanelAdapter;
 import org.example.astero_demo.controller.ui.ControllerAdapter;
@@ -24,12 +24,18 @@ import org.example.astero_demo.port.ui.LayersPanelView;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.ToolBarView;
 
+/**
+ * DI config for UI adapters
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class UIAdapterModule extends AbstractModule {
 
     @Override
     protected void configure() {
         bind(UIState.class).to(MutableUIState.class);
-        bind(MutableUIState.class).to(UIStateHolder.class).in(Scopes.SINGLETON);
+        bind(MutableUIState.class).to(UIStateInstance.class).in(Scopes.SINGLETON);
 
         bind(ParentAdapter.class).to(RootAdapter.class);
         bind(ControllerAdapter.class).to(RootAdapter.class);
@@ -38,18 +44,18 @@ public class UIAdapterModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public UIStateHolder provideUIHolder(final ModelState modelState) {
-        return new UIStateHolder(modelState);
+    public UIStateInstance provideUIHolder(final ModelState modelState) {
+        return new UIStateInstance(modelState);
     }
 
     @Inject
     @Provides
     @Singleton
-    public KeyBoardAdapter provideKeyboardAdapte(
+    public EditorOperationAdapter provideKeyboardAdapte(
             final LogicEventProcessor processor,
             final UIState state,
             final ParentAdapter parentAdapter) {
-        return new KeyBoardAdapter(processor, state, parentAdapter);
+        return new EditorOperationAdapter(processor, state, parentAdapter);
     }
 
     @Inject

@@ -9,8 +9,13 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.port.ui.ToolBarView;
 
+/**
+ * Leaf adapter for interacting with a Tool Bar Panel
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ToolBarPanelAdapter extends LeafAdapter implements ToolBarAdapter {
-
     private final OperationAdapter keyBoardAdapter;
     private final ToolBarView toolBarView;
 

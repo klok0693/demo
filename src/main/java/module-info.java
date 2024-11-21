@@ -8,6 +8,7 @@ open module org.example.astero_demo {
     requires lombok;
     requires org.apache.commons.lang3;
     requires org.slf4j;
+    requires jsr305;
 
     requires java.desktop;
 

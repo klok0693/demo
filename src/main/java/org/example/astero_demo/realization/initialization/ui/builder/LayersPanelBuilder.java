@@ -11,6 +11,12 @@ import java.util.HashMap;
 
 import static java.lang.Double.parseDouble;
 
+/**
+ * {@link Builder} for {@link LayersPanelView}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @DefaultProperty("children")
 public class LayersPanelBuilder extends HashMap<Object, Object> implements Builder<LayersPanelView>  {
     private final LayersPanelView panel;
@@ -18,18 +24,10 @@ public class LayersPanelBuilder extends HashMap<Object, Object> implements Build
     @Inject
     public LayersPanelBuilder(final LayersPanelView panel) {
         this.panel = panel;
-        //put("children", panel.getChildren());
     }
 
     @Override
     public LayersPanelView build() {
-/*        panel.setPrefWidth(parseDouble(get("prefWidth").toString()));
-        panel.setPrefHeight(parseDouble(get("prefHeight").toString()));
-        panel.getStylesheets().add(get("stylesheets").toString());*/
         return panel;
     }
-
- /*   public ObservableList<Node> getChildren() {
-        return panel.getChildren();
-    }*/
 }

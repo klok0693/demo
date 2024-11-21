@@ -5,6 +5,10 @@ import lombok.experimental.UtilityClass;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @UtilityClass
 public class ColorUtils {
 

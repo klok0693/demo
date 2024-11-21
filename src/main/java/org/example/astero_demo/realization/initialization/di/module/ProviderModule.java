@@ -4,6 +4,12 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import org.example.astero_demo.realization.initialization.di.provider.logic.CommandFactoryProvider;
 
+/**
+ * DI config for custom providers
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ProviderModule extends AbstractModule {
 
     @Override

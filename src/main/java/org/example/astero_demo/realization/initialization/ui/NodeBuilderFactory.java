@@ -11,6 +11,13 @@ import org.example.astero_demo.realization.initialization.ui.builder.CanvasBuild
 import org.example.astero_demo.realization.initialization.ui.builder.LayersPanelBuilder;
 import org.example.astero_demo.realization.initialization.ui.builder.LayersTreeBuilder;
 
+/**
+ * To be able to use DI in our ui elements, we need to override<p>
+ * the controller factory to retrieve entities from the dependency container
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class NodeBuilderFactory implements BuilderFactory {
     private final CanvasBuilder canvasBuilder;
     private final LayersTreeBuilder layersTreeBuilder;

@@ -1,6 +1,5 @@
 package org.example.astero_demo.adapter.ui.canvas;
 
-import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
@@ -11,9 +10,14 @@ import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 
-import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 
+/**
+ * Leaf adapter for interacting with a canvas
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     private final CanvasView canvasRoot;
 
@@ -59,18 +63,18 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     public void modifySelectedShape(final double x, final double y, final double width, final double height) {
         controller.process(new ModifyShapeEvent(
                         uiState.getSelectedShapeId(),
-                        create(ShapeParam.X, valueOf(x)),
-                        create(ShapeParam.Y, valueOf(y)),
-                        create(ShapeParam.WIDTH, valueOf(width)),
-                        create(ShapeParam.HEIGHT, valueOf(height))));
+                        create(ShapeParam.X, x),
+                        create(ShapeParam.Y, y),
+                        create(ShapeParam.WIDTH, width),
+                        create(ShapeParam.HEIGHT, height)));
     }
 
     @Override
     public void moveSelectedShapeTo(final double x, final double y) {
         controller.process(new ModifyShapeEvent(
                 uiState.getSelectedShapeId(),
-                create(ShapeParam.X, valueOf(x)),
-                create(ShapeParam.Y, valueOf(y))));
+                create(ShapeParam.X, x),
+                create(ShapeParam.Y, y)));
     }
 
     @Override

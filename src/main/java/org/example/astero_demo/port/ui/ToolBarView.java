@@ -7,6 +7,12 @@ import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 
+/**
+ * Represents a view for the tool bar panel.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ToolBarView implements UpdatableView {
     private final ToolBarAdapter operationProcessor;
     private final UIState uiState;

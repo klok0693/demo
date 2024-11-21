@@ -3,12 +3,14 @@ package org.example.astero_demo.realization.initialization.ui;
 import com.google.inject.Inject;
 import javafx.fxml.LoadListener;
 import javafx.scene.Node;
+import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.realization.async.wrappers.AsynchWrapper;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 public class WrapperLoadListener implements LoadListener {
     private final List<AsynchWrapper> wrappers;
 
@@ -82,7 +84,7 @@ public class WrapperLoadListener implements LoadListener {
                             privateField.set(wrappedElement, node);
                             privateField.setAccessible(false);
                         } catch (final NoSuchFieldException | IllegalAccessException e) {
-                            e.printStackTrace();
+                            log.error("Enable to set field", e);
                         }
                     });
         }

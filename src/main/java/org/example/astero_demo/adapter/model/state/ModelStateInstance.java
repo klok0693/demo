@@ -5,6 +5,7 @@ import org.example.astero_demo.adapter.model.entity.Shape;
 import org.example.astero_demo.adapter.model.entity.ShapeType;
 import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -13,10 +14,17 @@ import java.util.stream.Stream;
 
 import static java.lang.String.valueOf;
 
+/**
+ * Realization of the State template
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ModelStateInstance implements MutableModelState {
     private final HashMap<Integer, Shape> shapes = new LinkedHashMap<>(32);
 
     @Override
+    @Nullable
     public Shape getShape(final int id) {
         return shapes.get(id);
     }
@@ -32,6 +40,7 @@ public class ModelStateInstance implements MutableModelState {
     }
 
     @Override
+    @Nullable
     public Shape findNextShapeAt(final int currentId, final double x, final double y) {
         final List<Shape> positionedShapes = findShapesAt(x, y)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
@@ -71,10 +80,7 @@ public class ModelStateInstance implements MutableModelState {
 
     @Override
     public Stream<Shape> getShapes() {
-/*        final List<Shape> shapeList = new LinkedList<>(shapes.values());
-        Collections.reverse(shapeList);
-        return shapeList.stream();*/
-        return shapes.values().stream().sorted(); //.sorted(Collections.reverseOrder());
+        return shapes.values().stream().sorted();
     }
 
     private static Stream<Shape> filterShapes(final Stream<Shape> shapeStream, final Queue<Predicate<Shape>> predicates) {

@@ -1,5 +1,9 @@
 package org.example.astero_demo.adapter.model.entity;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class Ellipse extends Shape {
 
     public Ellipse(

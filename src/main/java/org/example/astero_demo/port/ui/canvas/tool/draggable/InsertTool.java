@@ -7,6 +7,12 @@ import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.tool.CanvasClickable;
 
+/**
+ * Represents a tool for inserting shapes on a canvas
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class InsertTool extends DraggableTool implements CanvasClickable {
     private final CanvasAdapter adapter;
     private final UIState uiState;

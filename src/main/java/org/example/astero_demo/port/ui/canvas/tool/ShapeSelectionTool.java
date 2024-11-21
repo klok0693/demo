@@ -18,6 +18,12 @@ import static java.lang.Double.parseDouble;
 import static org.example.astero_demo.port.ui.UIConsrants.MINIMAL_SIDE_SIZE;
 import static org.example.astero_demo.port.ui.canvas.tool.draggable.ContactAlignment.*;
 
+/**
+ * Canvas tool, allowing to select shape element on a canvas
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, CanvasDraggable, UpdatableView {
     private static final double FRAME_WIDTH = 3.0;
 

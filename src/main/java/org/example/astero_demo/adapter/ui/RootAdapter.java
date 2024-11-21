@@ -20,6 +20,15 @@ import java.util.function.Supplier;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
+/**
+ * Parent adapter for all leafs adapters. The only component in UI block,<p>
+ * able to change {@link org.example.astero_demo.adapter.ui.state.UIState}.<p>
+ * Provide communication between ui controller and other adapters<p>
+ * Also process all {@link UIEvent}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @Slf4j
 public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdapter, ControllerAdapter {
     private final ModelState modelState;
@@ -105,8 +114,6 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     }
 
     private void selectElement(final Supplier<Shape> shapeSupplier) {
-        //uiState.reset();
-
         final Shape selectedShape = shapeSupplier.get();
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 

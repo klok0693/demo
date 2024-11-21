@@ -9,6 +9,13 @@ import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.ToolBarView;
 import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
+/**
+ * To be able to use DI in our controllers, we need to override<p>
+ * the controller factory to retrieve entities from the dependency container
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
     private final LayersPanelView layersPanelView;
@@ -32,7 +39,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
     }
 
     @Override
-    public Object call(Class<?> aClass) {
+    public Object call(final Class<?> aClass) {
         if (aClass.isAssignableFrom(ShapeCanvasView.class)) {
             return canvasView;
         }

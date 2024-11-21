@@ -14,6 +14,12 @@ import org.example.astero_demo.controller.ui.UIController;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
 
+/**
+ * DI config for controllers
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ControllerModule extends AbstractModule {
 
     @Override

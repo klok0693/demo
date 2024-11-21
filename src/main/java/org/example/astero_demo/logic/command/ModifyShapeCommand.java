@@ -8,6 +8,12 @@ import org.example.astero_demo.controller.ui.UIController;
 
 import static org.example.astero_demo.realization.logging.MarkerStorage.COMMAND_MARKER;
 
+/**
+ * Represents a command to modify the parameters of a shape
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @Slf4j
 public class ModifyShapeCommand extends ParamCommand {
     private final UIController viewController;

@@ -10,6 +10,12 @@ import org.example.astero_demo.util.ColorUtils;
 
 import static java.lang.Double.parseDouble;
 
+/**
+ * Represents a tool used for dragging shapes on a canvas.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class DragShapeTool extends DraggableTool {
     private final CanvasAdapter adapter;
     private final ModelState modelState;

@@ -2,18 +2,25 @@ package org.example.astero_demo.realization.async.wrappers.adapter;
 
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.adapter.keyboard.KeyBoardAdapter;
+import org.example.astero_demo.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.realization.async.AppExecutor;
 import org.example.astero_demo.realization.async.wrappers.AsynchWrapper;
 
 import static org.example.astero_demo.realization.logging.MarkerStorage.USER_INPUT_MARKER;
 
+/**
+ * Wrapper class that adapts interactions with an editor's operations
+ * by delegating to a wrapped {@link EditorOperationAdapter} instance.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @Slf4j
 public class OperationAdapterWrapper extends AsynchWrapper<OperationAdapter> implements OperationAdapter {
 
     @Inject
-    protected OperationAdapterWrapper(final AppExecutor executor, final KeyBoardAdapter wrappedElement) {
+    protected OperationAdapterWrapper(final AppExecutor executor, final EditorOperationAdapter wrappedElement) {
         super(executor, wrappedElement);
     }
 

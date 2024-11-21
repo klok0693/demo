@@ -1,10 +1,22 @@
 package org.example.astero_demo.adapter.model.entity;
 
+import javax.annotation.Nullable;
+
+/**
+ * Factory for creating different shapes based on the provided parameters.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public enum ShapeFactory {
     INSTANCE;
 
+    /**
+     * Creates a {@link Shape} based on the provided parameters and type.<p>
+     * If id is null, it would be generated
+     */
     public Shape createShape(
-            final Integer id,
+            @Nullable final Integer id,
             final String priority,
             final String x,
             final String y,

@@ -8,19 +8,22 @@ import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
 
-public class KeyBoardAdapter implements OperationAdapter {
-
+/**
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
+public class EditorOperationAdapter implements OperationAdapter {
     private final LogicEventProcessor processor;
     private final UIState state;
     private final ParentAdapter parentAdapter;
 
-    public KeyBoardAdapter(
+    public EditorOperationAdapter(
             final LogicEventProcessor processor,
             final UIState state,
             final ParentAdapter adapter) {
         this.processor = processor;
         this.state = state;
-        parentAdapter = adapter;
+        this.parentAdapter = adapter;
     }
 
     @Override

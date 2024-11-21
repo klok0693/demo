@@ -9,6 +9,7 @@ import org.example.astero_demo.adapter.model.metadata.ParamInfo;
 import org.example.astero_demo.adapter.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.model.state.ModelState;
 
+import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
@@ -17,8 +18,14 @@ import static java.lang.String.valueOf;
 import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
 import static org.example.astero_demo.realization.logging.MarkerStorage.UI_STATE_MARKER;
 
+/**
+ * Realization of the State template fot the UI data
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @Slf4j
-public class UIStateHolder implements MutableUIState {
+public class UIStateInstance implements MutableUIState {
     @Getter
     private ShapeType insertShapeType;
 
@@ -28,7 +35,7 @@ public class UIStateHolder implements MutableUIState {
     private final List<Integer> selectedShapes = new LinkedList<>();
     private final ModelState modelState;
 
-    public UIStateHolder(final ModelState modelState) {
+    public UIStateInstance(final ModelState modelState) {
         this.modelState = modelState;
     }
 
@@ -45,6 +52,7 @@ public class UIStateHolder implements MutableUIState {
     }
 
     @Override
+    @Nullable
     public Integer getSelectedShapeId() {
         if (selectedShapes.isEmpty()) {
             return null;
@@ -53,26 +61,31 @@ public class UIStateHolder implements MutableUIState {
     }
 
     @Override
+    @Nullable
     public Double getSelectedX() {
         return getSelectedDoubleParam(Shape::getX);
     }
 
     @Override
+    @Nullable
     public Double getSelectedY() {
         return getSelectedDoubleParam(Shape::getY);
     }
 
     @Override
+    @Nullable
     public Double getSelectedWidth() {
         return getSelectedDoubleParam(Shape::getWidth);
     }
 
     @Override
+    @Nullable
     public Double getSelectedHeight() {
         return getSelectedDoubleParam(Shape::getHeight);
     }
 
     @Override
+    @Nullable
     public Integer getSelectedLayer() {
         if (selectedShapes.isEmpty()) {
             return null;
@@ -82,6 +95,7 @@ public class UIStateHolder implements MutableUIState {
     }
 
     @Override
+    @Nullable
     public Integer getSelectedColor() {
         if (selectedShapes.isEmpty()) {
             return null;
@@ -91,6 +105,7 @@ public class UIStateHolder implements MutableUIState {
     }
 
     @Override
+    @Nullable
     public ShapeType getSelectedShapeType() {
         if (selectedShapes.isEmpty()) {
             return null;
@@ -183,6 +198,7 @@ public class UIStateHolder implements MutableUIState {
         log.debug(UI_STATE_MARKER, "Save copy of {}", original);
     }
 
+    @Nullable
     private Double getSelectedDoubleParam(final Function<Shape, String> func) {
         if (selectedShapes.isEmpty()) {
             return null;

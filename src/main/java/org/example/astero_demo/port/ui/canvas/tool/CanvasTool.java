@@ -4,7 +4,13 @@ import javafx.scene.canvas.GraphicsContext;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
 /**
- * Note: this class has a natural ordering that is inconsistent with equals.
+ * Base class for all canvas tools. Tool is a specific element, provided<p>
+ * ability to perform various operations with canvas shape elements
+ * <p>
+ * <b>Note:</b> this class has a natural ordering that is inconsistent with equals.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
  */
 public abstract class CanvasTool extends CanvasElement implements Comparable<CanvasTool> {
     private final int layer;

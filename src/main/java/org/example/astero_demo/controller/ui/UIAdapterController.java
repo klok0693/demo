@@ -9,6 +9,12 @@ import org.example.astero_demo.logic.event.ui.ParamEvent;
 
 import java.util.Arrays;
 
+/**
+ * This controller is responsible for handling logic events and updating the UI through a ControllerAdapter.
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class UIAdapterController extends AbstractController implements UIController {
     private final ControllerAdapter adapter;
     private final ShapeValidator validator;
@@ -42,7 +48,7 @@ public class UIAdapterController extends AbstractController implements UIControl
     protected boolean isValid(final LogicEvent event) {
         if (event instanceof final ParamEvent ev) {
             return Arrays.stream(ev.getParamInfos())
-                    .allMatch(info -> validator.isValid(info.getParam(), info.getNewValue()));
+                    .allMatch(info -> ShapeValidator.isValid(info.getParam(), info.getNewValue()));
         }
         return true;
     }
