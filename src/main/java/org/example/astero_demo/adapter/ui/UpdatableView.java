@@ -7,7 +7,5 @@ package org.example.astero_demo.adapter.ui;
  * @since v1.0
  */
 @FunctionalInterface
-public interface UpdatableView {
-
-    void update();
+public interface UpdatableView extends Updatable {
 }

@@ -6,6 +6,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.BuilderFactory;
+import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.realization.configuration.AppConfiguration;
 import org.example.astero_demo.realization.initialization.di.module.*;
@@ -13,8 +15,6 @@ import org.example.astero_demo.realization.initialization.di.module.ui.Initializ
 import org.example.astero_demo.realization.initialization.di.module.ui.UIAdapterModule;
 import org.example.astero_demo.realization.initialization.di.module.ui.UIElementModule;
 import org.example.astero_demo.realization.initialization.di.module.ui.UIViewModule;
-import org.example.astero_demo.realization.initialization.ui.CustomControllerFactory;
-import org.example.astero_demo.realization.initialization.ui.NodeBuilderFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,8 +39,8 @@ public class HelloApplication extends Application {
                 new UIViewModule(),
                 new UIElementModule());
 
-        final CustomControllerFactory controllerFactory = injector.getInstance(CustomControllerFactory.class);
-        final NodeBuilderFactory nodeFactory = injector.getInstance(NodeBuilderFactory.class);
+        final Callback<Class<?>, Object> controllerFactory = injector.getInstance(Callback.class);
+        final BuilderFactory nodeFactory = injector.getInstance(BuilderFactory.class);
 
         log.debug(INITIALIZATION_MARKER, "Load root fxml");
         final FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
