@@ -24,15 +24,21 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
     }
 
     @Override
-    public void primaryMouseBtnPressed(final double x, final double y) {
+    public void primaryMouseBtnPressed(final double x, final double y, final boolean isAdditional) {
         log.debug(USER_INPUT_MARKER, "Press canvas at {},{}", x, y);
-        wrappedElement.primaryMouseBtnPressed(x, y);
+        wrappedElement.primaryMouseBtnPressed(x, y, isAdditional);
     }
 
     @Override
     public void selectNextShapeAt(double x, double y) {
         log.debug(USER_INPUT_MARKER, "Select next shape at {},{}", x, y);
         wrappedElement.selectNextShapeAt(x, y);
+    }
+
+    @Override
+    public void selectMultiple(double x, double y) {
+        log.debug(USER_INPUT_MARKER, "Add Selection at {},{}", x, y);
+        wrappedElement.selectMultiple(x, y);
     }
 
     @Override

@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
-import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasView;
 import org.example.astero_demo.adapter.ui.state.UIState;
@@ -63,6 +63,7 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
     public void handleMousePressed(final MouseEvent event) {
         final double mouseX = event.getX();
         final double mouseY = event.getY();
+        final boolean isAdditional = event.isControlDown();
 
         requestFocus();
 
@@ -84,7 +85,7 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
 
         // First we check, is there are no shape or tool under the cursor
         if (!toolLayer.isInBounds(mouseX, mouseY) && !modelState.findTopVisibleShape(mouseX, mouseY).isPresent()) {
-            adapter.primaryMouseBtnPressed(mouseX, mouseY);
+            adapter.primaryMouseBtnPressed(mouseX, mouseY, isAdditional);
             toolLayer.onMousePressed(event);
             redraw();
         }
@@ -96,7 +97,7 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
         // If there is no tool but a shape under the cursor,
         // we can select it(nothing badly, if it has already been selected)
         else {
-            adapter.primaryMouseBtnPressed(mouseX, mouseY);
+            adapter.primaryMouseBtnPressed(mouseX, mouseY, isAdditional);
             update();
             redraw();
         }

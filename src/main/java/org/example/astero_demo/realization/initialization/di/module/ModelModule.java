@@ -5,10 +5,10 @@ import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import org.example.astero_demo.adapter.model.ModelAdapter;
-import org.example.astero_demo.adapter.model.entity.ShapeFactory;
-import org.example.astero_demo.adapter.model.state.ModelState;
-import org.example.astero_demo.adapter.model.state.ModelStateHolder;
-import org.example.astero_demo.adapter.model.state.MutableModelState;
+import org.example.astero_demo.model.entity.ShapeFactory;
+import org.example.astero_demo.model.state.ModelState;
+import org.example.astero_demo.model.state.ModelStateHolder;
+import org.example.astero_demo.model.state.MutableModelState;
 
 /**
  * DI config for model classes

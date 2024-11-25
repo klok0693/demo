@@ -1,6 +1,6 @@
-package org.example.astero_demo.adapter.model.state;
+package org.example.astero_demo.model.state;
 
-import org.example.astero_demo.adapter.model.entity.Shape;
+import org.example.astero_demo.model.entity.Shape;
 
 public interface MutableModelState extends ModelState {
 

@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.elements.LayersTree;

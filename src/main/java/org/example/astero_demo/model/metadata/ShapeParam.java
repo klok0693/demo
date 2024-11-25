@@ -1,4 +1,4 @@
-package org.example.astero_demo.adapter.model.metadata;
+package org.example.astero_demo.model.metadata;
 
 /**
  * Represents the parameters associated with a shape, such as ID, position, size, priority, color, and type.

@@ -1,12 +1,12 @@
 package unit;
 
-import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.controller.ShapeValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.example.astero_demo.adapter.model.entity.ShapeType.ELLIPSE;
-import static org.example.astero_demo.adapter.model.entity.ShapeType.RECT;
+import static org.example.astero_demo.model.entity.ShapeType.ELLIPSE;
+import static org.example.astero_demo.model.entity.ShapeType.RECT;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

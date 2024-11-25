@@ -1,9 +1,9 @@
-package org.example.astero_demo.adapter.model.state;
+package org.example.astero_demo.model.state;
 
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.entity.Shape;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ParamInfo;
 
 import javax.annotation.Nullable;
 import java.util.*;

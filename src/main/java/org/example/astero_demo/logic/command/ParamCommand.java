@@ -1,6 +1,6 @@
 package org.example.astero_demo.logic.command;
 
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.ParamInfo;
 
 import java.util.List;
 

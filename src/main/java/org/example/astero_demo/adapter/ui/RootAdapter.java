@@ -1,9 +1,9 @@
 package org.example.astero_demo.adapter.ui;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.adapter.model.entity.Shape;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.event.*;
 import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
@@ -15,6 +15,7 @@ import org.example.astero_demo.controller.ui.ControllerAdapter;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static java.lang.Double.parseDouble;
@@ -74,7 +75,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
     }
 
     @Override
-    public void processEvent(final UIEvent event) {
+    public void processEvent(final UIEvent event) { // TODO: move to separate class
         if (event instanceof final SelectElementByPositionEvent e) {
             selectElement(e.getX(), e.getY());
         }
@@ -83,6 +84,9 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         }
         if (event instanceof final SelectNextElementAt e) {
             selectNextElement(e.getCurrentId(), e.getX(), e.getY());
+        }
+        if (event instanceof final SelectMultipleElementsEvent e) {
+            selectMultipleElement(e.getX(), e.getY());
         }
         else if (event instanceof final InsertModeEvent e) {
             uiState.setInsertShapeType(e.getInsertShapeType());
@@ -130,6 +134,19 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             uiState.reset();
             updateChildren();
         }
+    }
+
+    private void selectMultipleElement(final double x, final double y) {
+        final int firstSelectedId = uiState.getSelectedShapeId();
+        final Optional<Shape> newSelectedShape = modelState.findTopShapeAt(x, y);
+
+        uiState.reset();
+        updateChildren();
+        if (newSelectedShape.isEmpty()) {
+            return;
+        }
+        uiState.setMultipleSelectedShapes(firstSelectedId, newSelectedShape.get().getId());
+        updateChildren();
     }
 
     private void updateChildren() {

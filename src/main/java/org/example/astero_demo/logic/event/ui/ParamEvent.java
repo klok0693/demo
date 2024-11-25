@@ -2,7 +2,7 @@ package org.example.astero_demo.logic.event.ui;
 
 import lombok.Getter;
 import org.apache.commons.lang3.ArrayUtils;
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.ParamInfo;
 
 /**
  * Abstract class representing an event with shape parameters

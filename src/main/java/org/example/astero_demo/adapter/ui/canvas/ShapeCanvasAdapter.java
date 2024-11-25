@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui.canvas;
 
-import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.adapter.ui.event.SelectMultipleElementsEvent;
+import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
@@ -10,7 +11,7 @@ import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 
-import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
+import static org.example.astero_demo.model.metadata.ParamInfo.create;
 
 /**
  * Leaf adapter for interacting with a canvas
@@ -36,15 +37,18 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     }
 
     @Override
-    public void primaryMouseBtnPressed(final double x, final double y) {
-        if (!uiState.isInInsertMode()) {
+    public void primaryMouseBtnPressed(final double x, final double y, final boolean isAdditional) {
+        if (isAdditional) {
+            selectMultiple(x, y);
+        }
+        else if (!uiState.isInInsertMode()) {
             sendEvent(new SelectElementByPositionEvent(x, y));
         }
     }
 
     @Override
     public void selectNextShapeAt(double x, double y) {
-        if (!uiState.isInInsertMode()) {
+        if (!uiState.isInInsertMode()) { // TODO: If not necessary - call always from selection tool?
             if (uiState.hasSelectedId()) {
                 sendEvent(new SelectNextElementAt(uiState.getSelectedShapeId(), x, y));
             }
@@ -52,6 +56,11 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
                 sendEvent(new SelectElementByPositionEvent(x, y));
             }
         }
+    }
+
+    @Override
+    public void selectMultiple(double x, double y) {
+        sendEvent(new SelectMultipleElementsEvent(x, y));
     }
 
     @Override

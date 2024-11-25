@@ -18,13 +18,13 @@ import static org.example.astero_demo.port.ui.UIConsrants.CONTACT_DIAMETER;
 public class ContactPoint extends DraggableTool {
     private static final double RADIUS = CONTACT_DIAMETER / 2;
 
-    private final ShapeSelectionTool selectionTool;
+    private final ShapeSelectionTool.SelectionFrame selectionTool;
     private final CanvasAdapter adapter;
 
     private final ContactAlignment alignment;
 
     public ContactPoint(
-            final ShapeSelectionTool selectionTool,
+            final ShapeSelectionTool.SelectionFrame selectionTool,
             final CanvasAdapter adapter,
             final int layer,
             final Color fillColor,

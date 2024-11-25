@@ -1,12 +1,12 @@
-package org.example.astero_demo.adapter.model.entity;
+package org.example.astero_demo.model.entity;
 
 /**
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class Rectangle extends Shape {
+public class Ellipse extends Shape {
 
-    public Rectangle(
+    public Ellipse(
             final int id,
             final String priority,
             final String x,
@@ -17,7 +17,7 @@ public class Rectangle extends Shape {
         super(id, priority, x, y, width, height, color);
     }
 
-    public Rectangle(
+    public Ellipse(
             final int id,
             final String priority,
             final String x,
@@ -35,12 +35,21 @@ public class Rectangle extends Shape {
             final double shapeY,
             final double shapeWidth,
             final double shapeHeight) {
-        return pointX >= shapeX && pointX <= (shapeX + shapeWidth)
-                && pointY >= shapeY && pointY <= (shapeY + shapeHeight);
+
+        final double centerX = shapeX + shapeWidth / 2.0; // Center X
+        final double centerY = shapeY + shapeHeight / 2.0; // Center Y
+        final double semiWidth = shapeWidth / 2.0; // Semi-major axis (horizontal)
+        final double semiHeight = shapeHeight / 2.0; // Semi-minor axis (vertical)
+
+        final double dx = pointX - centerX; // Distance from point to center (x-axis)
+        final double dy = pointY - centerY; // Distance from point to center (y-axis)
+
+        // Equation of an ellipse
+        return (dx * dx) / (semiWidth * semiWidth) + (dy * dy) / (semiHeight * semiHeight) <= 1.0;
     }
 
     @Override
     public ShapeType getType() {
-        return ShapeType.RECT;
+        return ShapeType.ELLIPSE;
     }
 }

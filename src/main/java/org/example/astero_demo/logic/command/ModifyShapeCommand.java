@@ -1,7 +1,7 @@
 package org.example.astero_demo.logic.command;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.ParamInfo;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
 

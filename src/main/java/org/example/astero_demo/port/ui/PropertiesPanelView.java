@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.adapter.ui.property.PropertiesView;
@@ -19,6 +20,7 @@ import org.example.astero_demo.util.ColorUtils;
  * @since v1.0
  */
 public class PropertiesPanelView implements PropertiesView {
+    public VBox propertyRoot;
     public TextField xField;
     public TextField yField;
     public TextField widthField;
@@ -51,6 +53,8 @@ public class PropertiesPanelView implements PropertiesView {
             colorField.setValue(null);
             colorField.setDisable(true);
         }
+
+        propertyRoot.setDisable(uiState.isMultipleSelection());
     }
 
     private static void setUpField(final TextInputControl field, final Number number) {

@@ -1,11 +1,11 @@
 package org.example.astero_demo.logic.event.ui;
 
 import lombok.Getter;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
-import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.ShapeParam;
 
-import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
+import static org.example.astero_demo.model.metadata.ParamInfo.create;
 
 /**
  * Represents an event for creating a new shape with specified parameters.

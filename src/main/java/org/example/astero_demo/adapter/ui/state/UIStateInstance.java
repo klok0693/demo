@@ -3,19 +3,20 @@ package org.example.astero_demo.adapter.ui.state;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.entity.Shape;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
-import org.example.astero_demo.adapter.model.metadata.ShapeParam;
-import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.ShapeParam;
+import org.example.astero_demo.model.state.ModelState;
 
 import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import static java.lang.String.valueOf;
-import static org.example.astero_demo.adapter.model.metadata.ParamInfo.create;
+import static org.example.astero_demo.model.metadata.ParamInfo.create;
 import static org.example.astero_demo.realization.logging.MarkerStorage.UI_STATE_MARKER;
 
 /**
@@ -58,6 +59,16 @@ public class UIStateInstance implements MutableUIState {
             return null;
         }
         return modelState.getShape(selectedShapes.getFirst()).getId();
+    }
+
+    @Override
+    public Stream<Integer> getSelectedIds() {
+        return selectedShapes.stream();
+    }
+
+    @Override
+    public boolean isIdSelected(final int id) {
+        return selectedShapes.contains(id);
     }
 
     @Override
@@ -160,12 +171,26 @@ public class UIStateInstance implements MutableUIState {
     }
 
     @Override
+    public boolean isMultipleSelection() {
+        return selectedShapes.size() > 1;
+    }
+
+    @Override
     public void setSelectShape(final Integer id) {
         reset();
         if (id != null) {
             selectedShapes.add(id);
         }
         log.debug(UI_STATE_MARKER, "Set selected shape id:{}", id);
+    }
+
+    @Override
+    public void setMultipleSelectedShapes(Integer... ids) {
+        reset();
+        if (ids != null) {
+            selectedShapes.addAll(List.of(ids));
+        }
+        log.debug(UI_STATE_MARKER, "Set multiple selected shape ids:{}", selectedShapes);
     }
 
     @Override

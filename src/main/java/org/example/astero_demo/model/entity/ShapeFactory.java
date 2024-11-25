@@ -1,4 +1,4 @@
-package org.example.astero_demo.adapter.model.entity;
+package org.example.astero_demo.model.entity;
 
 import org.apache.commons.math3.random.RandomDataGenerator;
 

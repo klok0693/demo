@@ -1,4 +1,4 @@
-package org.example.astero_demo.adapter.model.entity;
+package org.example.astero_demo.model.entity;
 
 import javafx.scene.paint.Color;
 import lombok.AccessLevel;

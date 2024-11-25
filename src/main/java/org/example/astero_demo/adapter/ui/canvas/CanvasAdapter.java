@@ -10,9 +10,11 @@ import org.example.astero_demo.adapter.ui.UpdatableAdapter;
  */
 public interface CanvasAdapter extends UpdatableAdapter {
 
-    void primaryMouseBtnPressed(double x, double y);
+    void primaryMouseBtnPressed(double x, double y, boolean isAdditional);
 
     void selectNextShapeAt(double x, double y);
+
+    void selectMultiple(double x, double y);
 
     void createNewShapeAt(double x, double y, double width, double height);
 

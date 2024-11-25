@@ -1,7 +1,7 @@
 package org.example.astero_demo.controller;
 
-import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.adapter.model.metadata.ShapeParam;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ShapeParam;
 
 import java.util.Arrays;
 import java.util.Objects;

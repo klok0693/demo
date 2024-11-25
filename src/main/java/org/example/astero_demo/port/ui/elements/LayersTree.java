@@ -1,16 +1,19 @@
 package org.example.astero_demo.port.ui.elements;
 
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.adapter.model.entity.Shape;
-import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.ShapeSelector;
 import org.example.astero_demo.adapter.ui.state.UIState;
 
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * Represents a tree view for displaying and managing layers of shapes.
@@ -33,6 +36,8 @@ public class LayersTree extends TreeView<String> {
                 shapeSelector.selectShape(id);
             }
         });
+
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     public void update() {
@@ -76,7 +81,7 @@ public class LayersTree extends TreeView<String> {
                         item.setExpanded(true);
                         getChildren().add(item);
 
-                        if (uiState.hasSelectedId() && Objects.equals(uiState.getSelectedShapeId(), Integer.valueOf(id))) {
+                        if (uiState.hasSelectedId() && uiState.isIdSelected(parseInt(id))) {
                             getSelectionModel().select(item);
                         }
                     });

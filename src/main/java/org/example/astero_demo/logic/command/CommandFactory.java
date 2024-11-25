@@ -1,7 +1,7 @@
 package org.example.astero_demo.logic.command;
 
-import org.example.astero_demo.adapter.model.entity.ShapeType;
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ParamInfo;
 
 /**
  * Factory that provides methods to create different types of commands

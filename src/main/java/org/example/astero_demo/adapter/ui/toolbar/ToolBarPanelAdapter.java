@@ -1,7 +1,7 @@
 package org.example.astero_demo.adapter.ui.toolbar;
 
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
-import org.example.astero_demo.adapter.model.entity.ShapeType;
+import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;

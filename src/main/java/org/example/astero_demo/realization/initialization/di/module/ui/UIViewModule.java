@@ -3,7 +3,7 @@ package org.example.astero_demo.realization.initialization.di.module.ui;
 import com.google.inject.*;
 import javafx.event.EventHandler;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
-import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasView;
 import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;

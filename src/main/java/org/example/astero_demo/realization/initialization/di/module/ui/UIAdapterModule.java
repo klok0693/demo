@@ -3,7 +3,7 @@ package org.example.astero_demo.realization.initialization.di.module.ui;
 import com.google.inject.*;
 import org.example.astero_demo.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
-import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;

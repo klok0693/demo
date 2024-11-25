@@ -1,7 +1,7 @@
 package org.example.astero_demo.logic.event.ui;
 
 import lombok.Getter;
-import org.example.astero_demo.adapter.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.ParamInfo;
 
 /**
  * A class representing an event for modifying shape parameters

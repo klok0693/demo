@@ -1,8 +1,8 @@
 package org.example.astero_demo.port.ui.canvas.shape;
 
 import javafx.scene.paint.Color;
-import org.example.astero_demo.adapter.model.entity.Shape;
-import org.example.astero_demo.adapter.model.state.ModelState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.util.ColorUtils;
