@@ -1,4 +1,4 @@
-package org.example.astero_demo.port.ui.canvas.tool.draggable;
+package org.example.astero_demo.port.ui.canvas.tool.draggable.insert;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.tool.CanvasClickable;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.DraggableTool;
 
 /**
  * Represents a tool for inserting shapes on a canvas

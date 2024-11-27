@@ -1,18 +1,18 @@
-package org.example.astero_demo.port.ui.canvas.tool.draggable;
+package org.example.astero_demo.port.ui.canvas.tool.draggable.selection;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.tool.CanvasClickable;
 import org.example.astero_demo.port.ui.canvas.tool.SelectionFrame;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.example.astero_demo.port.ui.canvas.tool.draggable.ContactAlignment.*;
-import static org.example.astero_demo.port.ui.canvas.tool.draggable.ContactAlignment.CENTER_LEFT;
+import static org.example.astero_demo.port.ui.canvas.tool.draggable.selection.ContactAlignment.*;
+import static org.example.astero_demo.port.ui.canvas.tool.draggable.selection.ContactAlignment.CENTER_LEFT;
 
 public class ModificableSelectionFrame extends SelectionFrame implements CanvasClickable, CanvasDraggable {
     private final UIState uiState;

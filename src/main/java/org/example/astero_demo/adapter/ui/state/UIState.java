@@ -1,5 +1,7 @@
 package org.example.astero_demo.adapter.ui.state;
 
+import org.example.astero_demo.adapter.ui.state.model.MutableSelection;
+import org.example.astero_demo.adapter.ui.state.model.Selection;
 import org.example.astero_demo.model.entity.ShapeType;
 
 import java.util.stream.Stream;
@@ -14,35 +16,11 @@ import java.util.stream.Stream;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface UIState {
+public interface UIState extends Selection {
 
     boolean isInInsertMode();
 
     ShapeType getInsertShapeType();
-
-    Integer getSelectedShapeId();
-
-    Stream<Integer> getSelectedIds();
-
-    boolean hasSelectedId();
-
-    boolean isIdSelected(int id);
-
-    boolean isMultipleSelection();
-
-    Double getSelectedX();
-
-    Double getSelectedY();
-
-    Double getSelectedWidth();
-
-    Double getSelectedHeight();
-
-    Integer getSelectedLayer();
-
-    Integer getSelectedColor();
-
-    ShapeType getSelectedShapeType();
 
     boolean hasCopy();
 

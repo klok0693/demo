@@ -1,4 +1,4 @@
-package org.example.astero_demo.port.ui.canvas.tool.draggable;
+package org.example.astero_demo.port.ui.canvas.tool.draggable.selection;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.port.ui.canvas.tool.SelectionFrame;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.DraggableTool;
 
 import static org.example.astero_demo.port.ui.UIConsrants.CONTACT_DIAMETER;
 

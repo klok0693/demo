@@ -3,6 +3,7 @@ package org.example.astero_demo.adapter.ui.state;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.example.astero_demo.adapter.ui.state.model.SelectionHolder;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ParamInfo;
@@ -12,7 +13,6 @@ import org.example.astero_demo.model.state.ModelState;
 import javax.annotation.Nullable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static java.lang.String.valueOf;
@@ -32,12 +32,13 @@ public class UIStateInstance implements MutableUIState {
 
     @Getter
     private List<ParamInfo> copyParams;
-
-    private final List<Integer> selectedShapes = new LinkedList<>();
     private final ModelState modelState;
+
+    private final SelectionHolder selection;
 
     public UIStateInstance(final ModelState modelState) {
         this.modelState = modelState;
+        this.selection = new SelectionHolder(modelState);
     }
 
     @Override
@@ -55,73 +56,59 @@ public class UIStateInstance implements MutableUIState {
     @Override
     @Nullable
     public Integer getSelectedShapeId() {
-        if (selectedShapes.isEmpty()) {
-            return null;
-        }
-        return modelState.getShape(selectedShapes.getFirst()).getId();
+        return selection.getSelectedShapeId();
     }
 
     @Override
     public Stream<Integer> getSelectedIds() {
-        return selectedShapes.stream();
+        return selection.getSelectedIds();
     }
 
     @Override
     public boolean isIdSelected(final int id) {
-        return selectedShapes.contains(id);
+        return selection.isIdSelected(id);
     }
 
     @Override
     @Nullable
     public Double getSelectedX() {
-        return getSelectedDoubleParam(Shape::getX);
+        return selection.getSelectedX();
     }
 
     @Override
     @Nullable
     public Double getSelectedY() {
-        return getSelectedDoubleParam(Shape::getY);
+        return selection.getSelectedY();
     }
 
     @Override
     @Nullable
     public Double getSelectedWidth() {
-        return getSelectedDoubleParam(Shape::getWidth);
+        return selection.getSelectedWidth();
     }
 
     @Override
     @Nullable
     public Double getSelectedHeight() {
-        return getSelectedDoubleParam(Shape::getHeight);
+        return selection.getSelectedHeight();
     }
 
     @Override
     @Nullable
     public Integer getSelectedLayer() {
-        if (selectedShapes.isEmpty()) {
-            return null;
-        }
-        return Integer.valueOf(
-                modelState.getShape(selectedShapes.getFirst()).getPriority());
+        return selection.getSelectedLayer();
     }
 
     @Override
     @Nullable
     public Integer getSelectedColor() {
-        if (selectedShapes.isEmpty()) {
-            return null;
-        }
-        final String color = modelState.getShape(selectedShapes.getFirst()).getColor();
-        return StringUtils.isNotBlank(color) ? Integer.valueOf(color) : null;
+        return selection.getSelectedColor();
     }
 
     @Override
     @Nullable
     public ShapeType getSelectedShapeType() {
-        if (selectedShapes.isEmpty()) {
-            return null;
-        }
-        return modelState.getShape(selectedShapes.getFirst()).getType();
+        return selection.getSelectedShapeType();
     }
 
     @Override
@@ -167,30 +154,26 @@ public class UIStateInstance implements MutableUIState {
 
     @Override
     public boolean hasSelectedId() {
-        return !selectedShapes.isEmpty();
+        return selection.hasSelectedId();
     }
 
     @Override
     public boolean isMultipleSelection() {
-        return selectedShapes.size() > 1;
+        return selection.isMultipleSelection();
     }
 
     @Override
     public void setSelectShape(final Integer id) {
         reset();
-        if (id != null) {
-            selectedShapes.add(id);
-        }
+        selection.setSelectShape(id);
         log.debug(UI_STATE_MARKER, "Set selected shape id:{}", id);
     }
 
     @Override
-    public void setMultipleSelectedShapes(Integer... ids) {
+    public void setMultipleSelectedShapes(final Integer... ids) {
         reset();
-        if (ids != null) {
-            selectedShapes.addAll(List.of(ids));
-        }
-        log.debug(UI_STATE_MARKER, "Set multiple selected shape ids:{}", selectedShapes);
+        selection.setMultipleSelectedShapes(ids);
+        log.debug(UI_STATE_MARKER, "Set multiple selected shape ids:{}", List.of(ids));
     }
 
     @Override
@@ -199,7 +182,7 @@ public class UIStateInstance implements MutableUIState {
     }
 
     private void removeSelection() {
-        selectedShapes.clear();
+        selection.removeSelection();
         log.debug(UI_STATE_MARKER, "Clear selection");
     }
 
@@ -221,13 +204,5 @@ public class UIStateInstance implements MutableUIState {
         copyParams.add(create(ShapeParam.TYPE, valueOf(original.getType())));
 
         log.debug(UI_STATE_MARKER, "Save copy of {}", original);
-    }
-
-    @Nullable
-    private Double getSelectedDoubleParam(final Function<Shape, String> func) {
-        if (selectedShapes.isEmpty()) {
-            return null;
-        }
-        return Double.valueOf(func.apply(modelState.getShape(selectedShapes.getFirst())));
     }
 }

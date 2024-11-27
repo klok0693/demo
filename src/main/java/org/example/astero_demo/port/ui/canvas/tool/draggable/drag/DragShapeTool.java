@@ -1,4 +1,4 @@
-package org.example.astero_demo.port.ui.canvas.tool.draggable;
+package org.example.astero_demo.port.ui.canvas.tool.draggable.drag;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -6,6 +6,7 @@ import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.DraggableTool;
 import org.example.astero_demo.util.ColorUtils;
 
 import static java.lang.Double.parseDouble;

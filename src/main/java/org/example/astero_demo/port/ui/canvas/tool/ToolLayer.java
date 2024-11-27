@@ -5,8 +5,8 @@ import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
-import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
-import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.drag.DragShapeTool;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.insert.InsertTool;
 
 /**
  * Layer to for a tool elements

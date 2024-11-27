@@ -1,18 +1,9 @@
 package org.example.astero_demo.port.ui.canvas.tool;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
-import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
-import org.example.astero_demo.port.ui.canvas.tool.draggable.ContactPoint;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.example.astero_demo.port.ui.UIConsrants.MINIMAL_SIDE_SIZE;
-import static org.example.astero_demo.port.ui.canvas.tool.draggable.ContactAlignment.*;
 
 public class SelectionFrame extends CanvasTool {
     private static final double FRAME_WIDTH = 3.0;

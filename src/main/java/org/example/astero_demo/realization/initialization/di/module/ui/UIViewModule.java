@@ -19,8 +19,8 @@ import org.example.astero_demo.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.port.ui.canvas.shape.ShapeLayer;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 import org.example.astero_demo.port.ui.canvas.tool.ToolLayer;
-import org.example.astero_demo.port.ui.canvas.tool.draggable.DragShapeTool;
-import org.example.astero_demo.port.ui.canvas.tool.draggable.InsertTool;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.drag.DragShapeTool;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.insert.InsertTool;
 import org.example.astero_demo.port.ui.keyboard.RootShortcutHandler;
 import org.example.astero_demo.realization.initialization.ui.builder.CanvasBuilder;
 

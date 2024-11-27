@@ -8,7 +8,7 @@ import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
-import org.example.astero_demo.port.ui.canvas.tool.draggable.ModificableSelectionFrame;
+import org.example.astero_demo.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
 
 import java.util.*;
 

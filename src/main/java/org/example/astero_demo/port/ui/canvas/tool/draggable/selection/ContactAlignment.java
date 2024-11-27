@@ -1,4 +1,4 @@
-package org.example.astero_demo.port.ui.canvas.tool.draggable;
+package org.example.astero_demo.port.ui.canvas.tool.draggable.selection;
 
 import org.example.astero_demo.port.ui.canvas.tool.SelectionFrame;
 
