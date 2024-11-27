@@ -1,6 +1,6 @@
 package org.example.astero_demo.port.ui.canvas.tool.draggable;
 
-import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
+import org.example.astero_demo.port.ui.canvas.tool.SelectionFrame;
 
 import static org.example.astero_demo.port.ui.UIConsrants.MINIMAL_SIDE_SIZE;
 
@@ -27,7 +27,7 @@ public enum ContactAlignment {
          * Adjust x, y, width, and height relative to mouseX and mouseY
          */
         @Override
-        public void updateParentTool(final ShapeSelectionTool.SelectionFrame parentTool, final double mouseX, final double mouseY) {
+        public void updateParentTool(final SelectionFrame parentTool, final double mouseX, final double mouseY) {
             final double parentX = parentTool.getX();
             final double parentY = parentTool.getY();
             final double parentWidth = parentTool.getWidth();
@@ -57,7 +57,7 @@ public enum ContactAlignment {
          * Only adjust y and height relative to mouseX and mouseY
          */
         @Override
-        public void updateParentTool(final ShapeSelectionTool.SelectionFrame parentTool, final double mouseX, final double mouseY) {
+        public void updateParentTool(final SelectionFrame parentTool, final double mouseX, final double mouseY) {
             final double parentX = parentTool.getX();
             final double parentY = parentTool.getY();
             final double parentWidth = parentTool.getWidth();
@@ -85,7 +85,7 @@ public enum ContactAlignment {
          * Adjust width, y, and height relative to mouseX and mouseY
          */
         @Override
-        public void updateParentTool(final ShapeSelectionTool.SelectionFrame parentTool, final double mouseX, final double mouseY) {
+        public void updateParentTool(final SelectionFrame parentTool, final double mouseX, final double mouseY) {
             final double parentX = parentTool.getX();
             final double parentY = parentTool.getY();
             final double parentHeight = parentTool.getHeight();
@@ -114,7 +114,7 @@ public enum ContactAlignment {
          * Adjust width only relative to mouseX and mouseY
          */
         @Override
-        public void updateParentTool(final ShapeSelectionTool.SelectionFrame parentTool, final double mouseX, final double mouseY) {
+        public void updateParentTool(final SelectionFrame parentTool, final double mouseX, final double mouseY) {
             final double parentX = parentTool.getX();
             final double parentY = parentTool.getY();
             final double parentHeight = parentTool.getHeight();
@@ -141,7 +141,7 @@ public enum ContactAlignment {
          * Adjust width and height relative to mouseX and mouseY
          */
         @Override
-        public void updateParentTool(final ShapeSelectionTool.SelectionFrame parentTool, final double mouseX, final double mouseY) {
+        public void updateParentTool(final SelectionFrame parentTool, final double mouseX, final double mouseY) {
             final double parentX = parentTool.getX();
             final double parentY = parentTool.getY();
             final double newWidth = mouseX - parentX;
@@ -167,7 +167,7 @@ public enum ContactAlignment {
          * Adjust height only relative to mouseX and mouseY
          */
         @Override
-        public void updateParentTool(final ShapeSelectionTool.SelectionFrame parentTool, final double mouseX, final double mouseY) {
+        public void updateParentTool(final SelectionFrame parentTool, final double mouseX, final double mouseY) {
             final double parentX = parentTool.getX();
             final double parentY = parentTool.getY();
             final double parentWidth = parentTool.getWidth();
@@ -192,7 +192,7 @@ public enum ContactAlignment {
          * Adjust x, width, and height relative to mouseX and mouseY
          */
         @Override
-        public void updateParentTool(final ShapeSelectionTool.SelectionFrame parentTool, final double mouseX, final double mouseY) {
+        public void updateParentTool(final SelectionFrame parentTool, final double mouseX, final double mouseY) {
             final double parentX = parentTool.getX();
             final double parentY = parentTool.getY();
             final double parentWidth = parentTool.getWidth();
@@ -221,7 +221,7 @@ public enum ContactAlignment {
          * Adjust x and width relative to mouseX and mouseY
          */
         @Override
-        public void updateParentTool(final ShapeSelectionTool.SelectionFrame parentTool, final double mouseX, final double mouseY) {
+        public void updateParentTool(final SelectionFrame parentTool, final double mouseX, final double mouseY) {
             final double parentX = parentTool.getX();
             final double parentY = parentTool.getY();
             final double parentWidth = parentTool.getWidth();
@@ -235,5 +235,5 @@ public enum ContactAlignment {
 
     public abstract void updateContact(ContactPoint contact, double x, double y, double width, double height);
 
-    public abstract void updateParentTool(ShapeSelectionTool.SelectionFrame parentTool, double x, double y);
+    public abstract void updateParentTool(SelectionFrame parentTool, double x, double y);
 }

@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
+import org.example.astero_demo.port.ui.canvas.tool.SelectionFrame;
 import org.example.astero_demo.port.ui.canvas.tool.ShapeSelectionTool;
 
 import static org.example.astero_demo.port.ui.UIConsrants.CONTACT_DIAMETER;
@@ -18,13 +19,13 @@ import static org.example.astero_demo.port.ui.UIConsrants.CONTACT_DIAMETER;
 public class ContactPoint extends DraggableTool {
     private static final double RADIUS = CONTACT_DIAMETER / 2;
 
-    private final ShapeSelectionTool.SelectionFrame selectionTool;
+    private final SelectionFrame selectionTool;
     private final CanvasAdapter adapter;
 
     private final ContactAlignment alignment;
 
     public ContactPoint(
-            final ShapeSelectionTool.SelectionFrame selectionTool,
+            final SelectionFrame selectionTool,
             final CanvasAdapter adapter,
             final int layer,
             final Color fillColor,
