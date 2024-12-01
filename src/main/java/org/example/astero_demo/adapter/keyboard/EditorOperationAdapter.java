@@ -28,7 +28,7 @@ public class EditorOperationAdapter implements OperationAdapter {
 
     @Override
     public void handleDelete() {
-        if (state.hasSelectedId()) {
+        if (state.hasSelectedId() && !state.isMultipleSelection()) {
             processor.process(new RemoveShapeEvent(state.getSelectedShapeId()));
         }
     }

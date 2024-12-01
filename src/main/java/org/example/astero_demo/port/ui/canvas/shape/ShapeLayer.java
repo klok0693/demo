@@ -2,6 +2,7 @@ package org.example.astero_demo.port.ui.canvas.shape;
 
 import javafx.scene.paint.Color;
 import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.ModeSwitchableView;
 import org.example.astero_demo.adapter.ui.state.mode.SingleSelectionModeSwitchable;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.state.ModelState;
@@ -20,8 +21,7 @@ import static java.lang.Integer.parseInt;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>>
-        implements UpdatableView, InsertModeSwitchable, SingleSelectionModeSwitchable {
+public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements ModeSwitchableView {
     private final ModelState modelState;
 
     public ShapeLayer(final ModelState modelState) {
@@ -41,6 +41,11 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>>
 
     @Override
     public void switchToSingleSelectionMode() {
+        updateShapes();
+    }
+
+    @Override
+    public void switchToMultipleSelectionMode() {
         updateShapes();
     }
 

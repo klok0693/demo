@@ -2,6 +2,7 @@ package org.example.astero_demo.adapter.ui.canvas;
 
 import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.ModeSwitchableView;
 import org.example.astero_demo.adapter.ui.state.mode.SingleSelectionModeSwitchable;
 
 /**
@@ -10,7 +11,7 @@ import org.example.astero_demo.adapter.ui.state.mode.SingleSelectionModeSwitchab
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface CanvasView extends UpdatableView, InsertModeSwitchable, SingleSelectionModeSwitchable {
+public interface CanvasView extends ModeSwitchableView {
 
     double[] getLocalCursorPosition();
 }

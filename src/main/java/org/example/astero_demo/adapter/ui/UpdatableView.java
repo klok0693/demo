@@ -1,11 +1,14 @@
 package org.example.astero_demo.adapter.ui;
 
+import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.MultipleSelectionModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.SingleSelectionModeSwitchable;
+
 /**
  * Functional interface for views that can be updated.
  *
  * @author Pilip Yurchanka
  * @since v1.0
  */
-@FunctionalInterface
 public interface UpdatableView extends Updatable {
 }

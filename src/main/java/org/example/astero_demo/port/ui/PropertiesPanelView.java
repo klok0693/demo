@@ -44,22 +44,18 @@ public class PropertiesPanelView implements PropertiesView {
 
     @Override
     public void switchToInsertMode() {
-        clearAndDisable(xField);
-        clearAndDisable(yField);
-        clearAndDisable(widthField);
-        clearAndDisable(heightField);
-        clearAndDisable(layerField);
-
-        colorField.setValue(null);
-        colorField.setDisable(true);
-
-        propertyRoot.setDisable(true);
+        clearPanel();
     }
 
     @Override
     public void switchToSingleSelectionMode() {
         updatePanel();
         propertyRoot.setDisable(false);
+    }
+
+    @Override
+    public void switchToMultipleSelectionMode() {
+        clearPanel();
     }
 
     private void updatePanel() {
@@ -78,6 +74,19 @@ public class PropertiesPanelView implements PropertiesView {
             colorField.setValue(null);
             colorField.setDisable(true);
         }
+    }
+
+    private void clearPanel() {
+        clearAndDisable(xField);
+        clearAndDisable(yField);
+        clearAndDisable(widthField);
+        clearAndDisable(heightField);
+        clearAndDisable(layerField);
+
+        colorField.setValue(null);
+        colorField.setDisable(true);
+
+        propertyRoot.setDisable(true);
     }
 
     private static void setUpField(final TextInputControl field, final Number number) {

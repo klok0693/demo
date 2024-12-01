@@ -4,6 +4,7 @@ import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.ModeSwitchableView;
 import org.example.astero_demo.adapter.ui.state.mode.SingleSelectionModeSwitchable;
 import org.example.astero_demo.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.port.ui.canvas.tool.draggable.CanvasDraggable;
@@ -16,8 +17,7 @@ import org.example.astero_demo.port.ui.canvas.tool.draggable.insert.InsertTool;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ToolLayer extends CanvasLayer<CanvasTool>
-        implements CanvasClickable, CanvasDraggable, UpdatableView, InsertModeSwitchable, SingleSelectionModeSwitchable {
+public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickable, CanvasDraggable, ModeSwitchableView {
     private final ShapeSelectionTool selectionTool;
     private final DragShapeTool dragTool;
     private final InsertTool insertTool;
@@ -57,6 +57,12 @@ public class ToolLayer extends CanvasLayer<CanvasTool>
 
     @Override
     public void switchToSingleSelectionMode() {
+        resetAll();
+        selectionTool.update();
+    }
+
+    @Override
+    public void switchToMultipleSelectionMode() {
         resetAll();
         selectionTool.update();
     }

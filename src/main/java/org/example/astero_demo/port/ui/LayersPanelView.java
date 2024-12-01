@@ -28,4 +28,9 @@ public class LayersPanelView implements LayersView {
     public void switchToSingleSelectionMode() {
         layersTree.update();
     }
+
+    @Override
+    public void switchToMultipleSelectionMode() {
+        layersTree.update();
+    }
 }

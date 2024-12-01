@@ -159,7 +159,13 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             return;
         }
         uiState.setMultipleSelectedShapes(firstSelectedId, newSelectedShape.get().getId());
-        updateChildren();
+        //updateChildren();
+
+        canvasAdapter.switchMode(UIMode.MULTIPLE_SELECTION);
+        toolBarAdapter.switchMode(UIMode.MULTIPLE_SELECTION);
+        layersAdapter.switchMode(UIMode.MULTIPLE_SELECTION);
+        propertyAdapter.switchMode(UIMode.MULTIPLE_SELECTION);
+        rootView.switchMode(UIMode.MULTIPLE_SELECTION);
     }
 
     private void updateChildren() {

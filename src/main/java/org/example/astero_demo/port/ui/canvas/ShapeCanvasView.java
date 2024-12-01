@@ -159,6 +159,13 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
     }
 
     @Override
+    public void switchToMultipleSelectionMode() {
+        shapeLayer.switchToMultipleSelectionMode();
+        toolLayer.switchToMultipleSelectionMode();
+        redraw();
+    }
+
+    @Override
     public double[] getLocalCursorPosition() {
         final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
         final Point2D localPosition = screenToLocal(cursorPosition.getX(), cursorPosition.getY());

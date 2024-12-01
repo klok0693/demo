@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.ModeSwitchableView;
 import org.example.astero_demo.adapter.ui.state.mode.SingleSelectionModeSwitchable;
 import org.example.astero_demo.port.ui.canvas.ShapeCanvasView;
 
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class RootView implements Initializable, UpdatableView, InsertModeSwitchable, SingleSelectionModeSwitchable {
+public class RootView implements Initializable, ModeSwitchableView {
     private final EventHandler shortcutHandler;
     private final UIState uiState;
 
@@ -53,6 +54,11 @@ public class RootView implements Initializable, UpdatableView, InsertModeSwitcha
 
     @Override
     public void switchToSingleSelectionMode() {
+        root.setCursor(Cursor.DEFAULT);
+    }
+
+    @Override
+    public void switchToMultipleSelectionMode() {
         root.setCursor(Cursor.DEFAULT);
     }
 }
