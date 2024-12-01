@@ -5,18 +5,19 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.event.SelectElementById;
 import org.example.astero_demo.adapter.ui.state.UIState;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.controller.LogicEventProcessor;
 
 /**
  * Leaf adapter for interacting with a Layers Panel.
  */
 public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
-    private final UpdatableView layersRoot;
+    private final LayersView layersRoot;
 
     public LayersPanelAdapter(
             final LogicEventProcessor controller,
             final UIState uiState,
-            final UpdatableView layersRoot,
+            final LayersView layersRoot,
             final ParentAdapter parentAdapter) {
         super(controller, uiState, parentAdapter);
         this.layersRoot = layersRoot;
@@ -25,6 +26,11 @@ public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
     @Override
     public void update() {
         layersRoot.update();
+    }
+
+    @Override
+    public void switchMode(final UIMode mode) {
+        layersRoot.switchMode(mode);
     }
 
     @Override

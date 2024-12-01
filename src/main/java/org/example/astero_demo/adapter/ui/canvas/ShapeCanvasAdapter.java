@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui.canvas;
 
 import org.example.astero_demo.adapter.ui.event.SelectMultipleElementsEvent;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
@@ -34,6 +35,11 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     @Override
     public void update() {
         canvasRoot.update();
+    }
+
+    @Override
+    public void switchMode(final UIMode mode) {
+        canvasRoot.switchMode(mode);
     }
 
     @Override

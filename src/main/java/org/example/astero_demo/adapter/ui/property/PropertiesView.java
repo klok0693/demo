@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui.property;
 
 import org.example.astero_demo.adapter.ui.UpdatableView;
+import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
 
 /**
  * Represents a view for a Properties Panel
@@ -8,5 +9,5 @@ import org.example.astero_demo.adapter.ui.UpdatableView;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface PropertiesView extends UpdatableView {
+public interface PropertiesView extends UpdatableView, InsertModeSwitchable {
 }

@@ -3,6 +3,7 @@ package org.example.astero_demo.realization.initialization.di.module.ui;
 import com.google.inject.*;
 import javafx.event.EventHandler;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersView;
 import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasView;
@@ -36,6 +37,7 @@ public class UIViewModule extends AbstractModule {
     protected void configure() {
         bind(EventHandler.class).to(RootShortcutHandler.class);
         bind(CanvasView.class).to(ShapeCanvasView.class);
+        bind(LayersView.class).to(LayersPanelView.class);
         bind(PropertiesView.class).to(PropertiesPanelView.class);
         bind(BackgroundLayer.class).in(Scopes.SINGLETON);
     }

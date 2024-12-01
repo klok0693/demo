@@ -57,15 +57,33 @@ public class PropertiesPanelView implements PropertiesView {
         propertyRoot.setDisable(uiState.isMultipleSelection());
     }
 
+    @Override
+    public void switchToInsertMode() {
+        clearAndDisable(xField);
+        clearAndDisable(yField);
+        clearAndDisable(widthField);
+        clearAndDisable(heightField);
+        clearAndDisable(layerField);
+
+        colorField.setValue(null);
+        colorField.setDisable(true);
+
+        propertyRoot.setDisable(true);
+    }
+
     private static void setUpField(final TextInputControl field, final Number number) {
         if (number != null) {
             field.setText(String.valueOf(number));
             field.setDisable(false);
         }
         else {
-            field.clear();
-            field.setDisable(true);
+            clearAndDisable(field);
         }
+    }
+
+    private static void clearAndDisable(final TextInputControl field) { // TODO: disable only root?
+        field.clear();
+        field.setDisable(true);
     }
 
     public void updateX(final KeyEvent event) {

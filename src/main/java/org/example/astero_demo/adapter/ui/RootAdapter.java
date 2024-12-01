@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.state.ModelState;
@@ -90,7 +91,13 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         }
         else if (event instanceof final InsertModeEvent e) {
             uiState.setInsertShapeType(e.getInsertShapeType());
-            updateChildren();
+            //updateChildren();
+
+            canvasAdapter.switchMode(UIMode.INSERT);
+            toolBarAdapter.switchMode(UIMode.INSERT);
+            layersAdapter.switchMode(UIMode.INSERT);
+            propertyAdapter.switchMode(UIMode.INSERT);
+            rootView.update();
         }
         else if (event instanceof final CopyShapeEvent e) {
             uiState.storeCopyOf(uiState.getSelectedShapeId());

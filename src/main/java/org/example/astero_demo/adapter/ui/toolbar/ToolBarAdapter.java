@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui.toolbar;
 
 import org.example.astero_demo.adapter.ui.UpdatableAdapter;
+import org.example.astero_demo.adapter.ui.state.mode.ModeSwitcher;
 
 /**
  * Represents an interface for interact with Tool Bar Panel
@@ -8,7 +9,7 @@ import org.example.astero_demo.adapter.ui.UpdatableAdapter;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface ToolBarAdapter extends UpdatableAdapter {
+public interface ToolBarAdapter extends UpdatableAdapter, ModeSwitcher {
 
     void onInsertRectAction();
 

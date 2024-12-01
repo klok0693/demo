@@ -3,6 +3,7 @@ package org.example.astero_demo.realization.initialization.di.module.ui;
 import com.google.inject.*;
 import org.example.astero_demo.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
+import org.example.astero_demo.adapter.ui.layerspanel.LayersView;
 import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.RootAdapter;
@@ -88,7 +89,7 @@ public class UIAdapterModule extends AbstractModule {
     public LayersPanelAdapter provideLayersAdapter(
             final LogicEventProcessor controller,
             final UIState uiState,
-            final LayersPanelView layersRoot,
+            final LayersView layersRoot,
             final ParentAdapter parentAdapter) {
         return new LayersPanelAdapter(controller, uiState, layersRoot, parentAdapter);
     }

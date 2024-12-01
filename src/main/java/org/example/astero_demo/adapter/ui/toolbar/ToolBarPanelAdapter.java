@@ -1,6 +1,7 @@
 package org.example.astero_demo.adapter.ui.toolbar;
 
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
@@ -33,6 +34,11 @@ public class ToolBarPanelAdapter extends LeafAdapter implements ToolBarAdapter {
     @Override
     public void update() {
         toolBarView.update();
+    }
+
+    @Override
+    public void switchMode(final UIMode mode) {
+        toolBarView.switchMode(mode);
     }
 
     @Override

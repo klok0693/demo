@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.ShapeCanvasAdapter;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.realization.async.AppExecutor;
 
 import static org.example.astero_demo.realization.logging.MarkerStorage.USER_INPUT_MARKER;
@@ -70,5 +71,10 @@ public class CanvasAdapterWrapper extends UpdatableAdapterAsyncWrapper<CanvasAda
     @Override
     public double[] getLocalCursorPosition() {
         return wrappedElement.getLocalCursorPosition();
+    }
+
+    @Override
+    public void switchMode(final UIMode mode) {
+        executeInFXThread(() -> wrappedElement.switchMode(mode));
     }
 }

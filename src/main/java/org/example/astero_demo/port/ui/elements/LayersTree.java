@@ -58,6 +58,10 @@ public class LayersTree extends TreeView<String> {
         });
     }
 
+    public void unSelectAll() {
+        getSelectionModel().clearSelection();
+    }
+
     private void cleanUp() {
         final TreeItem<String> root = getRoot();
         if (root != null) {

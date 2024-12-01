@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.adapter.ui.property.PropertiesPanelAdapter;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.realization.async.AppExecutor;
 
 import static org.example.astero_demo.realization.logging.MarkerStorage.USER_INPUT_MARKER;
@@ -21,6 +22,11 @@ public class PropertiesAdapterWrapper extends UpdatableAdapterAsyncWrapper<Prope
     @Inject
     protected PropertiesAdapterWrapper(final AppExecutor executor, final PropertiesPanelAdapter wrappedElement) {
         super(executor, wrappedElement);
+    }
+
+    @Override
+    public void switchMode(final UIMode mode) {
+        executeInFXThread(() -> wrappedElement.switchMode(mode));
     }
 
     @Override

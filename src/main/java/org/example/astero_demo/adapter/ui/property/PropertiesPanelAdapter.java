@@ -1,5 +1,6 @@
 package org.example.astero_demo.adapter.ui.property;
 
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
@@ -30,6 +31,11 @@ public class PropertiesPanelAdapter extends LeafAdapter implements PropertiesAda
     @Override
     public void update() {
         propertyView.update();
+    }
+
+    @Override
+    public void switchMode(final UIMode mode) {
+        propertyView.switchMode(mode);
     }
 
     @Override

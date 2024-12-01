@@ -2,6 +2,7 @@ package org.example.astero_demo.realization.async.wrappers.adapter;
 
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarPanelAdapter;
 import org.example.astero_demo.realization.async.AppExecutor;
@@ -21,6 +22,11 @@ public class ToolBarAdapterWrapper extends UpdatableAdapterAsyncWrapper<ToolBarA
     @Inject
     protected ToolBarAdapterWrapper(final AppExecutor executor, final ToolBarPanelAdapter wrappedElement) {
         super(executor, wrappedElement);
+    }
+
+    @Override
+    public void switchMode(final UIMode mode) {
+        executeInFXThread(() -> wrappedElement.switchMode(mode));
     }
 
     @Override

@@ -1,6 +1,8 @@
 package org.example.astero_demo.adapter.ui.canvas;
 
 import org.example.astero_demo.adapter.ui.UpdatableView;
+import org.example.astero_demo.adapter.ui.state.mode.ModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 
 /**
  * Represents a view for a canvas
@@ -8,7 +10,7 @@ import org.example.astero_demo.adapter.ui.UpdatableView;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface CanvasView extends UpdatableView {
+public interface CanvasView extends UpdatableView, ModeSwitchable {
 
     double[] getLocalCursorPosition();
 }

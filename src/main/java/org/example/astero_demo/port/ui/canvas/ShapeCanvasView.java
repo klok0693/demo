@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.MouseEvent;
+import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.canvas.CanvasView;
@@ -27,7 +29,7 @@ import java.util.ResourceBundle;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ShapeCanvasView extends Canvas implements CanvasView, Initializable {
+public class ShapeCanvasView extends Canvas implements CanvasView, Initializable, InsertModeSwitchable {
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
@@ -139,6 +141,13 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
     public void update() {
         shapeLayer.update();
         toolLayer.update();
+        redraw();
+    }
+
+    @Override
+    public void switchToInsertMode() {
+        shapeLayer.switchToInsertMode();
+        toolLayer.switchToInsertMode();
         redraw();
     }
 

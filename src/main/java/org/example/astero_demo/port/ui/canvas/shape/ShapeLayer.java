@@ -1,6 +1,7 @@
 package org.example.astero_demo.port.ui.canvas.shape;
 
 import javafx.scene.paint.Color;
+import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.UpdatableView;
@@ -18,7 +19,7 @@ import static java.lang.Integer.parseInt;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements UpdatableView {
+public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements UpdatableView, InsertModeSwitchable {
     private final ModelState modelState;
 
     public ShapeLayer(final ModelState modelState) {
@@ -28,6 +29,15 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implement
 
     @Override
     public void update() {
+        updateShapes();
+    }
+
+    @Override
+    public void switchToInsertMode() {
+        updateShapes();
+    }
+
+    private void updateShapes() {
         removeAll();
         modelState.getShapes()
                 .map(ShapeLayer::createElement)
