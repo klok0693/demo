@@ -97,7 +97,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             toolBarAdapter.switchMode(UIMode.INSERT);
             layersAdapter.switchMode(UIMode.INSERT);
             propertyAdapter.switchMode(UIMode.INSERT);
-            rootView.update();
+            rootView.switchMode(UIMode.INSERT);
         }
         else if (event instanceof final CopyShapeEvent e) {
             uiState.storeCopyOf(uiState.getSelectedShapeId());
@@ -129,7 +129,13 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 
         uiState.setSelectShape(shapeId);
-        updateChildren();
+        //updateChildren();
+
+        canvasAdapter.switchMode(UIMode.SINGLE_SELECTION);
+        toolBarAdapter.switchMode(UIMode.SINGLE_SELECTION);
+        layersAdapter.switchMode(UIMode.SINGLE_SELECTION);
+        propertyAdapter.switchMode(UIMode.SINGLE_SELECTION);
+        rootView.switchMode(UIMode.SINGLE_SELECTION);
     }
 
     private void selectNextElement(final int id, final double x, final double y) {

@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ShapeCanvasView extends Canvas implements CanvasView, Initializable, InsertModeSwitchable {
+public class ShapeCanvasView extends Canvas implements CanvasView, Initializable {
     private final ObservableList<CanvasLayer> layers = FXCollections.observableArrayList();
     private final ShapeLayer shapeLayer;
     private final ToolLayer toolLayer;
@@ -148,6 +148,13 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
     public void switchToInsertMode() {
         shapeLayer.switchToInsertMode();
         toolLayer.switchToInsertMode();
+        redraw();
+    }
+
+    @Override
+    public void switchToSingleSelectionMode() {
+        shapeLayer.switchToSingleSelectionMode();
+        toolLayer.switchToSingleSelectionMode();
         redraw();
     }
 

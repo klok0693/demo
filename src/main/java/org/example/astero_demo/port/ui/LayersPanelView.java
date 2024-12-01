@@ -23,4 +23,9 @@ public class LayersPanelView implements LayersView {
     public void switchToInsertMode() {
         layersTree.unSelectAll();
     }
+
+    @Override
+    public void switchToSingleSelectionMode() {
+        layersTree.update();
+    }
 }

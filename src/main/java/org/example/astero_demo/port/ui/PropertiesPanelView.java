@@ -38,22 +38,7 @@ public class PropertiesPanelView implements PropertiesView {
 
     @Override
     public void update() {
-        setUpField(xField, uiState.getSelectedX());
-        setUpField(yField, uiState.getSelectedY());
-        setUpField(widthField, uiState.getSelectedWidth());
-        setUpField(heightField, uiState.getSelectedHeight());
-        setUpField(layerField, uiState.getSelectedLayer());
-
-        final Integer color = uiState.getSelectedColor();
-        if (color != null) {
-            colorField.setValue(ColorUtils.convert(color));
-            colorField.setDisable(false);
-        }
-        else {
-            colorField.setValue(null);
-            colorField.setDisable(true);
-        }
-
+        updatePanel();
         propertyRoot.setDisable(uiState.isMultipleSelection());
     }
 
@@ -69,6 +54,30 @@ public class PropertiesPanelView implements PropertiesView {
         colorField.setDisable(true);
 
         propertyRoot.setDisable(true);
+    }
+
+    @Override
+    public void switchToSingleSelectionMode() {
+        updatePanel();
+        propertyRoot.setDisable(false);
+    }
+
+    private void updatePanel() {
+        setUpField(xField, uiState.getSelectedX());
+        setUpField(yField, uiState.getSelectedY());
+        setUpField(widthField, uiState.getSelectedWidth());
+        setUpField(heightField, uiState.getSelectedHeight());
+        setUpField(layerField, uiState.getSelectedLayer());
+
+        final Integer color = uiState.getSelectedColor();
+        if (color != null) {
+            colorField.setValue(ColorUtils.convert(color));
+            colorField.setDisable(false);
+        }
+        else {
+            colorField.setValue(null);
+            colorField.setDisable(true);
+        }
     }
 
     private static void setUpField(final TextInputControl field, final Number number) {

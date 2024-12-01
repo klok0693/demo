@@ -6,6 +6,4 @@ public interface ModeSwitchable extends ModeSwitcher {
     default void switchMode(final UIMode mode) {
         mode.visit(this);
     }
-
-    void switchMode();
 }

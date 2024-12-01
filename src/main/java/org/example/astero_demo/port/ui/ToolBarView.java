@@ -7,6 +7,7 @@ import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.mode.InsertModeSwitchable;
 import org.example.astero_demo.adapter.ui.state.mode.ModeSwitchable;
+import org.example.astero_demo.adapter.ui.state.mode.SingleSelectionModeSwitchable;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 
 /**
@@ -15,7 +16,7 @@ import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ToolBarView implements UpdatableView, InsertModeSwitchable {
+public class ToolBarView implements UpdatableView, InsertModeSwitchable, SingleSelectionModeSwitchable {
     private final ToolBarAdapter operationProcessor;
     private final UIState uiState;
     public ToggleButton insertRectBtn;
@@ -43,6 +44,13 @@ public class ToolBarView implements UpdatableView, InsertModeSwitchable {
         insertRectBtn.setSelected(true);
         insertCycleBtn.setSelected(true);
         deleteBtn.setDisable(true);
+    }
+
+    @Override
+    public void switchToSingleSelectionMode() {
+        insertRectBtn.setSelected(false);
+        insertCycleBtn.setSelected(false);
+        deleteBtn.setDisable(!uiState.hasSelectedId());
     }
 
     public void onInsertRectAction(final ActionEvent event) {
