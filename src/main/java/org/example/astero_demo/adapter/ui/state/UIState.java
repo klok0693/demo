@@ -1,5 +1,6 @@
 package org.example.astero_demo.adapter.ui.state;
 
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.adapter.ui.state.model.MutableSelection;
 import org.example.astero_demo.adapter.ui.state.model.Selection;
 import org.example.astero_demo.model.entity.ShapeType;
@@ -19,6 +20,8 @@ import java.util.stream.Stream;
 public interface UIState extends Selection {
 
     boolean isInInsertMode();
+
+    boolean isActiveMode(UIMode mode);
 
     ShapeType getInsertShapeType();
 

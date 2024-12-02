@@ -21,7 +21,7 @@ import static java.lang.Integer.parseInt;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements ModeSwitchableView {
+public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements UpdatableView {
     private final ModelState modelState;
 
     public ShapeLayer(final ModelState modelState) {
@@ -31,25 +31,6 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implement
 
     @Override
     public void update() {
-        updateShapes();
-    }
-
-    @Override
-    public void switchToInsertMode() {
-        updateShapes();
-    }
-
-    @Override
-    public void switchToSingleSelectionMode() {
-        updateShapes();
-    }
-
-    @Override
-    public void switchToMultipleSelectionMode() {
-        updateShapes();
-    }
-
-    private void updateShapes() {
         removeAll();
         modelState.getShapes()
                 .map(ShapeLayer::createElement)

@@ -1,6 +1,8 @@
 package org.example.astero_demo.port.ui.canvas.tool;
 
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Getter;
+import lombok.Setter;
 import org.example.astero_demo.port.ui.canvas.CanvasElement;
 
 /**
@@ -14,7 +16,12 @@ import org.example.astero_demo.port.ui.canvas.CanvasElement;
  */
 public abstract class CanvasTool extends CanvasElement implements Comparable<CanvasTool> {
     private final int layer;
-    protected boolean isVisible = false;
+    @Getter @Setter
+    private boolean isVisible;
+    @Getter @Setter
+    private boolean isActive;
+    @Getter @Setter
+    private boolean isEnabled;
 
     protected CanvasTool(
             final double x,
@@ -24,11 +31,14 @@ public abstract class CanvasTool extends CanvasElement implements Comparable<Can
             final int layer) {
         super(x, y, width, height);
         this.layer = layer;
+        this.isVisible = false;
+        this.isActive = false;
+        this.isEnabled = false;
     }
 
     @Override
     public void draw(final GraphicsContext gc) {
-        if (isVisible) {
+        if (isEnabled && isVisible) {
             super.draw(gc);
         }
     }
@@ -43,6 +53,7 @@ public abstract class CanvasTool extends CanvasElement implements Comparable<Can
         this.width = -1;
         this.height = -1;
         this.isVisible = false;
+        this.isActive = false;
         return values;
     }
 

@@ -1,5 +1,6 @@
 package org.example.astero_demo.adapter.ui.state;
 
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.adapter.ui.state.model.MutableSelection;
 import org.example.astero_demo.model.entity.ShapeType;
 
@@ -10,6 +11,8 @@ import org.example.astero_demo.model.entity.ShapeType;
 public interface MutableUIState extends UIState, MutableSelection {
 
     void setInsertShapeType(ShapeType type);
+
+    void setMode(UIMode mode);
 
     void reset();
 

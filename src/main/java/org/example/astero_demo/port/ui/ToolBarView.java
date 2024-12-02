@@ -32,11 +32,7 @@ public class ToolBarView implements ModeSwitchableView {
 
     @Override
     public void update() {
-        final boolean needToUnStickBtn = uiState.isInInsertMode();
-        insertRectBtn.setSelected(needToUnStickBtn);
-        insertCycleBtn.setSelected(needToUnStickBtn);
-
-        final boolean disableRelated = uiState.isInInsertMode() || !uiState.hasSelectedId();
+        final boolean disableRelated = !uiState.hasSelectedId() || uiState.isMultipleSelection();
         deleteBtn.setDisable(disableRelated);
     }
 

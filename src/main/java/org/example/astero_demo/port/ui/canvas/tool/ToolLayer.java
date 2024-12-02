@@ -43,28 +43,36 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     @Override
     public void update() {
-        if (uiState.isInInsertMode() || !uiState.hasSelectedId()) {
+        if (!uiState.hasSelectedId()) {
             resetAll();
         }
-        selectionTool.update();
+        else {
+            selectionTool.update();
+        }
     }
 
     @Override
     public void switchToInsertMode() {
         resetAll();
-        selectionTool.update();
+        insertTool.setEnabled(true);
+        dragTool.setEnabled(false);
+        selectionTool.setEnabled(false);
     }
 
     @Override
     public void switchToSingleSelectionMode() {
         resetAll();
-        selectionTool.update();
+        insertTool.setEnabled(false);
+        dragTool.setEnabled(true);
+        selectionTool.setEnabled(true);
     }
 
     @Override
     public void switchToMultipleSelectionMode() {
         resetAll();
-        selectionTool.update();
+        insertTool.setEnabled(false);
+        dragTool.setEnabled(true);
+        selectionTool.setEnabled(true);
     }
 
     public boolean isInBounds(final double x, final double y) {
@@ -73,23 +81,15 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     @Override
     public void onMousePressed(final MouseEvent event) {
-        if (uiState.isInInsertMode()) {
-            insertTool.onMousePressed(event);
-        }
-        else {
-            selectionTool.onMousePressed(event);
-        }
+        insertTool.onMousePressed(event);
+        selectionTool.onMousePressed(event);
     }
 
     @Override
     public boolean onDragDetected(final MouseEvent event) {
-        if (uiState.isInInsertMode()) {
-            return insertTool.onDragDetected(event);
-        }
-        if (selectionTool.onDragDetected(event)) {
-            return true;
-        }
-        return uiState.hasSelectedId() && dragTool.onDragDetected(event);
+        return insertTool.onDragDetected(event)
+                || selectionTool.onDragDetected(event)
+                || (uiState.hasSelectedId() && dragTool.onDragDetected(event));
     }
 
     @Override
@@ -101,13 +101,9 @@ public class ToolLayer extends CanvasLayer<CanvasTool> implements CanvasClickabl
 
     @Override
     public void onMouseReleased(final MouseEvent event) {
-        if (uiState.isInInsertMode()) {
-            insertTool.onMouseReleased(event);
-        }
-        else if (uiState.hasSelectedId()) {
-            dragTool.onMouseReleased(event);
-            selectionTool.onMouseReleased(event);
-        }
+        insertTool.onMouseReleased(event);
+        dragTool.onMouseReleased(event);
+        selectionTool.onMouseReleased(event);
     }
 
     private void resetAll() {

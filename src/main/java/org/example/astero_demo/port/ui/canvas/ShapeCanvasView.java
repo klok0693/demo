@@ -146,21 +146,18 @@ public class ShapeCanvasView extends Canvas implements CanvasView, Initializable
 
     @Override
     public void switchToInsertMode() {
-        shapeLayer.switchToInsertMode();
         toolLayer.switchToInsertMode();
         redraw();
     }
 
     @Override
     public void switchToSingleSelectionMode() {
-        shapeLayer.switchToSingleSelectionMode();
         toolLayer.switchToSingleSelectionMode();
         redraw();
     }
 
     @Override
     public void switchToMultipleSelectionMode() {
-        shapeLayer.switchToMultipleSelectionMode();
         toolLayer.switchToMultipleSelectionMode();
         redraw();
     }

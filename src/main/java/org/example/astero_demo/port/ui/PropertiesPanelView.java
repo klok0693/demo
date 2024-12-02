@@ -39,7 +39,6 @@ public class PropertiesPanelView implements PropertiesView {
     @Override
     public void update() {
         updatePanel();
-        propertyRoot.setDisable(uiState.isMultipleSelection());
     }
 
     @Override
@@ -49,7 +48,6 @@ public class PropertiesPanelView implements PropertiesView {
 
     @Override
     public void switchToSingleSelectionMode() {
-        updatePanel();
         propertyRoot.setDisable(false);
     }
 

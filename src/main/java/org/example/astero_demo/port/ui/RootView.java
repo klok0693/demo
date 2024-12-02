@@ -43,9 +43,7 @@ public class RootView implements Initializable, ModeSwitchableView {
     }
 
     @Override
-    public void update() {
-        root.setCursor(uiState.isInInsertMode() ? Cursor.CROSSHAIR : Cursor.DEFAULT);
-    }
+    public void update() {}
 
     @Override
     public void switchToInsertMode() {

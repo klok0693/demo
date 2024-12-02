@@ -22,7 +22,7 @@ public class SelectionHolder implements MutableSelection {
     @Override
     @Nullable
     public Integer getSelectedShapeId() {
-        if (selectedShapes.isEmpty()) {
+        if (selectedShapes.isEmpty() || isMultipleSelection()) {
             return null;
         }
         return selectedShapes.getFirst();
@@ -65,7 +65,7 @@ public class SelectionHolder implements MutableSelection {
     @Override
     @Nullable
     public Integer getSelectedLayer() {
-        if (selectedShapes.isEmpty()) {
+        if (selectedShapes.isEmpty() || isMultipleSelection()) {
             return null;
         }
         return Integer.valueOf(modelState.getShape(selectedShapes.getFirst()).getPriority());
@@ -74,7 +74,7 @@ public class SelectionHolder implements MutableSelection {
     @Override
     @Nullable
     public Integer getSelectedColor() {
-        if (selectedShapes.isEmpty()) {
+        if (selectedShapes.isEmpty() || isMultipleSelection()) {
             return null;
         }
         final String color = modelState.getShape(selectedShapes.getFirst()).getColor();
@@ -84,7 +84,7 @@ public class SelectionHolder implements MutableSelection {
     @Override
     @Nullable
     public ShapeType getSelectedShapeType() {
-        if (selectedShapes.isEmpty()) {
+        if (selectedShapes.isEmpty() || isMultipleSelection()) {
             return null;
         }
         return modelState.getShape(selectedShapes.getFirst()).getType();
@@ -120,7 +120,7 @@ public class SelectionHolder implements MutableSelection {
 
     @Nullable
     private Double getSelectedDoubleParam(final Function<Shape, String> func) {
-        if (selectedShapes.isEmpty()) {
+        if (selectedShapes.isEmpty() || isMultipleSelection()) {
             return null;
         }
         return Double.valueOf(func.apply(modelState.getShape(selectedShapes.getFirst())));

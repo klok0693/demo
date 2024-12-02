@@ -50,6 +50,10 @@ public class DragShapeTool extends DraggableTool {
 
     @Override
     public boolean onDragDetected(final MouseEvent event) {
+        if (!isEnabled()) {
+            return false;
+        }
+
         final double mouseX = event.getX();
         final double mouseY = event.getY();
 
@@ -74,7 +78,7 @@ public class DragShapeTool extends DraggableTool {
         this.fillColor = ColorUtils.convert(element.getColor());
         this.offsetX = mouseX - parseDouble(element.getX());
         this.offsetY = mouseY - parseDouble(element.getY());
-        this.isActive = true;
+        setActive(true);
         return true;
     }
 
@@ -82,7 +86,7 @@ public class DragShapeTool extends DraggableTool {
     protected void update(final double x, final double y) {
         this.x = x;
         this.y = y;
-        this.isVisible = true;
+        setVisible(true);
     }
 
     @Override

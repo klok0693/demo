@@ -12,7 +12,6 @@ import org.example.astero_demo.port.ui.canvas.tool.CanvasTool;
  */
 public abstract class DraggableTool extends CanvasTool implements CanvasDraggable {
     protected static final double OPACITY = 0.4;
-    protected boolean isActive = false;
     protected Color fillColor;
 
     protected DraggableTool(final int layer) {
@@ -25,7 +24,7 @@ public abstract class DraggableTool extends CanvasTool implements CanvasDraggabl
 
     @Override
     public void onMouseDragged(final double x, final double y) {
-        if (!isActive) {
+        if (!isEnabled() || !isActive()) {
             return;
         }
         update(x, y);
@@ -35,7 +34,7 @@ public abstract class DraggableTool extends CanvasTool implements CanvasDraggabl
 
     @Override
     public void onMouseReleased(final MouseEvent event) {
-        if (!isActive) {
+        if (!isEnabled() || !isActive()) {
             return;
         }
         final double[] values = reset();
@@ -43,10 +42,4 @@ public abstract class DraggableTool extends CanvasTool implements CanvasDraggabl
     }
 
     protected abstract void performOperation(double[] toolValues);
-
-    @Override
-    public double[] reset() {
-        this.isActive = false;
-        return super.reset();
-    }
 }

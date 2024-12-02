@@ -36,12 +36,12 @@ public class ContactPoint extends DraggableTool {
         this.adapter = adapter;
         this.fillColor = fillColor;
         this.alignment = alignment;
-        this.isVisible = false;
+        setEnabled(true);
     }
 
     public void update(final double x, final double y, final double width, final double height) {
         this.alignment.updateContact(this, x, y, width, height);
-        this.isVisible = true;
+        setVisible(true);
     }
 
     public void setValues(final double x, final double y, final double width, final double height) {
@@ -68,9 +68,9 @@ public class ContactPoint extends DraggableTool {
 
     @Override
     public boolean onDragDetected(final MouseEvent event) {
-        if (isVisible && isInBounds(event.getX(), event.getY())) {
-            this.isActive = true;
-            selectionTool.makeVisible();
+        if (isVisible() && isEnabled() && isInBounds(event.getX(), event.getY())) {
+            setActive(true);
+            selectionTool.setVisible(true);
             return true;
         }
         return false;

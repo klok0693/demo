@@ -91,13 +91,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         }
         else if (event instanceof final InsertModeEvent e) {
             uiState.setInsertShapeType(e.getInsertShapeType());
-            //updateChildren();
-
-            canvasAdapter.switchMode(UIMode.INSERT);
-            toolBarAdapter.switchMode(UIMode.INSERT);
-            layersAdapter.switchMode(UIMode.INSERT);
-            propertyAdapter.switchMode(UIMode.INSERT);
-            rootView.switchMode(UIMode.INSERT);
+            switchMode(UIMode.INSERT);
         }
         else if (event instanceof final CopyShapeEvent e) {
             uiState.storeCopyOf(uiState.getSelectedShapeId());
@@ -129,13 +123,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 
         uiState.setSelectShape(shapeId);
-        //updateChildren();
-
-        canvasAdapter.switchMode(UIMode.SINGLE_SELECTION);
-        toolBarAdapter.switchMode(UIMode.SINGLE_SELECTION);
-        layersAdapter.switchMode(UIMode.SINGLE_SELECTION);
-        propertyAdapter.switchMode(UIMode.SINGLE_SELECTION);
-        rootView.switchMode(UIMode.SINGLE_SELECTION);
+        switchMode(UIMode.SINGLE_SELECTION);
     }
 
     private void selectNextElement(final int id, final double x, final double y) {
@@ -159,13 +147,18 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             return;
         }
         uiState.setMultipleSelectedShapes(firstSelectedId, newSelectedShape.get().getId());
-        //updateChildren();
+        switchMode(UIMode.MULTIPLE_SELECTION);
+    }
 
-        canvasAdapter.switchMode(UIMode.MULTIPLE_SELECTION);
-        toolBarAdapter.switchMode(UIMode.MULTIPLE_SELECTION);
-        layersAdapter.switchMode(UIMode.MULTIPLE_SELECTION);
-        propertyAdapter.switchMode(UIMode.MULTIPLE_SELECTION);
-        rootView.switchMode(UIMode.MULTIPLE_SELECTION);
+    private void switchMode(final UIMode newMode) {
+        if (!uiState.isActiveMode(newMode)) {
+            canvasAdapter.switchMode(newMode);
+            toolBarAdapter.switchMode(newMode);
+            layersAdapter.switchMode(newMode);
+            propertyAdapter.switchMode(newMode);
+            rootView.switchMode(newMode);
+        }
+        updateChildren();
     }
 
     private void updateChildren() {

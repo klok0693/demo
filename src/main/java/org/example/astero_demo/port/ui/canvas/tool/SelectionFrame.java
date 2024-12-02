@@ -11,9 +11,8 @@ public class SelectionFrame extends CanvasTool {
 
     public SelectionFrame() {
         super(-1, -1, -1, -1, 0);
-
-        this.isVisible = false;
         this.fillColor = Color.RED;
+        setEnabled(true);
     }
 
     @Override
@@ -28,16 +27,11 @@ public class SelectionFrame extends CanvasTool {
         this.y = y;
         this.width = Math.max(width, MINIMAL_SIDE_SIZE);
         this.height = Math.max(height, MINIMAL_SIDE_SIZE);
-        this.isVisible = true;
+        setVisible(true);
     }
 
     public boolean isInBounds(final double x, final double y) {
         return x >= this.x && x <= this.x + this.width
                 && y >= this.y && y <= this.y + this.height;
-    }
-
-    public void makeVisible() {
-        this.isVisible = true;
-        //ShapeSelectionTool.this.makeVisible();
     }
 }

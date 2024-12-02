@@ -27,9 +27,6 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
 
     @Override
     protected void drawElement(final GraphicsContext gc) {
-        if (!isVisible) {
-            return;
-        }
         gc.setFill(fillColor);
         gc.setGlobalAlpha(OPACITY);
 
@@ -41,21 +38,24 @@ public class InsertTool extends DraggableTool implements CanvasClickable {
 
     @Override
     public void onMousePressed(final MouseEvent event) {
+        if (!isEnabled()) {
+            return;
+        }
         this.x = event.getX();
         this.y = event.getY();
-        this.isActive = true;
+        setActive(true);
     }
 
     @Override
     public boolean onDragDetected(final MouseEvent event) {
-        return isActive;
+        return isEnabled() && isActive();
     }
 
     @Override
     protected void update(double x, double y) {
         this.width = x - this.x;
         this.height = y - this.y;
-        this.isVisible = true;
+        setVisible(true);
     }
 
     @Override

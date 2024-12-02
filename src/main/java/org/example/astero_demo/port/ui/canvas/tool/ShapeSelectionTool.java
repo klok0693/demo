@@ -32,7 +32,6 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
         this.modelState = holder;
         this.uiState = uiState;
         this.adapter = adapter;
-        this.isVisible = false;
     }
 
     @Override
@@ -56,7 +55,7 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
                 frame.update(frameX, frameY, frameWidth, frameHeight);
                 frames.put(id, frame);
 
-                ShapeSelectionTool.this.isVisible = true;
+                ShapeSelectionTool.this.setVisible(true);
             });
         }
     }
@@ -70,6 +69,9 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
     @Override
     public void onMousePressed(final MouseEvent event) {
+        if (!isEnabled()) {
+            return;
+        }
         final double mouseX = event.getX();
         final double mouseY = event.getY();
 
@@ -78,13 +80,13 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
             return;
         }*/
 
-        if (event.isShiftDown() && uiState.hasSelectedId()) {
+        if (event.isShiftDown() && uiState.hasSelectedId() && !uiState.isMultipleSelection()) {
             adapter.selectNextShapeAt(mouseX, mouseY);
             return;
         }
 
         frames.values().forEach(frame -> frame.onMousePressed(event));
-        if (isVisible && uiState.hasSelectedId()) {
+        if (isVisible() && uiState.hasSelectedId()) {
             uiState.getSelectedIds().forEach(id -> {
                 final SelectionFrame frame = frames.putIfAbsent(id, new ModificableSelectionFrame(adapter, uiState));
                 final Shape selection = modelState.getShape(id);
@@ -111,6 +113,9 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
 
     @Override
     public boolean onDragDetected(final MouseEvent event) {
+        if (!isEnabled()) {
+            return false;
+        }
         return frames.values().stream().anyMatch(frame -> frame.onDragDetected(event));
     }
 
@@ -127,10 +132,4 @@ public class ShapeSelectionTool extends CanvasTool implements CanvasClickable, C
     public boolean isInBounds(final double x, final double y) {
         return frames.values().stream().anyMatch(frame -> frame.isInBounds(x, y));
     }
-
-    public void makeVisible() {
-        frames.values().forEach(SelectionFrame::makeVisible);
-        this.isVisible = true;
-    }
-
 }

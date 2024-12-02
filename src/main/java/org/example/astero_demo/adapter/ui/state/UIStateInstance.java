@@ -3,6 +3,7 @@ package org.example.astero_demo.adapter.ui.state;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.adapter.ui.state.model.SelectionHolder;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
@@ -33,6 +34,7 @@ public class UIStateInstance implements MutableUIState {
     @Getter
     private List<ParamInfo> copyParams;
     private final ModelState modelState;
+    private UIMode mode;
 
     private final SelectionHolder selection;
 
@@ -44,6 +46,16 @@ public class UIStateInstance implements MutableUIState {
     @Override
     public boolean isInInsertMode() {
         return insertShapeType != null;
+    }
+
+    @Override
+    public void setMode(final UIMode mode) {
+        this.mode = mode;
+    }
+
+    @Override
+    public boolean isActiveMode(UIMode mode) {
+        return this.mode == mode;
     }
 
     @Override
