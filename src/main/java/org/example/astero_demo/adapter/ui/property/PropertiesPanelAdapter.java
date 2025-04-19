@@ -5,7 +5,7 @@ import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.EventProcessor;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 
 import static org.example.astero_demo.model.metadata.ParamInfo.create;
@@ -20,7 +20,7 @@ public class PropertiesPanelAdapter extends LeafAdapter implements PropertiesAda
     private final PropertiesView propertyView;
 
     public PropertiesPanelAdapter(
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final UIState uiState,
             final PropertiesView propertyView,
             final ParentAdapter parentAdapter) {

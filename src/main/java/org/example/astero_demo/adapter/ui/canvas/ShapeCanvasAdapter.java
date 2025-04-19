@@ -8,7 +8,7 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.event.SelectNextElementAt;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.EventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 
@@ -24,7 +24,7 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     private final CanvasView canvasRoot;
 
     public ShapeCanvasAdapter(
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final UIState uiState,
             final CanvasView canvasRoot,
             final ParentAdapter parentAdapter) {

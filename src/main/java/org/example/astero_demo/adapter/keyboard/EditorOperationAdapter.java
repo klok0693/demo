@@ -4,7 +4,7 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.CopyShapeEvent;
 import org.example.astero_demo.adapter.ui.event.PasteShapeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.EventProcessor;
 import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
 
@@ -13,12 +13,12 @@ import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
  * @since v1.0
  */
 public class EditorOperationAdapter implements OperationAdapter {
-    private final LogicEventProcessor processor;
+    private final EventProcessor processor;
     private final UIState state;
     private final ParentAdapter parentAdapter;
 
     public EditorOperationAdapter(
-            final LogicEventProcessor processor,
+            final EventProcessor processor,
             final UIState state,
             final ParentAdapter adapter) {
         this.processor = processor;

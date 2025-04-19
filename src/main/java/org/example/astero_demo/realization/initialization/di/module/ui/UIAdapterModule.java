@@ -20,9 +20,7 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.UIStateInstance;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarPanelAdapter;
-import org.example.astero_demo.controller.LogicEventProcessor;
-import org.example.astero_demo.controller.ui.ControllerAdapter;
-import org.example.astero_demo.port.ui.LayersPanelView;
+import org.example.astero_demo.controller.EventProcessor;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.ToolBarView;
 
@@ -60,7 +58,7 @@ public class UIAdapterModule extends AbstractModule {
     @Provides
     @Singleton
     public EditorOperationAdapter provideKeyboardAdapte(
-            final LogicEventProcessor processor,
+            final EventProcessor processor,
             final UIState state,
             final ParentAdapter parentAdapter) {
         return new EditorOperationAdapter(processor, state, parentAdapter);
@@ -71,7 +69,7 @@ public class UIAdapterModule extends AbstractModule {
     @Singleton
     public RootAdapter provideRootAdapter(
             final ModelState modelState,
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final MutableUIState uiState,
             final RootView rootView,
             final CanvasAdapter canvasAdapter,
@@ -93,7 +91,7 @@ public class UIAdapterModule extends AbstractModule {
     @Provides
     @Singleton
     public LayersPanelAdapter provideLayersAdapter(
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final UIState uiState,
             final LayersView layersRoot,
             final ParentAdapter parentAdapter) {
@@ -104,7 +102,7 @@ public class UIAdapterModule extends AbstractModule {
     @Provides
     @Singleton
     public PropertiesPanelAdapter providePropertyAdapter(
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final UIState uiState,
             final PropertiesView propertyView,
             final ParentAdapter parentAdapter) {
@@ -115,7 +113,7 @@ public class UIAdapterModule extends AbstractModule {
     @Provides
     @Singleton
     public ToolBarPanelAdapter provideToolBarAdapter(
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final UIState uiState,
             final OperationAdapter keyBoardAdapter,
             final ToolBarView toolBarView,
@@ -127,7 +125,7 @@ public class UIAdapterModule extends AbstractModule {
     @Provides
     @Singleton
     public ShapeCanvasAdapter provideCanvasAdapter(
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final UIState uiState,
             final CanvasView canvasView,
             final ParentAdapter parentAdapter) {

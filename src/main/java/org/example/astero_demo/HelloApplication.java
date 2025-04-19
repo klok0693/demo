@@ -35,6 +35,7 @@ public class HelloApplication extends Application {
                 new InitializationModule(),
                 new CommandModule(),
                 new ControllerModule(),
+                new LogicModule(),
                 new UIAdapterModule(),
                 new UIViewModule(),
                 new UIElementModule());

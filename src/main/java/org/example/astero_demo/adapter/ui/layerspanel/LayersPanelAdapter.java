@@ -2,11 +2,10 @@ package org.example.astero_demo.adapter.ui.layerspanel;
 
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
-import org.example.astero_demo.adapter.ui.UpdatableView;
 import org.example.astero_demo.adapter.ui.event.SelectElementById;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.mode.UIMode;
-import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.EventProcessor;
 
 /**
  * Leaf adapter for interacting with a Layers Panel.
@@ -15,7 +14,7 @@ public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
     private final LayersView layersRoot;
 
     public LayersPanelAdapter(
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final UIState uiState,
             final LayersView layersRoot,
             final ParentAdapter parentAdapter) {

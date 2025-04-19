@@ -9,7 +9,9 @@ import org.example.astero_demo.logic.event.ui.LogicEvent;
  * @since v1.0
  */
 @FunctionalInterface
-public interface LogicEventProcessor {
+public interface EventProcessor {
 
     void process(LogicEvent e);
+
+
 }

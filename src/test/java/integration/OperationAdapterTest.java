@@ -4,7 +4,7 @@ import org.example.astero_demo.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.EventProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,14 +18,14 @@ import static org.mockito.Mockito.*;
  * @since v1.0
  */
 public class OperationAdapterTest {
-    private LogicEventProcessor processor;
+    private EventProcessor processor;
     private UIState state;
     private ParentAdapter parentAdapter;
     private OperationAdapter adapter;
 
     @BeforeEach
     void setUp() {
-        this.processor = mock(LogicEventProcessor.class);
+        this.processor = mock(EventProcessor.class);
         this.state = mock(UIState.class);
         this.parentAdapter = mock(ParentAdapter.class);
         this.adapter = new EditorOperationAdapter(processor, state, parentAdapter);

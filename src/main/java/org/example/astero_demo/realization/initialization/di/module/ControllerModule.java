@@ -2,7 +2,6 @@ package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.*;
 import org.example.astero_demo.adapter.model.ModelAdapter;
-import org.example.astero_demo.controller.LogicEventProcessor;
 import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.controller.model.ModelAdapterController;
 import org.example.astero_demo.controller.model.ModelController;
@@ -30,22 +29,15 @@ public class ControllerModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public UIAdapterController provideViewController(
-            final CommandFactory commandFactory,
-            final CommandProcessor commandProcessor,
-            final ControllerAdapter adapter,
-            final ShapeValidator validator) {
-        return new UIAdapterController(commandFactory, commandProcessor, adapter, validator);
+    public UIAdapterController provideViewController(final ControllerAdapter adapter) {
+        return new UIAdapterController(adapter);
     }
 
 
     @Inject
     @Provides
     @Singleton
-    public ModelAdapterController provideModelController(
-            final CommandFactory commandFactory,
-            final CommandProcessor commandProcessor,
-            final ModelAdapter modelAdapter) {
-        return new ModelAdapterController(commandFactory, commandProcessor, modelAdapter);
+    public ModelAdapterController provideModelController(final ModelAdapter modelAdapter) {
+        return new ModelAdapterController(modelAdapter);
     }
 }

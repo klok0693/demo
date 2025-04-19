@@ -18,11 +18,7 @@ import org.example.astero_demo.logic.event.ui.LogicEvent;
 public class ModelAdapterController extends AbstractController implements ModelController {
     private final ModelAdapter modelAdapter;
 
-    public ModelAdapterController(
-            final CommandFactory commandFactory,
-            final CommandProcessor commandProcessor,
-            final ModelAdapter modelAdapter) {
-        super(commandFactory, commandProcessor);
+    public ModelAdapterController(final ModelAdapter modelAdapter) {
         this.modelAdapter = modelAdapter;
     }
 
@@ -64,10 +60,5 @@ public class ModelAdapterController extends AbstractController implements ModelC
     @Override
     public Shape removeShape(final int id) {
         return modelAdapter.removeShape(id);
-    }
-
-    @Override
-    protected boolean isValid(final LogicEvent event) {
-        return true;
     }
 }

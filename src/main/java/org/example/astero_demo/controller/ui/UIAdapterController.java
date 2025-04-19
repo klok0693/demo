@@ -17,16 +17,9 @@ import java.util.Arrays;
  */
 public class UIAdapterController extends AbstractController implements UIController {
     private final ControllerAdapter adapter;
-    private final ShapeValidator validator;
 
-    public UIAdapterController(
-            final CommandFactory commandFactory,
-            final CommandProcessor commandProcessor,
-            final ControllerAdapter adapter,
-            final ShapeValidator validator) {
-        super(commandFactory, commandProcessor);
+    public UIAdapterController(final ControllerAdapter adapter) {
         this.adapter = adapter;
-        this.validator = validator;
     }
 
     @Override
@@ -42,14 +35,5 @@ public class UIAdapterController extends AbstractController implements UIControl
     @Override
     public void onRemoveUpdate() {
         adapter.onRemoveUpdate();
-    }
-
-    @Override
-    protected boolean isValid(final LogicEvent event) {
-        if (event instanceof final ParamEvent ev) {
-            return Arrays.stream(ev.getParamInfos())
-                    .allMatch(info -> validator.isValid(info.getParam(), info.getNewValue()));
-        }
-        return true;
     }
 }

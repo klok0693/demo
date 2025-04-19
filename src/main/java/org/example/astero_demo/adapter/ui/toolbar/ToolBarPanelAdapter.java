@@ -7,7 +7,7 @@ import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.EventProcessor;
 import org.example.astero_demo.port.ui.ToolBarView;
 
 /**
@@ -21,7 +21,7 @@ public class ToolBarPanelAdapter extends LeafAdapter implements ToolBarAdapter {
     private final ToolBarView toolBarView;
 
     public ToolBarPanelAdapter(
-            final LogicEventProcessor controller,
+            final EventProcessor controller,
             final UIState uiState,
             final OperationAdapter keyBoardAdapter,
             final ToolBarView toolBarView,
