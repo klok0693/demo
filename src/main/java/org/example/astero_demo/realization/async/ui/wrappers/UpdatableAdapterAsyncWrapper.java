@@ -1,4 +1,4 @@
-package org.example.astero_demo.realization.async.wrappers.adapter;
+package org.example.astero_demo.realization.async.ui.wrappers;
 
 import org.example.astero_demo.adapter.ui.UpdatableAdapter;
 import org.example.astero_demo.realization.async.AppExecutor;

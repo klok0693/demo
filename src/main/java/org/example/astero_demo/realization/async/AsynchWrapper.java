@@ -1,7 +1,6 @@
-package org.example.astero_demo.realization.async.wrappers;
+package org.example.astero_demo.realization.async;
 
-import lombok.Getter;
-import org.example.astero_demo.realization.async.AppExecutor;
+import java.util.concurrent.Executor;
 
 /**
  * When working with code, it is always necessary to separate WHAT we do<p>
@@ -16,20 +15,11 @@ import org.example.astero_demo.realization.async.AppExecutor;
  * @since v1.0
  */
 public abstract class AsynchWrapper<T> {
-    private final AppExecutor executor;
-    @Getter
+    protected final Executor executor;
     protected final T wrappedElement;
 
-    protected AsynchWrapper(final AppExecutor executor, final T wrappedElement) {
+    protected AsynchWrapper(final Executor executor, final T wrappedElement) {
         this.executor = executor;
         this.wrappedElement = wrappedElement;
-    }
-
-    protected void executeInBackground(final Runnable runnable) {
-        executor.executeInBackground(runnable);
-    }
-
-    protected void executeInFXThread(final Runnable runnable) {
-        executor.executeInFXThread(runnable);
     }
 }

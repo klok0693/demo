@@ -1,4 +1,4 @@
-package org.example.astero_demo.realization.async.wrappers.adapter;
+package org.example.astero_demo.realization.async.ui.wrappers;
 
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;

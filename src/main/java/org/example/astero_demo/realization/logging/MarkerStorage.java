@@ -13,4 +13,5 @@ public class MarkerStorage {
     public static final Marker UI_STATE_MARKER = MarkerFactory.getMarker("ui_state");
     public static final Marker COMMAND_MARKER = MarkerFactory.getMarker("command");
     public static final Marker INITIALIZATION_MARKER = MarkerFactory.getMarker("initialization");
+    public static final Marker EVENT_MARKER = MarkerFactory.getMarker("event");
 }
