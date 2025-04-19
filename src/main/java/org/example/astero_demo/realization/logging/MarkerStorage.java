@@ -9,6 +9,7 @@ import org.slf4j.MarkerFactory;
  */
 @UtilityClass
 public class MarkerStorage {
+    public static final Marker UI_MARKER = MarkerFactory.getMarker("ui");
     public static final Marker USER_INPUT_MARKER = MarkerFactory.getMarker("user_input");
     public static final Marker UI_STATE_MARKER = MarkerFactory.getMarker("ui_state");
     public static final Marker COMMAND_MARKER = MarkerFactory.getMarker("command");

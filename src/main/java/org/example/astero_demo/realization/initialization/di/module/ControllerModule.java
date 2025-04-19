@@ -24,7 +24,6 @@ public class ControllerModule extends AbstractModule {
     protected void configure() {
         bind(ShapeValidator.class).in(Scopes.SINGLETON);
         bind(ModelController.class).to(ModelAdapterController.class);
-        bind(LogicEventProcessor.class).to(UIAdapterController.class);
         bind(UIController.class).to(UIAdapterController.class);
     }
 

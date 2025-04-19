@@ -40,7 +40,13 @@ public class UIAdapterModule extends AbstractModule {
         bind(MutableUIState.class).to(UIStateInstance.class).in(Scopes.SINGLETON);
 
         bind(ParentAdapter.class).to(RootAdapter.class);
-        bind(ControllerAdapter.class).to(RootAdapter.class);
+        //bind(ControllerAdapter.class).to(RootAdapter.class);
+
+        bind(CanvasAdapter.class).to(ShapeCanvasAdapter.class).in(Scopes.SINGLETON);
+        bind(LayersAdapter.class).to(LayersPanelAdapter.class).in(Scopes.SINGLETON);
+        bind(PropertiesAdapter.class).to(PropertiesPanelAdapter.class).in(Scopes.SINGLETON);
+        bind(ToolBarAdapter.class).to(ToolBarPanelAdapter.class).in(Scopes.SINGLETON);
+        bind(OperationAdapter.class).to(EditorOperationAdapter.class).in(Scopes.SINGLETON);
     }
 
     @Inject

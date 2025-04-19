@@ -3,6 +3,7 @@ package org.example.astero_demo.realization.async.logic;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.controller.LogicEventProcessor;
+import org.example.astero_demo.controller.ui.UIAdapterController;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 import org.example.astero_demo.realization.async.AsynchWrapper;
 import org.example.astero_demo.realization.logging.MarkerStorage;
@@ -14,8 +15,8 @@ public class LogicEventProcessorAsyncWrapper extends AsynchWrapper<LogicEventPro
 
     @Inject
     protected LogicEventProcessorAsyncWrapper(
-            final Executor executor,
-            final LogicEventProcessor wrappedElement) {
+            final BackgroundExecutor executor,
+            final UIAdapterController wrappedElement) {
         super(executor, wrappedElement);
     }
 
