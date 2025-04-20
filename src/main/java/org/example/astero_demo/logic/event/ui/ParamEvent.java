@@ -15,6 +15,6 @@ public abstract class ParamEvent extends LogicEvent {
     protected final ParamInfo[] paramInfos;
 
     protected ParamEvent(final ParamInfo[] paramInfos) {
-        this.paramInfos = ArrayUtils.removeAllOccurences(paramInfos, null);
+        this.paramInfos = paramInfos; //ArrayUtils.removeAllOccurences(paramInfos, null);
     }
 }

@@ -15,9 +15,8 @@ import static org.example.astero_demo.model.metadata.ParamInfo.create;
  */
 @Getter
 public class CreateNewShapeEvent extends ParamEvent {
-    private static final String DEFAULT_SHAPE_LAYER = "2";
 
-    public CreateNewShapeEvent(
+/*    public CreateNewShapeEvent(
             final double x,
             final double y,
             final double width,
@@ -35,9 +34,13 @@ public class CreateNewShapeEvent extends ParamEvent {
             final Integer color,
             final ShapeType type) {
         super(createInfo(priority, x, y, width, height, color, type));
+    }*/
+
+    public CreateNewShapeEvent(ParamInfo[] paramInfos) {
+        super(paramInfos);
     }
 
-    private static ParamInfo[] createInfo(
+/*    private static ParamInfo[] createInfo(
             final Integer priority,
             final double x,
             final double y,
@@ -60,5 +63,5 @@ public class CreateNewShapeEvent extends ParamEvent {
             info[7] = create(ShapeParam.COLOR, color);
         }
         return info;
-    }
+    }*/
 }

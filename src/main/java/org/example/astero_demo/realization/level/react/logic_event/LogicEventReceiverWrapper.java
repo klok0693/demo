@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ParamInfo;
 import org.example.astero_demo.realization.level.react.Pipe;
 import org.example.astero_demo.realization.level.react.ReceiverWrapper;
 
@@ -25,6 +27,13 @@ public class LogicEventReceiverWrapper extends ReceiverWrapper<EventProcessor> i
 
     @Override
     public void receive(final LogicEvent event) {
-        log.debug("Received event: {}", event);
+        if (event instanceof final CreateNewShapeEvent ev) {
+            wrappedElement.createShape(ev.getParamInfos());
+        }
+    }
+
+    @Override
+    public void createShape(final ParamInfo[] paramInfos) {
+        throw new RuntimeException("WTF?");
     }
 }

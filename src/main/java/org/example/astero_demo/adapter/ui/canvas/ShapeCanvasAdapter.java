@@ -11,6 +11,7 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
+import org.example.astero_demo.util.ParamUtils;
 
 import static org.example.astero_demo.model.metadata.ParamInfo.create;
 
@@ -71,7 +72,8 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
 
     @Override
     public void createNewShapeAt(final double x, final double y, final double width, final double height) {
-        controller.process(new CreateNewShapeEvent(x, y, width, height, uiState.getInsertShapeType()));
+        controller.process(new CreateNewShapeEvent(
+                ParamUtils.createParams(x, y, width, height, uiState.getInsertShapeType())));
     }
 
     @Override

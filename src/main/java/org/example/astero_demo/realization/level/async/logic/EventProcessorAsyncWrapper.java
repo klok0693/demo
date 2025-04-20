@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.logic.LogicEventProcessor;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ParamInfo;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
 import org.example.astero_demo.realization.logging.MarkerStorage;
 
@@ -16,6 +18,11 @@ public class EventProcessorAsyncWrapper extends AsynchWrapper<EventProcessor> im
             final LogicEventProcessor wrappedElement,
             final BackgroundExecutor executor) {
         super(wrappedElement, executor);
+    }
+
+    @Override
+    public void createShape(final ParamInfo[] paramInfos) {
+        executor.execute(() -> wrappedElement.createShape(paramInfos));
     }
 
     @Override
