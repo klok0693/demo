@@ -1,4 +1,6 @@
-package org.example.astero_demo.realization.async;
+package org.example.astero_demo.realization.level.async;
+
+import org.example.astero_demo.realization.level.WrapperLink;
 
 import java.util.concurrent.Executor;
 
@@ -14,12 +16,11 @@ import java.util.concurrent.Executor;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class AsynchWrapper<T> {
+public abstract class AsynchWrapper<T> extends WrapperLink<T> {
     protected final Executor executor;
-    protected final T wrappedElement;
 
-    protected AsynchWrapper(final Executor executor, final T wrappedElement) {
+    protected AsynchWrapper(final T wrappedElement, final Executor executor) {
+        super(wrappedElement);
         this.executor = executor;
-        this.wrappedElement = wrappedElement;
     }
 }

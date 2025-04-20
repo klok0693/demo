@@ -1,7 +1,7 @@
 package org.example.astero_demo.adapter.ui;
 
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.EventProcessor;
+import org.example.astero_demo.logic.EventProcessor;
 
 /**
  * Parent class for all UI adapters

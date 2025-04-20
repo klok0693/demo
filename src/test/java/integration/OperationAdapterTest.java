@@ -4,7 +4,7 @@ import org.example.astero_demo.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.EventProcessor;
+import org.example.astero_demo.logic.EventProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

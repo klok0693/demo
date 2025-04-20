@@ -2,7 +2,7 @@ package org.example.astero_demo.adapter.ui;
 
 import org.example.astero_demo.adapter.ui.event.UIEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.EventProcessor;
+import org.example.astero_demo.logic.EventProcessor;
 
 /**
  * Base class for all leaf adapters - adapters, that produced, but cannot process {@link UIEvent},<p>

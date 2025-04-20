@@ -5,7 +5,7 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementById;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.mode.UIMode;
-import org.example.astero_demo.controller.EventProcessor;
+import org.example.astero_demo.logic.EventProcessor;
 
 /**
  * Leaf adapter for interacting with a Layers Panel.

@@ -1,20 +1,20 @@
-package org.example.astero_demo.realization.async.ui;
+package org.example.astero_demo.realization.level.async.ui;
 
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.ui.RootAdapter;
 import org.example.astero_demo.controller.ui.ControllerAdapter;
-import org.example.astero_demo.realization.async.AsynchWrapper;
+import org.example.astero_demo.realization.level.async.AsynchWrapper;
 import org.example.astero_demo.realization.logging.MarkerStorage;
 
 @Slf4j
 public class RootAdapterAsyncWrapper extends AsynchWrapper<ControllerAdapter> implements ControllerAdapter {
 
     @Inject
-    protected RootAdapterAsyncWrapper(
-            final FXExecutor executor,
-            final RootAdapter wrappedElement) {
-        super(executor, wrappedElement);
+    public RootAdapterAsyncWrapper(
+            final RootAdapter wrappedElement,
+            final FXExecutor executor) {
+        super(wrappedElement, executor);
     }
 
     @Override

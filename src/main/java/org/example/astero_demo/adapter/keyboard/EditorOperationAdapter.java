@@ -4,7 +4,7 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.CopyShapeEvent;
 import org.example.astero_demo.adapter.ui.event.PasteShapeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.controller.EventProcessor;
+import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
 

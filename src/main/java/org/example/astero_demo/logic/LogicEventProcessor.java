@@ -1,7 +1,6 @@
 package org.example.astero_demo.logic;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.controller.EventProcessor;
 import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;

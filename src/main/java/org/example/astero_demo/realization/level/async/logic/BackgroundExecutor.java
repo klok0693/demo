@@ -1,4 +1,4 @@
-package org.example.astero_demo.realization.async.logic;
+package org.example.astero_demo.realization.level.async.logic;
 
 import javafx.concurrent.Task;
 

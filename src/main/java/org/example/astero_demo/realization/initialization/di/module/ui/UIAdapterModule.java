@@ -20,7 +20,7 @@ import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.UIStateInstance;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarPanelAdapter;
-import org.example.astero_demo.controller.EventProcessor;
+import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.port.ui.ToolBarView;
 

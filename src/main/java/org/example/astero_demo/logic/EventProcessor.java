@@ -1,4 +1,4 @@
-package org.example.astero_demo.controller;
+package org.example.astero_demo.logic;
 
 import org.example.astero_demo.logic.event.ui.LogicEvent;
 
@@ -10,8 +10,5 @@ import org.example.astero_demo.logic.event.ui.LogicEvent;
  */
 @FunctionalInterface
 public interface EventProcessor {
-
     void process(LogicEvent e);
-
-
 }
