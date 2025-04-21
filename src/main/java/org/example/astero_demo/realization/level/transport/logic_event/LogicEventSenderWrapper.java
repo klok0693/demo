@@ -1,17 +1,17 @@
-package org.example.astero_demo.realization.level.react.logic_event;
+package org.example.astero_demo.realization.level.transport.logic_event;
 
 import com.google.inject.Inject;
 import org.example.astero_demo.logic.ShapeProcessor;
 import org.example.astero_demo.model.metadata.dto.ShapeParams;
-import org.example.astero_demo.realization.level.react.Pipe;
-import org.example.astero_demo.realization.level.react.SenderWrapper;
-import org.example.astero_demo.realization.level.react.logic_event.ui.*;
+import org.example.astero_demo.realization.level.transport.ChannelMock;
+import org.example.astero_demo.realization.level.transport.SenderWrapper;
+import org.example.astero_demo.realization.level.transport.logic_event.ui.*;
 
 public class LogicEventSenderWrapper extends SenderWrapper implements ShapeProcessor {
 
     @Inject
-    public LogicEventSenderWrapper(final Pipe pipe) {
-        super(pipe);
+    public LogicEventSenderWrapper(final ChannelMock channelMock) {
+        super(channelMock);
     }
 
     @Override

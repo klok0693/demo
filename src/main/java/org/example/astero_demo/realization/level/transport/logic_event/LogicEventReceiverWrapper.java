@@ -1,10 +1,10 @@
-package org.example.astero_demo.realization.level.react.logic_event;
+package org.example.astero_demo.realization.level.transport.logic_event;
 
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.logic.ShapeProcessor;
-import org.example.astero_demo.realization.level.react.ReceiverWrapper;
-import org.example.astero_demo.realization.level.react.logic_event.ui.*;
+import org.example.astero_demo.realization.level.transport.ReceiverWrapper;
+import org.example.astero_demo.realization.level.transport.logic_event.ui.*;
 
 import java.util.List;
 

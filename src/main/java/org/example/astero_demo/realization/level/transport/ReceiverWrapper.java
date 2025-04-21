@@ -1,6 +1,6 @@
-package org.example.astero_demo.realization.level.react;
+package org.example.astero_demo.realization.level.transport;
 
-import org.example.astero_demo.realization.level.react.logic_event.ui.LogicEvent;
+import org.example.astero_demo.realization.level.transport.logic_event.ui.LogicEvent;
 import org.example.astero_demo.realization.level.WrapperLink;
 
 import java.util.List;

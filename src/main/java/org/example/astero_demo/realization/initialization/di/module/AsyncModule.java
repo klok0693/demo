@@ -8,9 +8,9 @@ import org.example.astero_demo.realization.level.async.logic.BackgroundExecutor;
 import org.example.astero_demo.realization.level.async.logic.EventProcessorAsyncWrapper;
 import org.example.astero_demo.realization.level.async.ui.FXExecutor;
 import org.example.astero_demo.realization.level.async.ui.RootAdapterAsyncWrapper;
-import org.example.astero_demo.realization.level.react.Pipe;
-import org.example.astero_demo.realization.level.react.logic_event.LogicEventReceiverWrapper;
-import org.example.astero_demo.realization.level.react.logic_event.LogicEventSenderWrapper;
+import org.example.astero_demo.realization.level.transport.ChannelMock;
+import org.example.astero_demo.realization.level.transport.logic_event.LogicEventReceiverWrapper;
+import org.example.astero_demo.realization.level.transport.logic_event.LogicEventSenderWrapper;
 
 import java.util.List;
 
@@ -43,8 +43,8 @@ public class AsyncModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public LogicEventSenderWrapper provideLogicEventSenderWrapper(final Pipe pipe) {
-        return new LogicEventSenderWrapper(pipe);
+    public LogicEventSenderWrapper provideLogicEventSenderWrapper(final ChannelMock channelMock) {
+        return new LogicEventSenderWrapper(channelMock);
     }
 
     @Inject
@@ -57,7 +57,7 @@ public class AsyncModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public Pipe providePipe(final LogicEventReceiverWrapper receiver) {
-        return new Pipe(List.of(receiver));
+    public ChannelMock providePipe(final LogicEventReceiverWrapper receiver) {
+        return new ChannelMock(List.of(receiver));
     }
 }

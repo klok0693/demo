@@ -1,6 +1,6 @@
-package org.example.astero_demo.realization.level.react.logic_event.ui;
+package org.example.astero_demo.realization.level.transport.logic_event.ui;
 
-import org.example.astero_demo.realization.level.react.ApplicationEvent;
+import org.example.astero_demo.realization.level.transport.ApplicationEvent;
 
 /**
  * LogicEvent is an abstract class representing an event in the logic layer of the application.
