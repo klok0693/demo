@@ -1,13 +1,6 @@
 package org.example.astero_demo.controller.ui;
 
 import org.example.astero_demo.controller.AbstractController;
-import org.example.astero_demo.controller.ShapeValidator;
-import org.example.astero_demo.logic.command.CommandFactory;
-import org.example.astero_demo.logic.command.CommandProcessor;
-import org.example.astero_demo.logic.event.ui.LogicEvent;
-import org.example.astero_demo.logic.event.ui.ParamEvent;
-
-import java.util.Arrays;
 
 /**
  * This controller is responsible for handling logic events and updating the UI through a ControllerAdapter.

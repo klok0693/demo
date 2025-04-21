@@ -1,6 +1,6 @@
 package org.example.astero_demo.realization.level.react;
 
-import org.example.astero_demo.logic.event.ui.LogicEvent;
+import org.example.astero_demo.realization.level.react.logic_event.ui.LogicEvent;
 
 public abstract class SenderWrapper {
     private final Pipe pipe;

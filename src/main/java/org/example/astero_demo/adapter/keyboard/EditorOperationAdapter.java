@@ -5,7 +5,6 @@ import org.example.astero_demo.adapter.ui.event.CopyShapeEvent;
 import org.example.astero_demo.adapter.ui.event.PasteShapeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.logic.EventProcessor;
-import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
 
 /**
  * @author Pilip Yurchanka
@@ -34,7 +33,7 @@ public class EditorOperationAdapter implements OperationAdapter {
 
     @Override
     public void handleUndo() {
-        processor.process(new UndoLastOperationEvent());
+        processor.undoLastOperation();
     }
 
     @Override

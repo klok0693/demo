@@ -6,18 +6,16 @@ import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
-import org.example.astero_demo.logic.command.CreateNewShapeCommand;
 import org.example.astero_demo.logic.event.ui.*;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ParamInfo;
-import org.example.astero_demo.model.metadata.ShapeParam;
+import org.example.astero_demo.realization.level.react.logic_event.ui.LogicEvent;
+import org.example.astero_demo.realization.level.react.logic_event.ui.ParamEvent;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static java.lang.String.valueOf;
 import static org.example.astero_demo.model.entity.ShapeType.valueOf;
-import static org.example.astero_demo.util.ParamUtils.getParamInfo;
 
 @Slf4j
 public class LogicEventProcessor implements EventProcessor {
@@ -72,6 +70,11 @@ public class LogicEventProcessor implements EventProcessor {
     }
 
     @Override
+    public void undoLastOperation() {
+        commandProcessor.undoLastCommand();
+    }
+
+    @Override
     public void process(final LogicEvent e) {
         if (!isValid(e)) {
             log.warn("Provided params are not valid! {}", e);
@@ -98,13 +101,13 @@ public class LogicEventProcessor implements EventProcessor {
             command = commandFactory.createRemoveShapeCommand(ev.getShapeId());
         }*/
 
-        if (command != null) {
+/*        if (command != null) {
             commandProcessor.processCommand(command);
         }
 
         if (e instanceof final UndoLastOperationEvent ev) {
             commandProcessor.undoLastCommand();
-        }
+        }*/
     }
 
     protected boolean isValid(final LogicEvent event) {

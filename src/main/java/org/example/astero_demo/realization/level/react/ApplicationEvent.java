@@ -1,4 +1,4 @@
-package org.example.astero_demo.logic.event;
+package org.example.astero_demo.realization.level.react;
 
 /**
  * Base class for all application events

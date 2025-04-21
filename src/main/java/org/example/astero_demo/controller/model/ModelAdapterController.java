@@ -5,9 +5,6 @@ import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.controller.AbstractController;
-import org.example.astero_demo.logic.command.CommandFactory;
-import org.example.astero_demo.logic.command.CommandProcessor;
-import org.example.astero_demo.logic.event.ui.LogicEvent;
 
 /**
  * This controller is responsible for handling logic events and updating the model through a ModelController.

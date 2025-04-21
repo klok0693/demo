@@ -3,14 +3,9 @@ package org.example.astero_demo.realization.level.react.logic_event;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.logic.EventProcessor;
-import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
-import org.example.astero_demo.logic.event.ui.LogicEvent;
-import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
-import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
-import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ParamInfo;
-import org.example.astero_demo.realization.level.react.Pipe;
 import org.example.astero_demo.realization.level.react.ReceiverWrapper;
+import org.example.astero_demo.realization.level.react.logic_event.ui.*;
 
 import java.util.List;
 
@@ -22,7 +17,8 @@ public class LogicEventReceiverWrapper extends ReceiverWrapper<EventProcessor> i
         super(wrappedElement, List.of(
                 CreateNewShapeEvent.class,
                 ModifyShapeEvent.class,
-                RemoveShapeEvent.class));
+                RemoveShapeEvent.class,
+                UndoLastOperationEvent.class));
     }
 
     @Override
@@ -41,6 +37,9 @@ public class LogicEventReceiverWrapper extends ReceiverWrapper<EventProcessor> i
         else if (event instanceof final RemoveShapeEvent ev) {
             wrappedElement.removeShape(ev.getShapeId());
         }
+        else if (event instanceof final UndoLastOperationEvent ev) {
+            wrappedElement.undoLastOperation();
+        }
     }
 
     @Override
@@ -55,6 +54,11 @@ public class LogicEventReceiverWrapper extends ReceiverWrapper<EventProcessor> i
 
     @Override
     public void removeShape(int id) {
+        throw new RuntimeException("WTF?");
+    }
+
+    @Override
+    public void undoLastOperation() {
         throw new RuntimeException("WTF?");
     }
 }

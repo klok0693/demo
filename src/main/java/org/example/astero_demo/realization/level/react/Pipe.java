@@ -1,9 +1,8 @@
 package org.example.astero_demo.realization.level.react;
 
-import org.example.astero_demo.logic.event.ui.LogicEvent;
+import org.example.astero_demo.realization.level.react.logic_event.ui.LogicEvent;
 import org.example.astero_demo.realization.level.react.logic_event.LogicEventReceiverWrapper;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Pipe {

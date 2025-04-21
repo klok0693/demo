@@ -1,7 +1,6 @@
-package org.example.astero_demo.logic.event.ui;
+package org.example.astero_demo.realization.level.react.logic_event.ui;
 
 import lombok.Getter;
-import org.apache.commons.lang3.ArrayUtils;
 import org.example.astero_demo.model.metadata.ParamInfo;
 
 /**

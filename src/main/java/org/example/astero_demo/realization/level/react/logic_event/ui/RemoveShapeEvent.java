@@ -1,4 +1,4 @@
-package org.example.astero_demo.logic.event.ui;
+package org.example.astero_demo.realization.level.react.logic_event.ui;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

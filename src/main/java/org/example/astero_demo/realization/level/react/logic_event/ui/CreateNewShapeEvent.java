@@ -1,9 +1,7 @@
-package org.example.astero_demo.logic.event.ui;
+package org.example.astero_demo.realization.level.react.logic_event.ui;
 
 import lombok.Getter;
-import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ParamInfo;
-import org.example.astero_demo.model.metadata.ShapeParam;
 
 import static org.example.astero_demo.model.metadata.ParamInfo.create;
 
