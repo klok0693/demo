@@ -13,7 +13,6 @@ import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.controller.ui.ControllerAdapter;
-import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.util.ParamUtils;
 
@@ -99,7 +98,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         }
         else if (event instanceof final PasteShapeEvent e) {
             final double[] currentPosition = canvasAdapter.getLocalCursorPosition();
-            controller.process(new CreateNewShapeEvent(
+            controller.createShape(
                     ParamUtils.createParams(
                             parseInt(uiState.getCopyPriority()),
                             currentPosition[0],
@@ -108,7 +107,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
                             parseDouble(uiState.getCopyHeight()),
                             parseInt(uiState.getCopyColor()),
                             ShapeType.valueOf(uiState.getCopyType()))
-            ));
+            );
         }
     }
 

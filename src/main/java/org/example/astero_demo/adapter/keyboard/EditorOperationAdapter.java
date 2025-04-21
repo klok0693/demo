@@ -5,7 +5,6 @@ import org.example.astero_demo.adapter.ui.event.CopyShapeEvent;
 import org.example.astero_demo.adapter.ui.event.PasteShapeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.logic.EventProcessor;
-import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.logic.event.ui.UndoLastOperationEvent;
 
 /**
@@ -29,7 +28,7 @@ public class EditorOperationAdapter implements OperationAdapter {
     @Override
     public void handleDelete() {
         if (state.hasSelectedId() && !state.isMultipleSelection()) {
-            processor.process(new RemoveShapeEvent(state.getSelectedShapeId()));
+            processor.removeShape(state.getSelectedShapeId());
         }
     }
 

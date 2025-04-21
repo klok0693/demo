@@ -9,8 +9,6 @@ import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.event.SelectNextElementAt;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.logic.EventProcessor;
-import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
-import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
 import org.example.astero_demo.util.ParamUtils;
 
 import static org.example.astero_demo.model.metadata.ParamInfo.create;
@@ -72,26 +70,26 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
 
     @Override
     public void createNewShapeAt(final double x, final double y, final double width, final double height) {
-        controller.process(new CreateNewShapeEvent(
-                ParamUtils.createParams(x, y, width, height, uiState.getInsertShapeType())));
+        controller.createShape(
+                ParamUtils.createParams(x, y, width, height, uiState.getInsertShapeType()));
     }
 
     @Override
     public void modifySelectedShape(final double x, final double y, final double width, final double height) {
-        controller.process(new ModifyShapeEvent(
+        controller.modifyShape(
                         uiState.getSelectedShapeId(),
                         create(ShapeParam.X, x),
                         create(ShapeParam.Y, y),
                         create(ShapeParam.WIDTH, width),
-                        create(ShapeParam.HEIGHT, height)));
+                        create(ShapeParam.HEIGHT, height));
     }
 
     @Override
     public void moveSelectedShapeTo(final double x, final double y) {
-        controller.process(new ModifyShapeEvent(
+        controller.modifyShape(
                 uiState.getSelectedShapeId(),
                 create(ShapeParam.X, x),
-                create(ShapeParam.Y, y)));
+                create(ShapeParam.Y, y));
     }
 
     @Override

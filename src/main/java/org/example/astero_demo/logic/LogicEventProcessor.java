@@ -54,6 +54,24 @@ public class LogicEventProcessor implements EventProcessor {
     }
 
     @Override
+    public void modifyShape(final int shapeId, final ParamInfo... paramInfos) {
+
+        if (!true/*isValid()*/) {}
+
+        final Command command = commandFactory.createModifyShapeCommand(shapeId, paramInfos);
+        commandProcessor.processCommand(command);
+    }
+
+    @Override
+    public void removeShape(final int shapeId) {
+
+        if (!true/*isValid()*/) {}
+
+        final Command command = commandFactory.createRemoveShapeCommand(shapeId);
+        commandProcessor.processCommand(command);
+    }
+
+    @Override
     public void process(final LogicEvent e) {
         if (!isValid(e)) {
             log.warn("Provided params are not valid! {}", e);
@@ -72,13 +90,13 @@ public class LogicEventProcessor implements EventProcessor {
                     getParamInfo(infos, ShapeParam.COLOR),
                     valueOf(getParamInfo(infos, ShapeParam.TYPE)));
         }
-        else */if (e instanceof final ModifyShapeEvent ev) {
+        else *//*if (e instanceof final ModifyShapeEvent ev) {
             command = commandFactory.createModifyShapeCommand(
                     ev.getShapeId(), ev.getParamInfos());
         }
-        else if (e instanceof final RemoveShapeEvent ev) {
+        else *//*if (e instanceof final RemoveShapeEvent ev) {
             command = commandFactory.createRemoveShapeCommand(ev.getShapeId());
-        }
+        }*/
 
         if (command != null) {
             commandProcessor.processCommand(command);

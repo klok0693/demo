@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.logic.event.ui.CreateNewShapeEvent;
 import org.example.astero_demo.logic.event.ui.LogicEvent;
+import org.example.astero_demo.logic.event.ui.ModifyShapeEvent;
+import org.example.astero_demo.logic.event.ui.RemoveShapeEvent;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ParamInfo;
 import org.example.astero_demo.realization.level.react.Pipe;
@@ -19,6 +21,16 @@ public class LogicEventSenderWrapper extends SenderWrapper implements EventProce
     @Override
     public void createShape(final ParamInfo[] paramInfos) {
         send(new CreateNewShapeEvent(paramInfos));
+    }
+
+    @Override
+    public void modifyShape(final int shapeId, final ParamInfo... paramInfos) {
+        send(new ModifyShapeEvent(shapeId, paramInfos));
+    }
+
+    @Override
+    public void removeShape(final int id) {
+        send(new RemoveShapeEvent(id));
     }
 
     @Override

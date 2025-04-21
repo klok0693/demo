@@ -21,8 +21,18 @@ public class EventProcessorAsyncWrapper extends AsynchWrapper<EventProcessor> im
     }
 
     @Override
-    public void createShape(final ParamInfo[] paramInfos) {
+    public void createShape(final ParamInfo... paramInfos) {
         executor.execute(() -> wrappedElement.createShape(paramInfos));
+    }
+
+    @Override
+    public void modifyShape(final int shapeId, final ParamInfo[] paramInfos) {
+        executor.execute(() -> wrappedElement.modifyShape(shapeId, paramInfos));
+    }
+
+    @Override
+    public void removeShape(final int id) {
+        executor.execute(() -> wrappedElement.removeShape(id));
     }
 
     @Override

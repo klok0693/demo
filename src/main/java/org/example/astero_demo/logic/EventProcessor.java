@@ -13,4 +13,8 @@ public interface EventProcessor {
     void process(LogicEvent e);
 
     void createShape(ParamInfo[] paramInfos);
+
+    void modifyShape(int shapeId, ParamInfo... paramInfos);
+
+    void removeShape(int id);
 }
