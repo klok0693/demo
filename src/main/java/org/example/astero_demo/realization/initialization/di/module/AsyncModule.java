@@ -1,9 +1,9 @@
 package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.*;
-import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.controller.ui.ControllerAdapter;
-import org.example.astero_demo.logic.LogicEventProcessor;
+import org.example.astero_demo.logic.LogicShapeProcessor;
+import org.example.astero_demo.logic.ShapeProcessor;
 import org.example.astero_demo.realization.level.async.logic.BackgroundExecutor;
 import org.example.astero_demo.realization.level.async.logic.EventProcessorAsyncWrapper;
 import org.example.astero_demo.realization.level.async.ui.FXExecutor;
@@ -25,7 +25,7 @@ public class AsyncModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(BackgroundExecutor.class).in(Scopes.SINGLETON);
-        bind(EventProcessor.class).to(LogicEventSenderWrapper.class).in(Scopes.SINGLETON);
+        bind(ShapeProcessor.class).to(LogicEventSenderWrapper.class).in(Scopes.SINGLETON);
 
         bind(FXExecutor.class).in(Scopes.SINGLETON);
         bind(ControllerAdapter.class).to(RootAdapterAsyncWrapper.class).in(Scopes.SINGLETON);
@@ -35,7 +35,7 @@ public class AsyncModule extends AbstractModule {
     @Provides
     @Singleton
     public EventProcessorAsyncWrapper provideEventProcessorAsyncWrapper(
-            final LogicEventProcessor processor,
+            final LogicShapeProcessor processor,
             final BackgroundExecutor executor) {
         return new EventProcessorAsyncWrapper(processor, executor);
     }

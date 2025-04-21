@@ -5,7 +5,7 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementById;
 import org.example.astero_demo.adapter.ui.state.UIState;
 import org.example.astero_demo.adapter.ui.state.mode.UIMode;
-import org.example.astero_demo.logic.EventProcessor;
+import org.example.astero_demo.logic.ShapeProcessor;
 
 /**
  * Leaf adapter for interacting with a Layers Panel.
@@ -14,7 +14,7 @@ public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
     private final LayersView layersRoot;
 
     public LayersPanelAdapter(
-            final EventProcessor controller,
+            final ShapeProcessor controller,
             final UIState uiState,
             final LayersView layersRoot,
             final ParentAdapter parentAdapter) {

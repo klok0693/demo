@@ -4,19 +4,19 @@ import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.CopyShapeEvent;
 import org.example.astero_demo.adapter.ui.event.PasteShapeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.logic.EventProcessor;
+import org.example.astero_demo.logic.ShapeProcessor;
 
 /**
  * @author Pilip Yurchanka
  * @since v1.0
  */
 public class EditorOperationAdapter implements OperationAdapter {
-    private final EventProcessor processor;
+    private final ShapeProcessor processor;
     private final UIState state;
     private final ParentAdapter parentAdapter;
 
     public EditorOperationAdapter(
-            final EventProcessor processor,
+            final ShapeProcessor processor,
             final UIState state,
             final ParentAdapter adapter) {
         this.processor = processor;

@@ -4,11 +4,14 @@ import org.example.astero_demo.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.logic.EventProcessor;
+import org.example.astero_demo.logic.ShapeProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatcher;
+import org.mockito.ArgumentMatchers;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 /**
@@ -18,14 +21,14 @@ import static org.mockito.Mockito.*;
  * @since v1.0
  */
 public class OperationAdapterTest {
-    private EventProcessor processor;
+    private ShapeProcessor processor;
     private UIState state;
     private ParentAdapter parentAdapter;
     private OperationAdapter adapter;
 
     @BeforeEach
     void setUp() {
-        this.processor = mock(EventProcessor.class);
+        this.processor = mock(ShapeProcessor.class);
         this.state = mock(UIState.class);
         this.parentAdapter = mock(ParentAdapter.class);
         this.adapter = new EditorOperationAdapter(processor, state, parentAdapter);
@@ -46,7 +49,7 @@ public class OperationAdapterTest {
         adapter.handleDelete();
 
         verify(state, times(2)).hasSelectedId();
-        verify(processor, times(1)).process(any());
+        verify(processor, times(1)).removeShape(anyInt());
         verifyNoInteractions(parentAdapter);
     }
 
@@ -56,7 +59,7 @@ public class OperationAdapterTest {
         // adapter call for logic processor in any situation
         adapter.handleUndo();
 
-        verify(processor, times(1)).process(any());
+        verify(processor, times(1)).undoLastOperation();
         verifyNoInteractions(state, parentAdapter);
     }
 

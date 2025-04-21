@@ -2,7 +2,7 @@ package org.example.astero_demo.adapter.ui;
 
 import org.example.astero_demo.adapter.ui.event.UIEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.logic.EventProcessor;
+import org.example.astero_demo.logic.ShapeProcessor;
 
 /**
  * Base class for all leaf adapters - adapters, that produced, but cannot process {@link UIEvent},<p>
@@ -15,7 +15,7 @@ public abstract class LeafAdapter extends UIAdapter<UIState> implements Updatabl
     protected final ParentAdapter parent;
 
     protected LeafAdapter(
-            final EventProcessor controller,
+            final ShapeProcessor controller,
             final UIState uiState,
             final ParentAdapter parentAdapter) {
         super(controller, uiState);

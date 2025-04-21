@@ -2,12 +2,12 @@ package org.example.astero_demo.adapter.ui.toolbar;
 
 import org.example.astero_demo.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.adapter.ui.state.mode.UIMode;
+import org.example.astero_demo.logic.ShapeProcessor;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.port.ui.ToolBarView;
 
 /**
@@ -21,7 +21,7 @@ public class ToolBarPanelAdapter extends LeafAdapter implements ToolBarAdapter {
     private final ToolBarView toolBarView;
 
     public ToolBarPanelAdapter(
-            final EventProcessor controller,
+            final ShapeProcessor controller,
             final UIState uiState,
             final OperationAdapter keyBoardAdapter,
             final ToolBarView toolBarView,

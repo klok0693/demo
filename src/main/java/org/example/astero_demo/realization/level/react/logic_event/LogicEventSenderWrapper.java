@@ -1,13 +1,13 @@
 package org.example.astero_demo.realization.level.react.logic_event;
 
 import com.google.inject.Inject;
-import org.example.astero_demo.logic.EventProcessor;
+import org.example.astero_demo.logic.ShapeProcessor;
 import org.example.astero_demo.model.metadata.ParamInfo;
 import org.example.astero_demo.realization.level.react.Pipe;
 import org.example.astero_demo.realization.level.react.SenderWrapper;
 import org.example.astero_demo.realization.level.react.logic_event.ui.*;
 
-public class LogicEventSenderWrapper extends SenderWrapper implements EventProcessor {
+public class LogicEventSenderWrapper extends SenderWrapper implements ShapeProcessor {
 
     @Inject
     public LogicEventSenderWrapper(final Pipe pipe) {
@@ -32,10 +32,5 @@ public class LogicEventSenderWrapper extends SenderWrapper implements EventProce
     @Override
     public void undoLastOperation() {
         send(new UndoLastOperationEvent());
-    }
-
-    @Override
-    public void process(final LogicEvent e) {
-        send(e);
     }
 }

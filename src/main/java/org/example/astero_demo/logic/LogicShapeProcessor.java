@@ -6,7 +6,6 @@ import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
-import org.example.astero_demo.logic.event.ui.*;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ParamInfo;
 import org.example.astero_demo.realization.level.react.logic_event.ui.LogicEvent;
@@ -18,13 +17,13 @@ import static java.lang.String.valueOf;
 import static org.example.astero_demo.model.entity.ShapeType.valueOf;
 
 @Slf4j
-public class LogicEventProcessor implements EventProcessor {
+public class LogicShapeProcessor implements ShapeProcessor {
 
     private final CommandFactory commandFactory;
     private final CommandProcessor commandProcessor;
     private final ShapeValidator validator;
 
-    public LogicEventProcessor(
+    public LogicShapeProcessor(
             final CommandFactory commandFactory,
             final CommandProcessor commandProcessor,
             final ShapeValidator validator) {
@@ -54,7 +53,10 @@ public class LogicEventProcessor implements EventProcessor {
     @Override
     public void modifyShape(final int shapeId, final ParamInfo... paramInfos) {
 
-        if (!true/*isValid()*/) {}
+        if (!true/*isValid()*/) {
+            log.warn("Provided params are not valid!");
+            return;
+        }
 
         final Command command = commandFactory.createModifyShapeCommand(shapeId, paramInfos);
         commandProcessor.processCommand(command);
@@ -72,42 +74,6 @@ public class LogicEventProcessor implements EventProcessor {
     @Override
     public void undoLastOperation() {
         commandProcessor.undoLastCommand();
-    }
-
-    @Override
-    public void process(final LogicEvent e) {
-        if (!isValid(e)) {
-            log.warn("Provided params are not valid! {}", e);
-            return;
-        }
-
-        Command command = null;
-/*        if (e instanceof final CreateNewShapeEvent ev) {
-            final List<ParamInfo> infos = List.of(ev.getParamInfos());
-            command = commandFactory.createNewShapeCommand(
-                    getParamInfo(infos, ShapeParam.PRIORITY),
-                    getParamInfo(infos, ShapeParam.X),
-                    getParamInfo(infos, ShapeParam.Y),
-                    getParamInfo(infos, ShapeParam.WIDTH),
-                    getParamInfo(infos, ShapeParam.HEIGHT),
-                    getParamInfo(infos, ShapeParam.COLOR),
-                    valueOf(getParamInfo(infos, ShapeParam.TYPE)));
-        }
-        else *//*if (e instanceof final ModifyShapeEvent ev) {
-            command = commandFactory.createModifyShapeCommand(
-                    ev.getShapeId(), ev.getParamInfos());
-        }
-        else *//*if (e instanceof final RemoveShapeEvent ev) {
-            command = commandFactory.createRemoveShapeCommand(ev.getShapeId());
-        }*/
-
-/*        if (command != null) {
-            commandProcessor.processCommand(command);
-        }
-
-        if (e instanceof final UndoLastOperationEvent ev) {
-            commandProcessor.undoLastCommand();
-        }*/
     }
 
     protected boolean isValid(final LogicEvent event) {

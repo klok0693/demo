@@ -2,6 +2,7 @@ package org.example.astero_demo.adapter.ui;
 
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.adapter.ui.state.mode.UIMode;
+import org.example.astero_demo.logic.ShapeProcessor;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.state.ModelState;
@@ -11,7 +12,6 @@ import org.example.astero_demo.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
-import org.example.astero_demo.logic.EventProcessor;
 import org.example.astero_demo.controller.ui.ControllerAdapter;
 import org.example.astero_demo.port.ui.RootView;
 import org.example.astero_demo.util.ParamUtils;
@@ -43,7 +43,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
 
     public RootAdapter(
             final ModelState modelState,
-            final EventProcessor controller,
+            final ShapeProcessor controller,
             final MutableUIState uiState,
             final RootView rootView,
             final CanvasAdapter canvasAdapter,
