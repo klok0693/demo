@@ -1,7 +1,6 @@
 package org.example.astero_demo.logic.command;
 
-import org.example.astero_demo.model.entity.ShapeType;
-import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * Factory that provides methods to create different types of commands
@@ -11,9 +10,9 @@ import org.example.astero_demo.model.metadata.ParamInfo;
  */
 public interface CommandFactory {
 
-    Command createNewShapeCommand(String priority, String x, String y, String width, String height, String color, ShapeType type);
+    Command createNewShapeCommand(ShapeParams shapeParams);
 
-    Command createModifyShapeCommand(int shapeId, ParamInfo... infos);
+    Command createModifyShapeCommand(int shapeId, ShapeParams shapeParams);
 
     Command createRemoveShapeCommand(int id);
 }

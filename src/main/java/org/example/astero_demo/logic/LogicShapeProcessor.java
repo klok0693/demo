@@ -1,20 +1,13 @@
 package org.example.astero_demo.logic;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.controller.ShapeValidator;
 import org.example.astero_demo.logic.command.Command;
 import org.example.astero_demo.logic.command.CommandFactory;
 import org.example.astero_demo.logic.command.CommandProcessor;
-import org.example.astero_demo.model.entity.ShapeType;
-import org.example.astero_demo.model.metadata.ParamInfo;
-import org.example.astero_demo.realization.level.react.logic_event.ui.LogicEvent;
-import org.example.astero_demo.realization.level.react.logic_event.ui.ParamEvent;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
-import java.util.Arrays;
-
-import static java.lang.String.valueOf;
-import static org.example.astero_demo.model.entity.ShapeType.valueOf;
+import java.util.function.Supplier;
 
 @Slf4j
 public class LogicShapeProcessor implements ShapeProcessor {
@@ -33,42 +26,26 @@ public class LogicShapeProcessor implements ShapeProcessor {
     }
 
     @Override
-    public void createShape(final ParamInfo[] paramInfos) {
-
-        if (!true/*isValid()*/) {}
-
-        final Command command = commandFactory.createNewShapeCommand(
-                paramInfos[0].getNewValue(),
-                paramInfos[1].getNewValue(),
-                paramInfos[2].getNewValue(),
-                paramInfos[3].getNewValue(),
-                paramInfos[4].getNewValue(),
-                paramInfos[5] == null ? StringUtils.EMPTY : paramInfos[5].getNewValue(),
-                ShapeType.valueOf(paramInfos[6].getNewValue())
-        );
-
-        commandProcessor.processCommand(command);
+    public void createShape(final ShapeParams shapeParams) {
+        performShapeOperation(shapeParams, () -> commandFactory.createNewShapeCommand(shapeParams));
     }
 
     @Override
-    public void modifyShape(final int shapeId, final ParamInfo... paramInfos) {
-
-        if (!true/*isValid()*/) {
-            log.warn("Provided params are not valid!");
-            return;
-        }
-
-        final Command command = commandFactory.createModifyShapeCommand(shapeId, paramInfos);
-        commandProcessor.processCommand(command);
+    public void modifyShape(final int shapeId, final ShapeParams shapeParams) {
+        performShapeOperation(shapeParams, () -> commandFactory.createModifyShapeCommand(shapeId, shapeParams));
     }
 
     @Override
     public void removeShape(final int shapeId) {
+        commandProcessor.processCommand(commandFactory.createRemoveShapeCommand(shapeId));
+    }
 
-        if (!true/*isValid()*/) {}
-
-        final Command command = commandFactory.createRemoveShapeCommand(shapeId);
-        commandProcessor.processCommand(command);
+    private void performShapeOperation(final ShapeParams params, final Supplier<? extends Command> commandSupplier) {
+        if (!isValid(params)) {
+            log.warn("Provided params are not valid!");
+            return;
+        }
+        commandProcessor.processCommand(commandSupplier.get());
     }
 
     @Override
@@ -76,11 +53,7 @@ public class LogicShapeProcessor implements ShapeProcessor {
         commandProcessor.undoLastCommand();
     }
 
-    protected boolean isValid(final LogicEvent event) {
-        if (event instanceof final ParamEvent ev) {
-            return Arrays.stream(ev.getParamInfos())
-                    .allMatch(info -> validator.isValid(info.getParam(), info.getNewValue()));
-        }
-        return true;
+    protected boolean isValid(final ShapeParams shapeParams) {
+        return shapeParams.stream().allMatch(info -> validator.isValid(info.getParam(), info.getNewValue()));
     }
 }

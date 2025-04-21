@@ -7,5 +7,5 @@ package org.example.astero_demo.model.metadata;
  * @since v1.0
  */
 public enum ShapeParam {
-    ID, X, Y, WIDTH, HEIGHT, PRIORITY, COLOR, TYPE;
+    ID, PRIORITY, X, Y, WIDTH, HEIGHT, COLOR, TYPE;
 }

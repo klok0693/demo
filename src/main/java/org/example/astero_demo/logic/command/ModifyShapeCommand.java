@@ -1,9 +1,9 @@
 package org.example.astero_demo.logic.command;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.model.metadata.ParamInfo;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 import static org.example.astero_demo.realization.logging.MarkerStorage.COMMAND_MARKER;
 
@@ -24,8 +24,8 @@ public class ModifyShapeCommand extends ParamCommand {
             final UIController viewController,
             final ModelController modelController,
             final int modifyShapeId,
-            final ParamInfo... infos) {
-        super(infos);
+            final ShapeParams shapeParams) {
+        super(shapeParams);
         this.viewController = viewController;
         this.modelController = modelController;
         this.modifyShapeId = modifyShapeId;
@@ -33,13 +33,13 @@ public class ModifyShapeCommand extends ParamCommand {
 
     @Override
     public void doCommand() {
-        log.debug(COMMAND_MARKER, "Update existed shape {} with new params {}", modifyShapeId, paramInfos);
-        for (final ParamInfo info : paramInfos) {
-            final String oldValue = modelController.getShapeParam(modifyShapeId, info.getParam());
-            info.setOldValue(oldValue);
+        log.debug(COMMAND_MARKER, "Update existed shape {} with new params {}", modifyShapeId, shapeParams);
+        shapeParams.forEach((paramType, paramInfo) -> {
+            final String oldValue = modelController.getShapeParam(modifyShapeId, paramType);
+            shapeParams.setOldValue(paramType, oldValue);
+            modelController.modifyShapeParam(modifyShapeId, paramType, paramInfo.getNewValue());
+        });
 
-            modelController.modifyShapeParam(modifyShapeId, info.getParam(), info.getNewValue());
-        }
         log.debug(COMMAND_MARKER, "Update ui for {}", modifyShapeId);
         viewController.onModifyUpdate(modifyShapeId);
     }
@@ -47,9 +47,10 @@ public class ModifyShapeCommand extends ParamCommand {
     @Override
     public void undoCommand() {
         log.debug(COMMAND_MARKER, "Undo shape {} modification", modifyShapeId);
-        for (final ParamInfo info : paramInfos) {
-            modelController.modifyShapeParam(modifyShapeId, info.getParam(), info.getOldValue());
-        }
+        shapeParams.forEach((paramType, paramInfo) -> {
+            modelController.modifyShapeParam(modifyShapeId, paramType, paramInfo.getOldValue());
+        });
+
         log.debug(COMMAND_MARKER, "Update ui for {}", modifyShapeId);
         viewController.onModifyUpdate(modifyShapeId);
     }

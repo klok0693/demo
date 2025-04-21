@@ -4,10 +4,8 @@ import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.logic.LogicShapeProcessor;
 import org.example.astero_demo.logic.ShapeProcessor;
-import org.example.astero_demo.realization.level.react.logic_event.ui.LogicEvent;
-import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
-import org.example.astero_demo.realization.logging.MarkerStorage;
 
 @Slf4j
 public class EventProcessorAsyncWrapper extends AsynchWrapper<ShapeProcessor> implements ShapeProcessor {
@@ -20,13 +18,13 @@ public class EventProcessorAsyncWrapper extends AsynchWrapper<ShapeProcessor> im
     }
 
     @Override
-    public void createShape(final ParamInfo... paramInfos) {
-        executor.execute(() -> wrappedElement.createShape(paramInfos));
+    public void createShape(final ShapeParams shapeParams) {
+        executor.execute(() -> wrappedElement.createShape(shapeParams));
     }
 
     @Override
-    public void modifyShape(final int shapeId, final ParamInfo[] paramInfos) {
-        executor.execute(() -> wrappedElement.modifyShape(shapeId, paramInfos));
+    public void modifyShape(final int shapeId, final ShapeParams shapeParams) {
+        executor.execute(() -> wrappedElement.modifyShape(shapeId, shapeParams));
     }
 
     @Override

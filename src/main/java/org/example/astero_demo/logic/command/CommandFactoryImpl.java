@@ -1,12 +1,8 @@
 package org.example.astero_demo.logic.command;
 
-import org.example.astero_demo.model.entity.ShapeType;
-import org.example.astero_demo.model.metadata.ParamInfo;
-import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.controller.model.ModelController;
 import org.example.astero_demo.controller.ui.UIController;
-
-import static org.example.astero_demo.model.metadata.ParamInfo.create;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * A factory implementation that provides methods to create different types of commands
@@ -24,28 +20,13 @@ public class CommandFactoryImpl implements CommandFactory {
     }
 
     @Override
-    public Command createNewShapeCommand(
-            final String priority,
-            final String x,
-            final String y,
-            final String width,
-            final String height,
-            final String color,
-            final ShapeType type) {
-
-        return new CreateNewShapeCommand(viewController, modelController,
-                create(ShapeParam.PRIORITY, priority),
-                create(ShapeParam.X, x),
-                create(ShapeParam.Y, y),
-                create(ShapeParam.WIDTH, width),
-                create(ShapeParam.HEIGHT, height),
-                create(ShapeParam.COLOR, color),
-                create(ShapeParam.TYPE, type.name()));
+    public Command createNewShapeCommand(final ShapeParams shapeParams) {
+        return new CreateNewShapeCommand(viewController, modelController, shapeParams);
     }
 
     @Override
-    public Command createModifyShapeCommand(final int shapeId, final ParamInfo... infos) {
-        return new ModifyShapeCommand(viewController, modelController, shapeId, infos);
+    public Command createModifyShapeCommand(final int shapeId, final ShapeParams shapeParams) {
+        return new ModifyShapeCommand(viewController, modelController, shapeId, shapeParams);
     }
 
     @Override

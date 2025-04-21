@@ -1,7 +1,7 @@
 package org.example.astero_demo.realization.level.react.logic_event.ui;
 
 import lombok.Getter;
-import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * Abstract class representing an event with shape parameters
@@ -11,9 +11,9 @@ import org.example.astero_demo.model.metadata.ParamInfo;
  */
 @Getter
 public abstract class ParamEvent extends LogicEvent {
-    protected final ParamInfo[] paramInfos;
+    protected final ShapeParams shapeParams;
 
-    protected ParamEvent(final ParamInfo[] paramInfos) {
-        this.paramInfos = paramInfos; //ArrayUtils.removeAllOccurences(paramInfos, null);
+    protected ParamEvent(final ShapeParams shapeParams) {
+        this.shapeParams = shapeParams;
     }
 }

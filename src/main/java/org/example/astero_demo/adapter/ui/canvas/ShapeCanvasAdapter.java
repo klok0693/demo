@@ -3,15 +3,12 @@ package org.example.astero_demo.adapter.ui.canvas;
 import org.example.astero_demo.adapter.ui.event.SelectMultipleElementsEvent;
 import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.logic.ShapeProcessor;
-import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.adapter.ui.LeafAdapter;
 import org.example.astero_demo.adapter.ui.ParentAdapter;
 import org.example.astero_demo.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.adapter.ui.event.SelectNextElementAt;
 import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.util.ParamUtils;
-
-import static org.example.astero_demo.model.metadata.ParamInfo.create;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * Leaf adapter for interacting with a canvas
@@ -70,26 +67,17 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
 
     @Override
     public void createNewShapeAt(final double x, final double y, final double width, final double height) {
-        controller.createShape(
-                ParamUtils.createParams(x, y, width, height, uiState.getInsertShapeType()));
+        controller.createShape(new ShapeParams(x, y, width, height, uiState.getInsertShapeType()));
     }
 
     @Override
     public void modifySelectedShape(final double x, final double y, final double width, final double height) {
-        controller.modifyShape(
-                        uiState.getSelectedShapeId(),
-                        create(ShapeParam.X, x),
-                        create(ShapeParam.Y, y),
-                        create(ShapeParam.WIDTH, width),
-                        create(ShapeParam.HEIGHT, height));
+        controller.modifyShape(uiState.getSelectedShapeId(), new ShapeParams(x, y, width, height));
     }
 
     @Override
     public void moveSelectedShapeTo(final double x, final double y) {
-        controller.modifyShape(
-                uiState.getSelectedShapeId(),
-                create(ShapeParam.X, x),
-                create(ShapeParam.Y, y));
+        controller.modifyShape(uiState.getSelectedShapeId(), new ShapeParams(x, y));
     }
 
     @Override

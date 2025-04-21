@@ -2,7 +2,7 @@ package org.example.astero_demo.realization.level.react.logic_event;
 
 import com.google.inject.Inject;
 import org.example.astero_demo.logic.ShapeProcessor;
-import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 import org.example.astero_demo.realization.level.react.Pipe;
 import org.example.astero_demo.realization.level.react.SenderWrapper;
 import org.example.astero_demo.realization.level.react.logic_event.ui.*;
@@ -15,13 +15,13 @@ public class LogicEventSenderWrapper extends SenderWrapper implements ShapeProce
     }
 
     @Override
-    public void createShape(final ParamInfo[] paramInfos) {
-        send(new CreateNewShapeEvent(paramInfos));
+    public void createShape(final ShapeParams shapeParams) {
+        send(new CreateNewShapeEvent(shapeParams));
     }
 
     @Override
-    public void modifyShape(final int shapeId, final ParamInfo... paramInfos) {
-        send(new ModifyShapeEvent(shapeId, paramInfos));
+    public void modifyShape(final int shapeId, final ShapeParams shapeParams) {
+        send(new ModifyShapeEvent(shapeId, shapeParams));
     }
 
     @Override

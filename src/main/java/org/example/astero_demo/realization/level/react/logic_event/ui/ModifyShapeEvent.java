@@ -1,7 +1,7 @@
 package org.example.astero_demo.realization.level.react.logic_event.ui;
 
 import lombok.Getter;
-import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * A class representing an event for modifying shape parameters
@@ -13,8 +13,8 @@ import org.example.astero_demo.model.metadata.ParamInfo;
 public class ModifyShapeEvent extends ParamEvent {
     private final int shapeId;
 
-    public ModifyShapeEvent(final int shapeId, final ParamInfo... infos) {
-        super(infos);
+    public ModifyShapeEvent(final int shapeId, final ShapeParams shapeParams) {
+        super(shapeParams);
         this.shapeId = shapeId;
     }
 }

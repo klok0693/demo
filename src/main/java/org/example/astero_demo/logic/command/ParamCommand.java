@@ -1,8 +1,6 @@
 package org.example.astero_demo.logic.command;
 
-import org.example.astero_demo.model.metadata.ParamInfo;
-
-import java.util.List;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * Command, having collection of the shape's parameters
@@ -11,9 +9,9 @@ import java.util.List;
  * @since v1.0
  */
 public abstract class ParamCommand extends Command {
-    protected final List<ParamInfo> paramInfos;
+    protected final ShapeParams shapeParams;
 
-    protected ParamCommand(final ParamInfo... infos) {
-        this.paramInfos = List.of(infos);
+    protected ParamCommand(final ShapeParams shapeParams) {
+        this.shapeParams = shapeParams;
     }
 }

@@ -5,6 +5,7 @@ import org.example.astero_demo.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.logic.ShapeProcessor;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.adapter.ui.event.*;
@@ -14,7 +15,6 @@ import org.example.astero_demo.adapter.ui.state.MutableUIState;
 import org.example.astero_demo.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.controller.ui.ControllerAdapter;
 import org.example.astero_demo.port.ui.RootView;
-import org.example.astero_demo.util.ParamUtils;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -98,15 +98,14 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         }
         else if (event instanceof final PasteShapeEvent e) {
             final double[] currentPosition = canvasAdapter.getLocalCursorPosition();
-            controller.createShape(
-                    ParamUtils.createParams(
-                            parseInt(uiState.getCopyPriority()),
-                            currentPosition[0],
-                            currentPosition[1],
-                            parseDouble(uiState.getCopyWidth()),
-                            parseDouble(uiState.getCopyHeight()),
-                            parseInt(uiState.getCopyColor()),
-                            ShapeType.valueOf(uiState.getCopyType()))
+            controller.createShape(new ShapeParams(
+                    parseInt(uiState.getCopyPriority()),
+                    currentPosition[0],
+                    currentPosition[1],
+                    parseDouble(uiState.getCopyWidth()),
+                    parseDouble(uiState.getCopyHeight()),
+                    parseInt(uiState.getCopyColor()),
+                    ShapeType.valueOf(uiState.getCopyType()))
             );
         }
     }

@@ -23,10 +23,10 @@ public class LogicEventReceiverWrapper extends ReceiverWrapper<ShapeProcessor> {
     @Override
     public void receive(final LogicEvent event) {
         if (event instanceof final CreateNewShapeEvent ev) {
-            wrappedElement.createShape(ev.getParamInfos());
+            wrappedElement.createShape(ev.getShapeParams());
         }
         else if (event instanceof final ModifyShapeEvent ev) {
-            wrappedElement.modifyShape(ev.getShapeId(), ev.getParamInfos());
+            wrappedElement.modifyShape(ev.getShapeId(), ev.getShapeParams());
         }
         else if (event instanceof final RemoveShapeEvent ev) {
             wrappedElement.removeShape(ev.getShapeId());
