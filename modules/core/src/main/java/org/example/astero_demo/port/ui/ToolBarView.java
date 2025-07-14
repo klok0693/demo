@@ -57,19 +57,19 @@ public class ToolBarView implements ModeSwitchableView {
         deleteBtn.setDisable(true);
     }
 
-    public void onInsertRectAction(final ActionEvent event) {
+    public void onInsertRectAction() {
         operationProcessor.onInsertRectAction();
     }
 
-    public void onInsertCycleAction(final ActionEvent event) {
+    public void onInsertCycleAction() {
         operationProcessor.onInsertCycleAction();
     }
 
-    public void onDeleteAction(final ActionEvent event) {
+    public void onDeleteAction() {
         operationProcessor.onDeleteAction();
     }
 
-    public void onUndoAction(final ActionEvent event) {
+    public void onUndoAction() {
         operationProcessor.onUndoAction();
     }
 }

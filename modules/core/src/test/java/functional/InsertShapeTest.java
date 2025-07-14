@@ -7,6 +7,7 @@ import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.state.ModelState;
 import org.example.astero_demo.util.ColorUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -54,14 +55,14 @@ public class InsertShapeTest extends ApplicationTest {
         // Assert shape has been created successfully
         final ModelState modelState = testApplication.getInstance(ModelState.class);
         final List<Shape> shapes = modelState.getShapes().toList();
-        assertEquals(1, shapes.size());
+        Assertions.assertEquals(1, shapes.size());
 
         final Shape created = shapes.getFirst();
-        assertEquals(DIMENSION, parseDouble(created.getWidth()));
-        assertEquals(DIMENSION, parseDouble(created.getHeight()));
-        assertEquals(2, parseInt(created.getPriority()));
-        assertEquals(ColorUtils.convert(Color.GREEN), parseInt(created.getColor()));
-        assertSame(ShapeType.RECT, created.getType());
+        Assertions.assertEquals(DIMENSION, Double.parseDouble(created.getWidth()));
+        Assertions.assertEquals(DIMENSION, Double.parseDouble(created.getHeight()));
+        Assertions.assertEquals(2, Integer.parseInt(created.getPriority()));
+        assertEquals(ColorUtils.convert(Color.GREEN), Integer.parseInt(created.getColor()));
+        Assertions.assertSame(ShapeType.RECT, created.getType());
     }
 
     private void performAndHold(final Runnable runnable) {

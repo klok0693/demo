@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
  * heavy operations on a separate thread, out of our components. In this case, we use<p>
  * wrappers over the source classes to capture control of the execution thread and wrap it<p>
  * in the required thread. This allows to draw a clear boundary between the asynchronous and<p>
- * synchronous parts of the application. Now the boundary is in between the adapter and the view,<p>
+ * synchronous parts of the application. Now the boundary is in between the adapter and the logic processor,<p>
  * and thanks to the use of DI, these changes will remain invisible from the point of view of the main code
  *
  * @author Pilip Yurchanka

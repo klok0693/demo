@@ -14,7 +14,7 @@ public class ChannelMock {
 
     public void addToChannel(final LogicEvent event) {
         receivers.stream()
-                .filter(receiver -> receiver.canReceive(event.getClass()))
+                .filter(receiver -> receiver.canReceive(event.getClass())) // TODO: move canReceive() inside receiver?
                 .forEach(receiver -> receiver.receive(event));
     }
 }

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -28,9 +29,9 @@ public class OperationAdapterTest {
 
     @BeforeEach
     void setUp() {
-        this.processor = mock(ShapeProcessor.class);
-        this.state = mock(UIState.class);
-        this.parentAdapter = mock(ParentAdapter.class);
+        this.processor = Mockito.mock(ShapeProcessor.class);
+        this.state = Mockito.mock(UIState.class);
+        this.parentAdapter = Mockito.mock(ParentAdapter.class);
         this.adapter = new EditorOperationAdapter(processor, state, parentAdapter);
     }
 
@@ -38,18 +39,18 @@ public class OperationAdapterTest {
     @DisplayName("Delete operation works correctly")
     void testDeleteOperation() {
         // adapter not perform any actions if there is no selected shape
-        when(state.hasSelectedId()).thenReturn(false);
+        Mockito.when(state.hasSelectedId()).thenReturn(false);
         adapter.handleDelete();
 
-        verify(state, times(1)).hasSelectedId();
-        verifyNoInteractions(processor, parentAdapter);
+        Mockito.verify(state, Mockito.times(1)).hasSelectedId();
+        Mockito.verifyNoInteractions(processor, parentAdapter);
 
         // adapter call for logic processor if selected shape exist
-        when(state.hasSelectedId()).thenReturn(true);
+        Mockito.when(state.hasSelectedId()).thenReturn(true);
         adapter.handleDelete();
 
-        verify(state, times(2)).hasSelectedId();
-        verify(processor, times(1)).removeShape(anyInt());
+        Mockito.verify(state, Mockito.times(2)).hasSelectedId();
+        Mockito.verify(processor, Mockito.times(1)).removeShape(ArgumentMatchers.anyInt());
         verifyNoInteractions(parentAdapter);
     }
 
@@ -59,26 +60,26 @@ public class OperationAdapterTest {
         // adapter call for logic processor in any situation
         adapter.handleUndo();
 
-        verify(processor, times(1)).undoLastOperation();
-        verifyNoInteractions(state, parentAdapter);
+        Mockito.verify(processor, Mockito.times(1)).undoLastOperation();
+        Mockito.verifyNoInteractions(state, parentAdapter);
     }
 
     @Test
     @DisplayName("Copy operation works correctly")
     void testCopyOperation() {
         // adapter not perform any actions if there is no selected shape
-        when(state.hasSelectedId()).thenReturn(false);
+        Mockito.when(state.hasSelectedId()).thenReturn(false);
         adapter.handleCopy();
 
-        verify(state, times(1)).hasSelectedId();
-        verifyNoInteractions(processor, parentAdapter);
+        Mockito.verify(state, Mockito.times(1)).hasSelectedId();
+        Mockito.verifyNoInteractions(processor, parentAdapter);
 
         // adapter call for parent adapter if selected shape exist
-        when(state.hasSelectedId()).thenReturn(true);
+        Mockito.when(state.hasSelectedId()).thenReturn(true);
         adapter.handleCopy();
 
-        verify(state, times(2)).hasSelectedId();
-        verify(parentAdapter, times(1)).processEvent(any());
+        Mockito.verify(state, Mockito.times(2)).hasSelectedId();
+        Mockito.verify(parentAdapter, Mockito.times(1)).processEvent(ArgumentMatchers.any());
         verifyNoInteractions(processor);
     }
 
@@ -86,18 +87,18 @@ public class OperationAdapterTest {
     @DisplayName("Paste operation works correctly")
     void testPasteOperation() {
         // adapter not perform any actions if there is no selected shape
-        when(state.hasCopy()).thenReturn(false);
+        Mockito.when(state.hasCopy()).thenReturn(false);
         adapter.handlePaste();
 
-        verify(state, times(1)).hasCopy();
-        verifyNoInteractions(processor, parentAdapter);
+        Mockito.verify(state, Mockito.times(1)).hasCopy();
+        Mockito.verifyNoInteractions(processor, parentAdapter);
 
         // adapter call for parent adapter if selected shape exist
-        when(state.hasCopy()).thenReturn(true);
+        Mockito.when(state.hasCopy()).thenReturn(true);
         adapter.handlePaste();
 
-        verify(state, times(2)).hasCopy();
-        verify(parentAdapter, times(1)).processEvent(any());
+        Mockito.verify(state, Mockito.times(2)).hasCopy();
+        Mockito.verify(parentAdapter, Mockito.times(1)).processEvent(ArgumentMatchers.any());
         verifyNoInteractions(processor);
     }
 }

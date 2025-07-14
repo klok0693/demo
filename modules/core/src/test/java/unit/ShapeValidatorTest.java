@@ -2,6 +2,7 @@ package unit;
 
 import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.logic.ShapeValidator;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -115,6 +116,6 @@ public class ShapeValidatorTest {
     @DisplayName("Corrupted values throw exception")
     void testCorruptedValuesCausedException() {
         final ShapeValidator validator = new ShapeValidator();
-        assertThrows(UnsupportedOperationException.class, () -> validator.isValid(null, "any"));
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> validator.isValid(null, "any"));
     }
 }
