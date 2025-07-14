@@ -1,7 +1,7 @@
 package unit;
 
 import org.example.astero_demo.model.metadata.ShapeParam;
-import org.example.astero_demo.controller.ShapeValidator;
+import org.example.astero_demo.logic.ShapeValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

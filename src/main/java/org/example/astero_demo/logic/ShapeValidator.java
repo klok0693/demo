@@ -1,4 +1,4 @@
-package org.example.astero_demo.controller;
+package org.example.astero_demo.logic;
 
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ShapeParam;
