@@ -13,6 +13,8 @@
     <modules>
         <module>modules/core</module>
         <module>modules/javafx</module>
+        <module>modules/realization</module>
+        <module>modules/util</module>
     </modules>
 
     <properties>
@@ -128,7 +130,7 @@
                             <!-- Default configuration for running with: mvn clean javafx:run -->
                             <id>default-cli</id>
                             <configuration>
-                                <mainClass>org.example.astero_demo/org.example.astero_demo.HelloApplication</mainClass>
+                                <mainClass>org.example.astero_demo/org.example.astero_demo.realization.HelloApplication</mainClass>
                                 <launcher>app</launcher>
                                 <jlinkZipName>app</jlinkZipName>
                                 <jlinkImageName>app</jlinkImageName>

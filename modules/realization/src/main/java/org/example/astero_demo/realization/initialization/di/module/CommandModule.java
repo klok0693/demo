@@ -1,0 +1,35 @@
+package org.example.astero_demo.realization.initialization.di.module;
+
+import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import org.example.astero_demo.core.controller.model.ModelController;
+import org.example.astero_demo.core.controller.ui.UIController;
+import org.example.astero_demo.core.logic.command.CommandFactory;
+import org.example.astero_demo.core.logic.command.CommandFactoryImpl;
+import org.example.astero_demo.core.logic.command.CommandProcessor;
+
+/**
+ * DI config for logic commands
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
+public class CommandModule extends AbstractModule {
+
+    @Override
+    protected void configure() {
+        bind(CommandFactory.class).to(CommandFactoryImpl.class);
+        bind(CommandProcessor.class).toInstance(CommandProcessor.INSTANCE);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public CommandFactoryImpl provideCommandFactory(
+            final UIController viewController,
+            final ModelController modelController) {
+        return new CommandFactoryImpl(viewController, modelController);
+    }
+}

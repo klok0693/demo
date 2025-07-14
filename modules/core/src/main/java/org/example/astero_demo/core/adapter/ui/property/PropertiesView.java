@@ -1,0 +1,15 @@
+package org.example.astero_demo.core.adapter.ui.property;
+
+import org.example.astero_demo.core.adapter.ui.UpdatableView;
+import org.example.astero_demo.core.adapter.ui.state.mode.InsertModeSwitchable;
+import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitchableView;
+import org.example.astero_demo.core.adapter.ui.state.mode.SingleSelectionModeSwitchable;
+
+/**
+ * Represents a view for a Properties Panel
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
+public interface PropertiesView extends ModeSwitchableView {
+}

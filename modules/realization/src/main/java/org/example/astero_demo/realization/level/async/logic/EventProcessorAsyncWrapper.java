@@ -1,0 +1,39 @@
+package org.example.astero_demo.realization.level.async.logic;
+
+import com.google.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
+import org.example.astero_demo.core.logic.LogicShapeProcessor;
+import org.example.astero_demo.core.logic.ShapeProcessor;
+import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.realization.level.async.AsynchWrapper;
+
+@Slf4j
+public class EventProcessorAsyncWrapper extends AsynchWrapper<ShapeProcessor> implements ShapeProcessor {
+
+    @Inject
+    public EventProcessorAsyncWrapper(
+            final LogicShapeProcessor wrappedElement,
+            final BackgroundExecutor executor) {
+        super(wrappedElement, executor);
+    }
+
+    @Override
+    public void createShape(final ShapeParams shapeParams) {
+        executor.execute(() -> wrappedElement.createShape(shapeParams));
+    }
+
+    @Override
+    public void modifyShape(final int shapeId, final ShapeParams shapeParams) {
+        executor.execute(() -> wrappedElement.modifyShape(shapeId, shapeParams));
+    }
+
+    @Override
+    public void removeShape(final int id) {
+        executor.execute(() -> wrappedElement.removeShape(id));
+    }
+
+    @Override
+    public void undoLastOperation() {
+        executor.execute(wrappedElement::undoLastOperation);
+    }
+}
