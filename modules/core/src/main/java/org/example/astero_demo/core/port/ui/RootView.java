@@ -17,43 +17,13 @@ import java.util.ResourceBundle;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class RootView implements Initializable, ModeSwitchableView {
-    private final EventHandler shortcutHandler;
-    private final UIState uiState;
+public abstract class RootView implements Initializable, ModeSwitchableView {
+    protected final UIState uiState;
 
-    public ToolBarView toolBarRootController;
-    public ShapeCanvasView canvasRootController;
-    public PropertiesPanelView propertyRootController;
-    public LayersPanelView layersRootController;
-    public BorderPane root;
-
-    public ShapeCanvasView canvasRoot;
-
-    public RootView(final EventHandler shortcutHandler, final UIState uiState) {
-        this.shortcutHandler = shortcutHandler;
+    protected RootView(final UIState uiState) {
         this.uiState = uiState;
     }
 
     @Override
-    public void initialize(final URL url, final ResourceBundle resourceBundle) {
-        root.setOnKeyPressed(shortcutHandler::handle);
-    }
-
-    @Override
     public void update() {}
-
-    @Override
-    public void switchToInsertMode() {
-        root.setCursor(Cursor.CROSSHAIR);
-    }
-
-    @Override
-    public void switchToSingleSelectionMode() {
-        root.setCursor(Cursor.DEFAULT);
-    }
-
-    @Override
-    public void switchToMultipleSelectionMode() {
-        root.setCursor(Cursor.DEFAULT);
-    }
 }

@@ -22,8 +22,10 @@ import org.example.astero_demo.core.port.ui.canvas.tool.ShapeSelectionTool;
 import org.example.astero_demo.core.port.ui.canvas.tool.ToolLayer;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.drag.DragShapeTool;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert.InsertTool;
+import org.example.astero_demo.fx.port.ui.FxPropertiesPanelView;
+import org.example.astero_demo.fx.port.ui.FxRootView;
 import org.example.astero_demo.fx.port.ui.FxToolBarView;
-import org.example.astero_demo.core.port.ui.keyboard.RootShortcutHandler;
+import org.example.astero_demo.fx.port.ui.keyboard.RootShortcutHandler;
 import org.example.astero_demo.fx.initialization.ui.builder.CanvasBuilder;
 
 /**
@@ -109,7 +111,7 @@ public class UIViewModule extends AbstractModule {
     @Provides
     @Singleton
     public RootView provideRootView(final EventHandler shortcutHandler, final UIState uiState) {
-        return new RootView(shortcutHandler, uiState);
+        return new FxRootView(shortcutHandler, uiState);
     }
 
     @Inject
@@ -125,7 +127,7 @@ public class UIViewModule extends AbstractModule {
     public PropertiesPanelView providePropertyPanelView(
             final PropertiesAdapter propertyUpdatable,
             final UIState uiState) {
-        return new PropertiesPanelView(propertyUpdatable, uiState);
+        return new FxPropertiesPanelView(propertyUpdatable, uiState);
     }
 
     @Inject

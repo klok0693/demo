@@ -26,7 +26,6 @@ open module core/*org.example.astero_demo*/ {
     exports org.example.astero_demo.core.model.state;
     exports org.example.astero_demo.core.logic;
     exports org.example.astero_demo.core.port.ui.elements;
-    exports org.example.astero_demo.core.port.ui.keyboard;
     exports org.example.astero_demo.core.port.ui.canvas;
     exports org.example.astero_demo.core.port.ui.canvas.background;
     exports org.example.astero_demo.core.port.ui.canvas.shape;
@@ -39,5 +38,6 @@ open module core/*org.example.astero_demo*/ {
     exports org.example.astero_demo.core.adapter.model;
     exports org.example.astero_demo.core.model.entity;
     exports org.example.astero_demo.core.model.metadata.dto;
+    exports org.example.astero_demo.core.util;
     /*exports org.example.astero_demo.port.ui.view;*/
 }

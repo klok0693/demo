@@ -1,7 +1,4 @@
 open module realization {
-    exports org.example.astero_demo.realization.initialization.di.module;
-    exports org.example.astero_demo.realization.initialization.di.module.ui;
-    exports org.example.astero_demo.realization.configuration;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
@@ -20,5 +17,7 @@ open module realization {
  /*   requires javafx_gui;*/
     requires util;
 
-
+    exports org.example.astero_demo.realization.initialization.di.module;
+    exports org.example.astero_demo.realization.initialization.di.module.ui;
+    exports org.example.astero_demo.realization.configuration;
 }

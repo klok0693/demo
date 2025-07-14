@@ -1,4 +1,4 @@
-package org.example.astero_demo.core.port.ui.keyboard;
+package org.example.astero_demo.fx.port.ui.keyboard;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;

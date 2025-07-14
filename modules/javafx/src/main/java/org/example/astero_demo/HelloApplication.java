@@ -9,12 +9,9 @@ import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
+import org.example.astero_demo.fx.initialization.di.FxModule;
 import org.example.astero_demo.realization.configuration.AppConfiguration;
 import org.example.astero_demo.realization.initialization.di.module.*;
-import org.example.astero_demo.fx.initialization.di.InitializationModule;
-import org.example.astero_demo.realization.initialization.di.module.ui.UIAdapterModule;
-import org.example.astero_demo.fx.initialization.di.UIElementModule;
-import org.example.astero_demo.fx.initialization.di.UIViewModule;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,7 +25,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(final Stage stage) throws IOException {
         log.debug(INITIALIZATION_MARKER, "Init DI container");
-        this.injector = Guice.createInjector(
+/*        this.injector = Guice.createInjector(
                 new AsyncModule(),
                 new ProviderModule(),
                 new ModelModule(),
@@ -38,7 +35,9 @@ public class HelloApplication extends Application {
                 new LogicModule(),
                 new UIAdapterModule(),
                 new UIViewModule(),
-                new UIElementModule());
+                new UIElementModule());*/
+
+        this.injector = Guice.createInjector(new CoreModule(), new FxModule());
 
         final Callback<Class<?>, Object> controllerFactory = injector.getInstance(Callback.class);
         final BuilderFactory nodeFactory = injector.getInstance(BuilderFactory.class);

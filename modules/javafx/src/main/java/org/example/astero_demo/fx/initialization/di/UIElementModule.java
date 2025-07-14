@@ -9,6 +9,7 @@ import org.example.astero_demo.core.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.elements.LayersTree;
 import org.example.astero_demo.fx.initialization.ui.builder.LayersTreeBuilder;
+import org.example.astero_demo.fx.port.ui.element.FxLayersTree;
 
 /**
  * DI config for UI elements
@@ -21,17 +22,17 @@ public class UIElementModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public LayersTreeBuilder provideLayersTreeBuilder(final LayersTree layersTree) {
+    public LayersTreeBuilder provideLayersTreeBuilder(final FxLayersTree layersTree) {
         return new LayersTreeBuilder(layersTree);
     }
 
     @Inject
     @Provides
     @Singleton
-    public LayersTree provideLayersTree(
+    public FxLayersTree provideLayersTree(
             final ModelState modelState,
             final UIState uiState,
             final LayersAdapter shapeSelector) {
-        return new LayersTree(modelState, uiState, shapeSelector);
+        return new FxLayersTree(modelState, uiState, shapeSelector);
     }
 }

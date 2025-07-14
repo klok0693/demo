@@ -19,26 +19,14 @@ import org.example.astero_demo.core.util.ColorUtils;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class PropertiesPanelView implements PropertiesView {
-    public VBox propertyRoot;
-    public TextField xField;
-    public TextField yField;
-    public TextField widthField;
-    public TextField heightField;
-    public TextField layerField;
-    public ColorPicker colorField;
-
-    private final PropertiesAdapter propertyUpdatable;
-    private final UIState uiState;
+//TODO: Add onFocusLost()
+public abstract class PropertiesPanelView implements PropertiesView {
+    protected final PropertiesAdapter propertyUpdatable;
+    protected final UIState uiState;
 
     public PropertiesPanelView(final PropertiesAdapter propertyUpdatable, final UIState uiState) {
         this.propertyUpdatable = propertyUpdatable;
         this.uiState = uiState;
-    }
-
-    @Override
-    public void update() {
-        updatePanel();
     }
 
     @Override
@@ -47,97 +35,9 @@ public class PropertiesPanelView implements PropertiesView {
     }
 
     @Override
-    public void switchToSingleSelectionMode() {
-        propertyRoot.setDisable(false);
-    }
-
-    @Override
     public void switchToMultipleSelectionMode() {
         clearPanel();
     }
 
-    private void updatePanel() {
-        setUpField(xField, uiState.getSelectedX());
-        setUpField(yField, uiState.getSelectedY());
-        setUpField(widthField, uiState.getSelectedWidth());
-        setUpField(heightField, uiState.getSelectedHeight());
-        setUpField(layerField, uiState.getSelectedLayer());
-
-        final Integer color = uiState.getSelectedColor();
-        if (color != null) {
-            colorField.setValue(ColorUtils.convert(color));
-            colorField.setDisable(false);
-        }
-        else {
-            colorField.setValue(null);
-            colorField.setDisable(true);
-        }
-    }
-
-    private void clearPanel() {
-        clearAndDisable(xField);
-        clearAndDisable(yField);
-        clearAndDisable(widthField);
-        clearAndDisable(heightField);
-        clearAndDisable(layerField);
-
-        colorField.setValue(null);
-        colorField.setDisable(true);
-
-        propertyRoot.setDisable(true);
-    }
-
-    private static void setUpField(final TextInputControl field, final Number number) {
-        if (number != null) {
-            field.setText(String.valueOf(number));
-            field.setDisable(false);
-        }
-        else {
-            clearAndDisable(field);
-        }
-    }
-
-    private static void clearAndDisable(final TextInputControl field) { // TODO: disable only root?
-        field.clear();
-        field.setDisable(true);
-    }
-
-    public void updateX(final KeyEvent event) {
-        if (needToHandle(event)) {
-            propertyUpdatable.updateX(xField.getText());
-        }
-    }
-
-    public void updateY(final KeyEvent event) {
-        if (needToHandle(event)) {
-            propertyUpdatable.updateY(yField.getText());
-        }
-    }
-
-    public void updateWidth(final KeyEvent event) {
-        if (needToHandle(event)) {
-            propertyUpdatable.updateWidth(widthField.getText());
-        }
-    }
-
-    public void updateHeight(final KeyEvent event) {
-        if (needToHandle(event)) {
-            propertyUpdatable.updateHeight(heightField.getText());
-        }
-    }
-
-    public void updateLayer(final KeyEvent event) {
-        if (needToHandle(event)) {
-            propertyUpdatable.updateLayer(layerField.getText());
-        }
-    }
-
-    public void updateColor(final ActionEvent event) {
-        final Color selectedColor = colorField.getValue();
-        propertyUpdatable.updateColor(String.valueOf(ColorUtils.convert(selectedColor)));
-    }
-
-    private static boolean needToHandle(final KeyEvent event) {
-        return event.getCode() == KeyCode.ENTER;
-    }
+    protected abstract void clearPanel();
 }

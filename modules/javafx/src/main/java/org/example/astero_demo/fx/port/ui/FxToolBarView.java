@@ -12,7 +12,9 @@ public class FxToolBarView extends ToolBarView {
     public Button deleteBtn;
     public Button undoBtn;
 
-    public FxToolBarView(UIState uiState, ToolBarAdapter operationProcessor) {
+    public FxToolBarView(
+            final UIState uiState,
+            final ToolBarAdapter operationProcessor) {
         super(uiState, operationProcessor);
     }
 
