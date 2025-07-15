@@ -1,7 +1,6 @@
 package org.example.astero_demo.fx.port.ui.canvas.shape;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import org.example.astero_demo.core.model.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
@@ -11,6 +10,7 @@ import org.example.astero_demo.core.port.ui.canvas.shape.ShapeElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasLayer;
+import org.example.astero_demo.fx.util.ColorUtils;
 
 public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
 
@@ -30,8 +30,8 @@ public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
             final double y,
             final double width,
             final double height,
-            final Color fillColor) {
-        return new FxEllipseElement(layer, modelRelatedId, x, y, width, height, fillColor);
+            final String fillColor) {
+        return new FxEllipseElement(layer, modelRelatedId, x, y, width, height, ColorUtils.convert(fillColor));
     }
 
 
@@ -43,8 +43,8 @@ public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
             final double y,
             final double width,
             final double height,
-            final Color fillColor) {
-        return new FxRectangleElement(layer, modelRelatedId, x, y, width, height, fillColor);
+            final String fillColor) {
+        return new FxRectangleElement(layer, modelRelatedId, x, y, width, height, ColorUtils.convert(fillColor));
     }
 
     @Override

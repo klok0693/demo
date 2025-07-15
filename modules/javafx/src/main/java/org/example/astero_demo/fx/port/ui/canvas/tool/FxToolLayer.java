@@ -4,15 +4,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.canvas.tool.CanvasTool;
-import org.example.astero_demo.core.port.ui.canvas.tool.ShapeSelectionTool;
 import org.example.astero_demo.core.port.ui.canvas.tool.ToolLayer;
-import org.example.astero_demo.core.port.ui.canvas.tool.draggable.drag.DragShapeTool;
-import org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert.InsertTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.CanvasDraggable;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;
 
-public class FxToolLayer extends ToolLayer<GraphicsContext> implements CanvasDraggable {
+public class FxToolLayer extends ToolLayer<GraphicsContext> implements CanvasDraggable, CanvasClickable {
     protected final FxShapeSelectionTool selectionTool;
     protected final FxDragShapeTool dragTool;
     protected final FxInsertShapeTool insertTool;

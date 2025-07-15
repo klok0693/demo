@@ -1,4 +1,4 @@
-package functional;
+package org.example.astero_demo.functional;
 
 import org.example.astero_demo.HelloApplication;
 

@@ -1,12 +1,11 @@
 package org.example.astero_demo.core.model.entity;
 
-import javafx.scene.paint.Color;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.core.util.ColorUtils;
+import org.example.astero_demo.core.port.ui.UIConsrants;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -56,7 +55,7 @@ public abstract class Shape implements Comparable<Shape> {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.color = StringUtils.isNotBlank(color) ? color : String.valueOf(ColorUtils.convert(Color.GREEN));
+        this.color = StringUtils.isNotBlank(color) ? color : UIConsrants.DEFAULT_COLOR_STRING;
     }
 
     /**

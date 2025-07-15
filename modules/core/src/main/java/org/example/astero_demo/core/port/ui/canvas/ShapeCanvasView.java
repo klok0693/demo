@@ -1,26 +1,9 @@
 package org.example.astero_demo.core.port.ui.canvas;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.input.MouseEvent;
-import org.example.astero_demo.core.adapter.ui.state.mode.InsertModeSwitchable;
-import org.example.astero_demo.core.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.core.model.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasView;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
-import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
-import org.example.astero_demo.core.port.ui.canvas.tool.ToolLayer;
-
-/*import java.awt.*;*/
-import java.net.URL;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  * Represents a canvas view that displays shapes and provide tools<p>

@@ -1,10 +1,10 @@
 package integration;
 
-import org.example.astero_demo.adapter.keyboard.EditorOperationAdapter;
-import org.example.astero_demo.adapter.keyboard.OperationAdapter;
-import org.example.astero_demo.adapter.ui.ParentAdapter;
-import org.example.astero_demo.adapter.ui.state.UIState;
-import org.example.astero_demo.logic.ShapeProcessor;
+import org.example.astero_demo.core.adapter.keyboard.EditorOperationAdapter;
+import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
+import org.example.astero_demo.core.adapter.ui.ParentAdapter;
+import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.core.logic.ShapeProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

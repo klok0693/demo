@@ -5,10 +5,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert.InsertTool;
+import org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert.InsertShapeTool;
+import org.example.astero_demo.fx.port.ui.canvas.tool.CanvasClickable;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.FxDraggableTool;
 
-public class FxInsertShapeTool extends FxDraggableTool implements InsertTool<GraphicsContext> {
+public class FxInsertShapeTool extends FxDraggableTool implements InsertShapeTool<GraphicsContext>, CanvasClickable {
     private final CanvasAdapter adapter;
     private final UIState uiState;
 

@@ -1,8 +1,5 @@
 package org.example.astero_demo.core.port.ui.canvas.tool;
 
-import javafx.scene.canvas.GraphicsContext;
-import lombok.Getter;
-import lombok.Setter;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 
 /**

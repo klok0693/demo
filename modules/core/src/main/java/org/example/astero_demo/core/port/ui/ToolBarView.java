@@ -1,14 +1,7 @@
 package org.example.astero_demo.core.port.ui;
 
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import org.example.astero_demo.core.adapter.ui.UpdatableView;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.adapter.ui.state.mode.InsertModeSwitchable;
-import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitchable;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitchableView;
-import org.example.astero_demo.core.adapter.ui.state.mode.SingleSelectionModeSwitchable;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
 
 /**

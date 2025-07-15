@@ -1,7 +1,5 @@
 package org.example.astero_demo.realization.level.async.logic;
 
-import javafx.concurrent.Task;
-
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,8 +11,10 @@ public class BackgroundExecutor implements Executor {
 
     private final ThreadFactory virtualFactory = Thread.ofVirtual().factory();
     private final ExecutorService service;
+    private final RunnableWrapper wrapper;
 
-    protected BackgroundExecutor() {
+    public BackgroundExecutor(final RunnableWrapper wrapper) {
+        this.wrapper = wrapper;
         this.service = Executors.newThreadPerTaskExecutor(runnable -> {
             final Thread thread = virtualFactory.newThread(runnable);
             thread.setName(THREAD_NAME_PREFIX + runnable.hashCode());
@@ -24,12 +24,6 @@ public class BackgroundExecutor implements Executor {
 
     @Override
     public void execute(final Runnable runnable) {
-        service.execute(new Task<Void>() {
-            @Override
-            protected Void call() {
-                runnable.run();
-                return null;
-            }
-        });
+        service.execute(wrapper.wrap(runnable));
     }
 }

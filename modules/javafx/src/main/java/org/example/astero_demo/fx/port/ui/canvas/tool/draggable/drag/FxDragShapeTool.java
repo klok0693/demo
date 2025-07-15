@@ -7,7 +7,7 @@ import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.model.entity.Shape;
 import org.example.astero_demo.core.model.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.drag.DragShapeTool;
-import org.example.astero_demo.core.util.ColorUtils;
+import org.example.astero_demo.fx.util.ColorUtils;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.FxDraggableTool;
 
 import static java.lang.Double.parseDouble;

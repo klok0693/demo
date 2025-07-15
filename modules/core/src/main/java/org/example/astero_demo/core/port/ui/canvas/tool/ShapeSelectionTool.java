@@ -8,7 +8,7 @@ import org.example.astero_demo.core.adapter.ui.UpdatableView;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface ShapeSelectionTool<E extends Object> extends CanvasTool<E>, CanvasClickable, UpdatableView {
+public interface ShapeSelectionTool<E extends Object> extends CanvasTool<E>, UpdatableView {
 
     boolean isInBounds(double x, double y);
 }

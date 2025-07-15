@@ -1,4 +1,4 @@
-package org.example.astero_demo.core.port.ui.canvas.tool;
+package org.example.astero_demo.fx.port.ui.canvas.tool;
 
 import javafx.scene.input.MouseEvent;
 

@@ -1,15 +1,10 @@
 package org.example.astero_demo.core.port.ui.canvas.shape;
 
-import javafx.scene.paint.Color;
-import org.example.astero_demo.core.adapter.ui.state.mode.InsertModeSwitchable;
-import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitchableView;
-import org.example.astero_demo.core.adapter.ui.state.mode.SingleSelectionModeSwitchable;
 import org.example.astero_demo.core.model.entity.Shape;
 import org.example.astero_demo.core.model.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.UpdatableView;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
-import org.example.astero_demo.core.util.ColorUtils;
 
 import java.util.stream.Collectors;
 
@@ -57,7 +52,7 @@ public abstract class ShapeLayer<E extends Object> extends CanvasLayer<E, Canvas
         final double y = parseDouble(shape.getY());
         final double width = parseDouble(shape.getWidth());
         final double height = parseDouble(shape.getHeight());
-        final Color fillColor = ColorUtils.convert(shape.getColor());
+        final String fillColor = shape.getColor();
 
         return switch (shape.getType()) {
             case ELLIPSE -> createEllipse(layer, id, x, y, width, height, fillColor);
@@ -72,7 +67,7 @@ public abstract class ShapeLayer<E extends Object> extends CanvasLayer<E, Canvas
             double y,
             double width,
             double height,
-            Color fillColor
+            String fillColor
     );
 
     protected abstract RectangleElement<E> createRectangle(
@@ -82,7 +77,7 @@ public abstract class ShapeLayer<E extends Object> extends CanvasLayer<E, Canvas
             double y,
             double width,
             double height,
-            Color fillColor
+            String fillColor
     );
 
     protected abstract <T extends CanvasElement<E>> CanvasLayer<E, T> createLayer(int layer);

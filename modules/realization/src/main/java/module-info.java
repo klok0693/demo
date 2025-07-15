@@ -1,8 +1,8 @@
 open module realization {
-    requires javafx.controls;
+/*    requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
-    requires javafx.graphics;
+    requires javafx.graphics;*/
 
     requires com.google.guice;
     requires lombok;
@@ -20,4 +20,6 @@ open module realization {
     exports org.example.astero_demo.realization.initialization.di.module;
     exports org.example.astero_demo.realization.initialization.di.module.ui;
     exports org.example.astero_demo.realization.configuration;
+    exports org.example.astero_demo.realization.level.async.logic;
+    exports org.example.astero_demo.realization.level.async.ui;
 }

@@ -7,13 +7,15 @@ import org.example.astero_demo.core.controller.ui.ControllerAdapter;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
 import org.example.astero_demo.util.logging.MarkerStorage;
 
+import java.util.concurrent.Executor;
+
 @Slf4j
 public class RootAdapterAsyncWrapper extends AsynchWrapper<ControllerAdapter> implements ControllerAdapter {
 
     @Inject
     public RootAdapterAsyncWrapper(
             final RootAdapter wrappedElement,
-            final FXExecutor executor) {
+            final ForegroundExecutor executor) {
         super(wrappedElement, executor);
     }
 

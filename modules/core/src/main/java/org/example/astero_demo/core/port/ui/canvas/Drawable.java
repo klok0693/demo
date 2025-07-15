@@ -1,7 +1,5 @@
 package org.example.astero_demo.core.port.ui.canvas;
 
-import javafx.scene.canvas.GraphicsContext;
-
 /**
  * Represents any element, that can be drawn on canvas
  *

@@ -1,12 +1,12 @@
-package functional;
+package org.example.astero_demo.functional;
 
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import org.example.astero_demo.model.entity.Shape;
-import org.example.astero_demo.model.entity.ShapeType;
-import org.example.astero_demo.model.state.ModelState;
-import org.example.astero_demo.util.ColorUtils;
+import org.example.astero_demo.core.model.entity.Shape;
+import org.example.astero_demo.core.model.entity.ShapeType;
+import org.example.astero_demo.core.model.state.ModelState;
+import org.example.astero_demo.fx.util.ColorUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,6 @@ import org.testfx.framework.junit5.ApplicationTest;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;

@@ -1,8 +1,8 @@
 open module core/*org.example.astero_demo*/ {
-    requires javafx.controls;
+/*    requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
-    requires javafx.graphics;
+    requires javafx.graphics;*/
 
     requires com.google.guice;
     requires lombok;

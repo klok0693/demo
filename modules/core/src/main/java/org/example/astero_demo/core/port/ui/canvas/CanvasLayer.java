@@ -1,6 +1,5 @@
 package org.example.astero_demo.core.port.ui.canvas;
 
-import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 
 import java.util.Collection;

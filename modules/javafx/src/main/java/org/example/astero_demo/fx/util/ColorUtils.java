@@ -1,4 +1,4 @@
-package org.example.astero_demo.core.util;
+package org.example.astero_demo.fx.util;
 
 import javafx.scene.paint.Color;
 import lombok.experimental.UtilityClass;

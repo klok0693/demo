@@ -1,7 +1,5 @@
 package org.example.astero_demo.core.port.ui.canvas.shape;
 
-import javafx.scene.paint.Color;
-import lombok.Getter;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 
 /**
@@ -16,8 +14,6 @@ public interface ShapeElement<E extends Object> extends CanvasElement<E>, Compar
     int getModelRelatedId();
 
     int getLayer();
-
-    Color getFillColor();
 
     @Override
     default int compareTo(final ShapeElement o) {

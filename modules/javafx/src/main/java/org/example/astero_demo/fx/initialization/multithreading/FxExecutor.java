@@ -1,8 +1,7 @@
-package org.example.astero_demo.realization.level.async.ui;
+package org.example.astero_demo.fx.initialization.multithreading;
 
 import javafx.application.Platform;
-
-import java.util.concurrent.Executor;
+import org.example.astero_demo.realization.level.async.ui.ForegroundExecutor;
 
 /**
  * Custom executor service, wrapping logic operations into<p>
@@ -12,10 +11,10 @@ import java.util.concurrent.Executor;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class FXExecutor implements Executor {
+public class FxExecutor implements ForegroundExecutor {
 
     @Override
-    public void execute(Runnable runnable) {
+    public void execute(final Runnable runnable) {
         Platform.runLater(runnable::run);
     }
 }

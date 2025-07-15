@@ -8,7 +8,6 @@ import org.example.astero_demo.core.model.entity.Shape;
 import org.example.astero_demo.core.model.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.tool.SelectionFrame;
 import org.example.astero_demo.core.port.ui.canvas.tool.ShapeSelectionTool;
-import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.CanvasDraggable;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection.FxModificableSelectionFrame;
 
@@ -17,7 +16,8 @@ import java.util.Map;
 
 import static java.lang.Double.parseDouble;
 
-public class FxShapeSelectionTool extends FxCanvasTool implements ShapeSelectionTool<GraphicsContext>, CanvasDraggable {
+public class FxShapeSelectionTool extends FxCanvasTool
+        implements ShapeSelectionTool<GraphicsContext>, CanvasDraggable, CanvasClickable {
     private final ModelState modelState;
     private final UIState uiState;
     private final CanvasAdapter adapter;

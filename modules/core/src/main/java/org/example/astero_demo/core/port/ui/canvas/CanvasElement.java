@@ -1,8 +1,5 @@
 package org.example.astero_demo.core.port.ui.canvas;
 
-import javafx.scene.canvas.GraphicsContext;
-import lombok.Getter;
-
 /**
  * Represents an abstract element, that can be drawn on the canvas.<p>
  * Unlike layers, cannot be nested within each other, being leaves<p>
