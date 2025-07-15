@@ -8,6 +8,7 @@ import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
+import org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView;
 
 /**
  * To be able to use DI in our controllers, we need to override<p>
@@ -40,7 +41,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
 
     @Override
     public Object call(final Class<?> aClass) {
-        if (aClass.isAssignableFrom(ShapeCanvasView.class)) {
+        if (aClass.isAssignableFrom(FxShapeCanvasView.class)) {
             return canvasView;
         }
         if (aClass.isAssignableFrom(ToolBarView.class)) {

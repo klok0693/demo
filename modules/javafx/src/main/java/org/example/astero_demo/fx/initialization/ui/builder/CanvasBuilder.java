@@ -3,6 +3,8 @@ package org.example.astero_demo.fx.initialization.ui.builder;
 import javafx.scene.canvas.Canvas;
 import javafx.util.Builder;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
+import org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView;
+import org.example.astero_demo.fx.port.ui.element.FxCanvas;
 
 import java.util.HashMap;
 
@@ -15,18 +17,18 @@ import static java.lang.Double.parseDouble;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class CanvasBuilder extends HashMap<String, String> implements Builder<Canvas> {
-    private final ShapeCanvasView canvasView;
+public class CanvasBuilder extends HashMap<String, String> implements Builder<FxCanvas> {
+    private final FxCanvas canvas;
 
-    public CanvasBuilder(final ShapeCanvasView canvasView) {
-        this.canvasView = canvasView;
+    public CanvasBuilder(final FxCanvas canvas) {
+        this.canvas = canvas;
     }
 
     @Override
-    public Canvas build() {
-        canvasView.setWidth(parseDouble(get("width")));
-        canvasView.setHeight(parseDouble(get("height")));
-        canvasView.setFocusTraversable(parseBoolean(get("focusTraversable")));
-        return canvasView;
+    public FxCanvas build() {
+        canvas.setWidth(parseDouble(get("width")));
+        canvas.setHeight(parseDouble(get("height")));
+        canvas.setFocusTraversable(parseBoolean(get("focusTraversable")));
+        return canvas;
     }
 }

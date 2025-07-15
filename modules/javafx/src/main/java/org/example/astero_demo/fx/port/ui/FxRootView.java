@@ -22,8 +22,6 @@ public class FxRootView extends RootView {
     public LayersPanelView layersRootController;
     public BorderPane root;
 
-    public ShapeCanvasView canvasRoot;
-
     public FxRootView(
             final EventHandler shortcutHandler,
             final UIState uiState) {

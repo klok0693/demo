@@ -9,10 +9,9 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class BackgroundLayer extends CanvasLayer<CanvasElement> {
+public abstract class BackgroundLayer<E> extends CanvasLayer<E, CanvasElement<E>> {
 
-    public BackgroundLayer() {
+    protected BackgroundLayer() {
         super(0);
-        add(new BackgroundTilesElement());
     }
 }

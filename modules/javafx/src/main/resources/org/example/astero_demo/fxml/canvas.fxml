@@ -2,16 +2,23 @@
 
 <?import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView?>
 
-<ShapeCanvasView xmlns="http://javafx.com/javafx"
-                 xmlns:fx="http://javafx.com/fxml"
-                 fx:id="canvasRoot"
-                 fx:controller="org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView"
-                 width="720" height="630"
-                 focusTraversable="true"
-                 onMousePressed="#handleMousePressed"
-                 onDragDetected="#handleDragDetected"
-                 onMouseDragged="#handleMouseDragged"
-                 onMouseReleased="#handleMouseReleased">
+<?import org.example.astero_demo.fx.port.ui.element.FxCanvas?>
+<?import org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView?>
+
+<?import javafx.scene.layout.Pane?>
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="canvasRoot"
+      fx:controller="org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView">
+
+    <FxCanvas fx:id="canvas"
+            width="720" height="630"
+            focusTraversable="true"
+            onMousePressed="#handleMousePressed"
+            onDragDetected="#handleDragDetected"
+            onMouseDragged="#handleMouseDragged"
+            onMouseReleased="#handleMouseReleased"
+    />
 
 <!--    <stylesheets>
         <URL value="@../css/canvas.css"/>
@@ -19,4 +26,4 @@
 
     <CanvasView fx:id="canvas" width="710" height="620"/>-->
 
-</ShapeCanvasView>
+</Pane>

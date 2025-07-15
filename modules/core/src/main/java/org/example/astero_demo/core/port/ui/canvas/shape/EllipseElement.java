@@ -9,22 +9,5 @@ import javafx.scene.paint.Color;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class EllipseElement extends ShapeElement {
-
-    protected EllipseElement(
-            final int layer,
-            final int modelRelatedId,
-            final double x,
-            final double y,
-            final double width,
-            final double height,
-            final Color fillColor) {
-        super(layer, modelRelatedId, x, y, width, height, fillColor);
-    }
-
-    @Override
-    protected void drawElement(GraphicsContext gc) {
-        gc.setFill(fillColor);
-        gc.fillOval(x, y, width, height);
-    }
+public interface EllipseElement<E extends Object> extends ShapeElement<E> {
 }

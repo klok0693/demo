@@ -1,8 +1,9 @@
-package org.example.astero_demo.core.port.ui.canvas.background;
+package org.example.astero_demo.fx.port.ui.canvas.background;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
+import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 
 /**
  * Background element, splited all work area on squares, make navigation easier
@@ -10,11 +11,11 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-class BackgroundTilesElement extends CanvasElement {
+class FxBackgroundTilesElement extends FxCanvasElement {
     private static final int CELL_SIDE = 25;
     private static final int PADDING = 10;
 
-    protected BackgroundTilesElement() {
+    protected FxBackgroundTilesElement() {
         super(0.0, 0.0, 710, 620);
     }
 

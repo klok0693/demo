@@ -9,6 +9,7 @@ import org.example.astero_demo.core.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.elements.LayersTree;
 import org.example.astero_demo.fx.initialization.ui.builder.LayersTreeBuilder;
+import org.example.astero_demo.fx.port.ui.element.FxCanvas;
 import org.example.astero_demo.fx.port.ui.element.FxLayersTree;
 
 /**
@@ -34,5 +35,12 @@ public class UIElementModule extends AbstractModule {
             final UIState uiState,
             final LayersAdapter shapeSelector) {
         return new FxLayersTree(modelState, uiState, shapeSelector);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public FxCanvas provideFxCanvas() {
+        return new FxCanvas();
     }
 }

@@ -14,51 +14,29 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class CanvasTool extends CanvasElement implements Comparable<CanvasTool> {
-    private final int layer;
-    @Getter @Setter
-    private boolean isVisible;
-    @Getter @Setter
-    private boolean isActive;
-    @Getter @Setter
-    private boolean isEnabled;
+public interface CanvasTool<E extends Object> extends CanvasElement<E>, Comparable<CanvasTool<E>> {
 
-    protected CanvasTool(
-            final double x,
-            final double y,
-            final double width,
-            final double height,
-            final int layer) {
-        super(x, y, width, height);
-        this.layer = layer;
-        this.isVisible = false;
-        this.isActive = false;
-        this.isEnabled = false;
-    }
+    int getLayer();
 
-    @Override
-    public void draw(final GraphicsContext gc) {
-        if (isEnabled && isVisible) {
-            super.draw(gc);
-        }
-    }
+    boolean isVisible();
+
+    void setVisible(boolean isVisible);
+
+    boolean isActive();
+
+    void setActive(boolean isActive);
+
+    boolean isEnabled();
+
+    void setEnabled(boolean isEnabled);
 
     /**
      * Every class, adding new mutable fields, must override this method
      */
-    public double[] reset() {
-        final double[] values = new double[] {this.x, this.y, this.width, this.height};
-        this.x = -1;
-        this.y = -1;
-        this.width = -1;
-        this.height = -1;
-        this.isVisible = false;
-        this.isActive = false;
-        return values;
-    }
+    double[] reset();
 
     @Override
-    public int compareTo(final CanvasTool o) {
-        return Integer.compare(this.layer, o.layer);
+    default int compareTo(final CanvasTool o) {
+        return Integer.compare(getLayer(), o.getLayer());
     }
 }

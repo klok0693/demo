@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
  * @since v1.0
  */
 @FunctionalInterface
-public interface Drawable {
+public interface Drawable<T extends Object> {
 
-    void draw(GraphicsContext gc);
+    void draw(T gc);
 }

@@ -7,6 +7,7 @@ import org.example.astero_demo.core.adapter.ui.state.mode.SingleSelectionModeSwi
 import org.example.astero_demo.core.model.entity.Shape;
 import org.example.astero_demo.core.model.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.UpdatableView;
+import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.core.util.ColorUtils;
 
@@ -21,10 +22,15 @@ import static java.lang.Integer.parseInt;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implements UpdatableView {
-    private final ModelState modelState;
+public abstract class ShapeLayer<E extends Object> extends CanvasLayer<E, CanvasLayer<E, CanvasElement<E>>> implements UpdatableView {
+    protected final ModelState modelState;
 
-    public ShapeLayer(final ModelState modelState) {
+    protected ShapeLayer(final ModelState modelState) {
+        super(1);
+        this.modelState = modelState;
+    }
+
+    protected ShapeLayer(int layer, final ModelState modelState) {
         super(1);
         this.modelState = modelState;
     }
@@ -33,16 +39,18 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implement
     public void update() {
         removeAll();
         modelState.getShapes()
-                .map(ShapeLayer::createElement)
-                .collect(Collectors.groupingBy(ShapeElement::getLayer, Collectors.toList()))
+                .map(this::createElement)
+                .collect(Collectors.groupingBy(
+                        ShapeElement::getLayer,
+                        Collectors.mapping(e -> (CanvasElement<E>) e, Collectors.toList())))
                 .forEach((layer, elements) -> {
-                    final CanvasLayer<ShapeElement> canvasLayer = new CanvasLayer<>(layer);
+                    final CanvasLayer<E, CanvasElement<E>> canvasLayer = createLayer(layer);
                     canvasLayer.addAll(elements);
                     children.add(canvasLayer);
                 });
     }
 
-    private static ShapeElement createElement(final Shape shape) {
+    private ShapeElement<E> createElement(final Shape shape) {
         final int layer = parseInt(shape.getPriority());
         final int id = shape.getId();
         final double x = parseDouble(shape.getX());
@@ -52,8 +60,30 @@ public class ShapeLayer extends CanvasLayer<CanvasLayer<ShapeElement>> implement
         final Color fillColor = ColorUtils.convert(shape.getColor());
 
         return switch (shape.getType()) {
-            case ELLIPSE -> new EllipseElement(layer, id, x, y, width, height, fillColor);
-            case RECT -> new RectangleElement(layer, id, x, y, width, height, fillColor);
+            case ELLIPSE -> createEllipse(layer, id, x, y, width, height, fillColor);
+            case RECT -> createRectangle(layer, id, x, y, width, height, fillColor);
         };
     }
+
+    protected abstract EllipseElement<E> createEllipse(
+            int layer,
+            int modelRelatedId,
+            double x,
+            double y,
+            double width,
+            double height,
+            Color fillColor
+    );
+
+    protected abstract RectangleElement<E> createRectangle(
+            int layer,
+            int modelRelatedId,
+            double x,
+            double y,
+            double width,
+            double height,
+            Color fillColor
+    );
+
+    protected abstract <T extends CanvasElement<E>> CanvasLayer<E, T> createLayer(int layer);
 }

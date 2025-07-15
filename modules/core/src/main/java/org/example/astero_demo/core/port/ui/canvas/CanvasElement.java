@@ -11,30 +11,21 @@ import lombok.Getter;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-@Getter
-public abstract class CanvasElement implements Drawable {
-    protected double x;
-    protected double y;
-    protected double width;
-    protected double height;
+public interface CanvasElement<T extends Object> extends Drawable<T> {
 
-    protected CanvasElement(
-            final double x,
-            final double y,
-            final double width,
-            final double height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
+    double getX();
 
-    @Override
-    public void draw(final GraphicsContext gc) {
-        gc.save();
-        drawElement(gc);
-        gc.restore();
-    }
+    void setX(double x);
 
-    protected abstract void drawElement(GraphicsContext gc);
+    double getY();
+
+    void setY(double y);
+
+    double getWidth();
+
+    void setWidth(double width);
+
+    double getHeight();
+
+    void setHeight(double height);
 }

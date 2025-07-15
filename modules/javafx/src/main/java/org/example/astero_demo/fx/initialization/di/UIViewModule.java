@@ -25,6 +25,14 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert.InsertT
 import org.example.astero_demo.fx.port.ui.FxPropertiesPanelView;
 import org.example.astero_demo.fx.port.ui.FxRootView;
 import org.example.astero_demo.fx.port.ui.FxToolBarView;
+import org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView;
+import org.example.astero_demo.fx.port.ui.canvas.background.FxBackgroundLayer;
+import org.example.astero_demo.fx.port.ui.canvas.shape.FxShapeLayer;
+import org.example.astero_demo.fx.port.ui.canvas.tool.FxShapeSelectionTool;
+import org.example.astero_demo.fx.port.ui.canvas.tool.FxToolLayer;
+import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShapeTool;
+import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;
+import org.example.astero_demo.fx.port.ui.element.FxCanvas;
 import org.example.astero_demo.fx.port.ui.keyboard.RootShortcutHandler;
 import org.example.astero_demo.fx.initialization.ui.builder.CanvasBuilder;
 
@@ -40,71 +48,72 @@ public class UIViewModule extends AbstractModule {
     protected void configure() {
         bind(EventHandler.class).to(RootShortcutHandler.class);
         bind(CanvasView.class).to(ShapeCanvasView.class);
+        bind(ShapeCanvasView.class).to(FxShapeCanvasView.class).in(Scopes.SINGLETON);
         bind(LayersView.class).to(LayersPanelView.class);
         bind(PropertiesView.class).to(PropertiesPanelView.class);
-        bind(BackgroundLayer.class).in(Scopes.SINGLETON);
+        bind(BackgroundLayer.class).to(FxBackgroundLayer.class).in(Scopes.SINGLETON);
     }
 
     @Inject
     @Provides
     @Singleton
-    public CanvasBuilder provideCanvasBuilder(final ShapeCanvasView canvasView) {
-        return new CanvasBuilder(canvasView);
+    public CanvasBuilder provideCanvasBuilder(final FxCanvas canvas) {
+        return new CanvasBuilder(canvas);
     }
 
     @Inject
     @Provides
     @Singleton
-    public ShapeCanvasView provideCanvasView(
+    public FxShapeCanvasView provideCanvasView(
             final UIState state,
             final ModelState modelState,
             final CanvasAdapter adapter,
-            final BackgroundLayer backgroundLayer,
-            final ShapeLayer shapeLayer,
-            final ToolLayer toolLayer) {
-        return new ShapeCanvasView(state, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
+            final FxBackgroundLayer backgroundLayer,
+            final FxShapeLayer shapeLayer,
+            final FxToolLayer toolLayer) {
+        return new FxShapeCanvasView(state, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
     }
 
     @Inject
     @Provides
     @Singleton
-    public DragShapeTool provideDragTool(
+    public FxDragShapeTool provideDragTool(
             final CanvasAdapter adapter,
             final ModelState modelState,
             final UIState uiState) {
-        return new DragShapeTool(adapter, modelState, uiState);
+        return new FxDragShapeTool(adapter, modelState, uiState);
     }
 
     @Inject
     @Provides
     @Singleton
-    public ShapeSelectionTool provideSelectionTool(final CanvasAdapter adapter, final ModelState modelState, final UIState uiState) {
-        return new ShapeSelectionTool(adapter, modelState, uiState);
+    public FxShapeSelectionTool provideSelectionTool(final CanvasAdapter adapter, final ModelState modelState, final UIState uiState) {
+        return new FxShapeSelectionTool(modelState, uiState, adapter);
     }
 
     @Inject
     @Provides
     @Singleton
-    public InsertTool provideInsertTool(final CanvasAdapter adapter, final UIState uiState) {
-        return new InsertTool(adapter, uiState);
+    public FxInsertShapeTool provideInsertTool(final CanvasAdapter adapter, final UIState uiState) {
+        return new FxInsertShapeTool(adapter, uiState);
     }
 
     @Inject
     @Provides
     @Singleton
-    public ShapeLayer provideShapeLayer(final ModelState modelState) {
-        return new ShapeLayer(modelState);
+    public FxShapeLayer provideShapeLayer(final ModelState modelState) {
+        return new FxShapeLayer(modelState);
     }
 
     @Inject
     @Provides
     @Singleton
-    public ToolLayer provideToolLayer(
-            final ShapeSelectionTool selectionTool,
-            final DragShapeTool dragShapeTool,
-            final InsertTool insertTool,
+    public FxToolLayer provideToolLayer(
+            final FxShapeSelectionTool selectionTool,
+            final FxDragShapeTool dragShapeTool,
+            final FxInsertShapeTool insertTool,
             final UIState uiState) {
-        return new ToolLayer(selectionTool, dragShapeTool, insertTool, uiState);
+        return new FxToolLayer(selectionTool, dragShapeTool, insertTool, uiState);
     }
 
     @Inject

@@ -11,28 +11,16 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-@Getter
-public abstract class ShapeElement extends CanvasElement implements Comparable<ShapeElement> {
-    private final int modelRelatedId;
-    private final int layer;
-    protected Color fillColor;
+public interface ShapeElement<E extends Object> extends CanvasElement<E>, Comparable<ShapeElement<E>> {
 
-    protected ShapeElement(
-            final int layer,
-            final int modelRelatedId,
-            final double x,
-            final double y,
-            final double width,
-            final double height,
-            final Color fillColor) {
-        super(x, y, width, height);
-        this.modelRelatedId = modelRelatedId;
-        this.layer = layer;
-        this.fillColor = fillColor;
-    }
+    int getModelRelatedId();
+
+    int getLayer();
+
+    Color getFillColor();
 
     @Override
-    public int compareTo(final ShapeElement o) {
-        return Integer.compare(this.layer, o.layer);
+    default int compareTo(final ShapeElement o) {
+        return Integer.compare(getLayer(), o.getLayer());
     }
 }
