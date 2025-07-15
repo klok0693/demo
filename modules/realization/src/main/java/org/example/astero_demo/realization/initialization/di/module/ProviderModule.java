@@ -10,7 +10,7 @@ import org.example.astero_demo.realization.initialization.di.provider.logic.Comm
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ProviderModule extends AbstractModule {
+class ProviderModule extends AbstractModule {
 
     @Override
     protected void configure() {

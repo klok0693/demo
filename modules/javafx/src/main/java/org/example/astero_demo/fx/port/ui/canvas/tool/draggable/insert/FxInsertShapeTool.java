@@ -9,6 +9,12 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert.InsertS
 import org.example.astero_demo.fx.port.ui.canvas.tool.CanvasClickable;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.FxDraggableTool;
 
+/**
+ * JavaFX's realization of {@link InsertShapeTool}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxInsertShapeTool extends FxDraggableTool implements InsertShapeTool<GraphicsContext>, CanvasClickable {
     private final CanvasAdapter adapter;
     private final UIState uiState;

@@ -54,7 +54,7 @@ public class FxModificableSelectionFrame extends FxSelectionFrame implements Can
         return super.reset();
     }
 
-    //@Override
+    @Override
     public void onMousePressed(final MouseEvent event) {
         contactPoints.forEach(contact -> contact.onDragDetected(event));
     }

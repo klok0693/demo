@@ -10,10 +10,10 @@ import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class RootShortcutHandler implements EventHandler<KeyEvent> {
+public class FxRootShortcutHandler implements EventHandler<KeyEvent> {
     private final OperationAdapter keyBoardAdapter;
 
-    public RootShortcutHandler(final OperationAdapter keyBoardAdapter) {
+    public FxRootShortcutHandler(final OperationAdapter keyBoardAdapter) {
         this.keyBoardAdapter = keyBoardAdapter;
     }
 

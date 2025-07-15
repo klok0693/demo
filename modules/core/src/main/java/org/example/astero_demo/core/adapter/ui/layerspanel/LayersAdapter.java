@@ -4,7 +4,6 @@ import org.example.astero_demo.core.adapter.ui.ShapeSelector;
 import org.example.astero_demo.core.adapter.ui.UpdatableAdapter;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitcher;
 
-
 /**
  * Represents an adapter for interact with a Layers Panel
  *

@@ -10,7 +10,6 @@ import org.example.astero_demo.core.model.entity.ShapeType;
 import org.example.astero_demo.core.model.metadata.ParamInfo;
 import org.example.astero_demo.core.model.metadata.ShapeParam;
 import org.example.astero_demo.core.model.state.ModelState;
-import org.example.astero_demo.util.logging.MarkerStorage;
 
 import javax.annotation.Nullable;
 import java.util.LinkedList;
@@ -20,7 +19,6 @@ import java.util.stream.Stream;
 import static java.lang.String.valueOf;
 import static org.example.astero_demo.core.model.metadata.ParamInfo.create;
 import static org.example.astero_demo.util.logging.MarkerStorage.*;
-/*import static org.example.astero_demo.util.logging.MarkerStorage.UI_STATE_MARKER;*/
 
 /**
  * Realization of the State template fot the UI data

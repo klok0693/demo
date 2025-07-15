@@ -18,7 +18,7 @@ import org.example.astero_demo.fx.port.ui.element.FxLayersTree;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class UIElementModule extends AbstractModule {
+class UIElementModule extends AbstractModule {
 
     @Inject
     @Provides

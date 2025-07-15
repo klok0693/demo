@@ -28,7 +28,7 @@ import org.example.astero_demo.fx.port.ui.canvas.tool.FxToolLayer;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;
 import org.example.astero_demo.fx.port.ui.element.FxCanvas;
-import org.example.astero_demo.fx.port.ui.keyboard.RootShortcutHandler;
+import org.example.astero_demo.fx.port.ui.keyboard.FxRootShortcutHandler;
 import org.example.astero_demo.fx.initialization.ui.builder.CanvasBuilder;
 
 /**
@@ -37,11 +37,11 @@ import org.example.astero_demo.fx.initialization.ui.builder.CanvasBuilder;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class UIViewModule extends AbstractModule {
+class UIViewModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(EventHandler.class).to(RootShortcutHandler.class);
+        bind(EventHandler.class).to(FxRootShortcutHandler.class);
         bind(CanvasView.class).to(ShapeCanvasView.class);
         bind(ShapeCanvasView.class).to(FxShapeCanvasView.class).in(Scopes.SINGLETON);
         bind(LayersView.class).to(LayersPanelView.class);
@@ -144,7 +144,7 @@ public class UIViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public RootShortcutHandler provideShortcutHandler(final OperationAdapter adapter) {
-        return new RootShortcutHandler(adapter);
+    public FxRootShortcutHandler provideShortcutHandler(final OperationAdapter adapter) {
+        return new FxRootShortcutHandler(adapter);
     }
 }

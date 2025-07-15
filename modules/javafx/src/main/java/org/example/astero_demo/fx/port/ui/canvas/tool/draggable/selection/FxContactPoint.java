@@ -11,6 +11,12 @@ import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.FxDraggableTool;
 
 import static org.example.astero_demo.core.port.ui.UIConsrants.CONTACT_DIAMETER;
 
+/**
+ * JavaFX's realization of {@link ContactPoint}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxContactPoint extends FxDraggableTool implements ContactPoint<GraphicsContext> {
     private static final double RADIUS = CONTACT_DIAMETER / 2;
 

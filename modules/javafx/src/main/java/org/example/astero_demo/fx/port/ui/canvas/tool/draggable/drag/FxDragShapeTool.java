@@ -12,6 +12,12 @@ import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.FxDraggableTool;
 
 import static java.lang.Double.parseDouble;
 
+/**
+ * JavaFX's realization of {@link DragShapeTool}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxDragShapeTool extends FxDraggableTool implements DragShapeTool<GraphicsContext> {
     private final CanvasAdapter adapter;
     private final ModelState modelState;

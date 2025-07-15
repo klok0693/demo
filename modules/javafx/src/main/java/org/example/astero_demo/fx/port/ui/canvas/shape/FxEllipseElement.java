@@ -4,6 +4,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
 
+/**
+ * JavaFX's realization of {@link EllipseElement}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxEllipseElement extends FxShapeElement implements EllipseElement<GraphicsContext> {
 
     protected FxEllipseElement(

@@ -6,12 +6,15 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
-import org.example.astero_demo.core.port.ui.canvas.shape.ShapeElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
-import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
-import org.example.astero_demo.fx.port.ui.canvas.FxCanvasLayer;
 import org.example.astero_demo.fx.util.ColorUtils;
 
+/**
+ * JavaFX's realization of {@link ShapeLayer}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
 
     public FxShapeLayer(final ModelState modelState) {
@@ -49,11 +52,6 @@ public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
 
     @Override
     protected CanvasLayer<GraphicsContext, CanvasLayer<GraphicsContext, CanvasElement<GraphicsContext>>> createLayer(final int layer) {
-        return new FxShapeLayer(layer, modelState);//new FxCanvasLayer(layer);
+        return new FxShapeLayer(layer, modelState);
     }
-
-    /*    @Override
-    protected CanvasLayer<GraphicsContext, CanvasElement<GraphicsContext>> createLayer(final int layer) {
-        return new FxCanvasLayer(layer);
-    }*/
 }

@@ -6,7 +6,7 @@ import org.example.astero_demo.realization.level.async.ui.ForegroundExecutor;
 /**
  * Custom executor service, wrapping logic operations into<p>
  * separate non-blocking thread and ui update operations into<p>
- * JavaFX Application thread. Uses virtual non-daemon threads
+ * JavaFX Application thread.
  *
  * @author Pilip Yurchanka
  * @since v1.0

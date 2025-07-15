@@ -16,7 +16,7 @@ import org.example.astero_demo.core.logic.command.CommandProcessor;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class CommandModule extends AbstractModule {
+class CommandModule extends AbstractModule {
 
     @Override
     protected void configure() {

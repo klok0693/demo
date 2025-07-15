@@ -6,6 +6,8 @@ import lombok.experimental.UtilityClass;
 import static java.lang.Integer.parseInt;
 
 /**
+ * Convert from/to sRGB color
+ *
  * @author Pilip Yurchanka
  * @since v1.0
  */

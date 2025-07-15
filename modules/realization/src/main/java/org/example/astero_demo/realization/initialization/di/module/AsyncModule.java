@@ -22,7 +22,7 @@ import java.util.List;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class AsyncModule extends AbstractModule {
+class AsyncModule extends AbstractModule {
 
     @Override
     protected void configure() {

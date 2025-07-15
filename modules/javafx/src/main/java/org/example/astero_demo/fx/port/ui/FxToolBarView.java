@@ -6,6 +6,12 @@ import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.core.port.ui.ToolBarView;
 
+/**
+ * JavaFX's realization of {@link ToolBarView}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxToolBarView extends ToolBarView {
     public ToggleButton insertRectBtn;
     public ToggleButton insertCycleBtn;

@@ -4,7 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
 
+/**
+ * JavaFX's realization of {@link RectangleElement}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxRectangleElement extends FxShapeElement implements RectangleElement<GraphicsContext> {
+    //TODO: Someday, sometime
     private double opacity;
     private double scale;
     private double angle;

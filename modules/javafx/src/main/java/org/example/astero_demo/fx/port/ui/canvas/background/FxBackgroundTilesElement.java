@@ -2,7 +2,6 @@ package org.example.astero_demo.fx.port.ui.canvas.background;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 
 /**

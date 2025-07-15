@@ -15,9 +15,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * Test creation of the {@link Shape} via canvas drag&drop

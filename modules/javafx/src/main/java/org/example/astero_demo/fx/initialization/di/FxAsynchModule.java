@@ -7,7 +7,7 @@ import org.example.astero_demo.fx.initialization.multithreading.FxRunnableWrappe
 import org.example.astero_demo.realization.level.async.logic.RunnableWrapper;
 import org.example.astero_demo.realization.level.async.ui.ForegroundExecutor;
 
-public class FxAsynchModule extends AbstractModule {
+class FxAsynchModule extends AbstractModule {
 
     @Override
     protected void configure() {

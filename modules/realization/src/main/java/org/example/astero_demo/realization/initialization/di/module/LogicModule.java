@@ -6,7 +6,7 @@ import org.example.astero_demo.core.logic.LogicShapeProcessor;
 import org.example.astero_demo.core.logic.command.CommandFactory;
 import org.example.astero_demo.core.logic.command.CommandProcessor;
 
-public class LogicModule extends AbstractModule {
+class LogicModule extends AbstractModule {
 
     @Inject
     @Provides

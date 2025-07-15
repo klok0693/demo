@@ -1,10 +1,4 @@
-open module core/*org.example.astero_demo*/ {
-/*    requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.base;
-    requires javafx.graphics;*/
-
-    requires com.google.guice;
+open module core {
     requires lombok;
     requires org.apache.commons.lang3;
     requires commons.math3;
@@ -41,5 +35,4 @@ open module core/*org.example.astero_demo*/ {
     exports org.example.astero_demo.core.util;
     exports org.example.astero_demo.core.port.ui.canvas.tool.draggable;
     exports org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
-    /*exports org.example.astero_demo.port.ui.view;*/
 }

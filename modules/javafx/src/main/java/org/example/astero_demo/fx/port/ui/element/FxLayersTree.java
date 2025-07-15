@@ -15,6 +15,12 @@ import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * JavaFX's realization of {@link LayersTree}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxLayersTree extends TreeView<String> implements LayersTree {
     private final ModelState modelState;
     private final UIState uiState;

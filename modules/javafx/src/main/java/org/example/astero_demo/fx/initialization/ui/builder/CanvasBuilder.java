@@ -1,9 +1,6 @@
 package org.example.astero_demo.fx.initialization.ui.builder;
 
-import javafx.scene.canvas.Canvas;
 import javafx.util.Builder;
-import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
-import org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView;
 import org.example.astero_demo.fx.port.ui.element.FxCanvas;
 
 import java.util.HashMap;

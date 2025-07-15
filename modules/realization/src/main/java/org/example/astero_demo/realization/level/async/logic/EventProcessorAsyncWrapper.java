@@ -7,6 +7,12 @@ import org.example.astero_demo.core.logic.ShapeProcessor;
 import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
 
+/**
+ * Wrap calls to {@link ShapeProcessor}, to execute them in a separate thread
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 @Slf4j
 public class EventProcessorAsyncWrapper extends AsynchWrapper<ShapeProcessor> implements ShapeProcessor {
 

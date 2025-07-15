@@ -9,6 +9,10 @@ import org.example.astero_demo.util.logging.MarkerStorage;
 
 import java.util.concurrent.Executor;
 
+/**
+ * Wrap calls from {@link ControllerAdapter} using {@link ForegroundExecutor},<p>
+ * merging them into non-freezable thread
+ */
 @Slf4j
 public class RootAdapterAsyncWrapper extends AsynchWrapper<ControllerAdapter> implements ControllerAdapter {
 

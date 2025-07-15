@@ -3,10 +3,15 @@ package org.example.astero_demo.fx.port.ui.canvas.tool;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.example.astero_demo.core.port.ui.canvas.tool.CanvasTool;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 
+/**
+ * JavaFX's realization of {@link CanvasTool}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 @Getter
 @Setter
 public abstract class FxCanvasTool extends FxCanvasElement implements CanvasTool<GraphicsContext> {

@@ -1,6 +1,6 @@
 open module util {
     requires lombok;
- /*   requires org.apache.commons.lang3;*/
+    requires org.apache.commons.lang3;
     requires commons.math3;
     requires org.slf4j;
     requires jsr305;

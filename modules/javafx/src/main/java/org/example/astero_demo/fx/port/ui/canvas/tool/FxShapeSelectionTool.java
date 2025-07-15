@@ -16,6 +16,12 @@ import java.util.Map;
 
 import static java.lang.Double.parseDouble;
 
+/**
+ * JavaFX's realization of {@link ShapeSelectionTool}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxShapeSelectionTool extends FxCanvasTool
         implements ShapeSelectionTool<GraphicsContext>, CanvasDraggable, CanvasClickable {
     private final ModelState modelState;

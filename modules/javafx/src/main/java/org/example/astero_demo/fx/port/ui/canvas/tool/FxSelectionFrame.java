@@ -6,6 +6,12 @@ import org.example.astero_demo.core.port.ui.canvas.tool.SelectionFrame;
 
 import static org.example.astero_demo.core.port.ui.UIConsrants.MINIMAL_SIDE_SIZE;
 
+/**
+ * JavaFX's realization of {@link SelectionFrame}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxSelectionFrame extends FxCanvasTool implements SelectionFrame<GraphicsContext> {
     private static final double FRAME_WIDTH = 3.0;
     protected final Color fillColor;

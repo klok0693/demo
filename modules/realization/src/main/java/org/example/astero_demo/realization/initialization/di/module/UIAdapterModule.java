@@ -1,4 +1,4 @@
-package org.example.astero_demo.realization.initialization.di.module.ui;
+package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.*;
 import org.example.astero_demo.core.adapter.keyboard.EditorOperationAdapter;
@@ -30,7 +30,7 @@ import org.example.astero_demo.core.port.ui.ToolBarView;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class UIAdapterModule extends AbstractModule {
+class UIAdapterModule extends AbstractModule {
 
     @Override
     protected void configure() {

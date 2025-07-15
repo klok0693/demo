@@ -1,7 +1,6 @@
 package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.AbstractModule;
-import org.example.astero_demo.realization.initialization.di.module.ui.UIAdapterModule;
 
 public class CoreModule extends AbstractModule {
 

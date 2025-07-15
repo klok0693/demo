@@ -14,6 +14,12 @@ import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * JavaFX's realization of {@link RootView}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxRootView extends RootView implements Initializable {
     private final EventHandler shortcutHandler;
 
@@ -32,6 +38,7 @@ public class FxRootView extends RootView implements Initializable {
 
     @Override
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
+        // TODO: Bind on scene, not root view
         root.setOnKeyPressed(shortcutHandler::handle);
     }
 

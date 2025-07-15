@@ -5,6 +5,12 @@ import org.example.astero_demo.realization.level.transport.logic_event.LogicEven
 
 import java.util.List;
 
+/**
+ * Mock, that represent transport event bus
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public class ChannelMock {
     private final List<LogicEventReceiverWrapper> receivers;
 

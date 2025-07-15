@@ -6,6 +6,12 @@ import javafx.scene.paint.Color;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.DraggableTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.FxCanvasTool;
 
+/**
+ * JavaFX's realization of {@link DraggableTool}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public abstract class FxDraggableTool extends FxCanvasTool implements DraggableTool<GraphicsContext>, CanvasDraggable {
     protected static final double OPACITY = 0.4;
     protected Color fillColor;

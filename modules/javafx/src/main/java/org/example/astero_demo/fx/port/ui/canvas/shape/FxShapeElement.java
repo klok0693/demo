@@ -6,6 +6,12 @@ import lombok.Getter;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeElement;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 
+/**
+ * JavaFX's realization of {@link ShapeElement}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 @Getter
 public abstract class FxShapeElement extends FxCanvasElement implements ShapeElement<GraphicsContext> {
     private final int modelRelatedId;

@@ -2,7 +2,6 @@ package org.example.astero_demo.core.adapter.ui.canvas;
 
 import org.example.astero_demo.core.adapter.ui.UpdatableAdapter;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitcher;
-import org.example.astero_demo.core.adapter.ui.state.mode.UIMode;
 
 /**
  * Represents an adapter for interact with a canvas

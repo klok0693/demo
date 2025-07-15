@@ -5,6 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 
+/**
+ * JavaFX's realization of {@link CanvasElement}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 @Getter
 @Setter
 public abstract class FxCanvasElement implements CanvasElement<GraphicsContext> {

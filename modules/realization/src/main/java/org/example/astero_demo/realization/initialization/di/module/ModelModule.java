@@ -16,7 +16,7 @@ import org.example.astero_demo.core.model.state.MutableModelState;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ModelModule extends AbstractModule {
+class ModelModule extends AbstractModule {
 
     @Override
     protected void configure() {

@@ -18,6 +18,9 @@ import java.util.List;
 
 import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_MARKER;
 
+/**
+ * Config, initialize and launch the application
+ */
 @Slf4j
 public class HelloApplication extends Application {
     protected Injector injector;
@@ -25,18 +28,6 @@ public class HelloApplication extends Application {
     @Override
     public void start(final Stage stage) throws IOException {
         log.debug(INITIALIZATION_MARKER, "Init DI container");
-/*        this.injector = Guice.createInjector(
-                new AsyncModule(),
-                new ProviderModule(),
-                new ModelModule(),
-                new InitializationModule(),
-                new CommandModule(),
-                new ControllerModule(),
-                new LogicModule(),
-                new UIAdapterModule(),
-                new UIViewModule(),
-                new UIElementModule());*/
-
         this.injector = Guice.createInjector(new CoreModule(), new FxModule());
 
         final Callback<Class<?>, Object> controllerFactory = injector.getInstance(Callback.class);
@@ -48,7 +39,7 @@ public class HelloApplication extends Application {
         fxmlLoader.setBuilderFactory(nodeFactory);
 
         final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
-        stage.setTitle("untitled");
+        stage.setTitle("demo");
         stage.setScene(scene);
         stage.show();
     }

@@ -9,6 +9,12 @@ import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.CanvasDraggable;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;
 
+/**
+ * JavaFX's realization of {@link ToolLayer}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxToolLayer extends ToolLayer<GraphicsContext> implements CanvasDraggable, CanvasClickable {
     protected final FxShapeSelectionTool selectionTool;
     protected final FxDragShapeTool dragTool;

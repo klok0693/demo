@@ -5,6 +5,12 @@ import org.example.astero_demo.realization.level.WrapperLink;
 
 import java.util.List;
 
+/**
+ * Transform event signal to a direct method call
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public abstract class ReceiverWrapper<E> extends WrapperLink<E> {
     private final List<Class<? extends LogicEvent>> handledEvents;
 

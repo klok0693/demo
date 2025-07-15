@@ -13,6 +13,12 @@ import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.fx.util.ColorUtils;
 
+/**
+ * JavaFX's realization of {@link PropertiesPanelView}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
 public class FxPropertiesPanelView extends PropertiesPanelView {
     public VBox propertyRoot;
     public TextField xField;

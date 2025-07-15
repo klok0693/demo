@@ -1,4 +1,4 @@
-open module javafx_gui/*org.example.astero_demo*/ {
+open module javafx_gui {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
@@ -18,5 +18,4 @@ open module javafx_gui/*org.example.astero_demo*/ {
     requires util;
 
     exports org.example.astero_demo.fx.port.ui;
-    /*exports org.example.astero_demo;*/
 }

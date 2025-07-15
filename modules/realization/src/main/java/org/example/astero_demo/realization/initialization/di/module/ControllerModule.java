@@ -15,7 +15,7 @@ import org.example.astero_demo.core.controller.ui.UIController;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ControllerModule extends AbstractModule {
+class ControllerModule extends AbstractModule {
 
     @Override
     protected void configure() {
