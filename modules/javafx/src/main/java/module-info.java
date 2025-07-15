@@ -5,7 +5,6 @@ open module javafx_gui {
     requires javafx.graphics;
 
     requires com.google.guice;
-    requires lombok;
     requires org.apache.commons.lang3;
     requires commons.math3;
     requires org.slf4j;
@@ -16,6 +15,7 @@ open module javafx_gui {
     requires core;
     requires realization;
     requires util;
+    requires static lombok;
 
     exports org.example.astero_demo.fx.port.ui;
 }

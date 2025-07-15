@@ -1,5 +1,4 @@
 open module core {
-    requires lombok;
     requires org.apache.commons.lang3;
     requires commons.math3;
     requires org.slf4j;
@@ -8,6 +7,7 @@ open module core {
     requires java.desktop;
 
     requires util;
+    requires static lombok;
 
     exports org.example.astero_demo.core.port.ui;
     exports org.example.astero_demo.core.adapter.ui.state;

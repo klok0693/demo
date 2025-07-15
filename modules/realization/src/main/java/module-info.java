@@ -1,6 +1,5 @@
 open module realization {
     requires com.google.guice;
-    requires lombok;
     requires org.apache.commons.lang3;
     requires commons.math3;
     requires org.slf4j;
@@ -10,6 +9,7 @@ open module realization {
 
     requires core;
     requires util;
+    requires static lombok;
 
     exports org.example.astero_demo.realization.initialization.di.module;
     exports org.example.astero_demo.realization.configuration;
