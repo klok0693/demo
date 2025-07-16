@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<?import java.net.URL?>
+
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns="http://javafx.com/javafx"
+             xmlns:fx="http://javafx.com/fxml"
+             fx:id="toolBarRoot"
+             fx:controller="org.example.astero_demo.core.port.ui.ToolBarView">
+
+    <stylesheets>
+        <URL value="@../css/tool-bar.css"/>
+    </stylesheets>
+
+    <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+        <fx:define>
+            <ToggleGroup fx:id="insertElementButton"/>
+        </fx:define>
+
+        <ToggleButton fx:id="insertRectBtn" text="Rect" onAction="#onInsertRectAction" toggleGroup="$insertElementButton"/>
+        <ToggleButton fx:id="insertCycleBtn" text="Cycle" onAction="#onInsertCycleAction" toggleGroup="$insertElementButton"/>
+    </HBox>
+
+    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+        <Button fx:id="undoBtn" text="Undo" onAction="#onUndoAction"/>
+        <Button fx:id="deleteBtn" text="Delete" onAction="#onDeleteAction" disable="true"/>
+    </HBox>
+
+<!--    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>-->
+</HBox>

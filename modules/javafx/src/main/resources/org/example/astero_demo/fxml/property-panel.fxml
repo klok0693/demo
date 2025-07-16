@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx"
+                   xmlns:fx="http://javafx.com/fxml"
+                   fx:id="propertyRoot"
+                   fx:controller="org.example.astero_demo.core.port.ui.PropertiesPanelView"
+                   prefHeight="380.0" prefWidth="240.0">
+
+    <stylesheets>
+        <URL value="@../css/property-panel.css"/>
+    </stylesheets>
+
+    <GridPane hgap="5" vgap="10" prefHeight="120.0" prefWidth="240.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="10.0" percentWidth="25.0"/>
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="10.0" percentWidth="25.0"/>
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="10.0" percentWidth="25.0"/>
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="10.0" percentWidth="25.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="Infinity" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS"/>
+            <RowConstraints maxHeight="Infinity" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS"/>
+            <RowConstraints maxHeight="Infinity" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS"/>
+            <RowConstraints maxHeight="Infinity" minHeight="30.0" prefHeight="30.0" vgrow="ALWAYS"/>
+        </rowConstraints>
+
+        <Label text="x:"          GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
+        <TextField fx:id="xField" GridPane.rowIndex="0" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateX"/>
+        <Label text="y:"          GridPane.rowIndex="0" GridPane.columnIndex="2" GridPane.halignment="RIGHT"/>
+        <TextField fx:id="yField" GridPane.rowIndex="0" GridPane.columnIndex="3" disable="true" onKeyPressed="#updateY"/>
+
+        <Label text="width:"           GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
+        <TextField fx:id="widthField"  GridPane.rowIndex="1" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateWidth"/>
+        <Label text="height:"          GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.halignment="RIGHT"/>
+        <TextField fx:id="heightField" GridPane.rowIndex="1" GridPane.columnIndex="3" disable="true" onKeyPressed="#updateHeight"/>
+
+        <Label text="layer:"          GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
+        <TextField fx:id="layerField" GridPane.rowIndex="2" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateLayer"/>
+
+        <Label text="color:"            GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
+        <ColorPicker fx:id="colorField" GridPane.rowIndex="3" GridPane.columnIndex="1" disable="true" onAction="#updateColor"/>
+    </GridPane>
+
+</VBox>
