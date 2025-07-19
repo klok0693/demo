@@ -2,6 +2,7 @@ package org.example.astero_demo.core.port.ui;
 
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitchableView;
+import org.example.astero_demo.core.port.ui.model.Cursors;
 
 /**
  * Represents the root view of the application, responsible for managing the main View components.
@@ -18,4 +19,21 @@ public abstract class RootView implements ModeSwitchableView {
 
     @Override
     public void update() {}
+
+    @Override
+    public void switchToInsertMode() {
+        setCursor(Cursors.CROSSHAIR);
+    }
+
+    @Override
+    public void switchToSingleSelectionMode() {
+        setCursor(Cursors.DEFAULT);
+    }
+
+    @Override
+    public void switchToMultipleSelectionMode() {
+        setCursor(Cursors.DEFAULT);
+    }
+
+    protected abstract void setCursor(Cursors cursor);
 }

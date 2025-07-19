@@ -2,6 +2,7 @@ package org.example.astero_demo.core.adapter.ui.property;
 
 import org.example.astero_demo.core.adapter.ui.UpdatableAdapter;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitcher;
+import org.example.astero_demo.core.model.metadata.ShapeParam;
 
 /**
  * Represents an interface for interact with Properties Panel
@@ -11,15 +12,5 @@ import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitcher;
  */
 public interface PropertiesAdapter extends UpdatableAdapter, ModeSwitcher {
 
-    void updateX(String x);
-
-    void updateY(String y);
-
-    void updateWidth(String width);
-
-    void updateHeight(String height);
-
-    void updateLayer(String layer);
-
-    void updateColor(String color);
+    void updateField(ShapeParam param, String value);
 }

@@ -25,29 +25,17 @@ public class FxToolBarView extends ToolBarView {
     }
 
     @Override
-    public void update() {
-        final boolean disableRelated = !uiState.hasSelectedId() || uiState.isMultipleSelection();
-        deleteBtn.setDisable(disableRelated);
+    protected void setDeleteBtnDisabled(final boolean isDisabled) {
+        deleteBtn.setDisable(isDisabled);
     }
 
     @Override
-    public void switchToInsertMode() {
-        insertRectBtn.setSelected(true);
-        insertCycleBtn.setSelected(true);
-        deleteBtn.setDisable(true);
+    protected void setInsertRectBtnSelected(final boolean setSelected) {
+        insertRectBtn.setSelected(setSelected);
     }
 
     @Override
-    public void switchToSingleSelectionMode() {
-        insertRectBtn.setSelected(false);
-        insertCycleBtn.setSelected(false);
-        deleteBtn.setDisable(!uiState.hasSelectedId());
-    }
-
-    @Override
-    public void switchToMultipleSelectionMode() {
-        insertRectBtn.setSelected(false);
-        insertCycleBtn.setSelected(false);
-        deleteBtn.setDisable(true);
+    protected void setInsertCycleBtnSelected(final boolean setSelected) {
+        insertCycleBtn.setSelected(setSelected);
     }
 }

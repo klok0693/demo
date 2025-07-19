@@ -1,6 +1,4 @@
-package org.example.astero_demo.fx.port.ui.canvas.tool.draggable;
-
-import javafx.scene.input.MouseEvent;
+package org.example.astero_demo.core.port.ui.canvas.tool;
 
 /**
  * Element, receiving a drag events from the canvas
@@ -10,9 +8,9 @@ import javafx.scene.input.MouseEvent;
  */
 public interface CanvasDraggable {
 
-    boolean onDragDetected(MouseEvent event);
+    boolean onDragDetected(double mouseX, double mouseY);
 
     void onMouseDragged(double mouseX, double mouseY);
 
-    void onMouseReleased(MouseEvent event);
+    void onMouseReleased(double mouseX, double mouseY);
 }

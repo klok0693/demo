@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.core.model.metadata.ShapeParam;
 import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.fx.util.ColorUtils;
 
@@ -35,27 +36,8 @@ public class FxPropertiesPanelView extends PropertiesPanelView {
     }
 
     @Override
-    public void update() {
-        setUpField(xField, uiState.getSelectedX());
-        setUpField(yField, uiState.getSelectedY());
-        setUpField(widthField, uiState.getSelectedWidth());
-        setUpField(heightField, uiState.getSelectedHeight());
-        setUpField(layerField, uiState.getSelectedLayer());
-
-        final Integer color = uiState.getSelectedColor();
-        if (color != null) {
-            colorField.setValue(ColorUtils.convert(color));
-            colorField.setDisable(false);
-        }
-        else {
-            colorField.setValue(null);
-            colorField.setDisable(true);
-        }
-    }
-
-    @Override
-    public void switchToSingleSelectionMode() {
-        propertyRoot.setDisable(false);
+    protected void setPanelDisabled(final boolean isDisabled) {
+        propertyRoot.setDisable(isDisabled);
     }
 
     @Override
@@ -68,13 +50,32 @@ public class FxPropertiesPanelView extends PropertiesPanelView {
 
         colorField.setValue(null);
         colorField.setDisable(true);
-
-        propertyRoot.setDisable(true);
     }
 
-    private static void setUpField(final TextInputControl field, final Number number) {
-        if (number != null) {
-            field.setText(String.valueOf(number));
+    @Override
+    protected void setUpField(final ShapeParam param, final Number value) {
+        if (param == ShapeParam.COLOR) {
+            if (value != null) {
+                colorField.setValue(ColorUtils.convert((Integer) value));
+                colorField.setDisable(false);
+            } else {
+                colorField.setValue(null);
+                colorField.setDisable(true);
+            }
+            return;
+        }
+
+        final TextField field = switch (param) {
+            case X -> xField;
+            case Y -> yField;
+            case WIDTH -> widthField;
+            case HEIGHT -> heightField;
+            case PRIORITY -> layerField;
+            default -> throw new IllegalStateException("Unexpected value: " + param);
+        };
+
+        if (value != null) {
+            field.setText(String.valueOf(value));
             field.setDisable(false);
         }
         else {
@@ -82,44 +83,44 @@ public class FxPropertiesPanelView extends PropertiesPanelView {
         }
     }
 
-    private static void clearAndDisable(final TextInputControl field) { // TODO: disable only root?
+    private static void clearAndDisable(final TextInputControl field) {
         field.clear();
         field.setDisable(true);
     }
 
     public void updateX(final KeyEvent event) {
         if (needToHandle(event)) {
-            propertyUpdatable.updateX(xField.getText());
+            updateField(ShapeParam.X, xField.getText());
         }
     }
 
     public void updateY(final KeyEvent event) {
         if (needToHandle(event)) {
-            propertyUpdatable.updateY(yField.getText());
+            updateField(ShapeParam.Y, yField.getText());
         }
     }
 
     public void updateWidth(final KeyEvent event) {
         if (needToHandle(event)) {
-            propertyUpdatable.updateWidth(widthField.getText());
+            updateField(ShapeParam.WIDTH, widthField.getText());
         }
     }
 
     public void updateHeight(final KeyEvent event) {
         if (needToHandle(event)) {
-            propertyUpdatable.updateHeight(heightField.getText());
+            updateField(ShapeParam.HEIGHT, heightField.getText());
         }
     }
 
     public void updateLayer(final KeyEvent event) {
         if (needToHandle(event)) {
-            propertyUpdatable.updateLayer(layerField.getText());
+            updateField(ShapeParam.PRIORITY, layerField.getText());
         }
     }
 
     public void updateColor(final ActionEvent event) {
         final Color selectedColor = colorField.getValue();
-        propertyUpdatable.updateColor(String.valueOf(ColorUtils.convert(selectedColor)));
+        updateField(ShapeParam.COLOR, String.valueOf(ColorUtils.convert(selectedColor)));
     }
 
     private static boolean needToHandle(final KeyEvent event) {

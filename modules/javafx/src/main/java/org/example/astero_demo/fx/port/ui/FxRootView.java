@@ -10,6 +10,7 @@ import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
+import org.example.astero_demo.core.port.ui.model.Cursors;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,17 +44,11 @@ public class FxRootView extends RootView implements Initializable {
     }
 
     @Override
-    public void switchToInsertMode() {
-        root.setCursor(Cursor.CROSSHAIR);
-    }
-
-    @Override
-    public void switchToSingleSelectionMode() {
-        root.setCursor(Cursor.DEFAULT);
-    }
-
-    @Override
-    public void switchToMultipleSelectionMode() {
-        root.setCursor(Cursor.DEFAULT);
+    protected void setCursor(final Cursors cursor) {
+        final Cursor fxCursor = switch (cursor) {
+            case DEFAULT -> Cursor.DEFAULT;
+            case CROSSHAIR -> Cursor.CROSSHAIR;
+        };
+        root.setCursor(fxCursor);
     }
 }

@@ -35,4 +35,6 @@ open module core {
     exports org.example.astero_demo.core.util;
     exports org.example.astero_demo.core.port.ui.canvas.tool.draggable;
     exports org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
+    exports org.example.astero_demo.core.port.ui.model;
+    exports org.example.astero_demo.core.model.metadata;
 }

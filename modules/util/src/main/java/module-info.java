@@ -9,4 +9,5 @@ open module util {
     requires static lombok;
 
     exports org.example.astero_demo.util.logging;
+    exports org.example.astero_demo.util;
 }

@@ -1,82 +1,49 @@
 package org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactPoint;
-import org.example.astero_demo.fx.port.ui.canvas.tool.CanvasClickable;
-import org.example.astero_demo.fx.port.ui.canvas.tool.FxSelectionFrame;
-import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.CanvasDraggable;
+import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
+import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 
-import java.util.Arrays;
-import java.util.List;
+public class FxModificableSelectionFrame extends ModificableSelectionFrame<GraphicsContext>
+        implements FxCanvasElement {
 
-import static org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment.*;
-import static org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment.CENTER_LEFT;
-
-public class FxModificableSelectionFrame extends FxSelectionFrame implements CanvasDraggable, CanvasClickable {
-    private final UIState uiState;
-    private final List<FxContactPoint> contactPoints;
+    private static final double FRAME_WIDTH = 3.0;
+    protected final Color fillColor;
 
     public FxModificableSelectionFrame(final CanvasAdapter adapter, final UIState uiState) {
-        super();
-        this.uiState = uiState;
-        this.contactPoints = Arrays.asList(
-                new FxContactPoint(this, adapter, 0, fillColor, TOP_LEFT),
-                new FxContactPoint(this, adapter, 0, fillColor, TOP_CENTER),
-                new FxContactPoint(this, adapter, 0, fillColor, TOP_RIGHT),
-                new FxContactPoint(this, adapter, 0, fillColor, CENTER_RIGHT),
-                new FxContactPoint(this, adapter, 0, fillColor, BOTTOM_RIGHT),
-                new FxContactPoint(this, adapter, 0, fillColor, BOTTOM_CENTER),
-                new FxContactPoint(this, adapter, 0, fillColor, BOTTOM_LEFT),
-                new FxContactPoint(this, adapter, 0, fillColor, CENTER_LEFT)
-        );
+        super(adapter, uiState);
+        this.fillColor = Color.RED;
+    }
+
+    @Override
+    protected ContactPoint<GraphicsContext> createPoint(
+            final CanvasAdapter adapter,
+            final int layer,
+            final ContactAlignment alignment) {
+        return new FxContactPoint(this, adapter, layer, fillColor, alignment);
     }
 
     @Override
     protected void drawElement(final GraphicsContext gc) {
-        super.drawElement(gc);
+        gc.setStroke(fillColor);
+        gc.setLineWidth(FRAME_WIDTH);
+        gc.strokeRect(x, y, width, height);
+
         contactPoints.forEach(point -> point.draw(gc));
     }
 
     @Override
-    public void update(final double x, final double y, final double width, final double height) {
-        super.update(x, y, width, height);
-        if (!uiState.isMultipleSelection()) {
-            contactPoints.forEach(contact -> contact.update(this.x, this.y, this.width, this.height));
-        }
+    public void save(final GraphicsContext gc) {
+        FxCanvasElement.super.save(gc);
     }
 
     @Override
-    public double[] reset() {
-        contactPoints.forEach(ContactPoint::reset);
-        return super.reset();
-    }
-
-    @Override
-    public void onMousePressed(final MouseEvent event) {
-        contactPoints.forEach(contact -> contact.onDragDetected(event));
-    }
-
-    @Override
-    public boolean onDragDetected(final MouseEvent event) {
-        return contactPoints.stream().anyMatch(contact -> contact.onDragDetected(event));
-    }
-
-    @Override
-    public void onMouseDragged(final double mouseX, final double mouseY) {
-        contactPoints.forEach(point -> point.onMouseDragged(mouseX, mouseY));
-    }
-
-    @Override
-    public void onMouseReleased(final MouseEvent event) {
-        contactPoints.forEach(contact -> contact.onMouseReleased(event));
-    }
-
-    @Override
-    public boolean isInBounds(final double x, final double y) {
-        final boolean isInShapeBounds = super.isInBounds(x, y);
-        return isInShapeBounds ? isInShapeBounds : contactPoints.stream().anyMatch(contact -> contact.isInBounds(x, y));
+    public void restore(final GraphicsContext gc) {
+        FxCanvasElement.super.restore(gc);
     }
 }

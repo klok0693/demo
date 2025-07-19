@@ -1,5 +1,8 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert;
 
+import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
+import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.core.port.ui.canvas.tool.CanvasClickable;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.DraggableTool;
 
 /**
@@ -8,6 +11,36 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.DraggableTool;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface InsertShapeTool<E extends Object> extends DraggableTool<E> {
+public abstract class InsertShapeTool<E> extends DraggableTool<E> implements CanvasClickable {
 
+    protected InsertShapeTool(final CanvasAdapter adapter, final UIState uiState) {
+        super(2, adapter, uiState);
+    }
+
+    @Override
+    public void onMousePressed(final double mouseX, final double mouseY, final boolean isShiftDown) {
+        if (!isEnabled()) {
+            return;
+        }
+        this.x = mouseX;
+        this.y = mouseY;
+        setActive(true);
+    }
+
+    @Override
+    public boolean onDragDetected(final double mouseX, final double mouseY) {
+        return isEnabled() && isActive();
+    }
+
+    @Override
+    public void update(final double x, final double y) {
+        this.width = x - this.x;
+        this.height = y - this.y;
+        setVisible(true);
+    }
+
+    @Override
+    public void performOperation(final double[] toolValues) {
+        adapter.createNewShapeAt(toolValues[0], toolValues[1], toolValues[2], toolValues[3]);
+    }
 }

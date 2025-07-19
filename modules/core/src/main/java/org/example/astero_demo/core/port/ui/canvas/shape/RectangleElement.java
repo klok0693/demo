@@ -6,5 +6,15 @@ package org.example.astero_demo.core.port.ui.canvas.shape;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface RectangleElement<E extends Object> extends ShapeElement<E> {
+public abstract class RectangleElement<E> extends ShapeElement<E> {
+
+    protected RectangleElement(
+            final int layer,
+            final int modelRelatedId,
+            final double x,
+            final double y,
+            final double width,
+            final double height) {
+        super(layer, modelRelatedId, x, y, width, height);
+    }
 }

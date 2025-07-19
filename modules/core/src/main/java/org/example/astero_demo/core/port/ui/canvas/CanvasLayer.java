@@ -15,11 +15,11 @@ import java.util.stream.Stream;
  * @since v1.0
  */
 public abstract class CanvasLayer<E, T extends Drawable<E>> implements Drawable<E>, Comparable<CanvasLayer<E,T>> {
-    protected List<T> children;
     @Getter
-    private int priority;
+    private final int priority;
+    protected List<T> children;
 
-    public CanvasLayer(final int priority) {
+    protected CanvasLayer(final int priority) {
         this.priority = priority;
         this.children = new LinkedList<>();
     }

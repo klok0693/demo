@@ -1,5 +1,6 @@
 package org.example.astero_demo.core.port.ui.canvas.shape;
 
+import lombok.Getter;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 
 /**
@@ -9,14 +10,26 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface ShapeElement<E extends Object> extends CanvasElement<E>, Comparable<ShapeElement<E>> {
+@Getter
+public abstract class ShapeElement<E> extends CanvasElement<E> implements Comparable<ShapeElement<E>> {
 
-    int getModelRelatedId();
+    private final int modelRelatedId;
+    private final int layer;
 
-    int getLayer();
+    protected ShapeElement(
+            final int layer,
+            final int modelRelatedId,
+            final double x,
+            final double y,
+            final double width,
+            final double height) {
+        super(x, y, width, height);
+        this.modelRelatedId = modelRelatedId;
+        this.layer = layer;
+    }
 
     @Override
-    default int compareTo(final ShapeElement o) {
-        return Integer.compare(getLayer(), o.getLayer());
+    public int compareTo(final ShapeElement o) {
+        return Integer.compare(layer, o.getLayer());
     }
 }

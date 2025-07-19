@@ -1,6 +1,4 @@
-package org.example.astero_demo.fx.port.ui.canvas.tool;
-
-import javafx.scene.input.MouseEvent;
+package org.example.astero_demo.core.port.ui.canvas.tool;
 
 /**
  * Element, receiving a mouse press event from the canvas
@@ -11,5 +9,5 @@ import javafx.scene.input.MouseEvent;
 @FunctionalInterface
 public interface CanvasClickable {
 
-    void onMousePressed(MouseEvent event);
+    void onMousePressed(double mouseX, double mouseY, boolean isShiftDown);
 }

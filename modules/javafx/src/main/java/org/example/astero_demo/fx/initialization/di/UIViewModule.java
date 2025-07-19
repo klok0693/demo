@@ -23,7 +23,7 @@ import org.example.astero_demo.fx.port.ui.FxToolBarView;
 import org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView;
 import org.example.astero_demo.fx.port.ui.canvas.background.FxBackgroundLayer;
 import org.example.astero_demo.fx.port.ui.canvas.shape.FxShapeLayer;
-import org.example.astero_demo.fx.port.ui.canvas.tool.FxShapeSelectionTool;
+import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection.FxShapeSelectionTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.FxToolLayer;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;

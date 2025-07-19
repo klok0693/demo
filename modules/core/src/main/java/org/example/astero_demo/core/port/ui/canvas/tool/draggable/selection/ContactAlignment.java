@@ -1,7 +1,5 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
 
-import org.example.astero_demo.core.port.ui.canvas.tool.SelectionFrame;
-
 import static org.example.astero_demo.core.port.ui.UIConsrants.MINIMAL_SIDE_SIZE;
 
 /**

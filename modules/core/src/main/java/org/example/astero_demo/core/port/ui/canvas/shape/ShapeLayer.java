@@ -17,7 +17,7 @@ import static java.lang.Integer.parseInt;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class ShapeLayer<E extends Object> extends CanvasLayer<E, CanvasLayer<E, CanvasElement<E>>> implements UpdatableView {
+public abstract class ShapeLayer<E> extends CanvasLayer<E, CanvasLayer<E, CanvasElement<E>>> implements UpdatableView {
     protected final ModelState modelState;
 
     protected ShapeLayer(final ModelState modelState) {
@@ -25,8 +25,8 @@ public abstract class ShapeLayer<E extends Object> extends CanvasLayer<E, Canvas
         this.modelState = modelState;
     }
 
-    protected ShapeLayer(int layer, final ModelState modelState) {
-        super(1);
+    protected ShapeLayer(final int layer, final ModelState modelState) {
+        super(layer);
         this.modelState = modelState;
     }
 

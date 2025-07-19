@@ -1,5 +1,7 @@
 package org.example.astero_demo.core.port.ui.canvas.tool;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 
 /**
@@ -11,29 +13,50 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface CanvasTool<E extends Object> extends CanvasElement<E>, Comparable<CanvasTool<E>> {
+@Getter
+@Setter
+public abstract class CanvasTool<E> extends CanvasElement<E> implements Comparable<CanvasTool<E>> {
+    private final int layer;
+    private boolean isVisible;
+    private boolean isActive;
+    private boolean isEnabled;
 
-    int getLayer();
+    protected CanvasTool(
+            final double x,
+            final double y,
+            final double width,
+            final double height,
+            final int layer) {
+        super(x, y, width, height);
+        this.layer = layer;
+        this.isVisible = false;
+        this.isActive = false;
+        this.isEnabled = false;
+    }
 
-    boolean isVisible();
-
-    void setVisible(boolean isVisible);
-
-    boolean isActive();
-
-    void setActive(boolean isActive);
-
-    boolean isEnabled();
-
-    void setEnabled(boolean isEnabled);
+    @Override
+    public void draw(final E gc) {
+        if (isEnabled && isVisible) {
+            super.draw(gc);
+        }
+    }
 
     /**
      * Every class, adding new mutable fields, must override this method
      */
-    double[] reset();
+    public double[] reset() {
+        final double[] values = new double[] {this.x, this.y, this.width, this.height};
+        this.x = -1;
+        this.y = -1;
+        this.width = -1;
+        this.height = -1;
+        this.isVisible = false;
+        this.isActive = false;
+        return values;
+    }
 
     @Override
-    default int compareTo(final CanvasTool o) {
-        return Integer.compare(getLayer(), o.getLayer());
+    public int compareTo(final CanvasTool o) {
+        return Integer.compare(this.layer, o.getLayer());
     }
 }

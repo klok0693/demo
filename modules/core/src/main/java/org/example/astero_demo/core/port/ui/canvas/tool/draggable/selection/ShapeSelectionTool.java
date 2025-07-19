@@ -1,15 +1,13 @@
-package org.example.astero_demo.fx.port.ui.canvas.tool;
+package org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
+import org.example.astero_demo.core.adapter.ui.UpdatableView;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.model.entity.Shape;
 import org.example.astero_demo.core.model.state.ModelState;
-import org.example.astero_demo.core.port.ui.canvas.tool.SelectionFrame;
-import org.example.astero_demo.core.port.ui.canvas.tool.ShapeSelectionTool;
-import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.CanvasDraggable;
-import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection.FxModificableSelectionFrame;
+import org.example.astero_demo.core.port.ui.canvas.tool.CanvasDraggable;
+import org.example.astero_demo.core.port.ui.canvas.tool.CanvasTool;
+import org.example.astero_demo.core.port.ui.canvas.tool.CanvasClickable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,20 +15,21 @@ import java.util.Map;
 import static java.lang.Double.parseDouble;
 
 /**
- * JavaFX's realization of {@link ShapeSelectionTool}
+ * Canvas tool, allowing to select shape element on a canvas
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.0
  */
-public class FxShapeSelectionTool extends FxCanvasTool
-        implements ShapeSelectionTool<GraphicsContext>, CanvasDraggable, CanvasClickable {
+public abstract class ShapeSelectionTool<E>
+        extends CanvasTool<E> implements UpdatableView, CanvasDraggable, CanvasClickable {
+
     private final ModelState modelState;
     private final UIState uiState;
     private final CanvasAdapter adapter;
 
-    private final Map<Integer, FxModificableSelectionFrame> frames = new HashMap<>(2);
+    private final Map<Integer, ModificableSelectionFrame<E>> frames = new HashMap<>(2);
 
-    public FxShapeSelectionTool(
+    protected ShapeSelectionTool(
             final ModelState modelState,
             final UIState uiState,
             final CanvasAdapter adapter) {
@@ -41,7 +40,7 @@ public class FxShapeSelectionTool extends FxCanvasTool
     }
 
     @Override
-    protected void drawElement(final GraphicsContext gc) {
+    protected void drawElement(final E gc) {
         frames.values().forEach(frame -> frame.draw(gc));
     }
 
@@ -52,7 +51,7 @@ public class FxShapeSelectionTool extends FxCanvasTool
         if (uiState.hasSelectedId()) {
             uiState.getSelectedIds().forEach(id -> {
                 final Shape selection = modelState.getShape(id);
-                final FxModificableSelectionFrame frame = new FxModificableSelectionFrame(adapter, uiState);
+                final ModificableSelectionFrame<E> frame = createModificableFrame(adapter, uiState);
 
                 final double frameX = parseDouble(selection.getX());
                 final double frameY = parseDouble(selection.getY());
@@ -61,7 +60,7 @@ public class FxShapeSelectionTool extends FxCanvasTool
                 frame.update(frameX, frameY, frameWidth, frameHeight);
                 frames.put(id, frame);
 
-                FxShapeSelectionTool.this.setVisible(true);
+                ShapeSelectionTool.this.setVisible(true);
             });
         }
     }
@@ -74,27 +73,25 @@ public class FxShapeSelectionTool extends FxCanvasTool
     }
 
     @Override
-    public void onMousePressed(final MouseEvent event) {
+    public void onMousePressed(final double mouseX, final double mouseY, final boolean isShiftDown) {
         if (!isEnabled()) {
             return;
         }
-        final double mouseX = event.getX();
-        final double mouseY = event.getY();
 
 /*        if (event.isControlDown() && uiState.hasSelectedId()) {
             adapter.selectMultiple(mouseX, mouseY);
             return;
         }*/
 
-        if (event.isShiftDown() && uiState.hasSelectedId() && !uiState.isMultipleSelection()) {
+        if (isShiftDown && uiState.hasSelectedId() && !uiState.isMultipleSelection()) {
             adapter.selectNextShapeAt(mouseX, mouseY);
             return;
         }
 
-        frames.values().forEach(frame -> frame.onMousePressed(event));
+        frames.values().forEach(frame -> frame.onMousePressed(mouseX, mouseY, isShiftDown));
         if (isVisible() && uiState.hasSelectedId()) {
             uiState.getSelectedIds().forEach(id -> {
-                final SelectionFrame frame = frames.putIfAbsent(id, new FxModificableSelectionFrame(adapter, uiState));
+                final SelectionFrame<E> frame = frames.putIfAbsent(id, createModificableFrame(adapter, uiState));
                 final Shape selection = modelState.getShape(id);
                 frame.update(
                         parseDouble(selection.getX()),
@@ -108,7 +105,7 @@ public class FxShapeSelectionTool extends FxCanvasTool
 
         modelState.findTopShapeAt(mouseX, mouseY)
                 .ifPresentOrElse(element -> {
-                    final SelectionFrame frame = frames.putIfAbsent(element.getId(), new FxModificableSelectionFrame(adapter, uiState));
+                    final SelectionFrame<E> frame = frames.putIfAbsent(element.getId(), createModificableFrame(adapter, uiState));
                     frame.update(
                             parseDouble(element.getX()),
                             parseDouble(element.getY()),
@@ -117,12 +114,14 @@ public class FxShapeSelectionTool extends FxCanvasTool
                 }, this::reset);
     }
 
+    protected abstract ModificableSelectionFrame<E> createModificableFrame(CanvasAdapter adapter, UIState uiState);
+
     @Override
-    public boolean onDragDetected(final MouseEvent event) {
+    public boolean onDragDetected(final double mouseX, final double mouseY) {
         if (!isEnabled()) {
             return false;
         }
-        return frames.values().stream().anyMatch(frame -> frame.onDragDetected(event));
+        return frames.values().stream().anyMatch(frame -> frame.onDragDetected(mouseX, mouseY));
     }
 
     @Override
@@ -131,11 +130,10 @@ public class FxShapeSelectionTool extends FxCanvasTool
     }
 
     @Override
-    public void onMouseReleased(final MouseEvent event) {
-        frames.values().forEach(frame -> frame.onMouseReleased(event));
+    public void onMouseReleased(final double mouseX, final double mouseY) {
+        frames.values().forEach(frame -> frame.onMouseReleased(mouseX, mouseY));
     }
 
-    @Override
     public boolean isInBounds(final double x, final double y) {
         return frames.values().stream().anyMatch(frame -> frame.isInBounds(x, y));
     }
