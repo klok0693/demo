@@ -1,4 +1,4 @@
-package integration;
+package org.example.astero_demo.integration;
 
 import org.example.astero_demo.core.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;

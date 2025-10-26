@@ -87,6 +87,14 @@
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+            <!--<classifier>tests</classifier>-->
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
             <artifactId>realization</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -103,11 +111,40 @@
                         --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                     </argLine>
                     <includes>
-                        <include>**/InsertShapeTest.java</include>
+                        <include>**/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>
+            <!-- By default, maven doesn't package tests in a jar, so, if tests from
+            one module depend on tests from other module, need to do some workarounds.
+            Our javafx tests is just a realization of functional tests from 'core'
+            module, so, after core module's tests are packed into test-jar, we need to
+            add this test-jar as a test-source to tests, that exist in this module. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <id>share-tests</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.example</groupId>
+                                    <artifactId>core</artifactId>
+                                    <version>1.0-SNAPSHOT</version>
+                                    <classifier>tests</classifier>
+                                    <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-    
 </project>

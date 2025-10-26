@@ -1,4 +1,4 @@
-package unit;
+package org.example.astero_demo.unit;
 
 import org.example.astero_demo.core.model.metadata.ShapeParam;
 import org.example.astero_demo.core.logic.ShapeValidator;
