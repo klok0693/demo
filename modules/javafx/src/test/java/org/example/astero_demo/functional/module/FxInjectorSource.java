@@ -1,4 +1,4 @@
-package org.example.astero_demo.functional.runner;
+package org.example.astero_demo.functional.module;
 
 
 import com.google.inject.Guice;

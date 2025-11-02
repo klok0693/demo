@@ -1,11 +1,19 @@
 package org.example.astero_demo.functional.module;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.Provides;
 import org.example.astero_demo.functional.ApplicationFxRobot;
 import org.example.astero_demo.functional.Robot;
+import org.example.astero_demo.functional.TestComponentHolder;
+import org.example.astero_demo.functional.TestHelloApplication;
+import org.example.astero_demo.functional.checker.ShapeChecker;
 import org.example.astero_demo.functional.hooks.FxHook;
+import org.example.astero_demo.functional.module.provider.checker.ShapeCheckerProvider;
+import org.example.astero_demo.functional.module.provider.hook.HookProvider;
+import org.example.astero_demo.functional.module.provider.step.CanvasStepProvider;
+import org.example.astero_demo.functional.module.provider.step.TimingStepProvider;
+import org.example.astero_demo.functional.module.provider.step.ToolBarStepProvider;
+import org.example.astero_demo.functional.step.CanvasStep;
+import org.example.astero_demo.functional.step.TimingStep;
 import org.example.astero_demo.functional.step.ToolBarStep;
 
 public class FxTestModule extends AbstractModule {
@@ -14,18 +22,14 @@ public class FxTestModule extends AbstractModule {
     protected void configure()
     {
         bind(Robot.class).to(ApplicationFxRobot.class);
+        bind(TestComponentHolder.class).to(TestHelloApplication.class);
+
         bind(ToolBarStep.class).toProvider(ToolBarStepProvider.class);
-        //bind(FxHook.class);
+        bind(CanvasStep.class).toProvider(CanvasStepProvider.class);
+        bind(TimingStep.class).toProvider(TimingStepProvider.class);
+
+        bind(ShapeChecker.class).toProvider(ShapeCheckerProvider.class);
+
+        bind(FxHook.class).toProvider(HookProvider.class);
     }
-
-/*    @Provides
-    public Robot provideRobot() {
-        return new ApplicationFxRobot();
-    }*/
-
-/*    @Inject
-    @Provides
-    public ToolBarStep createToolBarStep(final Robot robot) {
-        return new ToolBarStep(robot, null);
-    }*/
 }

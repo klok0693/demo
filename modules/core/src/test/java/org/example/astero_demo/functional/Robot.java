@@ -2,11 +2,11 @@ package org.example.astero_demo.functional;
 
 public interface Robot {
 
-    void clickOnNode(String id);
+    void clickOnCreateRectBtn();
 
-    void moveToNode(String id);
+    void moveCursorOnCanvas();
 
-    void dragAndDropBy(double x, double y);
+    void dragAndDrop(double x, double y);
 
     void hold();
 }
