@@ -19,7 +19,7 @@ public class ToolBarStep extends Step {
         super(robot);
     }
 
-    @When("click on create Rectangular button")
+    @When("Click on create Rectangular button")
     public void clickOnCreateRectBtn() {
         robot.clickOnCreateRectBtn();
     }

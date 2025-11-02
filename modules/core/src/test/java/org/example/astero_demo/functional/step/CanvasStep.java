@@ -11,13 +11,14 @@ public class CanvasStep extends Step {
         super(robot);
     }
 
-    @When("cursor are moved on a Canvas")
+    @When("Cursor are moved on a Canvas")
     public void moveCursorOnCanvas() {
         robot.moveCursorOnCanvas();
     }
 
-    @When("drag and drop")
-    public void dragAndDrop(/*double x, double y*/) {
-        robot.dragAndDrop(DIMENSION, DIMENSION);
+    @When("Drag and drop by x: {double}, y: {double}")
+    public void dragAndDrop(double x, double y) {
+        robot.dragAndDrop(x, y);
+        robot.hold();
     }
 }

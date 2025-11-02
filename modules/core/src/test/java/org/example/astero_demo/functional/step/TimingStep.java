@@ -9,7 +9,7 @@ public class TimingStep extends Step {
         super(robot);
     }
 
-    @When("hold")
+    @When("Hold")
     public void hold() {
         robot.hold();
     }
