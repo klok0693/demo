@@ -2,7 +2,7 @@ package org.example.astero_demo.functional.module.provider.checker;
 
 import com.google.inject.Inject;
 import org.example.astero_demo.functional.TestComponentHolder;
-import org.example.astero_demo.functional.checker.ShapeChecker;
+import org.example.astero_demo.functional.agent.checker.ShapeChecker;
 
 public class ShapeCheckerProvider extends CheckerProvider<ShapeChecker> {
 

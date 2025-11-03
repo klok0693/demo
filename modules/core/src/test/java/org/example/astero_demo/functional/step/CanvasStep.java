@@ -21,4 +21,9 @@ public class CanvasStep extends Step {
         robot.dragAndDrop(x, y);
         robot.hold();
     }
+
+    @When("Shape with id: {int} are selected on canvas")
+    public void selectShapeOnCanvas(final int shapeId) {
+
+    }
 }

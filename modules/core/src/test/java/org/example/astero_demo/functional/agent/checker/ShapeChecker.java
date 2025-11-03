@@ -1,4 +1,4 @@
-package org.example.astero_demo.functional.checker;
+package org.example.astero_demo.functional.agent.checker;
 
 import io.cucumber.java.en.Then;
 import org.example.astero_demo.core.model.entity.Shape;
@@ -18,7 +18,7 @@ public class ShapeChecker extends Checker {
     @Then("Shape was created with width: {double}, height: {double}")
     public void shapeWasCreated(final double width, final double height) {
         // Assert shape has been created successfully
-        final ModelState modelState = componentHolder.getInstance(ModelState.class);
+        final ModelState modelState = getInstance(ModelState.class);
         final List<Shape> shapes = modelState.getShapes().toList();
         Assertions.assertEquals(1, shapes.size());
 

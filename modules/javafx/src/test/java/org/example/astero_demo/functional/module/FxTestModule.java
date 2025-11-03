@@ -1,14 +1,12 @@
 package org.example.astero_demo.functional.module;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Scopes;
-import io.cucumber.guice.CucumberScopes;
 import org.example.astero_demo.functional.ApplicationFxRobot;
 import org.example.astero_demo.functional.Robot;
 import org.example.astero_demo.functional.TestComponentHolder;
 import org.example.astero_demo.functional.TestHelloApplication;
-import org.example.astero_demo.functional.checker.ModeChecker;
-import org.example.astero_demo.functional.checker.ShapeChecker;
+import org.example.astero_demo.functional.agent.checker.ModeChecker;
+import org.example.astero_demo.functional.agent.checker.ShapeChecker;
 import org.example.astero_demo.functional.hooks.FxHook;
 import org.example.astero_demo.functional.module.provider.TestComponentHolderProvider;
 import org.example.astero_demo.functional.module.provider.checker.ModeCheckerProvider;

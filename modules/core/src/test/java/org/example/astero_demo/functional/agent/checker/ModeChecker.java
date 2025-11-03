@@ -1,12 +1,10 @@
-package org.example.astero_demo.functional.checker;
+package org.example.astero_demo.functional.agent.checker;
 
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitchable;
 import org.example.astero_demo.core.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.functional.TestComponentHolder;
-import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -27,6 +25,6 @@ public class ModeChecker extends Checker {
     }
 
     private <T extends ModeSwitchable> boolean isModeActive(final UIMode<T> mode) {
-        return componentHolder.getInstance(UIState.class).isActiveMode(mode);
+        return getInstance(UIState.class).isActiveMode(mode);
     }
 }
