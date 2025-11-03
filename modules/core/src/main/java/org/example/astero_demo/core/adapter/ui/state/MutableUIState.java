@@ -12,8 +12,6 @@ public interface MutableUIState extends UIState, MutableSelection {
 
     void setInsertShapeType(ShapeType type);
 
-    void setMode(UIMode mode);
-
     void reset();
 
     void storeCopyOf(int originalId);

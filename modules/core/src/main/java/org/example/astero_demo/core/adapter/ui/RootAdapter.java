@@ -91,7 +91,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         }
         else if (event instanceof final InsertModeEvent e) {
             uiState.setInsertShapeType(e.getInsertShapeType());
-            switchMode(UIMode.INSERT);
+            switchMode(uiState.getMode());
         }
         else if (event instanceof final CopyShapeEvent e) {
             uiState.storeCopyOf(uiState.getSelectedShapeId());
@@ -123,7 +123,7 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
         final Integer shapeId = selectedShape != null ? selectedShape.getId() : null;
 
         uiState.setSelectShape(shapeId);
-        switchMode(UIMode.SINGLE_SELECTION);
+        switchMode(uiState.getMode());
     }
 
     private void selectNextElement(final int id, final double x, final double y) {
@@ -147,17 +147,16 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             return;
         }
         uiState.setMultipleSelectedShapes(firstSelectedId, newSelectedShape.get().getId());
-        switchMode(UIMode.MULTIPLE_SELECTION);
+        switchMode(uiState.getMode());
     }
 
     private void switchMode(final UIMode newMode) {
-        if (!uiState.isActiveMode(newMode)) {
-            canvasAdapter.switchMode(newMode);
-            toolBarAdapter.switchMode(newMode);
-            layersAdapter.switchMode(newMode);
-            propertyAdapter.switchMode(newMode);
-            rootView.switchMode(newMode);
-        }
+        canvasAdapter.switchMode(newMode);
+        toolBarAdapter.switchMode(newMode);
+        layersAdapter.switchMode(newMode);
+        propertyAdapter.switchMode(newMode);
+        rootView.switchMode(newMode);
+
         updateChildren();
     }
 

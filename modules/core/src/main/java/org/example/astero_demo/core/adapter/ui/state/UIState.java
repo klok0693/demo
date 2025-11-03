@@ -18,6 +18,8 @@ public interface UIState extends Selection {
 
     boolean isInInsertMode();
 
+    UIMode getMode();
+
     boolean isActiveMode(UIMode mode);
 
     ShapeType getInsertShapeType();

@@ -41,27 +41,29 @@ public class UIStateInstance implements MutableUIState {
     public UIStateInstance(final ModelState modelState) {
         this.modelState = modelState;
         this.selection = new SelectionHolder(modelState);
+        this.mode = UIMode.SINGLE_SELECTION;
     }
 
     @Override
     public boolean isInInsertMode() {
-        return insertShapeType != null;
+        return this.isActiveMode(UIMode.INSERT);
     }
 
     @Override
-    public void setMode(final UIMode mode) {
-        this.mode = mode;
+    public UIMode getMode() {
+        return this.mode;
     }
 
     @Override
-    public boolean isActiveMode(UIMode mode) {
+    public boolean isActiveMode(final UIMode mode) {
         return this.mode == mode;
     }
 
     @Override
     public void setInsertShapeType(final ShapeType type) {
-        removeSelection();
+        reset();
         this.insertShapeType = type;
+        this.mode = type == null ? UIMode.SINGLE_SELECTION : UIMode.INSERT;
         log.debug(UI_STATE_MARKER, "Set insertion shape type: {}", type);
     }
 
@@ -178,6 +180,7 @@ public class UIStateInstance implements MutableUIState {
     public void setSelectShape(final Integer id) {
         reset();
         selection.setSelectShape(id);
+        this.mode = UIMode.SINGLE_SELECTION;
         log.debug(UI_STATE_MARKER, "Set selected shape id:{}", id);
     }
 
@@ -185,17 +188,17 @@ public class UIStateInstance implements MutableUIState {
     public void setMultipleSelectedShapes(final Integer... ids) {
         reset();
         selection.setMultipleSelectedShapes(ids);
+        this.mode = UIMode.MULTIPLE_SELECTION;
         log.debug(UI_STATE_MARKER, "Set multiple selected shape ids:{}", List.of(ids));
     }
 
     @Override
     public void reset() {
-        setInsertShapeType(null);
-    }
-
-    private void removeSelection() {
         selection.removeSelection();
         log.debug(UI_STATE_MARKER, "Clear selection");
+
+        this.insertShapeType = null;
+        this.mode = UIMode.SINGLE_SELECTION;
     }
 
     @Override
