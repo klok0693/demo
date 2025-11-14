@@ -1,6 +1,6 @@
 package org.example.astero_demo.core.adapter.ui.state.model;
 
-import org.example.astero_demo.core.model.entity.ShapeType;
+import org.example.astero_demo.model.entity.ShapeType;
 
 import java.util.stream.Stream;
 

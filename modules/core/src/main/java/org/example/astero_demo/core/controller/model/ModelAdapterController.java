@@ -1,9 +1,9 @@
 package org.example.astero_demo.core.controller.model;
 
 import org.example.astero_demo.core.adapter.model.ModelAdapter;
-import org.example.astero_demo.core.model.entity.Shape;
-import org.example.astero_demo.core.model.entity.ShapeType;
-import org.example.astero_demo.core.model.metadata.ShapeParam;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.core.controller.AbstractController;
 
 /**

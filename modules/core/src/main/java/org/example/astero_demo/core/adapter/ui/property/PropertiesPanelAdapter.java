@@ -2,13 +2,13 @@ package org.example.astero_demo.core.adapter.ui.property;
 
 import org.example.astero_demo.core.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.core.logic.ShapeProcessor;
-import org.example.astero_demo.core.model.metadata.ShapeParam;
+import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.core.adapter.ui.LeafAdapter;
 import org.example.astero_demo.core.adapter.ui.ParentAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
-import static org.example.astero_demo.core.model.metadata.ParamInfo.create;
+import static org.example.astero_demo.model.metadata.ParamInfo.create;
 
 /**
  * Leaf adapter for interacting with a Properties Panel

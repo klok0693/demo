@@ -1,11 +1,11 @@
 package org.example.astero_demo.core.adapter.model;
 
-import org.example.astero_demo.core.model.entity.Shape;
-import org.example.astero_demo.core.model.entity.ShapeFactory;
-import org.example.astero_demo.core.model.entity.ShapeType;
-import org.example.astero_demo.core.model.metadata.ShapeParam;
-import org.example.astero_demo.core.model.state.ModelState;
-import org.example.astero_demo.core.model.state.MutableModelState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.entity.ShapeFactory;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ShapeParam;
+import org.example.astero_demo.core.state.ModelState;
+import org.example.astero_demo.core.state.MutableModelState;
 
 import javax.annotation.Nullable;
 

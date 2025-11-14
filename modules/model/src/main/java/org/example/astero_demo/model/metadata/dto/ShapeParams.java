@@ -1,17 +1,17 @@
-package org.example.astero_demo.core.model.metadata.dto;
+package org.example.astero_demo.model.metadata.dto;
 
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.core.model.entity.ShapeType;
-import org.example.astero_demo.core.model.metadata.ParamInfo;
-import org.example.astero_demo.core.model.metadata.ShapeParam;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.ShapeParam;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
-import static org.example.astero_demo.core.model.metadata.ParamInfo.create;
+import static org.example.astero_demo.model.metadata.ParamInfo.create;
 
 /**
  * DTO class, used to combine multiple {@link ParamInfo} for operations with shape

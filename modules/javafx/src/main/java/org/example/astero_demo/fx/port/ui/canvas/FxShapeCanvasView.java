@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.model.state.ModelState;
+import org.example.astero_demo.core.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.fx.port.ui.canvas.background.FxBackgroundLayer;
 import org.example.astero_demo.fx.port.ui.canvas.shape.FxShapeLayer;

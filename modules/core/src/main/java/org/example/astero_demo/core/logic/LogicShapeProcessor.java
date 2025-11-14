@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.core.logic.command.Command;
 import org.example.astero_demo.core.logic.command.CommandFactory;
 import org.example.astero_demo.core.logic.command.CommandProcessor;
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 import java.util.function.Supplier;
 

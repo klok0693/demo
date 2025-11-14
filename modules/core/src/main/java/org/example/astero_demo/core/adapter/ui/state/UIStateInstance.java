@@ -5,11 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.core.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.core.adapter.ui.state.model.SelectionHolder;
-import org.example.astero_demo.core.model.entity.Shape;
-import org.example.astero_demo.core.model.entity.ShapeType;
-import org.example.astero_demo.core.model.metadata.ParamInfo;
-import org.example.astero_demo.core.model.metadata.ShapeParam;
-import org.example.astero_demo.core.model.state.ModelState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ParamInfo;
+import org.example.astero_demo.model.metadata.ShapeParam;
+import org.example.astero_demo.core.state.ModelState;
 
 import javax.annotation.Nullable;
 import java.util.LinkedList;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static java.lang.String.valueOf;
-import static org.example.astero_demo.core.model.metadata.ParamInfo.create;
+import static org.example.astero_demo.model.metadata.ParamInfo.create;
 import static org.example.astero_demo.util.logging.MarkerStorage.*;
 
 /**

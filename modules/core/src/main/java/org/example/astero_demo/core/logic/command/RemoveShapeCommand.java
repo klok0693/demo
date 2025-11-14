@@ -1,7 +1,7 @@
 package org.example.astero_demo.core.logic.command;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.core.model.entity.Shape;
+import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.core.controller.model.ModelController;
 import org.example.astero_demo.core.controller.ui.UIController;
 

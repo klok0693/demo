@@ -1,4 +1,4 @@
-package org.example.astero_demo.core.model.metadata;
+package org.example.astero_demo.model.metadata;
 
 import lombok.Getter;
 import lombok.Setter;

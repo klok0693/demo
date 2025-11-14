@@ -4,7 +4,7 @@ import com.google.inject.*;
 import javafx.event.EventHandler;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
-import org.example.astero_demo.core.model.state.ModelState;
+import org.example.astero_demo.core.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasView;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesAdapter;

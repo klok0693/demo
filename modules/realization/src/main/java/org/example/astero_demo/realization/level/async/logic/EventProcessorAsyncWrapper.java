@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.core.logic.LogicShapeProcessor;
 import org.example.astero_demo.core.logic.ShapeProcessor;
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
 
 /**

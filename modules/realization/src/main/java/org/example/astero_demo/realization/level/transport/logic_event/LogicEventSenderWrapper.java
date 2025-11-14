@@ -2,7 +2,7 @@ package org.example.astero_demo.realization.level.transport.logic_event;
 
 import com.google.inject.Inject;
 import org.example.astero_demo.core.logic.ShapeProcessor;
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 import org.example.astero_demo.realization.level.transport.ChannelMock;
 import org.example.astero_demo.realization.level.transport.SenderWrapper;
 import org.example.astero_demo.realization.level.transport.logic_event.ui.*;

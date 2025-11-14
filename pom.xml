@@ -13,6 +13,7 @@
     <modules>
         <module>modules/core</module>
         <module>modules/javafx</module>
+        <module>modules/model</module>
         <module>modules/realization</module>
         <module>modules/util</module>
     </modules>

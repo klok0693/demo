@@ -2,7 +2,7 @@ package org.example.astero_demo.core.adapter.ui.property;
 
 import org.example.astero_demo.core.adapter.ui.UpdatableAdapter;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitcher;
-import org.example.astero_demo.core.model.metadata.ShapeParam;
+import org.example.astero_demo.model.metadata.ShapeParam;
 
 /**
  * Represents an interface for interact with Properties Panel

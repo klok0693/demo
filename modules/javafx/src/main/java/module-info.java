@@ -13,6 +13,7 @@ open module javafx_gui {
     requires java.desktop;
 
     requires core;
+    requires model;
     requires realization;
     requires util;
     requires static lombok;

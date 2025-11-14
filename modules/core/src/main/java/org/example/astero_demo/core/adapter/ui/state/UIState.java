@@ -2,7 +2,7 @@ package org.example.astero_demo.core.adapter.ui.state;
 
 import org.example.astero_demo.core.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.core.adapter.ui.state.model.Selection;
-import org.example.astero_demo.core.model.entity.ShapeType;
+import org.example.astero_demo.model.entity.ShapeType;
 
 /**
  * In addition to the model's data, UI block has it own state,<p>

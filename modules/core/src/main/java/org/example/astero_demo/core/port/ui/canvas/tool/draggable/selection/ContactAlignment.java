@@ -1,6 +1,6 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
 
-import static org.example.astero_demo.core.port.ui.UIConsrants.MINIMAL_SIDE_SIZE;
+import static org.example.astero_demo.core.port.ui.UIConstants.MINIMAL_SIDE_SIZE;
 
 /**
  * Enum representing different alignments for a {@link ContactPoint} within a selected tool's frame

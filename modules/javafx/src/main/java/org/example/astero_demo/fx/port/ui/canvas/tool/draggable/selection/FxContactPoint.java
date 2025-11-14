@@ -8,7 +8,7 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.Cont
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactPoint;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 
-import static org.example.astero_demo.core.port.ui.UIConsrants.CONTACT_DIAMETER;
+import static org.example.astero_demo.core.port.ui.UIConstants.CONTACT_DIAMETER;
 
 /**
  * JavaFX's realization of {@link ContactPoint}

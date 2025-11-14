@@ -1,4 +1,4 @@
-package org.example.astero_demo.core.model.entity;
+package org.example.astero_demo.model.entity;
 
 /**
  * Represents the type of a shape

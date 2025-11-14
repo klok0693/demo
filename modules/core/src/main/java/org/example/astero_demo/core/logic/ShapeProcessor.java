@@ -1,6 +1,6 @@
 package org.example.astero_demo.core.logic;
 
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * Handle shape-manipulation operations

@@ -1,8 +1,7 @@
 package org.example.astero_demo.core.adapter.ui.state;
 
-import org.example.astero_demo.core.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.core.adapter.ui.state.model.MutableSelection;
-import org.example.astero_demo.core.model.entity.ShapeType;
+import org.example.astero_demo.model.entity.ShapeType;
 
 /**
  * @author Pilip Yurchanka

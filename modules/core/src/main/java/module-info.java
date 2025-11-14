@@ -5,9 +5,10 @@ open module core {
     requires jsr305;
 
     requires java.desktop;
+    requires static lombok;
 
     requires util;
-    requires static lombok;
+    requires model;
 
     exports org.example.astero_demo.core.port.ui;
     exports org.example.astero_demo.core.adapter.ui.state;
@@ -17,7 +18,7 @@ open module core {
     exports org.example.astero_demo.core.adapter.ui.layerspanel;
     exports org.example.astero_demo.core.adapter.ui.property;
     exports org.example.astero_demo.core.adapter.keyboard;
-    exports org.example.astero_demo.core.model.state;
+    exports org.example.astero_demo.core.state;
     exports org.example.astero_demo.core.logic;
     exports org.example.astero_demo.core.port.ui.elements;
     exports org.example.astero_demo.core.port.ui.canvas;
@@ -30,11 +31,8 @@ open module core {
     exports org.example.astero_demo.core.logic.command;
     exports org.example.astero_demo.core.controller.model;
     exports org.example.astero_demo.core.adapter.model;
-    exports org.example.astero_demo.core.model.entity;
-    exports org.example.astero_demo.core.model.metadata.dto;
     exports org.example.astero_demo.core.util;
     exports org.example.astero_demo.core.port.ui.canvas.tool.draggable;
     exports org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
     exports org.example.astero_demo.core.port.ui.model;
-    exports org.example.astero_demo.core.model.metadata;
 }

@@ -3,7 +3,7 @@ package org.example.astero_demo.core.port.ui;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.model.metadata.ShapeParam;
+import org.example.astero_demo.model.metadata.ShapeParam;
 
 /**
  * Represents the view for displaying and updating properties in a Properties Panel.

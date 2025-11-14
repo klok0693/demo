@@ -1,11 +1,11 @@
 package org.example.astero_demo.core.logic.command;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.core.model.entity.ShapeType;
-import org.example.astero_demo.core.model.metadata.ShapeParam;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.core.controller.model.ModelController;
 import org.example.astero_demo.core.controller.ui.UIController;
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 import static org.example.astero_demo.util.logging.MarkerStorage.COMMAND_MARKER;
 

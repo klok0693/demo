@@ -8,7 +8,7 @@ import org.example.astero_demo.core.adapter.ui.ParentAdapter;
 import org.example.astero_demo.core.adapter.ui.event.SelectElementByPositionEvent;
 import org.example.astero_demo.core.adapter.ui.event.SelectNextElementAt;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * Leaf adapter for interacting with a canvas

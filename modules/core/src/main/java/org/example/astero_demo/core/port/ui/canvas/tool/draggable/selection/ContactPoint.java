@@ -3,7 +3,7 @@ package org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.DraggableTool;
 
-import static org.example.astero_demo.core.port.ui.UIConsrants.CONTACT_DIAMETER;
+import static org.example.astero_demo.core.port.ui.UIConstants.CONTACT_DIAMETER;
 
 /**
  * Represent a special contact points, which allows {@link ShapeSelectionTool} to modify shape dimensions.<p>

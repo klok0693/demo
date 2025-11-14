@@ -2,7 +2,7 @@ package org.example.astero_demo.core.logic.command;
 
 import org.example.astero_demo.core.controller.model.ModelController;
 import org.example.astero_demo.core.controller.ui.UIController;
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * A factory implementation that provides methods to create different types of commands

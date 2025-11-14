@@ -1,7 +1,7 @@
 package org.example.astero_demo.realization.level.transport.logic_event.ui;
 
 import lombok.Getter;
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * Represents an event for creating a new shape with specified parameters.

@@ -1,7 +1,7 @@
 package org.example.astero_demo.fx.port.ui.canvas.shape;
 
 import javafx.scene.canvas.GraphicsContext;
-import org.example.astero_demo.core.model.state.ModelState;
+import org.example.astero_demo.core.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;

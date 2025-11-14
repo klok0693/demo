@@ -5,7 +5,7 @@ import org.example.astero_demo.core.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
 import org.example.astero_demo.core.logic.ShapeProcessor;
-import org.example.astero_demo.core.model.state.ModelState;
+import org.example.astero_demo.core.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.ParentAdapter;
 import org.example.astero_demo.core.adapter.ui.RootAdapter;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;

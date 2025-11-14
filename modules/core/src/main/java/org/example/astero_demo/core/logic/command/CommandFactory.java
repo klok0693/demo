@@ -1,6 +1,6 @@
 package org.example.astero_demo.core.logic.command;
 
-import org.example.astero_demo.core.model.metadata.dto.ShapeParams;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * Factory that provides methods to create different types of commands

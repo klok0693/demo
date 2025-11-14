@@ -1,7 +1,7 @@
 package org.example.astero_demo.core.port.ui.canvas.shape;
 
-import org.example.astero_demo.core.model.entity.Shape;
-import org.example.astero_demo.core.model.state.ModelState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.core.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.UpdatableView;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;

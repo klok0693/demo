@@ -8,6 +8,7 @@ open module realization {
     requires java.desktop;
 
     requires core;
+    requires model;
     requires util;
     requires static lombok;
 

@@ -1,11 +1,10 @@
-package org.example.astero_demo.core.model.entity;
+package org.example.astero_demo.model.entity;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
-import org.example.astero_demo.core.port.ui.UIConsrants;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -20,6 +19,7 @@ import static java.lang.Integer.parseInt;
 @Setter
 @EqualsAndHashCode
 public abstract class Shape implements Comparable<Shape> {
+    public static final String DEFAULT_COLOR_STRING = "-16744448";
     private static final int RANDOM_RANGE = 10_000;
 
     @Setter(AccessLevel.NONE)
@@ -55,7 +55,7 @@ public abstract class Shape implements Comparable<Shape> {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.color = StringUtils.isNotBlank(color) ? color : UIConsrants.DEFAULT_COLOR_STRING;
+        this.color = StringUtils.isNotBlank(color) ? color : DEFAULT_COLOR_STRING;
     }
 
     /**
