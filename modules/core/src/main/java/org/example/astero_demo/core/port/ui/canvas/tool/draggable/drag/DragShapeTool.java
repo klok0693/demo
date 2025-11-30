@@ -3,7 +3,7 @@ package org.example.astero_demo.core.port.ui.canvas.tool.draggable.drag;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.model.entity.Shape;
-import org.example.astero_demo.core.state.ModelState;
+import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.DraggableTool;
 
 import static java.lang.Double.parseDouble;

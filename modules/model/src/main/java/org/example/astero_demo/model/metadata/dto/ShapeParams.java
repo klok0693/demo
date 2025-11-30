@@ -85,6 +85,10 @@ public class ShapeParams {
         return params.get(key).getNewValue();
     }
 
+    public void setNewValue(final ShapeParam key, final String newValue) {
+        params.put(key, create(key, newValue));
+    }
+
     public String getOldValue(final ShapeParam key) {
         if (!params.containsKey(key)) {
             return StringUtils.EMPTY;

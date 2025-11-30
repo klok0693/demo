@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.model.entity.Shape;
-import org.example.astero_demo.core.state.ModelState;
+import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.drag.DragShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 import org.example.astero_demo.fx.util.ColorUtils;

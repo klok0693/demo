@@ -23,16 +23,4 @@ public interface UIState extends Selection {
     boolean isActiveMode(UIMode mode);
 
     ShapeType getInsertShapeType();
-
-    boolean hasCopy();
-
-    String getCopyWidth();
-
-    String getCopyHeight();
-
-    String getCopyPriority();
-
-    String getCopyColor();
-
-    String getCopyType();
 }

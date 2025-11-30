@@ -5,12 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.core.adapter.ui.RootAdapter;
 import org.example.astero_demo.core.controller.ui.ControllerAdapter;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
+import org.example.astero_demo.realization.level.async.NonBlockingForegroundExecutor;
 import org.example.astero_demo.util.logging.MarkerStorage;
 
-import java.util.concurrent.Executor;
-
 /**
- * Wrap calls from {@link ControllerAdapter} using {@link ForegroundExecutor},<p>
+ * Wrap calls from {@link ControllerAdapter} using {@link NonBlockingForegroundExecutor},<p>
  * merging them into non-freezable thread
  */
 @Slf4j
@@ -19,7 +18,7 @@ public class RootAdapterAsyncWrapper extends AsynchWrapper<ControllerAdapter> im
     @Inject
     public RootAdapterAsyncWrapper(
             final RootAdapter wrappedElement,
-            final ForegroundExecutor executor) {
+            final NonBlockingForegroundExecutor executor) {
         super(wrappedElement, executor);
     }
 

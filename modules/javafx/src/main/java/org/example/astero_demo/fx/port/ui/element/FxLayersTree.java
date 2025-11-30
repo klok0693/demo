@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.core.adapter.ui.ShapeSelector;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.model.entity.Shape;
-import org.example.astero_demo.core.state.ModelState;
+import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.elements.LayersTree;
 
 import java.util.Collection;

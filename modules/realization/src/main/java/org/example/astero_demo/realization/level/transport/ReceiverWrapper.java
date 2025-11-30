@@ -1,6 +1,6 @@
 package org.example.astero_demo.realization.level.transport;
 
-import org.example.astero_demo.realization.level.transport.logic_event.ui.LogicEvent;
+import org.example.astero_demo.realization.level.transport.logic.event.LogicEvent;
 import org.example.astero_demo.realization.level.WrapperLink;
 
 import java.util.List;
@@ -11,17 +11,17 @@ import java.util.List;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class ReceiverWrapper<E> extends WrapperLink<E> {
-    private final List<Class<? extends LogicEvent>> handledEvents;
+public abstract class ReceiverWrapper<P, E extends ApplicationEvent> extends WrapperLink<P> {
+    private final List<Class<? extends ApplicationEvent>> handledEvents;
 
-    protected ReceiverWrapper(final E wrappedElement, final List<Class<? extends LogicEvent>> handledEvents) {
+    protected ReceiverWrapper(final P wrappedElement, final List<Class<? extends ApplicationEvent>> handledEvents) {
         super(wrappedElement);
         this.handledEvents = handledEvents;
     }
 
-    public boolean canReceive(final Class<? extends LogicEvent> eClass) {
+    public boolean canReceive(final Class<? extends ApplicationEvent> eClass) {
         return handledEvents.stream().anyMatch(eClass::isAssignableFrom);
     }
 
-    public abstract void receive(LogicEvent event);
+    public abstract void receive(E event);
 }

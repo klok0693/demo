@@ -1,6 +1,6 @@
 package org.example.astero_demo.core.controller.model;
 
-import org.example.astero_demo.core.adapter.model.ModelAdapter;
+import org.example.astero_demo.core.adapter.state.StateAdapter;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ShapeParam;
@@ -13,20 +13,20 @@ import org.example.astero_demo.core.controller.AbstractController;
  * @since v1.0
  */
 public class ModelAdapterController extends AbstractController implements ModelController {
-    private final ModelAdapter modelAdapter;
+    private final StateAdapter stateAdapter;
 
-    public ModelAdapterController(final ModelAdapter modelAdapter) {
-        this.modelAdapter = modelAdapter;
+    public ModelAdapterController(final StateAdapter stateAdapter) {
+        this.stateAdapter = stateAdapter;
     }
 
     @Override
     public String getShapeParam(final int id, final ShapeParam param) {
-        return modelAdapter.getShapeParam(id, param);
+        return stateAdapter.getShapeParam(id, param);
     }
 
     @Override
     public void modifyShapeParam(final int id, final ShapeParam param, final String newValue) {
-        modelAdapter.modifyShapeParam(id, param, newValue);
+        stateAdapter.modifyShapeParam(id, param, newValue);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ModelAdapterController extends AbstractController implements ModelC
             final String height,
             final String color,
             final ShapeType type) {
-        return modelAdapter.saveShape(priority, x, y, width, height, color, type);
+        return stateAdapter.saveShape(priority, x, y, width, height, color, type);
     }
 
     @Override
@@ -51,11 +51,11 @@ public class ModelAdapterController extends AbstractController implements ModelC
             final String height,
             final String color,
             final ShapeType type) {
-        return modelAdapter.saveShape(id, priority, x, y, width, height, color, type);
+        return stateAdapter.saveShape(id, priority, x, y, width, height, color, type);
     }
 
     @Override
     public Shape removeShape(final int id) {
-        return modelAdapter.removeShape(id);
+        return stateAdapter.removeShape(id);
     }
 }

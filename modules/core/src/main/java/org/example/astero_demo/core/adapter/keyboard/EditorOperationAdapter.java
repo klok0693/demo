@@ -1,52 +1,50 @@
 package org.example.astero_demo.core.adapter.keyboard;
 
 import org.example.astero_demo.core.adapter.ui.ParentAdapter;
-import org.example.astero_demo.core.adapter.ui.event.CopyShapeEvent;
-import org.example.astero_demo.core.adapter.ui.event.PasteShapeEvent;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.logic.ShapeProcessor;
+import org.example.astero_demo.core.controller.keyboard.KeyboardController;
 
 /**
  * @author Pilip Yurchanka
  * @since v1.0
  */
 public class EditorOperationAdapter implements OperationAdapter {
-    private final ShapeProcessor processor;
+    private final KeyboardController controller;
     private final UIState state;
-    private final ParentAdapter parentAdapter;
 
-    public EditorOperationAdapter(
-            final ShapeProcessor processor,
-            final UIState state,
-            final ParentAdapter adapter) {
-        this.processor = processor;
+    public EditorOperationAdapter(final KeyboardController controller, final UIState state) {
         this.state = state;
-        this.parentAdapter = adapter;
+        this.controller = controller;
     }
 
     @Override
     public void handleDelete() {
         if (state.hasSelectedId() && !state.isMultipleSelection()) {
-            processor.removeShape(state.getSelectedShapeId());
+            controller.removeShape(state.getSelectedShapeId());
         }
     }
 
     @Override
     public void handleUndo() {
-        processor.undoLastOperation();
+        controller.undoLastOperation();
     }
 
     @Override
     public void handleCopy() {
         if (state.hasSelectedId()) {
-            parentAdapter.processEvent(new CopyShapeEvent());
+            controller.copy(state.getSelectedShapeId());
+        }
+    }
+
+    @Override
+    public void handleCut() {
+        if (state.hasSelectedId()) {
+            controller.cut(state.getSelectedShapeId());
         }
     }
 
     @Override
     public void handlePaste() {
-        if (state.hasCopy()) {
-            parentAdapter.processEvent(new PasteShapeEvent());
-        }
+        controller.paste();
     }
 }

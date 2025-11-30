@@ -1,7 +1,7 @@
 package org.example.astero_demo.fx.initialization.multithreading;
 
 import javafx.concurrent.Task;
-import org.example.astero_demo.realization.level.async.logic.RunnableWrapper;
+import org.example.astero_demo.realization.level.async.RunnableWrapper;
 
 /**
  * Wrap {@link Runnable} into {@link Task}

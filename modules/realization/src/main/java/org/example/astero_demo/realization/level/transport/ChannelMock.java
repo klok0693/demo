@@ -1,7 +1,7 @@
 package org.example.astero_demo.realization.level.transport;
 
-import org.example.astero_demo.realization.level.transport.logic_event.ui.LogicEvent;
-import org.example.astero_demo.realization.level.transport.logic_event.LogicEventReceiverWrapper;
+import org.example.astero_demo.realization.level.transport.logic.event.LogicEvent;
+import org.example.astero_demo.realization.level.transport.logic.LogicEventReceiverWrapper;
 
 import java.util.List;
 
@@ -11,14 +11,15 @@ import java.util.List;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class ChannelMock {
-    private final List<LogicEventReceiverWrapper> receivers;
+public class ChannelMock implements Channel {
+    private final List<ReceiverWrapper> receivers;
 
-    public ChannelMock(final List<LogicEventReceiverWrapper> receivers) {
+    public ChannelMock(final List<ReceiverWrapper> receivers) {
         this.receivers = receivers;
     }
 
-    public void addToChannel(final LogicEvent event) {
+    @Override
+    public void addToChannel(final ApplicationEvent event) {
         receivers.stream()
                 .filter(receiver -> receiver.canReceive(event.getClass())) // TODO: move canReceive() inside receiver?
                 .forEach(receiver -> receiver.receive(event));

@@ -40,6 +40,6 @@ public class PropertiesPanelAdapter extends LeafAdapter implements PropertiesAda
 
     @Override
     public void updateField(final ShapeParam param, final String value) {
-        controller.modifyShape(uiState.getSelectedShapeId(), new ShapeParams(param, create(param, value)));
+        processor.modifyShape(uiState.getSelectedShapeId(), new ShapeParams(param, create(param, value)));
     }
 }

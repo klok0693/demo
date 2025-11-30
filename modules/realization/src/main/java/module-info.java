@@ -15,5 +15,7 @@ open module realization {
     exports org.example.astero_demo.realization.initialization.di.module;
     exports org.example.astero_demo.realization.configuration;
     exports org.example.astero_demo.realization.level.async.logic;
+    exports org.example.astero_demo.realization.level.async.clipboard;
     exports org.example.astero_demo.realization.level.async.ui;
+    exports org.example.astero_demo.realization.level.async;
 }

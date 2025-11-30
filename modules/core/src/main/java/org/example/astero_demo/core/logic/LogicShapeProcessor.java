@@ -10,7 +10,6 @@ import java.util.function.Supplier;
 
 @Slf4j
 public class LogicShapeProcessor implements ShapeProcessor {
-
     private final CommandFactory commandFactory;
     private final CommandProcessor commandProcessor;
     private final ShapeValidator validator;

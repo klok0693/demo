@@ -34,6 +34,11 @@ public class FxRootShortcutHandler implements EventHandler<KeyEvent> {
                     keyBoardAdapter.handleCopy();
                 }
                 break;
+            case X:
+                if (isCtrlDown) {
+                    keyBoardAdapter.handleCut();
+                }
+                break;
             case V:
                 if (isCtrlDown) {
                     keyBoardAdapter.handlePaste();

@@ -6,6 +6,7 @@ import org.example.astero_demo.core.logic.LogicShapeProcessor;
 import org.example.astero_demo.core.logic.ShapeProcessor;
 import org.example.astero_demo.model.metadata.dto.ShapeParams;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
+import org.example.astero_demo.realization.level.async.BackgroundExecutor;
 
 /**
  * Wrap calls to {@link ShapeProcessor}, to execute them in a separate thread

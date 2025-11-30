@@ -14,5 +14,7 @@ public interface OperationAdapter {
 
     void handleCopy();
 
+    void handleCut();
+
     void handlePaste();
 }

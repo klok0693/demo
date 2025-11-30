@@ -3,7 +3,7 @@ package org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection;
 import javafx.scene.canvas.GraphicsContext;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.state.ModelState;
+import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ShapeSelectionTool;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;

@@ -4,9 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.core.adapter.ui.state.mode.UIMode;
 import org.example.astero_demo.core.logic.ShapeProcessor;
 import org.example.astero_demo.model.entity.Shape;
-import org.example.astero_demo.model.entity.ShapeType;
-import org.example.astero_demo.model.metadata.dto.ShapeParams;
-import org.example.astero_demo.core.state.ModelState;
+import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.event.*;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersAdapter;
@@ -19,9 +17,6 @@ import org.example.astero_demo.core.port.ui.RootView;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
-
 /**
  * Parent adapter for all leafs adapters. The only component in UI block,<p>
  * able to change {@link org.example.astero_demo.adapter.ui.state.UIState}.<p>
@@ -32,7 +27,8 @@ import static java.lang.Integer.parseInt;
  * @since v1.0
  */
 @Slf4j
-public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdapter, ControllerAdapter {
+public class RootAdapter extends UIAdapter<MutableUIState>
+        implements ParentAdapter, ControllerAdapter, CursorLocator {
     private final ModelState modelState;
     private final ToolBarAdapter toolBarAdapter;
     private final CanvasAdapter canvasAdapter;
@@ -93,21 +89,11 @@ public class RootAdapter extends UIAdapter<MutableUIState> implements ParentAdap
             uiState.setInsertShapeType(e.getInsertShapeType());
             switchMode(uiState.getMode());
         }
-        else if (event instanceof final CopyShapeEvent e) {
-            uiState.storeCopyOf(uiState.getSelectedShapeId());
-        }
-        else if (event instanceof final PasteShapeEvent e) {
-            final double[] currentPosition = canvasAdapter.getLocalCursorPosition();
-            controller.createShape(new ShapeParams(
-                    parseInt(uiState.getCopyPriority()),
-                    currentPosition[0],
-                    currentPosition[1],
-                    parseDouble(uiState.getCopyWidth()),
-                    parseDouble(uiState.getCopyHeight()),
-                    parseInt(uiState.getCopyColor()),
-                    ShapeType.valueOf(uiState.getCopyType()))
-            );
-        }
+    }
+
+    @Override
+    public Optional<double[]> getLocalCursorPosition() {
+        return canvasAdapter.getLocalCursorPosition();
     }
 
     private void selectElement(final int id) {

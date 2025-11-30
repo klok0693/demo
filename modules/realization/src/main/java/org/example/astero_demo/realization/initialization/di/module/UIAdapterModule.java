@@ -1,11 +1,15 @@
 package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.*;
+import org.example.astero_demo.core.adapter.clipboard.ClipboardAdapter;
 import org.example.astero_demo.core.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
+import org.example.astero_demo.core.adapter.ui.CursorLocator;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
+import org.example.astero_demo.core.context.ops.workspace.InnerClipboard;
+import org.example.astero_demo.core.controller.keyboard.KeyboardController;
 import org.example.astero_demo.core.logic.ShapeProcessor;
-import org.example.astero_demo.core.state.ModelState;
+import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.ParentAdapter;
 import org.example.astero_demo.core.adapter.ui.RootAdapter;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
@@ -21,6 +25,7 @@ import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.state.UIStateInstance;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarPanelAdapter;
+import org.example.astero_demo.core.port.os.OSClipboard;
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarView;
 
@@ -45,6 +50,10 @@ class UIAdapterModule extends AbstractModule {
         bind(PropertiesAdapter.class).to(PropertiesPanelAdapter.class).in(Scopes.SINGLETON);
         bind(ToolBarAdapter.class).to(ToolBarPanelAdapter.class).in(Scopes.SINGLETON);
         bind(OperationAdapter.class).to(EditorOperationAdapter.class).in(Scopes.SINGLETON);
+
+        bind(CursorLocator.class).to(RootAdapter.class).in(Scopes.SINGLETON);
+
+        bind(InnerClipboard.class).in(Scopes.SINGLETON);
     }
 
     @Inject
@@ -57,12 +66,22 @@ class UIAdapterModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public EditorOperationAdapter provideKeyboardAdapte(
-            final ShapeProcessor processor,
-            final UIState state,
-            final ParentAdapter parentAdapter) {
-        return new EditorOperationAdapter(processor, state, parentAdapter);
+    public EditorOperationAdapter provideKeyboardAdapter(
+            final KeyboardController controller,
+            final UIState state) {
+        return new EditorOperationAdapter(controller, state);
     }
+
+    @Inject
+    @Provides
+    @Singleton
+    public ClipboardAdapter provideClipboardAdapter(
+            final OSClipboard osClipboard,
+            final InnerClipboard innerClipboard) {
+        return new ClipboardAdapter(osClipboard, innerClipboard);
+    }
+
+
 
     @Inject
     @Provides

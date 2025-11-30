@@ -9,7 +9,7 @@ import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ParamInfo;
 import org.example.astero_demo.model.metadata.ShapeParam;
-import org.example.astero_demo.core.state.ModelState;
+import org.example.astero_demo.core.context.state.ModelState;
 
 import javax.annotation.Nullable;
 import java.util.LinkedList;
@@ -30,9 +30,6 @@ import static org.example.astero_demo.util.logging.MarkerStorage.*;
 public class UIStateInstance implements MutableUIState {
     @Getter
     private ShapeType insertShapeType;
-
-    @Getter
-    private List<ParamInfo> copyParams;
     private final ModelState modelState;
     private UIMode mode;
 
@@ -126,47 +123,6 @@ public class UIStateInstance implements MutableUIState {
     }
 
     @Override
-    public boolean hasCopy() {
-        return copyParams != null && !copyParams.isEmpty();
-    }
-
-    @Override
-    public String getCopyWidth() {
-        return getCopyParam(ShapeParam.WIDTH);
-    }
-
-    @Override
-    public String getCopyHeight() {
-        return getCopyParam(ShapeParam.HEIGHT);
-    }
-
-    @Override
-    public String getCopyPriority() {
-        return getCopyParam(ShapeParam.PRIORITY);
-    }
-
-    @Override
-    public String getCopyColor() {
-        return getCopyParam(ShapeParam.COLOR);
-    }
-
-    @Override
-    public String getCopyType() {
-        return getCopyParam(ShapeParam.TYPE);
-    }
-
-    private String getCopyParam(final ShapeParam param) {
-        if (copyParams == null || copyParams.isEmpty()) {
-            return StringUtils.EMPTY;
-        }
-        return copyParams.stream()
-                .filter(paramInfo -> paramInfo.getParam() == param)
-                .map(ParamInfo::getNewValue)
-                .findFirst()
-                .orElse(StringUtils.EMPTY);
-    }
-
-    @Override
     public boolean hasSelectedId() {
         return selection.hasSelectedId();
     }
@@ -199,25 +155,5 @@ public class UIStateInstance implements MutableUIState {
 
         this.insertShapeType = null;
         this.mode = UIMode.SINGLE_SELECTION;
-    }
-
-    @Override
-    public void storeCopyOf(final int originalId) {
-        copyParams = new LinkedList<>();
-
-        final Shape original = modelState.getShape(originalId);
-        if (original == null) {
-            return;
-        }
-
-        copyParams.add(create(ShapeParam.X, original.getX()));
-        copyParams.add(create(ShapeParam.Y, original.getY()));
-        copyParams.add(create(ShapeParam.WIDTH, original.getWidth()));
-        copyParams.add(create(ShapeParam.HEIGHT, original.getHeight()));
-        copyParams.add(create(ShapeParam.COLOR, original.getColor()));
-        copyParams.add(create(ShapeParam.PRIORITY, original.getPriority()));
-        copyParams.add(create(ShapeParam.TYPE, valueOf(original.getType())));
-
-        log.debug(UI_STATE_MARKER, "Save copy of {}", original);
     }
 }

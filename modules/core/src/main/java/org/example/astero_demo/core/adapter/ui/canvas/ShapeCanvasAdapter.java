@@ -10,6 +10,8 @@ import org.example.astero_demo.core.adapter.ui.event.SelectNextElementAt;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
+import java.util.Optional;
+
 /**
  * Leaf adapter for interacting with a canvas
  *
@@ -67,21 +69,21 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
 
     @Override
     public void createNewShapeAt(final double x, final double y, final double width, final double height) {
-        controller.createShape(new ShapeParams(x, y, width, height, uiState.getInsertShapeType()));
+        processor.createShape(new ShapeParams(x, y, width, height, uiState.getInsertShapeType()));
     }
 
     @Override
     public void modifySelectedShape(final double x, final double y, final double width, final double height) {
-        controller.modifyShape(uiState.getSelectedShapeId(), new ShapeParams(x, y, width, height));
+        processor.modifyShape(uiState.getSelectedShapeId(), new ShapeParams(x, y, width, height));
     }
 
     @Override
     public void moveSelectedShapeTo(final double x, final double y) {
-        controller.modifyShape(uiState.getSelectedShapeId(), new ShapeParams(x, y));
+        processor.modifyShape(uiState.getSelectedShapeId(), new ShapeParams(x, y));
     }
 
     @Override
-    public double[] getLocalCursorPosition() {
+    public Optional<double[]> getLocalCursorPosition() {
         return canvasRoot.getLocalCursorPosition();
     }
 }
