@@ -123,6 +123,13 @@
             <version>1.10.2</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <version>21.0.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -134,6 +141,12 @@
                 <configuration>
                     <argLine>
                         --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+
+                        -Djavafx.platform=Monocle
+                        -Dmonocle.platform=Headless
+                        -Dglass.platform=Monocle
+                        -Dprism.order=sw
+                        -Dprism.text=t2k
                     </argLine>
                     <useModulePath>false</useModulePath>
 <!--                    <includes>
