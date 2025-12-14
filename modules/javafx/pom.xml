@@ -132,8 +132,63 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>headless</id>
+            <properties>
+                <fx.args>
+                    -Djavafx.platform=Monocle
+                    -Dmonocle.platform=Headless
+                    -Dglass.platform=Monocle
+                    -Dprism.order=sw
+                    -Dprism.text=t2k
+                </fx.args>
+            </properties>
+        </profile>
+        <profile>
+            <id>gui</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <fx.args/>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.5.4</version>
+
+                <executions>
+                    <execution>
+                        <id>functional-tests</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+
+                        <configuration>
+                            <argLine>
+                                ${fx.args}
+                                --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                            </argLine>
+
+                            <useModulePath>false</useModulePath>
+
+                            <includes>
+                                <include>**/launchers/**/*.java</include>
+                            </includes>
+
+                            <forkCount>1</forkCount>
+                            <reuseForks>false</reuseForks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -141,17 +196,8 @@
                 <configuration>
                     <argLine>
                         --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-
-                        -Djavafx.platform=Monocle
-                        -Dmonocle.platform=Headless
-                        -Dglass.platform=Monocle
-                        -Dprism.order=sw
-                        -Dprism.text=t2k
                     </argLine>
                     <useModulePath>false</useModulePath>
-<!--                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>-->
                 </configuration>
             </plugin>
             <!-- By default, maven doesn't package tests in a jar, so, if tests from

@@ -94,6 +94,14 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.2.5</version>
                     <configuration>
+                        <includes>
+                            <include>**/unit/**/*.java</include>
+                            <include>**/integration/**/*.java</include>
+                        </includes>
+                        <excludes>
+                            <exclude>**/launchers/**/*.java</exclude>
+                        </excludes>
+                        <!-- for JavaFX / Cucumber tests -->
                         <forkCount>1</forkCount>
                         <reuseForks>false</reuseForks>
                     </configuration>
