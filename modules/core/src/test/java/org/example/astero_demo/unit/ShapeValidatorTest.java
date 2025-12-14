@@ -1,13 +1,13 @@
 package org.example.astero_demo.unit;
 
-import org.example.astero_demo.core.model.metadata.ShapeParam;
+import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.core.logic.ShapeValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.example.astero_demo.core.model.entity.ShapeType.ELLIPSE;
-import static org.example.astero_demo.core.model.entity.ShapeType.RECT;
+import static org.example.astero_demo.model.entity.ShapeType.ELLIPSE;
+import static org.example.astero_demo.model.entity.ShapeType.RECT;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

@@ -42,6 +42,7 @@ public class InnerClipboard implements Clipboard<Shape, ShapeParams> {
         if (storedParams.isEmpty()) {
             return null;
         }
+
         final ShapeParams params = new ShapeParams(ShapeParam.PRIORITY,
                 ParamInfo.create(ShapeParam.PRIORITY, parseInt(getCopyParam(ShapeParam.PRIORITY))));
 

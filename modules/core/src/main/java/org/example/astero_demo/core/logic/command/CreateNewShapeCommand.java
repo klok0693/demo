@@ -34,14 +34,21 @@ public class CreateNewShapeCommand extends ParamCommand {
     @Override
     public void doCommand() {
         log.debug(COMMAND_MARKER, "Create new shape with params {}", shapeParams);
-        this.createdShapeId = modelController.saveShape(
-                shapeParams.getNewValue(ShapeParam.PRIORITY),
-                shapeParams.getNewValue(ShapeParam.X),
-                shapeParams.getNewValue(ShapeParam.Y),
-                shapeParams.getNewValue(ShapeParam.WIDTH),
-                shapeParams.getNewValue(ShapeParam.HEIGHT),
-                shapeParams.getNewValue(ShapeParam.COLOR),
-                ShapeType.valueOf(shapeParams.getNewValue(ShapeParam.TYPE)));
+        final String priority = shapeParams.getNewValue(ShapeParam.PRIORITY);
+        final String x = shapeParams.getNewValue(ShapeParam.X);
+        final String y = shapeParams.getNewValue(ShapeParam.Y);
+        final String width = shapeParams.getNewValue(ShapeParam.WIDTH);
+        final String height = shapeParams.getNewValue(ShapeParam.HEIGHT);
+        final String color = shapeParams.getNewValue(ShapeParam.COLOR);
+        final ShapeType type = ShapeType.valueOf(shapeParams.getNewValue(ShapeParam.TYPE));
+        if (shapeParams.hasValue(ShapeParam.ID)) {
+            this.createdShapeId = modelController.saveShape(
+                    Integer.parseInt(shapeParams.getNewValue(ShapeParam.ID)),
+                    priority, x, y, width, height, color, type);
+        }
+        else {
+            this.createdShapeId = modelController.saveShape(priority, x, y, width, height, color, type);
+        }
 
         log.debug(COMMAND_MARKER, "Update ui for new shape {}", createdShapeId);
         viewController.onCreateUpdate(createdShapeId);

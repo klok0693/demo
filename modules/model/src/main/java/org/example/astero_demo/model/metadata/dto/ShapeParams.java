@@ -54,8 +54,8 @@ public class ShapeParams {
 
     public ShapeParams(
             Integer priority,
-            double x,
-            double y,
+            Double x,
+            Double y,
             double width,
             double height,
             Integer color,
@@ -65,8 +65,12 @@ public class ShapeParams {
 
         final ParamInfo priorityInfo = create(ShapeParam.PRIORITY, priority == null ? DEFAULT_SHAPE_LAYER : String.valueOf(priority));
         params.put(ShapeParam.PRIORITY, priorityInfo);
-        params.put(ShapeParam.X, create(ShapeParam.X, x));
-        params.put(ShapeParam.Y, create(ShapeParam.Y, y));
+        if (x != null) {
+            params.put(ShapeParam.X, create(ShapeParam.X, x));
+        }
+        if (y != null) {
+            params.put(ShapeParam.Y, create(ShapeParam.Y, y));
+        }
         params.put(ShapeParam.WIDTH, create(ShapeParam.WIDTH, width));
         params.put(ShapeParam.HEIGHT, create(ShapeParam.HEIGHT, height));
         if (color != null) {
@@ -75,6 +79,10 @@ public class ShapeParams {
         if (type != null) {
             params.put(ShapeParam.TYPE, create(ShapeParam.TYPE, type.name()));
         }
+    }
+
+    public boolean hasValue(final ShapeParam key) {
+        return params.containsKey(key);
     }
 
 

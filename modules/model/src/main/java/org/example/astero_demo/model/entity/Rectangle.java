@@ -4,7 +4,7 @@ package org.example.astero_demo.model.entity;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class Rectangle extends Shape {
+public non-sealed class Rectangle extends Shape {
 
     public Rectangle(
             final int id,

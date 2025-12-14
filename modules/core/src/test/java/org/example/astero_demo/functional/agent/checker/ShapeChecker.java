@@ -1,13 +1,15 @@
 package org.example.astero_demo.functional.agent.checker;
 
 import io.cucumber.java.en.Then;
-import org.example.astero_demo.core.model.entity.Shape;
-import org.example.astero_demo.core.model.entity.ShapeType;
-import org.example.astero_demo.core.model.state.ModelState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.entity.ShapeType;
+import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.functional.TestComponentHolder;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ShapeChecker extends Checker {
 
@@ -20,12 +22,17 @@ public class ShapeChecker extends Checker {
         // Assert shape has been created successfully
         final ModelState modelState = getInstance(ModelState.class);
         final List<Shape> shapes = modelState.getShapes().toList();
-        Assertions.assertEquals(1, shapes.size());
+        assertEquals(1, shapes.size());
 
         final Shape created = shapes.getFirst();
-        Assertions.assertEquals(width, Double.parseDouble(created.getWidth()));
-        Assertions.assertEquals(height, Double.parseDouble(created.getHeight()));
-        Assertions.assertEquals(2, Integer.parseInt(created.getPriority()));
-        Assertions.assertSame(ShapeType.RECT, created.getType());
+        assertEquals(width, Double.parseDouble(created.getWidth()));
+        assertEquals(height, Double.parseDouble(created.getHeight()));
+        assertEquals(2, Integer.parseInt(created.getPriority()));
+        assertSame(ShapeType.RECT, created.getType());
+    }
+
+    @Then("Shape with id: {int} no longer exist")
+    public void shapeNotExist(final int shapeId) {
+        assertNull(getInstance(ModelState.class).getShape(shapeId));
     }
 }

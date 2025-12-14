@@ -4,7 +4,7 @@ package org.example.astero_demo.model.entity;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class Ellipse extends Shape {
+public non-sealed class Ellipse extends Shape {
 
     public Ellipse(
             final int id,

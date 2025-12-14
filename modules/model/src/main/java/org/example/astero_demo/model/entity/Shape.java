@@ -18,11 +18,11 @@ import static java.lang.Integer.parseInt;
 @Getter
 @Setter
 @EqualsAndHashCode
-public abstract class Shape implements Comparable<Shape> {
+public abstract sealed class Shape implements Comparable<Shape>
+        permits Rectangle, Ellipse {
     public static final String DEFAULT_COLOR_STRING = "-16744448";
     private static final int RANDOM_RANGE = 10_000;
 
-    @Setter(AccessLevel.NONE)
     private int id;
     protected String priority;
     protected String x;

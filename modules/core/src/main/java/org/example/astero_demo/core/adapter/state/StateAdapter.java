@@ -9,6 +9,7 @@ import org.example.astero_demo.core.context.state.MutableModelState;
 
 import javax.annotation.Nullable;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
 /**
@@ -61,6 +62,7 @@ public class StateAdapter {
             return;
         }
         switch (param) {
+            case ID: shape.setId(parseInt(newValue)); break;
             case X: shape.setX(newValue); break;
             case Y: shape.setY(newValue); break;
             case WIDTH: shape.setWidth(newValue); break;
