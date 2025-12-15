@@ -1,0 +1,112 @@
+package org.example.astero_demo.swing.port.ui.element;
+
+import org.apache.commons.lang3.StringUtils;
+import org.example.astero_demo.core.adapter.ui.ShapeSelector;
+import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.core.context.state.ModelState;
+import org.example.astero_demo.core.port.ui.elements.LayersTree;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import static java.lang.Integer.parseInt;
+
+/**
+ * JavaFX's realization of {@link LayersTree}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
+public class SwingLayersTree extends JTree implements LayersTree {
+    private final ModelState modelState;
+    private final UIState uiState;
+
+    public SwingLayersTree(final ModelState modelState, final UIState uiState, final ShapeSelector shapeSelector) {
+        this.modelState = modelState;
+        this.uiState = uiState;
+
+/*        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(final MouseEvent e) {
+                final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) getLastSelectedPathComponent();
+                String item = (String) selectedNode.getUserObject();
+            }
+        });
+
+        setOnMouseClicked(event -> {
+            final TreePath path = getSelectionModel().getSelectionPath();
+
+            final TreeItem<String> selectedItem = .getSelectedItem();
+            if (selectedItem != null) {
+                final String id = selectedItem instanceof final LayerItem item ? item.getFirstChildId() : selectedItem.getValue();
+                shapeSelector.selectShape(id);
+            }
+        });
+
+        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);*/
+    }
+
+    @Override
+    public void update() {
+        cleanUp();
+
+        final var layers = modelState.getShapes().collect(Collectors.groupingBy(Shape::getPriority));
+        if (layers.isEmpty()) {
+            return;
+        }
+
+/*        final TreeItem<String> rootItem = new TreeItem<>(StringUtils.EMPTY);
+        setRoot(rootItem);
+        layers.forEach((key, value) -> {
+            final LayerItem layerItem = new LayerItem(key);
+            rootItem.getChildren().add(layerItem);
+            layerItem.setExpanded(true);
+            layerItem.addShapes(value);
+        });*/
+    }
+
+    @Override
+    public void unSelectAll() {
+        getSelectionModel().clearSelection();
+    }
+
+    private void cleanUp() {
+/*        final TreeItem<String> root = getRoot();
+        if (root != null) {
+            root.getChildren().clear();
+            setRoot(null);
+        }*/
+    }
+
+/*    private class LayerItem extends TreeItem<String> {
+
+        LayerItem(final String key) {
+            super(key);
+        }
+
+        void addShapes(final Collection<Shape> shapes) {
+            shapes.stream()
+                    .map(Shape::getId)
+                    .map(String::valueOf)
+                    .forEach(id -> {
+                        final var item = new TreeItem<>(id);
+                        item.setExpanded(true);
+                        getChildren().add(item);
+
+                        if (uiState.hasSelectedId() && uiState.isIdSelected(parseInt(id))) {
+                            getSelectionModel().select(item);
+                        }
+                    });
+        }
+
+        String getFirstChildId() {
+            return getChildren().getFirst().getValue();
+        };
+    }*/
+}

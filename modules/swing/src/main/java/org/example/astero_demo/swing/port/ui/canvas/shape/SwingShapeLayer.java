@@ -1,0 +1,58 @@
+package org.example.astero_demo.swing.port.ui.canvas.shape;
+
+import org.example.astero_demo.core.context.state.ModelState;
+import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
+import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
+import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
+import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
+import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
+import org.example.astero_demo.swing.util.ColorUtils;
+
+import java.awt.*;
+
+/**
+ * JavaFX's realization of {@link ShapeLayer}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
+public class SwingShapeLayer extends ShapeLayer<Graphics> {
+
+    public SwingShapeLayer(final ModelState modelState) {
+        super(modelState);
+    }
+
+    public SwingShapeLayer(final int layer, final ModelState modelState) {
+        super(layer, modelState);
+    }
+
+    @Override
+    protected EllipseElement<Graphics> createEllipse(
+            final int layer,
+            final int modelRelatedId,
+            final double x,
+            final double y,
+            final double width,
+            final double height,
+            final String fillColor) {
+        return new SwingEllipseElement(layer, modelRelatedId, x, y, width, height, ColorUtils.convert(fillColor));
+    }
+
+
+    @Override
+    protected RectangleElement<Graphics> createRectangle(
+            final int layer,
+            final int modelRelatedId,
+            final double x,
+            final double y,
+            final double width,
+            final double height,
+            final String fillColor) {
+        return new SwingRectangleElement(layer, modelRelatedId, x, y, width, height, ColorUtils.convert(fillColor));
+    }
+
+    @Override
+    protected CanvasLayer<Graphics, CanvasLayer<Graphics, CanvasElement<Graphics>>> createLayer(final int layer) {
+        return new SwingShapeLayer(layer, modelState);
+    }
+}

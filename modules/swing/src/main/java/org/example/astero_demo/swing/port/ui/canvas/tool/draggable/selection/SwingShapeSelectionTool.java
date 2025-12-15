@@ -1,0 +1,47 @@
+package org.example.astero_demo.swing.port.ui.canvas.tool.draggable.selection;
+
+import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
+import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.core.context.state.ModelState;
+import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ShapeSelectionTool;
+import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
+import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * JavaFX's realization of {@link ShapeSelectionTool}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.1
+ */
+public class SwingShapeSelectionTool extends ShapeSelectionTool<Graphics> implements SwingCanvasElement {
+
+    private final Map<Integer, SwingModificableSelectionFrame> frames = new HashMap<>(2);
+
+    public SwingShapeSelectionTool(
+            final ModelState modelState,
+            final UIState uiState,
+            final CanvasAdapter adapter) {
+        super(modelState, uiState, adapter);
+    }
+
+    @Override
+    protected ModificableSelectionFrame<Graphics> createModificableFrame(
+            final CanvasAdapter adapter,
+            final UIState uiState) {
+        return new SwingModificableSelectionFrame(adapter, uiState);
+    }
+
+    @Override
+    public void save(final Graphics gc) {
+        SwingCanvasElement.super.save(gc);
+    }
+
+    @Override
+    public void restore(final Graphics gc) {
+        SwingCanvasElement.super.restore(gc);
+    }
+}
