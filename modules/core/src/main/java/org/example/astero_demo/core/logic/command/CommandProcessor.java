@@ -1,7 +1,7 @@
 package org.example.astero_demo.core.logic.command;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import org.example.astero_demo.core.context.ops.execution.CommandQueue;
+
 import java.util.Optional;
 
 /**
@@ -10,17 +10,20 @@ import java.util.Optional;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public enum CommandProcessor {
-    INSTANCE;
+public class CommandProcessor {
 
-    private final Deque<Command> processedCommandsQueue = new LinkedList<>();
+    private final CommandQueue commandQueue;
+
+    public CommandProcessor(final CommandQueue commandsQueue) {
+        this.commandQueue = commandsQueue;
+    }
 
     public void processCommand(final Command command) {
         command.doCommand();
-        processedCommandsQueue.add(command);
+        commandQueue.add(command);
     }
 
     public void undoLastCommand() {
-        Optional.ofNullable(processedCommandsQueue.pollLast()).ifPresent(Command::undoCommand);
+        Optional.ofNullable(commandQueue.pollLast()).ifPresent(Command::undoCommand);
     }
 }

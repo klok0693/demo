@@ -40,4 +40,5 @@ open module core {
     exports org.example.astero_demo.core.controller.keyboard;
     exports org.example.astero_demo.core.context.ops;
     exports org.example.astero_demo.core.context.ops.workspace;
+    exports org.example.astero_demo.core.context.ops.execution;
 }

@@ -1,9 +1,7 @@
 package org.example.astero_demo.realization.initialization.di.module;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
+import com.google.inject.*;
+import org.example.astero_demo.core.context.ops.execution.CommandQueue;
 import org.example.astero_demo.core.controller.model.ModelController;
 import org.example.astero_demo.core.controller.ui.UIController;
 import org.example.astero_demo.core.logic.command.CommandFactory;
@@ -21,7 +19,7 @@ class CommandModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(CommandFactory.class).to(CommandFactoryImpl.class);
-        bind(CommandProcessor.class).toInstance(CommandProcessor.INSTANCE);
+        bind(CommandQueue.class).in(Scopes.SINGLETON);
     }
 
     @Inject
@@ -31,5 +29,12 @@ class CommandModule extends AbstractModule {
             final UIController viewController,
             final ModelController modelController) {
         return new CommandFactoryImpl(viewController, modelController);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public CommandProcessor provideCommandProcessor(final CommandQueue commandsQueue) {
+        return new CommandProcessor(commandsQueue);
     }
 }
