@@ -1,20 +1,16 @@
 package org.example.astero_demo.core.adapter.clipboard;
 
-import org.example.astero_demo.core.context.ops.workspace.InnerClipboard;
 import org.example.astero_demo.core.port.os.OSClipboard;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
-import static java.lang.String.valueOf;
-import static org.example.astero_demo.model.metadata.ParamInfo.create;
-
 public class ClipboardAdapter {
     private final OSClipboard osClipboard;
-    private final InnerClipboard innerClipboard;
+    private final Clipboard<Shape, ShapeParams> innerClipboard;
 
     public ClipboardAdapter(
             final OSClipboard osClipboard,
-            final InnerClipboard innerClipboard) {
+            final Clipboard<Shape, ShapeParams> innerClipboard) {
         this.osClipboard = osClipboard;
         this.innerClipboard = innerClipboard;
     }

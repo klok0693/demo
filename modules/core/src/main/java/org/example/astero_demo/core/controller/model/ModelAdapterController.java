@@ -1,6 +1,6 @@
 package org.example.astero_demo.core.controller.model;
 
-import org.example.astero_demo.core.adapter.state.StateAdapter;
+import org.example.astero_demo.core.adapter.state.ModelStateAdapter;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.entity.ShapeType;
 import org.example.astero_demo.model.metadata.ShapeParam;
@@ -13,9 +13,9 @@ import org.example.astero_demo.core.controller.AbstractController;
  * @since v1.0
  */
 public class ModelAdapterController extends AbstractController implements ModelController {
-    private final StateAdapter stateAdapter;
+    private final ModelStateAdapter stateAdapter;
 
-    public ModelAdapterController(final StateAdapter stateAdapter) {
+    public ModelAdapterController(final ModelStateAdapter stateAdapter) {
         this.stateAdapter = stateAdapter;
     }
 

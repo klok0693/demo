@@ -1,9 +1,8 @@
 package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.*;
-import org.example.astero_demo.core.adapter.state.StateAdapter;
+import org.example.astero_demo.core.adapter.state.ModelStateAdapter;
 import org.example.astero_demo.core.adapter.ui.CursorLocator;
-import org.example.astero_demo.core.adapter.ui.RootAdapter;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.controller.keyboard.KeyboardAdapterController;
 import org.example.astero_demo.core.controller.keyboard.KeyboardController;
@@ -42,7 +41,7 @@ class ControllerModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public ModelAdapterController provideModelController(final StateAdapter stateAdapter) {
+    public ModelAdapterController provideModelController(final ModelStateAdapter stateAdapter) {
         return new ModelAdapterController(stateAdapter);
     }
 

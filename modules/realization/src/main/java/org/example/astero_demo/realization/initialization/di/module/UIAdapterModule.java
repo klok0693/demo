@@ -1,12 +1,13 @@
 package org.example.astero_demo.realization.initialization.di.module;
 
 import com.google.inject.*;
+import org.example.astero_demo.core.adapter.clipboard.Clipboard;
 import org.example.astero_demo.core.adapter.clipboard.ClipboardAdapter;
 import org.example.astero_demo.core.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.core.adapter.ui.CursorLocator;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
-import org.example.astero_demo.core.context.ops.workspace.InnerClipboard;
+import org.example.astero_demo.core.context.ops.OpsStateHolder;
 import org.example.astero_demo.core.controller.keyboard.KeyboardController;
 import org.example.astero_demo.core.logic.ShapeProcessor;
 import org.example.astero_demo.core.context.state.ModelState;
@@ -28,6 +29,8 @@ import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarPanelAdapter;
 import org.example.astero_demo.core.port.os.OSClipboard;
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarView;
+import org.example.astero_demo.model.entity.Shape;
+import org.example.astero_demo.model.metadata.dto.ShapeParams;
 
 /**
  * DI config for UI adapters
@@ -53,7 +56,7 @@ class UIAdapterModule extends AbstractModule {
 
         bind(CursorLocator.class).to(RootAdapter.class).in(Scopes.SINGLETON);
 
-        bind(InnerClipboard.class).in(Scopes.SINGLETON);
+        bind(new TypeLiteral<Clipboard<Shape, ShapeParams>>() {}).toInstance(OpsStateHolder.INSTANCE);
     }
 
     @Inject
@@ -77,7 +80,7 @@ class UIAdapterModule extends AbstractModule {
     @Singleton
     public ClipboardAdapter provideClipboardAdapter(
             final OSClipboard osClipboard,
-            final InnerClipboard innerClipboard) {
+            final Clipboard<Shape, ShapeParams> innerClipboard) {
         return new ClipboardAdapter(osClipboard, innerClipboard);
     }
 

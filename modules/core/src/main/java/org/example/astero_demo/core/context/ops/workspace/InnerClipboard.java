@@ -17,6 +17,10 @@ import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 import static org.example.astero_demo.model.metadata.ParamInfo.create;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.2
+ */
 public class InnerClipboard implements Clipboard<Shape, ShapeParams> {
     private final List<ParamInfo> storedParams = new LinkedList<>();
 

@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
-import org.example.astero_demo.core.adapter.state.StateAdapter;
+import org.example.astero_demo.core.adapter.state.ModelStateAdapter;
 import org.example.astero_demo.model.entity.ShapeFactory;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.context.state.ModelStateHolder;
@@ -29,7 +29,7 @@ class ModelModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public StateAdapter provideModelAdapter(final ShapeFactory factory, final MutableModelState holder) {
-        return new StateAdapter(factory, holder);
+    public ModelStateAdapter provideModelAdapter(final ShapeFactory factory, final MutableModelState holder) {
+        return new ModelStateAdapter(factory, holder);
     }
 }

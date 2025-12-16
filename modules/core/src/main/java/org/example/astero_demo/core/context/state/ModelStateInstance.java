@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 import static java.lang.String.valueOf;
 
 /**
- * Realization of the State template
+ * Realization of the State template for model data
  *
  * @author Pilip Yurchanka
  * @since v1.0

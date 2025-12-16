@@ -19,11 +19,11 @@ import static java.lang.String.valueOf;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class StateAdapter {
+public class ModelStateAdapter {
     private final ShapeFactory factory;
     private final MutableModelState modelState;
 
-    public StateAdapter(final ShapeFactory factory, final MutableModelState modelState) {
+    public ModelStateAdapter(final ShapeFactory factory, final MutableModelState modelState) {
         this.factory = factory;
         this.modelState = modelState;
     }
