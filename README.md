@@ -1,26 +1,28 @@
-# Purpose & Scope
+# Purpose
 
-This repository is **a technology- and architecture-driven project, used as a personal playground**  
-to explore, test, and combine ideas, libraries, architectural approaches, and testing strategies  
-that I find interesting or valuable from an engineering perspective.
+This repository is a technology- and architecture-focused project used as a **personal playground 
+and investigation space** to test and combine engineering ideas, libraries, architectural patterns, 
+and testing approaches. I decided to open it to give reviewers a broader and more honest view of 
+my technical level across different areas
 
-While the project is primarily technical in nature, it can also be used as a demonstration project.  
-It was not created to showcase a specific library or a predefined technology stack. Instead, it brings  
-together a broad set of concepts and tools within a single, coherent codebase. The choice to work on  
-one relatively complex project, rather than multiple small and isolated examples, was intentional: it  
-allows different ideas to interact under more realistic constraints.
+The project is primarily intended for technical readers rather than as a showcase of end-user 
+functionality. It is not intended to showcase a specific library or predefined technology stack. 
+Instead, it brings together multiple concepts within a *single, cohesive codebase*. Working on 
+one relatively complex project rather than many isolated examples was a deliberate choice, 
+allowing ideas to interact under more realistic constraints.
 
-To make navigation easier, this README provides a **high-level overview** of the project, while more detailed  
-explanations of specific aspects are available in dedicated documents listed below. The GitHub version of  
-the project is kept in a **clean, buildable, and stable state**, even though local development may involve  
-experiments and refactoring.
+This README provides a *high-level overview*, while deeper explanations are available in dedicated 
+documents *listed below*. The GitHub version is kept *clean, buildable, and stable*, even though 
+local development may include experiments and refactoring
 
-> ⚠️ Some parts of the codebase may appear **overengineered** for the problems they solve.  
-> This is intentional: the focus is on learning, comparison, and validation of approaches, rather than  
-> minimizing code or optimizing for a specific business use case.
->
-> As a result, the project is primarily useful for **technical readers** rather than as a showcase of  
-> end-user functionality.
+> ⚠️ Some parts may appear overengineered by design - the focus is learning and validation rather 
+> than end-user functionality.
+
+#### 📄 Content
+- Application Overview
+- Tech Stack
+- What This Project Demonstrates
+- Documentation & Navigation
 
 ---
 
@@ -41,25 +43,27 @@ a property panel, layer's tree with a shape lists, and toolbar.
 
 ---
 
-## What This Project Demonstrates
+## Tech Stack
 
-This project demonstrates a range of architectural, design, and testing concepts, explored together  
-within a single codebase:
+#### 💼 Project: Java, JavaFX, Google Guice, Logback, Maven, Lombock 
+#### 📋 Tests: JUnit, Mockito, Cucumber, TestFX, Monocle
+
+---
+
+## What This Project Demonstrates
 
 ### 🧱 Architecture & Design
 - **Hexagonal (Ports & Adapters) architecture**
-- **Strong modular separation, using Maven multi-module setup and JPMS**, with a clear distinction between:
-  - platform-agnostic core logic
-  - platform-specific implementations (JavaFX)
 - A developed **domain model**, kept independent from UI and infrastructure concerns
 - **Events orchestration** separated from business logic, avoiding UI-driven control flow
 - Clear boundaries between **synchronous and asynchronous execution**, explicitly modeled and kept out of core logic
 
 ### 🔌 Dependency Management
-- **Dependency Injection (Guice)**, including:
-  - runtime bindings
-  - test-specific configuration
-  - pre-initialization dependency setup
+- **Dependency Injection (Guice)**, including runtime bindings, test-specific configuration, pre-initialization 
+    dependency setup etc
+- **Strong modular separation, using Maven multi-module setup and JPMS**, with a clear distinction between:
+  - platform-agnostic core logic
+  - platform-specific implementations (JavaFX)
 
 ### 🎨 Canvas & Interaction Logic
 - **Layered canvas architecture**, covering rendering, input handling, and interaction logic  

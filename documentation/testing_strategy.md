@@ -29,10 +29,10 @@ These tests are implemented using **TestFX**, simulating real user behavior rath
 
 Functional tests can be executed in two modes:
 
-🖼️ **GUI mode**
-Uses a real JavaFX window — useful during development and debugging
+🖼️ **GUI mode**:
+Uses a real JavaFX window - useful during development and debugging
 
-🔲 **Headless mode**
+🔲 **Headless mode**:
 Uses **Monocle**, allowing execution without a display (CI-friendly)
 
 The execution mode is controlled via **Maven profiles** and **JVM arguments**.
@@ -79,6 +79,7 @@ A formal **application behavior scheme** — describing interaction flow, modes,
 and transitions — is currently under development and will be added in a future iteration 
 of the documentation.
 ![Selection](not_found.png)
+
 ---
 
 ## 🎯 Coverage Philosophy

@@ -134,7 +134,114 @@
 
     <profiles>
         <profile>
-            <id>headless</id>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <jpackage.installer>exe</jpackage.installer>
+                <fx.args/>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <jpackage.installer>deb</jpackage.installer>
+                <fx.args/>
+            </properties>
+        </profile>
+        <profile>
+            <id>package-app-image</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>jpackage-app-image</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>jpackage</executable>
+                                    <commandlineArgs>
+                                        --type app-image
+                                        --name Demo
+                                        --input target
+                                        --main-jar javafx-1.0-SNAPSHOT.jar
+                                        --main-class org.example.astero_demo.Main
+                                        --dest ../../dist
+                                    </commandlineArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <fx.args/>
+            </properties>
+        </profile>
+        <profile>
+            <id>package-installer</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>jpackage-installer</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>jpackage</executable>
+                                    <commandlineArgs>
+                                        --type ${jpackage.installer}
+                                        --name Demo
+                                        --input target
+                                        --main-jar javafx-1.0-SNAPSHOT.jar
+                                        --main-class org.example.astero_demo.Main
+                                        --dest ../../dist
+                                    </commandlineArgs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <fx.args/>
+            </properties>
+        </profile>
+        <profile>
+            <id>skipTests</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+                <fx.args/>
+            </properties>
+        </profile>
+        <profile>
+            <id>headlessTests</id>
             <properties>
                 <fx.args>
                     -Djavafx.platform=Monocle
@@ -146,10 +253,35 @@
             </properties>
         </profile>
         <profile>
-            <id>gui</id>
+            <id>guiTests</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <fx.args/>
+            </properties>
+        </profile>
+        <profile>
+            <id>excludeFxDeps</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-shade-plugin</artifactId>
+                        <configuration>
+                            <artifactSet>
+                                <!-- This attribute tells Maven to ADD these to existing excludes -->
+                                <excludes combine.children="append">
+                                    <exclude>org.openjfx:*</exclude>
+                                </excludes>
+                            </artifactSet>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
             <properties>
                 <fx.args/>
             </properties>
