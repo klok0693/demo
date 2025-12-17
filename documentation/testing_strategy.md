@@ -78,7 +78,7 @@ This is achieved using **Maven’s test-JAR packaging** and dependency configura
 A formal **application behavior scheme** — describing interaction flow, modes, 
 and transitions — is currently under development and will be added in a future iteration 
 of the documentation.
-
+![Selection](not_found.png)
 ---
 
 ## 🎯 Coverage Philosophy

@@ -72,10 +72,13 @@ The JavaFX module contains the application entry point, as application startup i
 
 ## 📋 Runtime Requirements
 
-The produced artifact is a **thin JAR**. This means:
-- The JAR does not include a bundled JVM
-- JavaFX is not shaded or embedded
+The produced artifact is a **thin JAR**. This means that it doesn't 
+include a bundled JVM, but, because JavaFX libraries aren't part of the
+JRE anymore, they are added to executable jar, which blow it size, through 
+still keep it fit and provide the ability to launch application on systems, 
+having java9+ runtime. JavaFX's libraries for a jar are taken from the 
+Maven dependencies, not from the system path, to ensure, that every developer 
+have the same runtime environment
 
-To run the application, the runtime environment must provide:
-- A compatible Java runtime(java 21+)
-- OpenJFX libraries available on the module/classpath
+To run the application, the runtime environment must provide only 
+compatible Java runtime(**java 21+**)

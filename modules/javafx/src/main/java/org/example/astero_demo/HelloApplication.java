@@ -10,11 +10,9 @@ import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.fx.initialization.di.FxModule;
-import org.example.astero_demo.realization.configuration.AppConfiguration;
 import org.example.astero_demo.realization.initialization.di.module.*;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_MARKER;
 
@@ -42,12 +40,5 @@ public class HelloApplication extends Application {
         stage.setTitle("demo");
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void main(final String[] args) {
-        log.debug(INITIALIZATION_MARKER, "Start application with args:{}", List.of(args));
-
-        AppConfiguration.INSTANCE.setUp();
-        launch();
     }
 }
