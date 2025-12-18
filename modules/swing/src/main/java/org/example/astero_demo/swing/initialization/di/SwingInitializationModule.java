@@ -8,7 +8,7 @@ import com.google.inject.AbstractModule;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-class InitializationModule extends AbstractModule {
+class SwingInitializationModule extends AbstractModule {
 
     @Override
     protected void configure() {

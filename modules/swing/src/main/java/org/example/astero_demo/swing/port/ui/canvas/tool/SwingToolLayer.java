@@ -1,6 +1,5 @@
 package org.example.astero_demo.swing.port.ui.canvas.tool;
 
-import javafx.scene.canvas.GraphicsContext;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.canvas.tool.ToolLayer;
 import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.drag.SwingDragShapeTool;

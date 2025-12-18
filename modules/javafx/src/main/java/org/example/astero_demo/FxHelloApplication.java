@@ -20,7 +20,7 @@ import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_
  * Config, initialize and launch the application
  */
 @Slf4j
-public class HelloApplication extends Application {
+public class FxHelloApplication extends Application {
     protected Injector injector;
 
     @Override
@@ -32,7 +32,7 @@ public class HelloApplication extends Application {
         final BuilderFactory nodeFactory = injector.getInstance(BuilderFactory.class);
 
         log.debug(INITIALIZATION_MARKER, "Load root fxml");
-        final FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
+        final FXMLLoader fxmlLoader = new FXMLLoader(FxHelloApplication.class.getResource("fxml/root.fxml"));
         fxmlLoader.setControllerFactory(controllerFactory);
         fxmlLoader.setBuilderFactory(nodeFactory);
 

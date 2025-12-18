@@ -6,7 +6,7 @@ import org.example.astero_demo.core.adapter.ui.canvas.CanvasView;
 import org.example.astero_demo.core.port.ui.LayersPanelView;
 import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
-import org.example.astero_demo.core.port.ui.ToolBarView;
+import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView;
 
 /**
@@ -21,7 +21,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
     private final LayersPanelView layersPanelView;
     private final PropertiesPanelView propertiesPanelView;
     private final CanvasView canvasView;
-    private final ToolBarView toolBarView;
+    private final ToolBarPanelView toolBarView;
     private final RootView rootView;
 
     @Inject
@@ -29,7 +29,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
             final LayersPanelView layersPanelView,
             final PropertiesPanelView propertiesPanelView,
             final CanvasView canvasView,
-            final ToolBarView toolBarView,
+            final ToolBarPanelView toolBarView,
             final RootView rootView) {
         this.layersPanelView = layersPanelView;
         this.propertiesPanelView = propertiesPanelView;
@@ -43,7 +43,7 @@ public class CustomControllerFactory implements Callback<Class<?>, Object> {
         if (aClass.isAssignableFrom(FxShapeCanvasView.class)) {
             return canvasView;
         }
-        if (aClass.isAssignableFrom(ToolBarView.class)) {
+        if (aClass.isAssignableFrom(ToolBarPanelView.class)) {
             return toolBarView;
         }
         if (aClass.isAssignableFrom(RootView.class)) {

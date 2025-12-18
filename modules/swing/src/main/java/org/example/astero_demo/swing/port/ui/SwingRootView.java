@@ -1,18 +1,15 @@
 package org.example.astero_demo.swing.port.ui;
 
 import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
 import org.example.astero_demo.core.port.ui.LayersPanelView;
 import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
-import org.example.astero_demo.core.port.ui.ToolBarView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.model.Cursors;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
- * JavaFX's realization of {@link RootView}
+ * Swing realization of {@link RootView}
  *
  * @author Pilip Yurchanka
  * @since v1.1

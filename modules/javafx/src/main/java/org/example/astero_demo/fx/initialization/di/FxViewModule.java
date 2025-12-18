@@ -4,6 +4,7 @@ import com.google.inject.*;
 import javafx.event.EventHandler;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
+import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasView;
@@ -14,7 +15,7 @@ import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.core.port.ui.LayersPanelView;
 import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
-import org.example.astero_demo.core.port.ui.ToolBarView;
+import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.fx.port.ui.FxPropertiesPanelView;
@@ -37,7 +38,7 @@ import org.example.astero_demo.fx.initialization.ui.builder.CanvasBuilder;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-class UIViewModule extends AbstractModule {
+class FxViewModule extends AbstractModule {
 
     @Override
     protected void configure() {
@@ -137,7 +138,7 @@ class UIViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public ToolBarView provideToolBarView(final UIState uiState, final ToolBarAdapter operationProcessor) {
+    public ToolBarPanelView provideToolBarView(final UIState uiState, final ToolBarAdapter operationProcessor) {
         return new FxToolBarView(uiState, operationProcessor); /*new ToolBarView(uiState, operationProcessor);*/
     }
 

@@ -1,7 +1,8 @@
 package org.example.astero_demo.swing.initialization.multithreading;
 
-import javafx.application.Platform;
 import org.example.astero_demo.realization.level.async.NonBlockingForegroundExecutor;
+
+import javax.swing.*;
 
 /**
  * Custom executor service, wrapping logic operations into<p>
@@ -11,10 +12,10 @@ import org.example.astero_demo.realization.level.async.NonBlockingForegroundExec
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class FxNonBlockingExecutor implements NonBlockingForegroundExecutor {
+public class SwingNonBlockingExecutor implements NonBlockingForegroundExecutor {
 
     @Override
     public void execute(final Runnable runnable) {
-        Platform.runLater(runnable::run);
+        SwingUtilities.invokeLater(runnable::run);
     }
 }

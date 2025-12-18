@@ -10,6 +10,8 @@ import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.util.Optional;
 
 /**
@@ -64,27 +66,28 @@ public class SwingShapeCanvasView extends ShapeCanvasView<Graphics> /*implements
     }
 
     @Override
-    public GraphicsContext getGraphicsContext() {
-        return canvas.getGraphicsContext2D();
+    public Graphics getGraphicsContext() {
+        return canvas.getGraphics();
     }
 
     @Override
     public Optional<double[]> getLocalCursorPosition() {
-        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
+        return Optional.empty();
+/*        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
         final Point2D localPosition = canvas.screenToLocal(cursorPosition.getX(), cursorPosition.getY());
         final double x = localPosition.getX();
         final double y = localPosition.getY();
-        return canvas.contains(x, y) ? Optional.of(new double[] {x, y}) : Optional.empty();
+        return canvas.contains(x, y) ? Optional.of(new double[] {x, y}) : Optional.empty();*/
     }
 
     @Override
     protected double getLayoutX() {
-        return canvas.getLayoutX();
+        return canvas.getX();//.getLayoutX();
     }
 
     @Override
     protected double getLayoutY() {
-        return canvas.getLayoutY();
+        return canvas.getY();//.getLayoutY();
     }
 
     @Override

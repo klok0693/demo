@@ -7,6 +7,7 @@ import org.example.astero_demo.core.adapter.keyboard.EditorOperationAdapter;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.core.adapter.ui.CursorLocator;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
+import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
 import org.example.astero_demo.core.context.ops.OpsStateHolder;
 import org.example.astero_demo.core.controller.keyboard.KeyboardController;
 import org.example.astero_demo.core.logic.ShapeProcessor;
@@ -28,7 +29,6 @@ import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarPanelAdapter;
 import org.example.astero_demo.core.port.os.OSClipboard;
 import org.example.astero_demo.core.port.ui.RootView;
-import org.example.astero_demo.core.port.ui.ToolBarView;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.model.metadata.dto.ShapeParams;
 

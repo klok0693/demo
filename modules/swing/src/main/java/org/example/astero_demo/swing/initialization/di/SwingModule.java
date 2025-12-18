@@ -6,9 +6,9 @@ public class SwingModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        install(new InitializationModule());
-        install(new FxAsynchModule());
-        install(new UIElementModule());
-        install(new UIViewModule());
+        install(new SwingInitializationModule());
+        install(new SwingAsynchModule());
+        install(new SwingUIElementModule());
+        install(new SwingViewModule());
     }
 }

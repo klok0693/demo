@@ -1,12 +1,12 @@
 package org.example.astero_demo.swing.initialization.multithreading;
 
-import javafx.application.Platform;
 import org.example.astero_demo.realization.level.async.BlockingForegroundExecutor;
 
+import javax.swing.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 
-public class FxBlockingExecutor implements BlockingForegroundExecutor {
+public class SwingBlockingExecutor implements BlockingForegroundExecutor {
 
     @Override
     public <T> T execute(final Callable<T> supplier) {
@@ -15,7 +15,8 @@ public class FxBlockingExecutor implements BlockingForegroundExecutor {
         }*/
 
         final CompletableFuture<T> future = new CompletableFuture<>();
-        Platform.runLater(() -> {
+        // not invokeAndWait()!
+        SwingUtilities.invokeLater(() -> {
             try {
                 future.complete(supplier.call());
             } catch (final Throwable t) {

@@ -1,6 +1,6 @@
 package org.example.astero_demo.func;
 
-import org.example.astero_demo.HelloApplication;
+import org.example.astero_demo.FxHelloApplication;
 import org.example.astero_demo.functional.TestComponentHolder;
 
 /**
@@ -9,7 +9,7 @@ import org.example.astero_demo.functional.TestComponentHolder;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class TestHelloApplication extends HelloApplication implements TestComponentHolder {
+public class TestHelloApplication extends FxHelloApplication implements TestComponentHolder {
 
     @Override
     public <T> T getInstance(final Class<T> tClass) {

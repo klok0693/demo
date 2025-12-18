@@ -8,7 +8,7 @@
 <HBox xmlns="http://javafx.com/javafx"
              xmlns:fx="http://javafx.com/fxml"
              fx:id="toolBarRoot"
-             fx:controller="org.example.astero_demo.core.port.ui.ToolBarView">
+             fx:controller="org.example.astero_demo.core.port.ui.ToolBarPanelView">
 
     <stylesheets>
         <URL value="@../css/tool-bar.css"/>

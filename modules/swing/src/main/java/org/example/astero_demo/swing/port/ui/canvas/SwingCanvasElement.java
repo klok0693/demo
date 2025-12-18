@@ -1,6 +1,5 @@
 package org.example.astero_demo.swing.port.ui.canvas;
 
-import javafx.scene.canvas.GraphicsContext;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.Drawable;
 

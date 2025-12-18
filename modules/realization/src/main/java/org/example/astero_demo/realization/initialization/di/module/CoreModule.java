@@ -13,5 +13,6 @@ public class CoreModule extends AbstractModule {
         install(new ControllerModule());
         install(new LogicModule());
         install(new UIAdapterModule());
+        install(new ViewModule());
     }
 }

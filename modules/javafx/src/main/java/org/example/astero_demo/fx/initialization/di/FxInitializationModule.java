@@ -13,7 +13,7 @@ import org.example.astero_demo.fx.initialization.ui.NodeBuilderFactory;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-class InitializationModule extends AbstractModule {
+class FxInitializationModule extends AbstractModule {
 
     @Override
     protected void configure() {

@@ -8,7 +8,6 @@ import org.example.astero_demo.core.adapter.ui.LeafAdapter;
 import org.example.astero_demo.core.adapter.ui.ParentAdapter;
 import org.example.astero_demo.core.adapter.ui.event.InsertModeEvent;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.port.ui.ToolBarView;
 
 /**
  * Leaf adapter for interacting with a Tool Bar Panel

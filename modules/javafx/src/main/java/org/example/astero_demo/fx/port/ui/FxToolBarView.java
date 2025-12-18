@@ -4,15 +4,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
-import org.example.astero_demo.core.port.ui.ToolBarView;
+import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 
 /**
- * JavaFX's realization of {@link ToolBarView}
+ * JavaFX's realization of {@link ToolBarPanelView}
  *
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxToolBarView extends ToolBarView {
+public class FxToolBarView extends ToolBarPanelView {
     public ToggleButton insertRectBtn;
     public ToggleButton insertCycleBtn;
     public Button deleteBtn;
