@@ -14,12 +14,12 @@ public class LayersPanelView implements LayersView {
 
     @Override
     public void update() {
-        //layersTree.update();
+        layersTree.update();
     }
 
     @Override
     public void switchToInsertMode() {
-        //layersTree.unSelectAll();
+        layersTree.unSelectAll();
     }
 
     @Override
