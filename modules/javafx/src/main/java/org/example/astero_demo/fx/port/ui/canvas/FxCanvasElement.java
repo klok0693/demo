@@ -7,7 +7,9 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.Drawable;
 
 /**
- * JavaFX's realization of {@link CanvasElement}
+ * JavaFX's realization of {@link CanvasElement}. {@link #save(GraphicsContext)}<p>
+ * and {@link #restore(GraphicsContext)} methods necessary, because JavaFX's<p>
+ * graphics context store the state of the rendered pixels
  *
  * @author Pilip Yurchanka
  * @since v1.1
