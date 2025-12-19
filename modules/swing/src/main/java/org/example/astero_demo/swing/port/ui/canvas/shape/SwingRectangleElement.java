@@ -2,6 +2,7 @@ package org.example.astero_demo.swing.port.ui.canvas.shape;
 
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
 import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
+import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 import java.awt.*;
 
@@ -11,14 +12,12 @@ import java.awt.*;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class SwingRectangleElement extends RectangleElement<Graphics> implements SwingCanvasElement {
+public class SwingRectangleElement extends RectangleElement<SwingPainter> implements SwingCanvasElement {
     //TODO: Someday, sometime
     private double opacity;
     private double scale;
     private double angle;
     private double pivotX, pivotY;
-
-    protected Color fillColor;
 
     public SwingRectangleElement(
             final int layer,
@@ -28,23 +27,11 @@ public class SwingRectangleElement extends RectangleElement<Graphics> implements
             final double width,
             final double height,
             final Color fillColor) {
-        super(layer, modelRelatedId, x, y, width, height);
-        this.fillColor = fillColor;
-    }
-
-    @Override
-    protected void drawElement(final Graphics gc) {
-/*        gc.setFill(fillColor);
-        gc.fillRect(x, y, width, height);*/
-    }
-
-    @Override
-    public void save(final Graphics gc) {
-        SwingCanvasElement.super.save(gc);
-    }
-
-    @Override
-    public void restore(final Graphics gc) {
-        SwingCanvasElement.super.restore(gc);
+        super(layer, modelRelatedId, x, y, width, height,
+                org.example.astero_demo.api.graphics.color.Color.rgb(
+                        fillColor.getRed(),
+                        fillColor.getGreen(),
+                        fillColor.getBlue()
+                ));
     }
 }

@@ -8,6 +8,7 @@ import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLa
 import org.example.astero_demo.swing.port.ui.canvas.shape.SwingShapeLayer;
 import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
+import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +24,7 @@ import java.util.Optional;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class SwingShapeCanvasView extends ShapeCanvasView<Graphics> /*implements Initializable*/ {
+public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implements Initializable*/ {
     private final SwingCanvas canvas;
 
     public SwingShapeCanvasView(
@@ -37,7 +38,7 @@ public class SwingShapeCanvasView extends ShapeCanvasView<Graphics> /*implements
         super(uiState, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
         this.canvas = canvas;
 
-        canvas.setDrawindConsumer(this::redraw);
+        canvas.setDrawindConsumer(gc -> redraw(new SwingPainter(gc)));
         //canvas.repaint();
     }
 
@@ -68,8 +69,8 @@ public class SwingShapeCanvasView extends ShapeCanvasView<Graphics> /*implements
     }
 
     @Override
-    public Graphics getGraphicsContext() {
-        return canvas.getGraphics();
+    public SwingPainter getGraphicsPainter() {
+        return new SwingPainter(canvas.getGraphics());
     }
 
     @Override

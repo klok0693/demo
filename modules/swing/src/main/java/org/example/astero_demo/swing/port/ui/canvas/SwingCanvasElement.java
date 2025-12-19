@@ -1,24 +1,16 @@
 package org.example.astero_demo.swing.port.ui.canvas;
 
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
-import org.example.astero_demo.core.port.ui.canvas.Drawable;
+import org.example.astero_demo.api.graphics.Drawable;
+import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 import java.awt.*;
 
 /**
- * JavaFX's realization of {@link CanvasElement}
+ * Swing realization of {@link CanvasElement}
  *
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public interface SwingCanvasElement extends Drawable<Graphics> {
-
-
-    default void save(Graphics gc) {
-        //gc.save();
-    };
-
-    default void restore(Graphics gc) {
-        //gc.restore();
-    };
+public interface SwingCanvasElement extends Drawable<SwingPainter> {
 }

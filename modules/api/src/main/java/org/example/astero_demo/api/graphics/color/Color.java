@@ -19,6 +19,30 @@ public class Color {
         this.alpha = clamp(a);
     }
 
+    public int getRedAsInt() {
+        return toIntForm(red);
+    }
+
+    public int getGreenAsInt() {
+        return toIntForm(green) ;
+    }
+
+    public int getBlueAsInt() {
+        return toIntForm(blue);
+    }
+
+    public int getAlphaAsInt() {
+        return toIntForm(alpha);
+    }
+
+    /**
+     * Not very precise way to convert values. Temporary solution
+     * TODO: replace with normal precise converter
+     */
+    private int toIntForm(final double value) {
+        return (int) (value * 255);
+    }
+
     /* ---------- Factory methods ---------- */
 
     public static Color rgb(double r, double g, double b) {
@@ -30,11 +54,11 @@ public class Color {
     }
 
     public static Color rgb255(int r, int g, int b) {
-        return rgb(r / 255f, g / 255f, b / 255f);
+        return rgb(r / 255d, g / 255d, b / 255d);
     }
 
     public static Color rgba255(int r, int g, int b, int a) {
-        return rgba(r / 255f, g / 255f, b / 255f, a / 255f);
+        return rgba(r / 255d, g / 255d, b / 255d, a / 255d);
     }
 
     /* ---------- Brightness manipulation ---------- */

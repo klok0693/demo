@@ -29,7 +29,7 @@ public class SwingCanvas extends JComponent/*Canvas*/ {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         if (drawindConsumer != null) {
             drawindConsumer.accept(g);

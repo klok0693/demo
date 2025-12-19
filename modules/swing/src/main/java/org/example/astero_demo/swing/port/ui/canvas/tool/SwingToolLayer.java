@@ -5,6 +5,7 @@ import org.example.astero_demo.core.port.ui.canvas.tool.ToolLayer;
 import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.drag.SwingDragShapeTool;
 import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.insert.SwingInsertShapeTool;
 import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.selection.SwingShapeSelectionTool;
+import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 import java.awt.*;
 
@@ -15,7 +16,7 @@ import java.awt.*;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class SwingToolLayer extends ToolLayer<Graphics> {
+public class SwingToolLayer extends ToolLayer<SwingPainter> {
 
     public SwingToolLayer(
             final SwingShapeSelectionTool selectionTool,

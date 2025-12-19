@@ -1,6 +1,7 @@
 package org.example.astero_demo.swing.port.ui.canvas.background;
 
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
+import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 import java.awt.*;
 
@@ -11,10 +12,9 @@ import java.awt.*;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class SwingBackgroundLayer extends BackgroundLayer<Graphics> {
+public class SwingBackgroundLayer extends BackgroundLayer<SwingPainter> {
 
     public SwingBackgroundLayer() {
-        super();
-        add(new SwingBackgroundTilesElement());
+        super(new SwingBackgroundTilesElement());
     }
 }

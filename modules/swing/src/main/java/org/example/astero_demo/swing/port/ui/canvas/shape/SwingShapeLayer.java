@@ -6,6 +6,7 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
+import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 import org.example.astero_demo.swing.util.ColorUtils;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ import java.awt.*;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class SwingShapeLayer extends ShapeLayer<Graphics> {
+public class SwingShapeLayer extends ShapeLayer<SwingPainter> {
 
     public SwingShapeLayer(final ModelState modelState) {
         super(modelState);
@@ -27,7 +28,7 @@ public class SwingShapeLayer extends ShapeLayer<Graphics> {
     }
 
     @Override
-    protected EllipseElement<Graphics> createEllipse(
+    protected EllipseElement<SwingPainter> createEllipse(
             final int layer,
             final int modelRelatedId,
             final double x,
@@ -40,7 +41,7 @@ public class SwingShapeLayer extends ShapeLayer<Graphics> {
 
 
     @Override
-    protected RectangleElement<Graphics> createRectangle(
+    protected RectangleElement<SwingPainter> createRectangle(
             final int layer,
             final int modelRelatedId,
             final double x,
@@ -52,7 +53,7 @@ public class SwingShapeLayer extends ShapeLayer<Graphics> {
     }
 
     @Override
-    protected CanvasLayer<Graphics, CanvasLayer<Graphics, CanvasElement<Graphics>>> createLayer(final int layer) {
+    protected CanvasLayer<SwingPainter, CanvasLayer<SwingPainter, CanvasElement<SwingPainter>>> createLayer(final int layer) {
         return new SwingShapeLayer(layer, modelState);
     }
 }

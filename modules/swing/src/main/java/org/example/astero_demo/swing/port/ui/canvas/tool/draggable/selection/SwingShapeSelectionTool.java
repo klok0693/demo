@@ -6,6 +6,7 @@ import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ShapeSelectionTool;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
 import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
+import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.Map;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class SwingShapeSelectionTool extends ShapeSelectionTool<Graphics> implements SwingCanvasElement {
+public class SwingShapeSelectionTool extends ShapeSelectionTool<SwingPainter> implements SwingCanvasElement {
 
     private final Map<Integer, SwingModificableSelectionFrame> frames = new HashMap<>(2);
 
@@ -29,19 +30,9 @@ public class SwingShapeSelectionTool extends ShapeSelectionTool<Graphics> implem
     }
 
     @Override
-    protected ModificableSelectionFrame<Graphics> createModificableFrame(
+    protected ModificableSelectionFrame<SwingPainter> createModificableFrame(
             final CanvasAdapter adapter,
             final UIState uiState) {
         return new SwingModificableSelectionFrame(adapter, uiState);
-    }
-
-    @Override
-    public void save(final Graphics gc) {
-        SwingCanvasElement.super.save(gc);
-    }
-
-    @Override
-    public void restore(final Graphics gc) {
-        SwingCanvasElement.super.restore(gc);
     }
 }
