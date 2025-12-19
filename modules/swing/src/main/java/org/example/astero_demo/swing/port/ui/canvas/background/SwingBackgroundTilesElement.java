@@ -21,6 +21,9 @@ class SwingBackgroundTilesElement extends CanvasElement<Graphics> implements Swi
 
     @Override
     protected void drawElement(final Graphics gc) {
+        gc.setColor(Color.BLUE);
+        gc.fillRect((int) x, (int) y, (int) (width + PADDING), (int) (height + PADDING));
+
 /*        // Fill all canvas with background color
         gc.setFill(Color.LIGHTBLUE);
         gc.fillRect(x, y, width + PADDING, height + PADDING);

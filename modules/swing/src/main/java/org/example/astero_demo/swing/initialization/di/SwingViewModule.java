@@ -18,6 +18,7 @@ import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.swing.port.ui.SwingPropertiesPanelView;
 import org.example.astero_demo.swing.port.ui.SwingRootView;
+import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
 import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarUI;
 import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarView;
 import org.example.astero_demo.swing.port.ui.canvas.SwingShapeCanvasView;
@@ -30,6 +31,8 @@ import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.insert.SwingI
 import org.example.astero_demo.swing.port.ui.keyboard.SwingRootShortcutHandler;
 import org.example.astero_demo.swing.port.ui.toolbar.ToolBarUI;
 
+import java.awt.*;
+
 /**
  * DI config for UI views
  *
@@ -41,7 +44,6 @@ class SwingViewModule extends AbstractModule {
     @Override
     protected void configure() {
         //bind(EventHandler.class).to(SwingRootShortcutHandler.class);
-        bind(CanvasView.class).to(ShapeCanvasView.class);
         bind(ShapeCanvasView.class).to(SwingShapeCanvasView.class).in(Scopes.SINGLETON);
         bind(LayersView.class).to(LayersPanelView.class);
         bind(PropertiesView.class).to(PropertiesPanelView.class);
@@ -57,8 +59,9 @@ class SwingViewModule extends AbstractModule {
             final CanvasAdapter adapter,
             final SwingBackgroundLayer backgroundLayer,
             final SwingShapeLayer shapeLayer,
-            final SwingToolLayer toolLayer) {
-        return new SwingShapeCanvasView(state, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
+            final SwingToolLayer toolLayer,
+            final SwingCanvas canvas) {
+        return new SwingShapeCanvasView(state, modelState, adapter, backgroundLayer, shapeLayer, toolLayer, canvas);
     }
 
     @Inject
@@ -106,8 +109,9 @@ class SwingViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public RootView provideRootView(/*final EventHandler shortcutHandler,*/ final UIState uiState) {
-        return new SwingRootView(/*shortcutHandler,*/ uiState);
+    public RootView provideRootView(/*final EventHandler shortcutHandler,*/
+            final ShapeCanvasView canvasView, final UIState uiState) {
+        return new SwingRootView(/*shortcutHandler,*/ canvasView, uiState);
     }
 
     @Inject

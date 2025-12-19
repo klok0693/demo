@@ -8,6 +8,8 @@ import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.model.Cursors;
 
+import java.awt.*;
+
 /**
  * Swing realization of {@link RootView}
  *
@@ -18,15 +20,17 @@ public class SwingRootView extends RootView {
     //private final EventHandler shortcutHandler;
 
     public ToolBarView toolBarRootController;
-    public ShapeCanvasView canvasRootController;
+    public ShapeCanvasView canvasView;
     public PropertiesPanelView propertyRootController;
     public LayersPanelView layersRootController;
     //public BorderPane root;
 
     public SwingRootView(
             //final EventHandler shortcutHandler,
+            final ShapeCanvasView canvasView,
             final UIState uiState) {
         super(uiState);
+        this.canvasView = canvasView;
         //this.shortcutHandler = shortcutHandler;
     }
 

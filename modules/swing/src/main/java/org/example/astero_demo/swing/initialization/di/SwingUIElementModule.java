@@ -30,8 +30,9 @@ class SwingUIElementModule extends AbstractModule {
     @Singleton
     public SwingRootUI provideRootUI(
             final SwingToolBarUI toolBarUI,
+            final SwingCanvas canvas,
             final RootView rootView) {
-        return new SwingRootUI(toolBarUI, rootView);
+        return new SwingRootUI(toolBarUI, canvas, rootView);
     }
 
     @Inject

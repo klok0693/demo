@@ -3,6 +3,7 @@ package org.example.astero_demo.swing.port.ui.toolbar;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SwingToolBarUI extends Box implements ToolBarUI {
     private final JToggleButton insertRectBtn;
@@ -12,6 +13,9 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
 
     public SwingToolBarUI(final ToolBarPanelView view) {
         super(BoxLayout.X_AXIS);
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBackground(Color.red);
+        setOpaque(true);
 
         this.insertRectBtn = new JToggleButton("Rect");
         this.insertRectBtn.addActionListener(e -> {
@@ -28,6 +32,8 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
         insertGroup.add(insertCycleBtn);
 
         final Box insertBtnBox = Box.createHorizontalBox();
+        insertBtnBox.setAlignmentX(JComponent.LEFT_ALIGNMENT);
+
         insertBtnBox.add(insertRectBtn);
         insertBtnBox.add(insertCycleBtn);
 
@@ -41,12 +47,15 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
             view.onDeleteAction();
         });
 
-        Box eastBtnBox = Box.createHorizontalBox();
-        eastBtnBox.add(undoBtn);
-        eastBtnBox.add(deleteBtn);
+        Box rightBtnBox = Box.createHorizontalBox();
+        rightBtnBox.setAlignmentX(JComponent.RIGHT_ALIGNMENT);
+
+        rightBtnBox.add(undoBtn);
+        rightBtnBox.add(deleteBtn);
 
         add(insertBtnBox);
-        add(eastBtnBox);
+        add(Box.createHorizontalGlue());
+        add(rightBtnBox);
     }
 
     @Override

@@ -9,7 +9,10 @@ import org.example.astero_demo.swing.port.ui.canvas.shape.SwingShapeLayer;
 import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.Optional;
@@ -21,8 +24,7 @@ import java.util.Optional;
  * @since v1.1
  */
 public class SwingShapeCanvasView extends ShapeCanvasView<Graphics> /*implements Initializable*/ {
-    //@FXML
-    public SwingCanvas canvas;
+    private final SwingCanvas canvas;
 
     public SwingShapeCanvasView(
             final UIState uiState,
@@ -30,14 +32,14 @@ public class SwingShapeCanvasView extends ShapeCanvasView<Graphics> /*implements
             final CanvasAdapter adapter,
             final SwingBackgroundLayer backgroundLayer,
             final SwingShapeLayer shapeLayer,
-            final SwingToolLayer toolLayer) {
+            final SwingToolLayer toolLayer,
+            final SwingCanvas canvas) {
         super(uiState, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
-    }
+        this.canvas = canvas;
 
-/*    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
-        redraw();
-    }*/
+        canvas.setDrawindConsumer(this::redraw);
+        //canvas.repaint();
+    }
 
     public void handleMousePressed(final MouseEvent event) {
         canvas.requestFocus();

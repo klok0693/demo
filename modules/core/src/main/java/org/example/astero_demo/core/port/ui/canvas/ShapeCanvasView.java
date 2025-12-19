@@ -55,6 +55,10 @@ public abstract class ShapeCanvasView<E> implements CanvasView, GraphicsContext<
         layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsContext()));
     }
 
+    protected void redraw(final E graphics) {
+        layers.stream().sorted().forEach(layer -> layer.draw(graphics));
+    }
+
     @Override
     public void update() {
         shapeLayer.update();
