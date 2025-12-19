@@ -2,6 +2,7 @@ package org.example.astero_demo.core.port.ui.canvas.tool;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 
 /**
@@ -15,7 +16,7 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
  */
 @Getter
 @Setter
-public abstract class CanvasTool<E> extends CanvasElement<E> implements Comparable<CanvasTool<E>> {
+public abstract class CanvasTool<E extends GraphicsPainter> extends CanvasElement<E> implements Comparable<CanvasTool<E>> {
     private final int layer;
     private boolean isVisible;
     private boolean isActive;

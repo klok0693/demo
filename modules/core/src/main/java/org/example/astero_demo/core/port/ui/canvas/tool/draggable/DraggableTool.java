@@ -1,5 +1,6 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.canvas.tool.CanvasDraggable;
@@ -11,7 +12,7 @@ import org.example.astero_demo.core.port.ui.canvas.tool.CanvasTool;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class DraggableTool<E> extends CanvasTool<E> implements CanvasDraggable {
+public abstract class DraggableTool<E extends GraphicsPainter> extends CanvasTool<E> implements CanvasDraggable {
     protected static final double OPACITY = 0.4;
 
     protected final CanvasAdapter adapter;

@@ -1,5 +1,6 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.core.adapter.ui.UpdatableView;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
@@ -20,7 +21,7 @@ import static java.lang.Double.parseDouble;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class ShapeSelectionTool<E>
+public abstract class ShapeSelectionTool<E extends GraphicsPainter>
         extends CanvasTool<E> implements UpdatableView, CanvasDraggable, CanvasClickable {
 
     private final ModelState modelState;

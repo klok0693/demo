@@ -1,10 +1,9 @@
 package org.example.astero_demo.fx.port.ui.canvas;
 
 import javafx.scene.canvas.GraphicsContext;
-import lombok.Getter;
-import lombok.Setter;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
-import org.example.astero_demo.core.port.ui.canvas.Drawable;
+import org.example.astero_demo.api.graphics.Drawable;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 /**
  * JavaFX's realization of {@link CanvasElement}. {@link #save(GraphicsContext)}<p>
@@ -14,14 +13,13 @@ import org.example.astero_demo.core.port.ui.canvas.Drawable;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public interface FxCanvasElement extends Drawable<GraphicsContext> {
+public interface FxCanvasElement extends Drawable<FxPainter> {
 
-
-    default void save(GraphicsContext gc) {
+    default void save(final FxPainter gc) {
         gc.save();
     };
 
-    default void restore(GraphicsContext gc) {
+    default void restore(final FxPainter gc) {
         gc.restore();
     };
 }

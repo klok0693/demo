@@ -1,5 +1,8 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
+import org.example.astero_demo.api.graphics.color.Color;
+import org.example.astero_demo.api.graphics.color.Colors;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.DraggableTool;
 
@@ -12,7 +15,7 @@ import static org.example.astero_demo.core.port.ui.UIConstants.CONTACT_DIAMETER;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class ContactPoint<E> extends DraggableTool<E> {
+public abstract class ContactPoint<E extends GraphicsPainter> extends DraggableTool<E> {
 
     protected static final double RADIUS = CONTACT_DIAMETER / 2;
 
@@ -20,15 +23,25 @@ public abstract class ContactPoint<E> extends DraggableTool<E> {
 
     private final ContactAlignment alignment;
 
+    protected Color fillColor;
+
     protected ContactPoint(
             final SelectionFrame<E> selectionTool,
             final CanvasAdapter adapter,
             final int layer,
-            final ContactAlignment alignment) {
+            final ContactAlignment alignment,
+            final Color fillColor) {
         super(CONTACT_DIAMETER, CONTACT_DIAMETER, layer, adapter, null);
         this.selectionTool = selectionTool;
         this.alignment = alignment;
+        this.fillColor = fillColor;
         setEnabled(true);
+    }
+
+    @Override
+    protected void drawElement(final E gc) {
+        gc.setFill(Colors.RED);
+        gc.fillOval(x - RADIUS, y - RADIUS, CONTACT_DIAMETER, CONTACT_DIAMETER);
     }
 
     public void update(final double x, final double y, final double width, final double height) {

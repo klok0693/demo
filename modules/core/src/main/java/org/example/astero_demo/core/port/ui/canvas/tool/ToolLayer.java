@@ -1,5 +1,6 @@
 package org.example.astero_demo.core.port.ui.canvas.tool;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitchableView;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
@@ -13,7 +14,7 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.Shap
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class ToolLayer<E> extends CanvasLayer<E, CanvasTool<E>>
+public abstract class ToolLayer<E extends GraphicsPainter> extends CanvasLayer<E, CanvasTool<E>>
         implements ModeSwitchableView, CanvasDraggable, CanvasClickable {
     protected final ShapeSelectionTool<E> selectionTool;
     protected final DragShapeTool<E> dragTool;

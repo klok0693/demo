@@ -1,5 +1,8 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
+import org.example.astero_demo.api.graphics.color.Color;
+import org.example.astero_demo.api.graphics.color.Colors;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.canvas.tool.CanvasClickable;
@@ -11,10 +14,23 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.DraggableTool;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class InsertShapeTool<E> extends DraggableTool<E> implements CanvasClickable {
+public abstract class InsertShapeTool<E extends GraphicsPainter> extends DraggableTool<E> implements CanvasClickable {
+    protected Color fillColor;
 
     protected InsertShapeTool(final CanvasAdapter adapter, final UIState uiState) {
         super(2, adapter, uiState);
+        this.fillColor = Colors.BLUE;
+    }
+
+    @Override
+    protected void drawElement(final E gc) {
+        gc.setFill(fillColor);
+        gc.setOpacity(OPACITY);
+
+        switch (uiState.getInsertShapeType()) {
+            case RECT -> gc.fillRect(x, y, width, height);
+            case ELLIPSE -> gc.fillOval(x, y, width, height);
+        }
     }
 
     @Override

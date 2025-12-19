@@ -1,5 +1,8 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
+import org.example.astero_demo.api.graphics.color.Color;
+import org.example.astero_demo.api.graphics.color.Colors;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.canvas.tool.CanvasClickable;
@@ -11,15 +14,19 @@ import java.util.List;
 import static org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment.*;
 import static org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment.CENTER_LEFT;
 
-public abstract class ModificableSelectionFrame<E> extends SelectionFrame<E>
+public abstract class ModificableSelectionFrame<E extends GraphicsPainter> extends SelectionFrame<E>
         implements CanvasDraggable, CanvasClickable {
+    private static final double FRAME_WIDTH = 3.0;
 
     protected final UIState uiState;
     protected final List<ContactPoint<E>> contactPoints;
 
+    protected final Color fillColor;
+
     protected ModificableSelectionFrame(final CanvasAdapter adapter, final UIState uiState) {
         super();
         this.uiState = uiState;
+        this.fillColor = Colors.RED;
         this.contactPoints = Arrays.asList(
                 createPoint(adapter, 0, TOP_LEFT),
                 createPoint(adapter, 0, TOP_CENTER),
@@ -31,6 +38,15 @@ public abstract class ModificableSelectionFrame<E> extends SelectionFrame<E>
                 createPoint(adapter, 0, CENTER_LEFT)
         );
         setEnabled(true);
+    }
+
+    @Override
+    protected void drawElement(final E gc) {
+        gc.setStroke(fillColor);
+        gc.setLineWidth(FRAME_WIDTH);
+        gc.strokeRect(x, y, width, height);
+
+        contactPoints.forEach(point -> point.draw(gc));
     }
 
     protected abstract ContactPoint<E> createPoint(

@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 /**
  * JavaFX's realization of {@link EllipseElement}
@@ -11,8 +12,7 @@ import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxEllipseElement extends EllipseElement<GraphicsContext> implements FxCanvasElement {
-    protected Color fillColor;
+public class FxEllipseElement extends EllipseElement<FxPainter> implements FxCanvasElement {
 
     protected FxEllipseElement(
             final int layer,
@@ -22,23 +22,27 @@ public class FxEllipseElement extends EllipseElement<GraphicsContext> implements
             final double width,
             final double height,
             final Color fillColor) {
-        super(layer, modelRelatedId, x, y, width, height);
-        this.fillColor = fillColor;
+        super(layer, modelRelatedId, x, y, width, height,
+                org.example.astero_demo.api.graphics.color.Color.rgb(
+                        fillColor.getRed(),
+                        fillColor.getGreen(),
+                        fillColor.getBlue()));
     }
 
     @Override
-    protected void drawElement(final GraphicsContext gc) {
-        gc.setFill(fillColor);
-        gc.fillOval(x, y, width, height);
+    public void draw(final FxPainter gc) {
+        save(gc);
+        super.draw(gc);
+        restore(gc);
     }
 
     @Override
-    public void save(final GraphicsContext gc) {
+    public void save(final FxPainter gc) {
         FxCanvasElement.super.save(gc);
     }
 
     @Override
-    public void restore(final GraphicsContext gc) {
+    public void restore(final FxPainter gc) {
         FxCanvasElement.super.restore(gc);
     }
 }

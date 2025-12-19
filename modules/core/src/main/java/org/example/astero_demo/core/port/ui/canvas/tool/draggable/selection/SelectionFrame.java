@@ -1,10 +1,11 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.core.port.ui.canvas.tool.CanvasTool;
 
 import static org.example.astero_demo.core.port.ui.UIConstants.MINIMAL_SIDE_SIZE;
 
-public abstract class SelectionFrame<E> extends CanvasTool<E> {
+public abstract class SelectionFrame<E extends GraphicsPainter> extends CanvasTool<E> {
 
     protected SelectionFrame() {
         super(-1, -1, -1, -1, 0);

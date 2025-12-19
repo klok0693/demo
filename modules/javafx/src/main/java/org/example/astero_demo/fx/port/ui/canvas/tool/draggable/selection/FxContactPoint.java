@@ -2,11 +2,13 @@ package org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import org.example.astero_demo.api.graphics.color.Colors;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.SelectionFrame;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactPoint;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 import static org.example.astero_demo.core.port.ui.UIConstants.CONTACT_DIAMETER;
 
@@ -16,32 +18,36 @@ import static org.example.astero_demo.core.port.ui.UIConstants.CONTACT_DIAMETER;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxContactPoint extends ContactPoint<GraphicsContext> implements FxCanvasElement {
-    protected Color fillColor;
+public class FxContactPoint extends ContactPoint<FxPainter> implements FxCanvasElement {
 
     public FxContactPoint(
-            final SelectionFrame<GraphicsContext> selectionTool,
+            final SelectionFrame<FxPainter> selectionTool,
             final CanvasAdapter adapter,
             final int layer,
             final Color fillColor,
             final ContactAlignment alignment) {
-        super(selectionTool, adapter, layer, alignment);
-        this.fillColor = fillColor;
+        super(selectionTool, adapter, layer, alignment,
+                org.example.astero_demo.api.graphics.color.Color.rgb(
+                        fillColor.getRed(),
+                        fillColor.getGreen(),
+                        fillColor.getBlue()
+                ));
     }
 
     @Override
-    protected void drawElement(final GraphicsContext gc) {
-        gc.setFill(Color.RED);
-        gc.fillOval(x - RADIUS, y - RADIUS, CONTACT_DIAMETER, CONTACT_DIAMETER);
+    public void draw(final FxPainter gc) {
+        save(gc);
+        super.draw(gc);
+        restore(gc);
     }
 
     @Override
-    public void save(final GraphicsContext gc) {
+    public void save(final FxPainter gc) {
         FxCanvasElement.super.save(gc);
     }
 
     @Override
-    public void restore(final GraphicsContext gc) {
+    public void restore(final FxPainter gc) {
         FxCanvasElement.super.restore(gc);
     }
 }

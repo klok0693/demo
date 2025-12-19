@@ -1,5 +1,7 @@
 package org.example.astero_demo.core.port.ui.canvas;
 
+import org.example.astero_demo.api.graphics.GraphicsContext;
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasView;
@@ -20,7 +22,7 @@ import java.util.List;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class ShapeCanvasView<E> implements CanvasView, GraphicsContext<E> {
+public abstract class ShapeCanvasView<E extends GraphicsPainter> implements CanvasView, GraphicsContext<E> {
     protected final UIState uiState;
     protected final ModelState modelState;
     protected final CanvasAdapter adapter;
@@ -52,7 +54,7 @@ public abstract class ShapeCanvasView<E> implements CanvasView, GraphicsContext<
     }
 
     protected void redraw() {
-        layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsContext()));
+        layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsPainter()));
     }
 
     protected void redraw(final E graphics) {

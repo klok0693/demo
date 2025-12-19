@@ -1,5 +1,8 @@
 package org.example.astero_demo.core.port.ui.canvas.tool.draggable.drag;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
+import org.example.astero_demo.api.graphics.color.Color;
+import org.example.astero_demo.api.graphics.color.Colors;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.model.entity.Shape;
@@ -14,11 +17,12 @@ import static java.lang.Double.parseDouble;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class DragShapeTool<E> extends DraggableTool<E> {
+public abstract class DragShapeTool<E extends GraphicsPainter> extends DraggableTool<E> {
     private final ModelState modelState;
 
     protected double offsetX;
     protected double offsetY;
+    protected Color fillColor;
 
     protected DragShapeTool(
             final CanvasAdapter adapter,
@@ -28,6 +32,17 @@ public abstract class DragShapeTool<E> extends DraggableTool<E> {
         this.modelState = modelState;
         this.offsetX = -1;
         this.offsetY = -1;
+    }
+
+    @Override
+    protected void drawElement(final E gc) {
+        gc.setFill(fillColor.darker());
+        gc.setOpacity(OPACITY);
+
+        switch (uiState.getSelectedShapeType()) {
+            case RECT -> gc.fillRect(x - offsetX, y - offsetY, width, height);
+            case ELLIPSE -> gc.fillOval(x - offsetX, y - offsetY, width, height);
+        }
     }
 
     @Override
@@ -56,14 +71,11 @@ public abstract class DragShapeTool<E> extends DraggableTool<E> {
         this.height = parseDouble(element.getHeight());
         this.offsetX = mouseX - parseDouble(element.getX());
         this.offsetY = mouseY - parseDouble(element.getY());
-
-        onDragUpdate(element);
+        this.fillColor = Colors.convert(element.getColor());
 
         setActive(true);
         return true;
     }
-
-    protected abstract void onDragUpdate(Shape shape);
 
     @Override
     public void update(final double x, final double y) {

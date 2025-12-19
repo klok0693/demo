@@ -13,6 +13,7 @@ import org.example.astero_demo.fx.port.ui.canvas.background.FxBackgroundLayer;
 import org.example.astero_demo.fx.port.ui.canvas.shape.FxShapeLayer;
 import org.example.astero_demo.fx.port.ui.canvas.tool.FxToolLayer;
 import org.example.astero_demo.fx.port.ui.element.FxCanvas;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 import java.awt.*;
 import java.net.URL;
@@ -25,7 +26,7 @@ import java.util.ResourceBundle;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxShapeCanvasView extends ShapeCanvasView<GraphicsContext> implements Initializable {
+public class FxShapeCanvasView extends ShapeCanvasView<FxPainter> implements Initializable {
     @FXML
     public FxCanvas canvas;
 
@@ -71,8 +72,8 @@ public class FxShapeCanvasView extends ShapeCanvasView<GraphicsContext> implemen
     }
 
     @Override
-    public GraphicsContext getGraphicsContext() {
-        return canvas.getGraphicsContext2D();
+    public FxPainter getGraphicsPainter() {
+        return new FxPainter(canvas.getGraphicsContext2D());
     }
 
     @Override

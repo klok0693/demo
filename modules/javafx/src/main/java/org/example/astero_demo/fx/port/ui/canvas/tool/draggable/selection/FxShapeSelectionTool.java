@@ -7,6 +7,7 @@ import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ShapeSelectionTool;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxShapeSelectionTool extends ShapeSelectionTool<GraphicsContext> implements FxCanvasElement {
+public class FxShapeSelectionTool extends ShapeSelectionTool<FxPainter> implements FxCanvasElement {
 
     private final Map<Integer, FxModificableSelectionFrame> frames = new HashMap<>(2);
 
@@ -29,19 +30,26 @@ public class FxShapeSelectionTool extends ShapeSelectionTool<GraphicsContext> im
     }
 
     @Override
-    protected ModificableSelectionFrame<GraphicsContext> createModificableFrame(
+    protected ModificableSelectionFrame<FxPainter> createModificableFrame(
             final CanvasAdapter adapter,
             final UIState uiState) {
         return new FxModificableSelectionFrame(adapter, uiState);
     }
 
     @Override
-    public void save(final GraphicsContext gc) {
+    public void draw(final FxPainter gc) {
+        save(gc);
+        super.draw(gc);
+        restore(gc);
+    }
+
+    @Override
+    public void save(final FxPainter gc) {
         FxCanvasElement.super.save(gc);
     }
 
     @Override
-    public void restore(final GraphicsContext gc) {
+    public void restore(final FxPainter gc) {
         FxCanvasElement.super.restore(gc);
     }
 }

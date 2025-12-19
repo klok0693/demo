@@ -7,6 +7,7 @@ import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.DraggableTool;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert.InsertShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 /**
  * JavaFX's realization of {@link InsertShapeTool}
@@ -14,32 +15,26 @@ import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxInsertShapeTool extends InsertShapeTool<GraphicsContext> implements FxCanvasElement {
-    protected Color fillColor;
+public class FxInsertShapeTool extends InsertShapeTool<FxPainter> implements FxCanvasElement {
 
     public FxInsertShapeTool(final CanvasAdapter adapter, final UIState uiState) {
         super(adapter, uiState);
-        this.fillColor = Color.BLUE;
     }
 
     @Override
-    protected void drawElement(final GraphicsContext gc) {
-        gc.setFill(fillColor);
-        gc.setGlobalAlpha(OPACITY);
-
-        switch (uiState.getInsertShapeType()) {
-            case RECT -> gc.fillRect(x, y, width, height);
-            case ELLIPSE -> gc.fillOval(x, y, width, height);
-        }
+    public void draw(final FxPainter gc) {
+        save(gc);
+        super.draw(gc);
+        restore(gc);
     }
 
     @Override
-    public void save(final GraphicsContext gc) {
+    public void save(final FxPainter gc) {
         FxCanvasElement.super.save(gc);
     }
 
     @Override
-    public void restore(final GraphicsContext gc) {
+    public void restore(final FxPainter gc) {
         FxCanvasElement.super.restore(gc);
     }
 }

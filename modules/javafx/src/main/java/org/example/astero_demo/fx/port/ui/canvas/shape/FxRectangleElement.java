@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeElement;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 /**
  * JavaFX's realization of {@link RectangleElement}
@@ -12,14 +13,12 @@ import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxRectangleElement extends RectangleElement<GraphicsContext> implements FxCanvasElement {
+public class FxRectangleElement extends RectangleElement<FxPainter> implements FxCanvasElement {
     //TODO: Someday, sometime
     private double opacity;
     private double scale;
     private double angle;
     private double pivotX, pivotY;
-
-    protected Color fillColor;
 
     public FxRectangleElement(
             final int layer,
@@ -29,23 +28,27 @@ public class FxRectangleElement extends RectangleElement<GraphicsContext> implem
             final double width,
             final double height,
             final Color fillColor) {
-        super(layer, modelRelatedId, x, y, width, height);
-        this.fillColor = fillColor;
+        super(layer, modelRelatedId, x, y, width, height,
+                org.example.astero_demo.api.graphics.color.Color.rgb(
+                        fillColor.getRed(),
+                        fillColor.getGreen(),
+                        fillColor.getBlue()));
     }
 
     @Override
-    protected void drawElement(final GraphicsContext gc) {
-        gc.setFill(fillColor);
-        gc.fillRect(x, y, width, height);
+    public void draw(final FxPainter gc) {
+        save(gc);
+        super.draw(gc);
+        restore(gc);
     }
 
     @Override
-    public void save(final GraphicsContext gc) {
+    public void save(final FxPainter gc) {
         FxCanvasElement.super.save(gc);
     }
 
     @Override
-    public void restore(final GraphicsContext gc) {
+    public void restore(final FxPainter gc) {
         FxCanvasElement.super.restore(gc);
     }
 }

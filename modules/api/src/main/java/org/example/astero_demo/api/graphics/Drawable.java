@@ -1,4 +1,4 @@
-package org.example.astero_demo.core.port.ui.canvas;
+package org.example.astero_demo.api.graphics;
 
 /**
  * Represents any element, that can be drawn on canvas
@@ -7,7 +7,7 @@ package org.example.astero_demo.core.port.ui.canvas;
  * @since v1.0
  */
 @FunctionalInterface
-public interface Drawable<E> extends Graphics<E> {
+public interface Drawable<E extends GraphicsPainter> extends Graphics<E> {
 
     void draw(E gc);
 }

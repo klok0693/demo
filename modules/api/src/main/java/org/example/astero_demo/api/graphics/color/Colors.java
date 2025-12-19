@@ -1,9 +1,32 @@
-package org.example.astero_demo.api.graphics;
+package org.example.astero_demo.api.graphics.color;
 
 import lombok.experimental.UtilityClass;
 
+import static java.lang.Integer.parseInt;
+
 @UtilityClass
 public class Colors {
+
+    public static int convert(final Color color) {
+        final int alpha = (int) (color.getAlpha() * 255) << 24;
+        final int red = (int) (color.getRed() * 255) << 16;
+        final int green = (int) (color.getGreen() * 255) << 8;
+        final int blue = (int) (color.getBlue() * 255);
+        return alpha | red | green | blue;
+    }
+
+    public static Color convert(final int color) {
+        final int alpha = (color >> 24) & 0xFF;
+        final int red = (color >> 16) & 0xFF;
+        final int green = (color >> 8) & 0xFF;
+        final int blue = color & 0xFF;
+
+        return Color.rgba(red, green, blue, alpha / 255.0);
+    }
+
+    public static Color convert(final String color) {
+        return convert(parseInt(color));
+    }
 
     public static final Color BLACK      = Color.rgb255(0, 0, 0);
     public static final Color WHITE      = Color.rgb255(255, 255, 255);

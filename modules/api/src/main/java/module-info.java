@@ -4,4 +4,5 @@ open module api {
     requires static lombok;
 
     exports org.example.astero_demo.api.graphics;
+    exports org.example.astero_demo.api.graphics.color;
 }

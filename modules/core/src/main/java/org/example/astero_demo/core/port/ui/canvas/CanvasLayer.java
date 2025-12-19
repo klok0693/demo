@@ -1,6 +1,8 @@
 package org.example.astero_demo.core.port.ui.canvas;
 
 import lombok.Getter;
+import org.example.astero_demo.api.graphics.Drawable;
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -14,7 +16,8 @@ import java.util.stream.Stream;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class CanvasLayer<E, T extends Drawable<E>> implements Drawable<E>, Comparable<CanvasLayer<E,T>> {
+public abstract class CanvasLayer<E extends GraphicsPainter, T extends Drawable<E>>
+        implements Drawable<E>, Comparable<CanvasLayer<E,T>> {
     @Getter
     private final int priority;
     protected List<T> children;

@@ -1,12 +1,12 @@
 package org.example.astero_demo.fx.port.ui.canvas.shape;
 
-import javafx.scene.canvas.GraphicsContext;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 import org.example.astero_demo.fx.util.ColorUtils;
 
 /**
@@ -15,7 +15,7 @@ import org.example.astero_demo.fx.util.ColorUtils;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
+public class FxShapeLayer extends ShapeLayer<FxPainter> {
 
     public FxShapeLayer(final ModelState modelState) {
         super(modelState);
@@ -26,7 +26,7 @@ public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
     }
 
     @Override
-    protected EllipseElement<GraphicsContext> createEllipse(
+    protected EllipseElement<FxPainter> createEllipse(
             final int layer,
             final int modelRelatedId,
             final double x,
@@ -39,7 +39,7 @@ public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
 
 
     @Override
-    protected RectangleElement<GraphicsContext> createRectangle(
+    protected RectangleElement<FxPainter> createRectangle(
             final int layer,
             final int modelRelatedId,
             final double x,
@@ -51,7 +51,7 @@ public class FxShapeLayer extends ShapeLayer<GraphicsContext> {
     }
 
     @Override
-    protected CanvasLayer<GraphicsContext, CanvasLayer<GraphicsContext, CanvasElement<GraphicsContext>>> createLayer(final int layer) {
+    protected CanvasLayer<FxPainter, CanvasLayer<FxPainter, CanvasElement<FxPainter>>> createLayer(final int layer) {
         return new FxShapeLayer(layer, modelState);
     }
 }

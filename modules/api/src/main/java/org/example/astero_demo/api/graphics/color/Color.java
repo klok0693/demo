@@ -1,15 +1,18 @@
-package org.example.astero_demo.api.graphics;
+package org.example.astero_demo.api.graphics.color;
 
+import lombok.Getter;
+
+@Getter
 public class Color {
-    public static final float DARKER_BRIGHTER_FACTOR = 0.7f;
+    private static final float DARKER_BRIGHTER_FACTOR = 0.7f;
     private static final float BRIGHTER_FACTOR = 1.0f / DARKER_BRIGHTER_FACTOR;
 
-    public final float red; // 0..1
-    public final float green;
-    public final float blue;
-    public final float alpha;
+    private final double red; // 0..1
+    private final double green;
+    private final double blue;
+    private final double alpha;
 
-    private Color(float r, float g, float b, float a) {
+    private Color(double r, double g, double b, double a) {
         this.red = clamp(r);
         this.green = clamp(g);
         this.blue = clamp(b);
@@ -18,11 +21,11 @@ public class Color {
 
     /* ---------- Factory methods ---------- */
 
-    public static Color rgb(float r, float g, float b) {
+    public static Color rgb(double r, double g, double b) {
         return new Color(r, g, b, 1.0f);
     }
 
-    public static Color rgba(float r, float g, float b, float a) {
+    public static Color rgba(double r, double g, double b, double a) {
         return new Color(r, g, b, a);
     }
 
@@ -95,7 +98,7 @@ public class Color {
         return String.format("0x%02x%02x%02x%02x" , r, g, b, o);
     }
 
-    private static float clamp(float v) {
+    private static double clamp(double v) {
         return Math.max(0f, Math.min(1f, v));
     }
 }

@@ -17,6 +17,7 @@ open module javafx_gui {
     requires realization;
     requires util;
     requires static lombok;
+    requires api;
 
     exports org.example.astero_demo.fx.port.ui;
 }

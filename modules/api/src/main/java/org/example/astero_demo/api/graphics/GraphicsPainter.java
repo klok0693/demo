@@ -1,5 +1,7 @@
 package org.example.astero_demo.api.graphics;
 
+import org.example.astero_demo.api.graphics.color.Color;
+
 /**
  * Custom drawing logic, existed in some UI elements like<p>
  * canvas tools, required a platform-independent graphics API.<p>
@@ -8,7 +10,7 @@ package org.example.astero_demo.api.graphics;
  * @author Pilip Yurchanka
  * @since v1.2
  */
-public interface GraphicsDrawer {
+public interface GraphicsPainter {
 
     void setFill(Color color);
 

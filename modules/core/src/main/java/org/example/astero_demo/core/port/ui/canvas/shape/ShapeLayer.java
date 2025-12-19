@@ -1,5 +1,6 @@
 package org.example.astero_demo.core.port.ui.canvas.shape;
 
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.UpdatableView;
@@ -17,7 +18,9 @@ import static java.lang.Integer.parseInt;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class ShapeLayer<E> extends CanvasLayer<E, CanvasLayer<E, CanvasElement<E>>> implements UpdatableView {
+public abstract class ShapeLayer<E extends GraphicsPainter>
+        extends CanvasLayer<E, CanvasLayer<E, CanvasElement<E>>> implements UpdatableView {
+
     protected final ModelState modelState;
 
     protected ShapeLayer(final ModelState modelState) {

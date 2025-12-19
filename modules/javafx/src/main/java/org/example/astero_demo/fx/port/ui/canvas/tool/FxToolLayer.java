@@ -6,6 +6,7 @@ import org.example.astero_demo.core.port.ui.canvas.tool.ToolLayer;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection.FxShapeSelectionTool;
+import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 /**
  * JavaFX's realization of {@link ToolLayer}. Necessary, because it<p>
@@ -14,7 +15,7 @@ import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection.FxShap
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxToolLayer extends ToolLayer<GraphicsContext> {
+public class FxToolLayer extends ToolLayer<FxPainter> {
 
     public FxToolLayer(
             final FxShapeSelectionTool selectionTool,

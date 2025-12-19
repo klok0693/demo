@@ -2,6 +2,8 @@ package org.example.astero_demo.core.port.ui.canvas;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.astero_demo.api.graphics.Drawable;
+import org.example.astero_demo.api.graphics.GraphicsPainter;
 
 /**
  * Represents an abstract element, that can be drawn on the canvas.<p>
@@ -13,7 +15,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public abstract class CanvasElement<E> implements Drawable<E> {
+public abstract class CanvasElement<E extends GraphicsPainter> implements Drawable<E> {
     protected double x;
     protected double y;
     protected double width;
@@ -32,14 +34,8 @@ public abstract class CanvasElement<E> implements Drawable<E> {
 
     @Override
     public void draw(final E gc) {
-        save(gc);
         drawElement(gc);
-        restore(gc);
     }
 
-    protected abstract void save(E gc);
-
     protected abstract void drawElement(E gc);
-
-    protected abstract void restore(E gc);
 }

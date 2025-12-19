@@ -1,6 +1,8 @@
 package org.example.astero_demo.core.port.ui.canvas.shape;
 
 import lombok.Getter;
+import org.example.astero_demo.api.graphics.GraphicsPainter;
+import org.example.astero_demo.api.graphics.color.Color;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 
 /**
@@ -11,10 +13,12 @@ import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
  * @since v1.0
  */
 @Getter
-public abstract class ShapeElement<E> extends CanvasElement<E> implements Comparable<ShapeElement<E>> {
+public abstract class ShapeElement<E extends GraphicsPainter> extends CanvasElement<E>
+        implements Comparable<ShapeElement<E>> {
 
     private final int modelRelatedId;
     private final int layer;
+    protected Color fillColor;
 
     protected ShapeElement(
             final int layer,
@@ -22,10 +26,12 @@ public abstract class ShapeElement<E> extends CanvasElement<E> implements Compar
             final double x,
             final double y,
             final double width,
-            final double height) {
+            final double height,
+            final Color color) {
         super(x, y, width, height);
         this.modelRelatedId = modelRelatedId;
         this.layer = layer;
+        this.fillColor = color;
     }
 
     @Override

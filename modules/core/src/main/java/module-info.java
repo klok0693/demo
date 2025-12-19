@@ -9,6 +9,7 @@ open module core {
 
     requires util;
     requires model;
+    requires api;
 
     exports org.example.astero_demo.core.port.ui;
     exports org.example.astero_demo.core.adapter.ui.state;
