@@ -12,10 +12,13 @@ import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseEvent;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.*;
+import java.awt.event.*;
 import java.awt.geom.Point2D;
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -39,7 +42,54 @@ public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implem
         this.canvas = canvas;
 
         canvas.setDrawindConsumer(gc -> redraw(new SwingPainter(gc)));
-        //canvas.repaint();
+        canvas.repaint();
+
+        canvas.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                allowUpdate = false;
+                handleMouseDragged(e);
+                allowUpdate = true;
+                canvas.repaint();
+/*                canvas.mock(e.getX(), e.getY());
+                canvas.repaint();*/
+                //canvas.paintImmediately(canvas.getBounds());
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    handleDragDetected(e.getX(), e.getY());
+                }
+            }
+        });
+        canvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(final MouseEvent e) {
+                allowUpdate = false;
+                handleMousePressed(e);
+            }
+
+            @Override
+            public void mouseReleased(final MouseEvent e) {
+                handleMouseReleased(e);
+                allowUpdate = true;
+            }
+        });
+    }
+
+    private boolean allowUpdate = true;
+
+    @Override
+    protected void redraw() {
+        if (allowUpdate)
+        super.redraw();
+    }
+
+    @Override
+    protected void redraw(SwingPainter graphics) {
+        if (allowUpdate)
+        super.redraw(graphics);
     }
 
     public void handleMousePressed(final MouseEvent event) {

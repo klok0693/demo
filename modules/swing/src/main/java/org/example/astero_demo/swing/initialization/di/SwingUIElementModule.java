@@ -6,7 +6,8 @@ import org.example.astero_demo.core.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
-import org.example.astero_demo.swing.port.ui.SwingRootUI;
+import org.example.astero_demo.swing.port.ui.root.RootUI;
+import org.example.astero_demo.swing.port.ui.root.SwingRootUI;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
 import org.example.astero_demo.swing.port.ui.element.SwingLayersTree;
 import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarUI;
@@ -23,6 +24,7 @@ class SwingUIElementModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(ToolBarUI.class).to(SwingToolBarUI.class).in(Scopes.SINGLETON);
+        bind(RootUI.class).to(SwingRootUI.class).in(Scopes.SINGLETON);
     }
 
     @Inject

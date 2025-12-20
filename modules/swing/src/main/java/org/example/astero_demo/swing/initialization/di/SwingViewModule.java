@@ -5,7 +5,6 @@ import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
-import org.example.astero_demo.core.adapter.ui.canvas.CanvasView;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
@@ -17,9 +16,9 @@ import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.swing.port.ui.SwingPropertiesPanelView;
-import org.example.astero_demo.swing.port.ui.SwingRootView;
+import org.example.astero_demo.swing.port.ui.root.RootUI;
+import org.example.astero_demo.swing.port.ui.root.SwingRootView;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
-import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarUI;
 import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarView;
 import org.example.astero_demo.swing.port.ui.canvas.SwingShapeCanvasView;
 import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLayer;
@@ -30,8 +29,6 @@ import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.drag.SwingDra
 import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.insert.SwingInsertShapeTool;
 import org.example.astero_demo.swing.port.ui.keyboard.SwingRootShortcutHandler;
 import org.example.astero_demo.swing.port.ui.toolbar.ToolBarUI;
-
-import java.awt.*;
 
 /**
  * DI config for UI views
@@ -110,8 +107,8 @@ class SwingViewModule extends AbstractModule {
     @Provides
     @Singleton
     public RootView provideRootView(/*final EventHandler shortcutHandler,*/
-            final ShapeCanvasView canvasView, final UIState uiState) {
-        return new SwingRootView(/*shortcutHandler,*/ canvasView, uiState);
+            final ShapeCanvasView canvasView, final UIState uiState, RootUI ui) {
+        return new SwingRootView(/*shortcutHandler,*/ canvasView, uiState, ui);
     }
 
     @Inject

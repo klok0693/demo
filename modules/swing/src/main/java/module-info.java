@@ -15,4 +15,5 @@ open module swing_gui {
     requires api;
 
     exports org.example.astero_demo.swing.port.ui;
+    exports org.example.astero_demo.swing.port.ui.root;
 }

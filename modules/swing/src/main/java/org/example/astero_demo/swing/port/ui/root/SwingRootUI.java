@@ -1,4 +1,4 @@
-package org.example.astero_demo.swing.port.ui;
+package org.example.astero_demo.swing.port.ui.root;
 
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
@@ -7,7 +7,7 @@ import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class SwingRootUI extends JPanel {
+public class SwingRootUI extends JPanel implements RootUI {
     private final RootView view;
 
     public SwingRootUI(
@@ -23,5 +23,10 @@ public class SwingRootUI extends JPanel {
         add(new Button("placeholder"), BorderLayout.WEST);
         add(new Button("placeholder"), BorderLayout.SOUTH);
         add(new Button("placeholder"), BorderLayout.EAST);
+    }
+
+    @Override
+    public void setSwingCursor(final Cursor cursor) {
+        setCursor(cursor);
     }
 }

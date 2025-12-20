@@ -1,4 +1,4 @@
-package org.example.astero_demo.swing.port.ui;
+package org.example.astero_demo.swing.port.ui.root;
 
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
@@ -23,14 +23,17 @@ public class SwingRootView extends RootView {
     public ShapeCanvasView canvasView;
     public PropertiesPanelView propertyRootController;
     public LayersPanelView layersRootController;
-    //public BorderPane root;
+
+    public RootUI root;
 
     public SwingRootView(
             //final EventHandler shortcutHandler,
             final ShapeCanvasView canvasView,
-            final UIState uiState) {
+            final UIState uiState,
+            final RootUI root) {
         super(uiState);
         this.canvasView = canvasView;
+        this.root = root;
         //this.shortcutHandler = shortcutHandler;
     }
 
@@ -42,10 +45,10 @@ public class SwingRootView extends RootView {
 
     @Override
     protected void setCursor(final Cursors cursor) {
-/*        final Cursor fxCursor = switch (cursor) {
-            case DEFAULT -> Cursor.DEFAULT;
-            case CROSSHAIR -> Cursor.CROSSHAIR;
+        final Cursor swingCursor = switch (cursor) {
+            case DEFAULT -> Cursor.getDefaultCursor();
+            case CROSSHAIR -> Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR);
         };
-        root.setCursor(fxCursor);*/
+        root.setSwingCursor(swingCursor);
     }
 }

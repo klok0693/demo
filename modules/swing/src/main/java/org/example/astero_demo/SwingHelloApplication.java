@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.realization.initialization.di.module.CoreModule;
 import org.example.astero_demo.swing.initialization.di.SwingModule;
-import org.example.astero_demo.swing.port.ui.SwingRootUI;
+import org.example.astero_demo.swing.port.ui.root.SwingRootUI;
 
 import javax.swing.*;
 

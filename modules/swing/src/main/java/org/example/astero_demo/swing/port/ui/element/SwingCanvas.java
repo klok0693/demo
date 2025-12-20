@@ -23,16 +23,26 @@ public class SwingCanvas extends JComponent/*Canvas*/ {
     @Setter
     private Consumer<Graphics> drawindConsumer;
 
+    private double[] mock = new double[] {0.0, 0.0};
+
     public SwingCanvas() {
         setBackground(Color.CYAN);
         setOpaque(true);
     }
 
+    public void mock(double x, double y) {
+        mock[0] = x;
+        mock[1] = y;
+    }
+
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
+/*        g.setColor(Color.BLACK);
+        g.fillRect((int) mock[0], (int) mock[1], 30, 30);*/
         if (drawindConsumer != null) {
             drawindConsumer.accept(g);
         }
+        Toolkit.getDefaultToolkit().sync();
     }
 }
