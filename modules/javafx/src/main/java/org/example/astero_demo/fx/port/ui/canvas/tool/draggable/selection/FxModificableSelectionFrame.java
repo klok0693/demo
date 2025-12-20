@@ -32,14 +32,4 @@ public class FxModificableSelectionFrame extends ModificableSelectionFrame<FxPai
                 new Color(fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue(), fillColor.getAlpha()),
                 alignment);
     }
-
-    @Override
-    public void save(final FxPainter gc) {
-        FxCanvasElement.super.save(gc);
-    }
-
-    @Override
-    public void restore(final FxPainter gc) {
-        FxCanvasElement.super.restore(gc);
-    }
 }

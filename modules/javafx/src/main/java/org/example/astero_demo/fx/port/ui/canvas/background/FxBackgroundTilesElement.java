@@ -21,19 +21,9 @@ class FxBackgroundTilesElement extends BackgroundTilesElement<FxPainter> impleme
     }
 
     @Override
-    public void draw(FxPainter gc) {
+    public void draw(final FxPainter gc) {
         save(gc);
         super.draw(gc);
         restore(gc);
-    }
-
-    @Override
-    public void save(final FxPainter gc) {
-        FxCanvasElement.super.save(gc);
-    }
-
-    @Override
-    public void restore(final FxPainter gc) {
-        FxCanvasElement.super.restore(gc);
     }
 }

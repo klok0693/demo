@@ -41,14 +41,4 @@ public class FxRectangleElement extends RectangleElement<FxPainter> implements F
         super.draw(gc);
         restore(gc);
     }
-
-    @Override
-    public void save(final FxPainter gc) {
-        FxCanvasElement.super.save(gc);
-    }
-
-    @Override
-    public void restore(final FxPainter gc) {
-        FxCanvasElement.super.restore(gc);
-    }
 }

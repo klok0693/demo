@@ -35,14 +35,4 @@ public class FxEllipseElement extends EllipseElement<FxPainter> implements FxCan
         super.draw(gc);
         restore(gc);
     }
-
-    @Override
-    public void save(final FxPainter gc) {
-        FxCanvasElement.super.save(gc);
-    }
-
-    @Override
-    public void restore(final FxPainter gc) {
-        FxCanvasElement.super.restore(gc);
-    }
 }
