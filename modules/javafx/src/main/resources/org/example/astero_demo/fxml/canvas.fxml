@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import org.example.astero_demo.fx.port.ui.element.FxCanvas?>
+<?import org.example.astero_demo.fx.port.ui.element.FxCanvasUI?>
 
 <?import javafx.scene.layout.Pane?>
 <Pane xmlns="http://javafx.com/javafx"
@@ -8,13 +8,13 @@
       fx:id="canvasRoot"
       fx:controller="org.example.astero_demo.fx.port.ui.canvas.FxShapeCanvasView">
 
-    <FxCanvas fx:id="canvas"
-            width="720" height="630"
-            focusTraversable="true"
-            onMousePressed="#handleMousePressed"
-            onDragDetected="#handleDragDetected"
-            onMouseDragged="#handleMouseDragged"
-            onMouseReleased="#handleMouseReleased"
+    <FxCanvasUI fx:id="canvas"
+                width="720" height="630"
+                focusTraversable="true"
+                onMousePressed="#handleMousePressed"
+                onDragDetected="#handleDragDetected"
+                onMouseDragged="#handleMouseDragged"
+                onMouseReleased="#handleMouseReleased"
     />
 
 <!--    <stylesheets>

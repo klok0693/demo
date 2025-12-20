@@ -17,20 +17,24 @@ import java.util.List;
  * Represents a canvas view that displays shapes and provide tools<p>
  * to perform operations with its content. All elements are drawn on<p>
  * a separate layers: first background, next shapes and tools on top of it<p>
- * Also delegate mouse events to its child elements
+ * This class manage all canvas components, delegate mouse events to its<p>
+ * child elements etc. Drawing the elements are moved to a
+ * {@link CanvasUI separate component}
  *
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class ShapeCanvasView<E extends GraphicsPainter> implements CanvasView, GraphicsContext<E> {
+public abstract class ShapeCanvasView<E extends GraphicsPainter> implements CanvasView {
     protected final UIState uiState;
     protected final ModelState modelState;
     protected final CanvasAdapter adapter;
 
-    protected final List<CanvasLayer<E, ?>> layers;
+    //protected final List<CanvasLayer<E, ?>> layers;
 
     protected final ShapeLayer<E> shapeLayer;
     protected final ToolLayer<E> toolLayer;
+
+    protected final CanvasUI canvasUI;
 
     public ShapeCanvasView(
             final UIState uiState,
@@ -38,52 +42,54 @@ public abstract class ShapeCanvasView<E extends GraphicsPainter> implements Canv
             final CanvasAdapter adapter,
             final BackgroundLayer<E> backgroundLayer,
             final ShapeLayer<E> shapeLayer,
-            final ToolLayer<E> toolLayer) {
+            final ToolLayer<E> toolLayer,
+            final CanvasUI canvasUI) {
         this.modelState = modelState;
         this.uiState = uiState;
         this.adapter = adapter;
+        this.canvasUI = canvasUI;
 
-        layers = new LinkedList<>();
-        layers.add(backgroundLayer);
+/*        layers = new LinkedList<>();
+        layers.add(backgroundLayer);*/
 
         this.shapeLayer = shapeLayer;
-        layers.add(shapeLayer);
+        //layers.add(shapeLayer);
 
         this.toolLayer = toolLayer;
-        layers.add(toolLayer);
+        //layers.add(toolLayer);
     }
 
-    protected void redraw() {
+/*    protected void redraw() {
         layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsPainter()));
     }
 
     protected void redraw(final E graphics) {
         layers.stream().sorted().forEach(layer -> layer.draw(graphics));
-    }
+    }*/
 
     @Override
     public void update() {
         shapeLayer.update();
         toolLayer.update();
-        redraw();
+        canvasUI.redraw();
     }
 
     @Override
     public void switchToInsertMode() {
         toolLayer.switchToInsertMode();
-        redraw();
+        canvasUI.redraw();
     }
 
     @Override
     public void switchToSingleSelectionMode() {
         toolLayer.switchToSingleSelectionMode();
-        redraw();
+        canvasUI.redraw();
     }
 
     @Override
     public void switchToMultipleSelectionMode() {
         toolLayer.switchToMultipleSelectionMode();
-        redraw();
+        canvasUI.redraw();
     }
 
     protected void handleMousePressed(
@@ -111,25 +117,25 @@ public abstract class ShapeCanvasView<E extends GraphicsPainter> implements Canv
         if (!toolLayer.isInBounds(mouseX, mouseY) && !modelState.findTopVisibleShape(mouseX, mouseY).isPresent()) {
             adapter.primaryMouseBtnPressed(mouseX, mouseY, isAdditional);
             toolLayer.onMousePressed(mouseX, mouseY, isShiftDown);
-            redraw();
+            canvasUI.redraw();
         }
         // Second we check, is there is any tool
         else if (toolLayer.isInBounds(mouseX, mouseY)) {
             toolLayer.onMousePressed(mouseX, mouseY, isShiftDown);
-            redraw();
+            canvasUI.redraw();
         }
         // If there is no tool but a shape under the cursor,
         // we can select it(nothing badly, if it has already been selected)
         else {
             adapter.primaryMouseBtnPressed(mouseX, mouseY, isAdditional);
             update();
-            redraw();
+            canvasUI.redraw();
         }
     }
 
     protected void handleDragDetected(final double mouseX, final double mouseY) {
         toolLayer.onDragDetected(mouseX, mouseY);
-        redraw();
+        canvasUI.redraw();
     }
 
     protected void handleMouseDragged(final double mouseX, final double mouseY) {
@@ -140,12 +146,12 @@ public abstract class ShapeCanvasView<E extends GraphicsPainter> implements Canv
         final double toolY = Math.min(Math.max(0, mouseY), endY);
 
         toolLayer.onMouseDragged(toolX, toolY);
-        redraw();
+        canvasUI.redraw();
     }
 
     protected void handleMouseReleased(final double mouseX, final double mouseY) {
         toolLayer.onMouseReleased(mouseX, mouseY);
-        redraw();
+        canvasUI.redraw();
     }
 
     protected abstract double getLayoutX();

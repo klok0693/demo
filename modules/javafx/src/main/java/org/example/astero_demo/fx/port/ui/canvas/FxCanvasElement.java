@@ -15,6 +15,12 @@ import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
  */
 public interface FxCanvasElement extends Drawable<FxPainter> {
 
+/*    default void drawElement(final FxPainter painter) {
+        save(painter);
+        draw(painter);
+        restore(painter);
+    }*/
+
     default void save(final FxPainter gc) {
         gc.save();
     };

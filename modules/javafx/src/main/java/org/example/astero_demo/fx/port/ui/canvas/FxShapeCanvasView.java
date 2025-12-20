@@ -3,7 +3,6 @@ package org.example.astero_demo.fx.port.ui.canvas;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
@@ -12,7 +11,7 @@ import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.fx.port.ui.canvas.background.FxBackgroundLayer;
 import org.example.astero_demo.fx.port.ui.canvas.shape.FxShapeLayer;
 import org.example.astero_demo.fx.port.ui.canvas.tool.FxToolLayer;
-import org.example.astero_demo.fx.port.ui.element.FxCanvas;
+import org.example.astero_demo.fx.port.ui.element.FxCanvasUI;
 import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
 import java.awt.*;
@@ -27,8 +26,6 @@ import java.util.ResourceBundle;
  * @since v1.1
  */
 public class FxShapeCanvasView extends ShapeCanvasView<FxPainter> implements Initializable {
-    @FXML
-    public FxCanvas canvas;
 
     public FxShapeCanvasView(
             final UIState uiState,
@@ -36,17 +33,18 @@ public class FxShapeCanvasView extends ShapeCanvasView<FxPainter> implements Ini
             final CanvasAdapter adapter,
             final FxBackgroundLayer backgroundLayer,
             final FxShapeLayer shapeLayer,
-            final FxToolLayer toolLayer) {
-        super(uiState, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
+            final FxToolLayer toolLayer,
+            final FxCanvasUI canvasUI) {
+        super(uiState, modelState, adapter, backgroundLayer, shapeLayer, toolLayer, canvasUI);
     }
 
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        redraw();
+        getCanvas().redraw();
     }
 
     public void handleMousePressed(final MouseEvent event) {
-        canvas.requestFocus();
+        getCanvas().requestFocus();
         handleMousePressed(
                 event.getX(),
                 event.getY(),
@@ -72,36 +70,35 @@ public class FxShapeCanvasView extends ShapeCanvasView<FxPainter> implements Ini
     }
 
     @Override
-    public FxPainter getGraphicsPainter() {
-        return new FxPainter(canvas.getGraphicsContext2D());
-    }
-
-    @Override
     public Optional<double[]> getLocalCursorPosition() {
         final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
-        final Point2D localPosition = canvas.screenToLocal(cursorPosition.getX(), cursorPosition.getY());
+        final Point2D localPosition = getCanvas().screenToLocal(cursorPosition.getX(), cursorPosition.getY());
         final double x = localPosition.getX();
         final double y = localPosition.getY();
-        return canvas.contains(x, y) ? Optional.of(new double[] {x, y}) : Optional.empty();
+        return getCanvas().contains(x, y) ? Optional.of(new double[] {x, y}) : Optional.empty();
     }
 
     @Override
     protected double getLayoutX() {
-        return canvas.getLayoutX();
+        return getCanvas().getLayoutX();
     }
 
     @Override
     protected double getLayoutY() {
-        return canvas.getLayoutY();
+        return getCanvas().getLayoutY();
     }
 
     @Override
     protected double getWidth() {
-        return canvas.getWidth();
+        return getCanvas().getWidth();
     }
 
     @Override
     protected double getHeight() {
-        return canvas.getHeight();
+        return getCanvas().getHeight();
+    }
+
+    private FxCanvasUI getCanvas() {
+        return (FxCanvasUI) canvasUI;
     }
 }

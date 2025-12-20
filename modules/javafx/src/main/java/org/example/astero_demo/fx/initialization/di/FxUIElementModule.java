@@ -7,8 +7,14 @@ import com.google.inject.Singleton;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
+import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
+import org.example.astero_demo.core.port.ui.canvas.tool.ToolLayer;
 import org.example.astero_demo.fx.initialization.ui.builder.LayersTreeBuilder;
-import org.example.astero_demo.fx.port.ui.element.FxCanvas;
+import org.example.astero_demo.fx.port.ui.canvas.background.FxBackgroundLayer;
+import org.example.astero_demo.fx.port.ui.canvas.shape.FxShapeLayer;
+import org.example.astero_demo.fx.port.ui.canvas.tool.FxToolLayer;
+import org.example.astero_demo.fx.port.ui.element.FxCanvasUI;
 import org.example.astero_demo.fx.port.ui.element.FxLayersTree;
 
 /**
@@ -39,7 +45,10 @@ class FxUIElementModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public FxCanvas provideFxCanvas() {
-        return new FxCanvas();
+    public FxCanvasUI provideFxCanvas(
+            final FxBackgroundLayer backgroundLayer,
+            final FxShapeLayer shapeLayer,
+            final FxToolLayer toolLayer) {
+        return new FxCanvasUI(backgroundLayer, shapeLayer, toolLayer);
     }
 }

@@ -50,7 +50,6 @@ public abstract class CanvasLayer<E extends GraphicsPainter, T extends Drawable<
 
     @Override
     public void draw(final E gc) {
-        System.out.println(gc.hashCode());
         children.stream().sorted().forEach(ch -> ch.draw(gc));
     }
 

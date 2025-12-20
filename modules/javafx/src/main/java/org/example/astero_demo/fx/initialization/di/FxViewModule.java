@@ -4,10 +4,8 @@ import com.google.inject.*;
 import javafx.event.EventHandler;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
-import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
-import org.example.astero_demo.core.adapter.ui.canvas.CanvasView;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesAdapter;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
@@ -28,7 +26,7 @@ import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection.FxShap
 import org.example.astero_demo.fx.port.ui.canvas.tool.FxToolLayer;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;
-import org.example.astero_demo.fx.port.ui.element.FxCanvas;
+import org.example.astero_demo.fx.port.ui.element.FxCanvasUI;
 import org.example.astero_demo.fx.port.ui.keyboard.FxRootShortcutHandler;
 import org.example.astero_demo.fx.initialization.ui.builder.CanvasBuilder;
 
@@ -52,7 +50,7 @@ class FxViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public CanvasBuilder provideCanvasBuilder(final FxCanvas canvas) {
+    public CanvasBuilder provideCanvasBuilder(final FxCanvasUI canvas) {
         return new CanvasBuilder(canvas);
     }
 
@@ -65,8 +63,9 @@ class FxViewModule extends AbstractModule {
             final CanvasAdapter adapter,
             final FxBackgroundLayer backgroundLayer,
             final FxShapeLayer shapeLayer,
-            final FxToolLayer toolLayer) {
-        return new FxShapeCanvasView(state, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
+            final FxToolLayer toolLayer,
+            final FxCanvasUI canvasUI) {
+        return new FxShapeCanvasView(state, modelState, adapter, backgroundLayer, shapeLayer, toolLayer, canvasUI);
     }
 
     @Inject
