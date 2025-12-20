@@ -72,4 +72,9 @@ public abstract class ModificableSelectionFrame<E> extends SelectionFrame<E>
     public void onMouseReleased(final double mouseX, final double mouseY) {
         contactPoints.forEach(contact -> contact.onMouseReleased(mouseX, mouseY));
     }
+
+    @Override
+    public boolean isInBounds(double x, double y) {
+        return super.isInBounds(x, y) || contactPoints.stream().anyMatch(point -> point.isInBounds(x, y));
+    }
 }
