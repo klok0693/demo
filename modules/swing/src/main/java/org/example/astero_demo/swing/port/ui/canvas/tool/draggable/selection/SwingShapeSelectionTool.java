@@ -8,7 +8,6 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.Modi
 import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 

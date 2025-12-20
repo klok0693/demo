@@ -1,10 +1,9 @@
 package org.example.astero_demo.swing.port.ui.canvas.shape;
 
+import org.example.astero_demo.api.graphics.color.Color;
 import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
 import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
-
-import java.awt.*;
 
 /**
  * JavaFX's realization of {@link EllipseElement}
@@ -22,11 +21,6 @@ public class SwingEllipseElement extends EllipseElement<SwingPainter> implements
             final double width,
             final double height,
             final Color fillColor) {
-        super(layer, modelRelatedId, x, y, width, height,
-                org.example.astero_demo.api.graphics.color.Color.rgb(
-                        fillColor.getRed(),
-                        fillColor.getGreen(),
-                        fillColor.getBlue()
-                ));
+        super(layer, modelRelatedId, x, y, width, height, fillColor);
     }
 }

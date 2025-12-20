@@ -14,7 +14,11 @@ public class SwingPainter implements GraphicsPainter {
 
     @Override
     public void setFill(final Color color) {
-        gc.setColor(new java.awt.Color(color.getRedAsInt(), color.getGreenAsInt(), color.getBlueAsInt()));
+        gc.setColor(new java.awt.Color(
+                (float) color.getRed(),
+                (float) color.getGreen(),
+                (float) color.getBlue(),
+                (float) color.getAlpha()));
     }
 
     @Override

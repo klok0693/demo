@@ -18,7 +18,7 @@ import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.swing.port.ui.SwingPropertiesPanelView;
 import org.example.astero_demo.swing.port.ui.root.RootUI;
 import org.example.astero_demo.swing.port.ui.root.SwingRootView;
-import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
+import org.example.astero_demo.swing.port.ui.element.SwingCanvasUI;
 import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarView;
 import org.example.astero_demo.swing.port.ui.canvas.SwingShapeCanvasView;
 import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLayer;
@@ -57,7 +57,7 @@ class SwingViewModule extends AbstractModule {
             final SwingBackgroundLayer backgroundLayer,
             final SwingShapeLayer shapeLayer,
             final SwingToolLayer toolLayer,
-            final SwingCanvas canvas) {
+            final SwingCanvasUI canvas) {
         return new SwingShapeCanvasView(state, modelState, adapter, backgroundLayer, shapeLayer, toolLayer, canvas);
     }
 

@@ -1,7 +1,7 @@
 package org.example.astero_demo.swing.port.ui.root;
 
 import org.example.astero_demo.core.port.ui.RootView;
-import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
+import org.example.astero_demo.swing.port.ui.element.SwingCanvasUI;
 import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarUI;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ public class SwingRootUI extends JPanel implements RootUI {
 
     public SwingRootUI(
             final SwingToolBarUI toolBarUI,
-            final SwingCanvas canvas,
+            final SwingCanvasUI canvas,
             final RootView rootView) {
         this.view = rootView;
 

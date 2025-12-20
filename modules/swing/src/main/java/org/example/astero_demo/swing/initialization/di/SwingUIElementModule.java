@@ -6,9 +6,12 @@ import org.example.astero_demo.core.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
+import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLayer;
+import org.example.astero_demo.swing.port.ui.canvas.shape.SwingShapeLayer;
+import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
+import org.example.astero_demo.swing.port.ui.element.SwingCanvasUI;
 import org.example.astero_demo.swing.port.ui.root.RootUI;
 import org.example.astero_demo.swing.port.ui.root.SwingRootUI;
-import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
 import org.example.astero_demo.swing.port.ui.element.SwingLayersTree;
 import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarUI;
 import org.example.astero_demo.swing.port.ui.toolbar.ToolBarUI;
@@ -32,7 +35,7 @@ class SwingUIElementModule extends AbstractModule {
     @Singleton
     public SwingRootUI provideRootUI(
             final SwingToolBarUI toolBarUI,
-            final SwingCanvas canvas,
+            final SwingCanvasUI canvas,
             final RootView rootView) {
         return new SwingRootUI(toolBarUI, canvas, rootView);
     }
@@ -66,7 +69,10 @@ class SwingUIElementModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public SwingCanvas provideFxCanvas() {
-        return new SwingCanvas();
+    public SwingCanvasUI provideFxCanvas(
+            final SwingBackgroundLayer backgroundLayer,
+            final SwingShapeLayer shapeLayer,
+            final SwingToolLayer toolLayer) {
+        return new SwingCanvasUI(backgroundLayer, shapeLayer, toolLayer);
     }
 }

@@ -22,8 +22,6 @@ public class SwingModificableSelectionFrame extends ModificableSelectionFrame<Sw
             final CanvasAdapter adapter,
             final int layer,
             final ContactAlignment alignment) {
-        return new SwingContactPoint(this, adapter, layer,
-                new Color(fillColor.getRedAsInt(), fillColor.getGreenAsInt(), fillColor.getBlueAsInt()),
-                alignment);
+        return new SwingContactPoint(this, adapter, layer, fillColor, alignment);
     }
 }

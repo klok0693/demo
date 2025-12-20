@@ -7,18 +7,10 @@ import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLayer;
 import org.example.astero_demo.swing.port.ui.canvas.shape.SwingShapeLayer;
 import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
-import org.example.astero_demo.swing.port.ui.element.SwingCanvas;
+import org.example.astero_demo.swing.port.ui.element.SwingCanvasUI;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.dnd.*;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -28,7 +20,7 @@ import java.util.Optional;
  * @since v1.1
  */
 public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implements Initializable*/ {
-    private final SwingCanvas canvas;
+    private final SwingCanvasUI canvas;
 
     public SwingShapeCanvasView(
             final UIState uiState,
@@ -37,19 +29,20 @@ public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implem
             final SwingBackgroundLayer backgroundLayer,
             final SwingShapeLayer shapeLayer,
             final SwingToolLayer toolLayer,
-            final SwingCanvas canvas) {
-        super(uiState, modelState, adapter, backgroundLayer, shapeLayer, toolLayer);
-        this.canvas = canvas;
+            final SwingCanvasUI canvasUI) {
+        super(uiState, modelState, adapter, backgroundLayer, shapeLayer, toolLayer, canvasUI);
 
-        canvas.setDrawindConsumer(gc -> redraw(new SwingPainter(gc)));
+        this.canvas = canvasUI;
+
+        //canvas.setDrawindConsumer(gc -> redraw(new SwingPainter(gc)));
         canvas.repaint();
 
         canvas.addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                allowUpdate = false;
+                //allowUpdate = false;
                 handleMouseDragged(e);
-                allowUpdate = true;
+                //allowUpdate = true;
                 canvas.repaint();
 /*                canvas.mock(e.getX(), e.getY());
                 canvas.repaint();*/
@@ -66,20 +59,21 @@ public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implem
         canvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(final MouseEvent e) {
-                allowUpdate = false;
+                //allowUpdate = false;
                 handleMousePressed(e);
             }
 
             @Override
             public void mouseReleased(final MouseEvent e) {
                 handleMouseReleased(e);
-                allowUpdate = true;
+                //allowUpdate = true;
             }
         });
     }
 
-    private boolean allowUpdate = true;
+/*    private boolean allowUpdate = true;*/
 
+/*
     @Override
     protected void redraw() {
         if (allowUpdate)
@@ -91,6 +85,7 @@ public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implem
         if (allowUpdate)
         super.redraw(graphics);
     }
+*/
 
     public void handleMousePressed(final MouseEvent event) {
         canvas.requestFocus();
@@ -116,11 +111,6 @@ public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implem
     public void handleMouseReleased(final MouseEvent event) {
         handleMouseReleased(event.getX(), event.getY());
         event.consume();
-    }
-
-    @Override
-    public SwingPainter getGraphicsPainter() {
-        return new SwingPainter(canvas.getGraphics());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package org.example.astero_demo.swing.port.ui.canvas.shape;
 
+import org.example.astero_demo.api.graphics.color.Colors;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
@@ -7,9 +8,6 @@ import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
-import org.example.astero_demo.swing.util.ColorUtils;
-
-import java.awt.*;
 
 /**
  * JavaFX's realization of {@link ShapeLayer}
@@ -36,7 +34,7 @@ public class SwingShapeLayer extends ShapeLayer<SwingPainter> {
             final double width,
             final double height,
             final String fillColor) {
-        return new SwingEllipseElement(layer, modelRelatedId, x, y, width, height, ColorUtils.convert(fillColor));
+        return new SwingEllipseElement(layer, modelRelatedId, x, y, width, height, Colors.convert(fillColor));
     }
 
 
@@ -49,7 +47,7 @@ public class SwingShapeLayer extends ShapeLayer<SwingPainter> {
             final double width,
             final double height,
             final String fillColor) {
-        return new SwingRectangleElement(layer, modelRelatedId, x, y, width, height, ColorUtils.convert(fillColor));
+        return new SwingRectangleElement(layer, modelRelatedId, x, y, width, height, Colors.convert(fillColor));
     }
 
     @Override
