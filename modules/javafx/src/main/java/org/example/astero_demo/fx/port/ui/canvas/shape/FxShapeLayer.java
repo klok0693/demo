@@ -1,5 +1,6 @@
 package org.example.astero_demo.fx.port.ui.canvas.shape;
 
+import org.example.astero_demo.api.graphics.color.Colors;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.canvas.CanvasElement;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
@@ -7,7 +8,6 @@ import org.example.astero_demo.core.port.ui.canvas.shape.EllipseElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
 import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
-import org.example.astero_demo.fx.util.ColorUtils;
 
 /**
  * JavaFX's realization of {@link ShapeLayer}
@@ -34,7 +34,7 @@ public class FxShapeLayer extends ShapeLayer<FxPainter> {
             final double width,
             final double height,
             final String fillColor) {
-        return new FxEllipseElement(layer, modelRelatedId, x, y, width, height, ColorUtils.convert(fillColor));
+        return new FxEllipseElement(layer, modelRelatedId, x, y, width, height, Colors.convert(fillColor));
     }
 
 
@@ -47,7 +47,7 @@ public class FxShapeLayer extends ShapeLayer<FxPainter> {
             final double width,
             final double height,
             final String fillColor) {
-        return new FxRectangleElement(layer, modelRelatedId, x, y, width, height, ColorUtils.convert(fillColor));
+        return new FxRectangleElement(layer, modelRelatedId, x, y, width, height, Colors.convert(fillColor));
     }
 
     @Override

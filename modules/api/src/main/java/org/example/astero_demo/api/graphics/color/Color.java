@@ -4,105 +4,132 @@ import lombok.Getter;
 
 @Getter
 public class Color {
-    private static final float DARKER_BRIGHTER_FACTOR = 0.7f;
-    private static final float BRIGHTER_FACTOR = 1.0f / DARKER_BRIGHTER_FACTOR;
+    private static final String WRONG_RANGE_MESSAGE = "Color.rgb's %s parameter (%d) expects color values 0-255";
+    private static final double RANGE_FACTOR = 255.0;
+    private static final double DARKER_BRIGHTER_FACTOR = 0.7d;
+    private static final double BRIGHTER_FACTOR = 1.0d / DARKER_BRIGHTER_FACTOR;
 
     private final double red; // 0..1
     private final double green;
     private final double blue;
     private final double alpha;
 
-    private Color(double r, double g, double b, double a) {
-        this.red = clamp(r);
-        this.green = clamp(g);
-        this.blue = clamp(b);
-        this.alpha = clamp(a);
-    }
-
-    public int getRedAsInt() {
-        return toIntForm(red);
-    }
-
-    public int getGreenAsInt() {
-        return toIntForm(green) ;
-    }
-
-    public int getBlueAsInt() {
-        return toIntForm(blue);
-    }
-
-    public int getAlphaAsInt() {
-        return toIntForm(alpha);
-    }
-
-    /**
-     * Not very precise way to convert values. Temporary solution
-     * TODO: replace with normal precise converter
-     */
-    private int toIntForm(final double value) {
-        return (int) (value * 255);
+    private Color(final double r, final double g, final double b, final double a) {
+        this.red = r;// clamp(r);
+        this.green = g;// clamp(g);
+        this.blue = b;// clamp(b);
+        this.alpha = a;// clamp(a);
     }
 
     /* ---------- Factory methods ---------- */
 
-    public static Color rgb(double r, double g, double b) {
-        return new Color(r, g, b, 1.0f);
+    public static Color rgb(final int r, final int g, final int b) {
+        return rgba(r, g, b, (int) RANGE_FACTOR);
     }
 
-    public static Color rgba(double r, double g, double b, double a) {
+    public static Color rgba(final int r, final int g, final int b, final int a) {
+        return rgba(r / RANGE_FACTOR, g / RANGE_FACTOR, b / RANGE_FACTOR, a / RANGE_FACTOR);
+    }
+
+    public static Color rgb(final double r, final double g, final double b) {
+        return rgba(r, g, b, 1.0);
+    }
+
+    public static Color rgba(final double r, final double g, final double b, final double a) {
+        checkRGBA(r, g, b, a);
         return new Color(r, g, b, a);
     }
 
-    public static Color rgb255(int r, int g, int b) {
-        return rgb(r / 255d, g / 255d, b / 255d);
+    private static void checkRGBA(final double red, final double green, final double blue, final double alpha) {
+        if (red < 0.0 || red > 1.0) {
+            throw generateException("red", red);
+        }
+        if (green < 0.0 || green > 1.0) {
+            throw generateException("green", green);
+        }
+        if (blue < 0.0 || blue > 1.0) {
+            throw generateException("blue", blue);
+        }
+        if (alpha < 0.0 || alpha > 1.0) {
+            throw generateException("alpha", alpha);
+        }
     }
 
-    public static Color rgba255(int r, int g, int b, int a) {
-        return rgba(r / 255d, g / 255d, b / 255d, a / 255d);
+    private static IllegalArgumentException generateException(final String type, final double value) {
+        return new IllegalArgumentException(String.format(WRONG_RANGE_MESSAGE, type, (int) (value * RANGE_FACTOR)));
     }
 
     /* ---------- Brightness manipulation ---------- */
 
     public Color darker() {
-        return new Color(
-                red * DARKER_BRIGHTER_FACTOR,
-                green * DARKER_BRIGHTER_FACTOR,
-                blue * DARKER_BRIGHTER_FACTOR,
-                alpha
-        );
+        return deriveColor(0, 1.0, DARKER_BRIGHTER_FACTOR, 1.0);
     }
 
-    public Color lighter() {
-        return new Color(
-                Math.min(red * BRIGHTER_FACTOR, 1.0f),
-                Math.min(green * BRIGHTER_FACTOR, 1.0f),
-                Math.min(blue * BRIGHTER_FACTOR, 1.0f),
-                alpha
-        );
+    public Color brighter() {
+        return deriveColor(0, 1.0, 1.0 / DARKER_BRIGHTER_FACTOR, 1.0);
+    }
+
+    public Color deriveColor(
+            final double hueShift,
+            final double saturationFactor,
+            final double brightnessFactor,
+            final double opacityFactor) {
+
+        final double[] hsb = Colors.RGBtoHSB(red, green, blue);
+
+        /* Allow brightness increase of black color */
+        double b = hsb[2];
+        if (b == 0 && brightnessFactor > 1.0) {
+            b = 0.05;
+        }
+
+        /* the tail "+ 360) % 360" solves shifts into negative numbers */
+        final double h = (((hsb[0] + hueShift) % 360) + 360) % 360;
+        final double s = Math.max(Math.min(hsb[1] * saturationFactor, 1.0), 0.0);
+        b = Math.max(Math.min(b * brightnessFactor, 1.0), 0.0);
+        final double a = Math.max(Math.min(alpha * opacityFactor, 1.0), 0.0);
+        return hsb(h, s, b, a);
+    }
+
+    public static Color hsb(
+            final double hue,
+            final double saturation,
+            final double brightness,
+            final double opacity) {
+        final double[] rgb = Colors.HSBtoRGB(hue, saturation, brightness);
+        return new Color(rgb[0], rgb[1], rgb[2], opacity);
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (obj == this) return true;
+        if (obj == this) {
+            return true;
+        }
         if (obj instanceof Color) {
-            Color other = (Color) obj;
+            final Color other = (Color) obj;
             return red == other.red
                     && green == other.green
                     && blue == other.blue
                     && alpha == other.alpha;
-        } else return false;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public int hashCode() {
-        int r = (int)Math.round(red * 255.0);
-        int g = (int)Math.round(green * 255.0);
-        int b = (int)Math.round(blue * 255.0);
-        int a = (int)Math.round(alpha * 255.0);
+        final int r = (int)Math.round(red * RANGE_FACTOR);
+        final int g = (int)Math.round(green * RANGE_FACTOR);
+        final int b = (int)Math.round(blue * RANGE_FACTOR);
+        final int a = (int)Math.round(alpha * RANGE_FACTOR);
         return to32BitInteger(r, g, b, a);
     }
 
-    private static int to32BitInteger(int red, int green, int blue, int alpha) {
+    private static int to32BitInteger(
+            final int red,
+            final int green,
+            final int blue,
+            final int alpha) {
         int i = red;
         i = i << 8;
         i = i | green;
@@ -115,14 +142,14 @@ public class Color {
 
     @Override
     public String toString() {
-        int r = (int)Math.round(red * 255.0);
-        int g = (int)Math.round(green * 255.0);
-        int b = (int)Math.round(blue * 255.0);
-        int o = (int)Math.round(alpha * 255.0);
+        final int r = (int)Math.round(red * RANGE_FACTOR);
+        final int g = (int)Math.round(green * RANGE_FACTOR);
+        final int b = (int)Math.round(blue * RANGE_FACTOR);
+        final int o = (int)Math.round(alpha * RANGE_FACTOR);
         return String.format("0x%02x%02x%02x%02x" , r, g, b, o);
     }
 
-    private static double clamp(double v) {
+    private static double clamp(final double v) {
         return Math.max(0f, Math.min(1f, v));
     }
 }

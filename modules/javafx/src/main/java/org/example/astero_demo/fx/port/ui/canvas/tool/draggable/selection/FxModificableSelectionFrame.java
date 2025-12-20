@@ -28,8 +28,6 @@ public class FxModificableSelectionFrame extends ModificableSelectionFrame<FxPai
             final CanvasAdapter adapter,
             final int layer,
             final ContactAlignment alignment) {
-        return new FxContactPoint(this, adapter, layer,
-                new Color(fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue(), fillColor.getAlpha()),
-                alignment);
+        return new FxContactPoint(this, adapter, layer, fillColor, alignment);
     }
 }

@@ -13,7 +13,11 @@ public class FxPainter implements GraphicsPainter {
 
     @Override
     public void setFill(final Color color) {
-        gc.setFill(new javafx.scene.paint.Color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()));
+        gc.setFill(javafx.scene.paint.Color.color(
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue(),
+                color.getAlpha()));
     }
 
     @Override
@@ -38,7 +42,7 @@ public class FxPainter implements GraphicsPainter {
 
     @Override
     public void setStroke(final Color color) {
-        gc.setStroke(new javafx.scene.paint.Color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()));
+        gc.setStroke(javafx.scene.paint.Color.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()));
     }
 
     @Override

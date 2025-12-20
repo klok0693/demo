@@ -1,9 +1,7 @@
 package org.example.astero_demo.fx.port.ui.canvas.shape;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import org.example.astero_demo.api.graphics.color.Color;
 import org.example.astero_demo.core.port.ui.canvas.shape.RectangleElement;
-import org.example.astero_demo.core.port.ui.canvas.shape.ShapeElement;
 import org.example.astero_demo.fx.port.ui.canvas.FxCanvasElement;
 import org.example.astero_demo.fx.port.ui.graphics.FxPainter;
 
@@ -28,11 +26,7 @@ public class FxRectangleElement extends RectangleElement<FxPainter> implements F
             final double width,
             final double height,
             final Color fillColor) {
-        super(layer, modelRelatedId, x, y, width, height,
-                org.example.astero_demo.api.graphics.color.Color.rgb(
-                        fillColor.getRed(),
-                        fillColor.getGreen(),
-                        fillColor.getBlue()));
+        super(layer, modelRelatedId, x, y, width, height, fillColor);
     }
 
     @Override

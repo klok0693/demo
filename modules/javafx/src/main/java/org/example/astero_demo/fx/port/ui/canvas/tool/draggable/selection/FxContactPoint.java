@@ -1,8 +1,6 @@
 package org.example.astero_demo.fx.port.ui.canvas.tool.draggable.selection;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import org.example.astero_demo.api.graphics.color.Colors;
+import org.example.astero_demo.api.graphics.color.Color;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.SelectionFrame;
 import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment;
@@ -26,12 +24,7 @@ public class FxContactPoint extends ContactPoint<FxPainter> implements FxCanvasE
             final int layer,
             final Color fillColor,
             final ContactAlignment alignment) {
-        super(selectionTool, adapter, layer, alignment,
-                org.example.astero_demo.api.graphics.color.Color.rgb(
-                        fillColor.getRed(),
-                        fillColor.getGreen(),
-                        fillColor.getBlue()
-                ));
+        super(selectionTool, adapter, layer, alignment, fillColor);
     }
 
     @Override
