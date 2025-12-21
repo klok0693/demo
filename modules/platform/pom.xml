@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.example</groupId>
+        <artifactId>astero_demo</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>platform</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>javafx</module>
+        <module>swing</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.0</junit.version>
+    </properties>
+
+    <dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+            <!--<classifier>tests</classifier>-->
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>realization</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <jpackage.installer>exe</jpackage.installer>
+                <headless.args></headless.args>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <jpackage.installer>deb</jpackage.installer>
+                <headless.args></headless.args>
+            </properties>
+        </profile>
+        <profile>
+            <id>skipTests</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+                <headless.args></headless.args>
+            </properties>
+        </profile>
+        <profile>
+            <id>headlessTests</id>
+            <properties>
+                <!--suppress UnresolvedMavenProperty -->
+                <headless.args>
+                    ${platform.headless.args}
+                </headless.args>
+            </properties>
+        </profile>
+        <profile>
+            <id>guiTests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <headless.args></headless.args>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.5.4</version>
+                    <configuration>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <argLine>
+                            ${platform.args}
+                            ${headless.args}
+                        </argLine>
+                        <useModulePath>false</useModulePath>
+                        <includes>
+                            <include>**/launchers/**/*.java</include>
+                        </includes>
+                        <forkCount>1</forkCount>
+                        <reuseForks>false</reuseForks>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <!--Important: need for functional tests-->
+                    <configuration>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <argLine>
+                            ${platform.args}
+                        </argLine>
+                        <useModulePath>false</useModulePath>
+                    </configuration>
+                </plugin>
+                <!-- By default, maven doesn't package tests in a jar, so, if tests from
+                one module depend on tests from other module, need to do some workarounds.
+                Our javafx tests is just a realization of functional tests from 'core'
+                module, so, after core module's tests are packed into test-jar, we need to
+                add this test-jar as a test-source to tests, that exist in this module. -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.1.2</version>
+                    <configuration>
+                        <artifactItems>
+                            <artifactItem>
+                                <groupId>org.example</groupId>
+                                <artifactId>core</artifactId>
+                                <version>1.0-SNAPSHOT</version>
+                                <classifier>tests</classifier>
+                                <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                            </artifactItem>
+                        </artifactItems>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.6.2</version>
+                    <configuration>
+                        <rules>
+                            <requireProperty>
+                                <property>platform.args</property>
+                                <property>platform.headless.args</property>
+                                <property>platform.appName</property>
+                                <property>platform.mainJar</property>
+                                <property>platform.mainClass</property>
+                            </requireProperty>
+                        </rules>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+<!--                    <executions>
+                        &lt;!&ndash; Fat JAR (All Dependencies) &ndash;&gt;
+                        <execution>
+                            <id>thin</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>shade</goal>
+                            </goals>
+                            <configuration>
+                                <shadedArtifactAttached>true</shadedArtifactAttached>
+                                <shadedClassifierName>thin</shadedClassifierName>
+                                <artifactSet>
+                                    <excludes>
+                                        &lt;!&ndash; Exclude all JavaFX artifacts &ndash;&gt;
+                                        <exclude>org.openjfx:*</exclude>
+                                    </excludes>
+                                </artifactSet>
+                                <filters>
+                                    <filter>
+                                        &lt;!&ndash; Security: Remove signature files from dependencies to avoid SecurityException &ndash;&gt;
+                                        <artifact>*:*</artifact>
+                                        <excludes>
+                                            <exclude>META-INF/*.SF</exclude>
+                                            <exclude>META-INF/*.DSA</exclude>
+                                            <exclude>META-INF/*.RSA</exclude>
+                                            <exclude>module-info.class</exclude> &lt;!&ndash; Avoid JPMS conflicts in fat JARs &ndash;&gt;
+                                        </excludes>
+                                    </filter>
+                                </filters>
+                                <transformers>
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                        <mainClass>${platform.mainClass}</mainClass>
+                                    </transformer>
+                                </transformers>
+                            </configuration>
+                        </execution>
+
+                        &lt;!&ndash; Fat JAR (All Dependencies) &ndash;&gt;
+                        <execution>
+                            <id>fat-jar</id>
+                            <phase>verify</phase>
+                            <goals><goal>shade</goal></goals>
+                            <configuration>
+                                <shadedArtifactAttached>true</shadedArtifactAttached>
+                                <shadedClassifierName>fat</shadedClassifierName>
+                                <transformers>
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                        <mainClass>${platform.mainClass}</mainClass>
+                                    </transformer>
+                                </transformers>
+                            </configuration>
+                        </execution>
+                    </executions>-->
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

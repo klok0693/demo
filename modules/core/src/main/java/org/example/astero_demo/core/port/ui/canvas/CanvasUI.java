@@ -1,9 +1,5 @@
 package org.example.astero_demo.core.port.ui.canvas;
 
-import org.example.astero_demo.api.graphics.GraphicsPainter;
-
-import java.util.List;
-
 /**
  * Component of {@link ShapeCanvasView}, used only
  * to a render canvas {@link org.example.astero_demo.api.graphics.Drawable elements}

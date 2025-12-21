@@ -1,6 +1,5 @@
 package org.example.astero_demo.core.port.ui.canvas;
 
-import org.example.astero_demo.api.graphics.GraphicsContext;
 import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
@@ -9,9 +8,6 @@ import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
 import org.example.astero_demo.core.port.ui.canvas.tool.ToolLayer;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Represents a canvas view that displays shapes and provide tools<p>
