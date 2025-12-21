@@ -8,13 +8,11 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.Cont
 import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
-import static org.example.astero_demo.core.port.ui.UIConstants.CONTACT_DIAMETER;
-
 /**
- * JavaFX's realization of {@link ContactPoint}
+ * Swing realization of {@link ContactPoint}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingContactPoint extends ContactPoint<SwingPainter> implements SwingCanvasElement {
 

@@ -6,6 +6,12 @@ import org.example.astero_demo.swing.util.SwingConstants;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * UI part of {@link SwingLayersPanelView}
+ *
+ * @since 1.2
+ * @author Pilip Yurchanka
+ */
 public class SwingLayersPanelUI extends Box implements LayersPanelUI {
 
     public SwingLayersPanelUI(final SwingLayersTree layersTree) {
@@ -19,7 +25,7 @@ public class SwingLayersPanelUI extends Box implements LayersPanelUI {
         setPreferredSize(new Dimension(240, 380));
         setAlignmentY(JComponent.TOP_ALIGNMENT);
 
-        JScrollPane scroll = new JScrollPane(layersTree);
+        final JScrollPane scroll = new JScrollPane(layersTree);
         scroll.setAlignmentX(Component.LEFT_ALIGNMENT);
         scroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, scroll.getPreferredSize().height));
 

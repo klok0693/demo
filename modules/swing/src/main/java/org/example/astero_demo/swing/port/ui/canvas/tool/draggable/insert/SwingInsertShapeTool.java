@@ -6,13 +6,11 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert.InsertS
 import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
-import java.awt.*;
-
 /**
- * JavaFX's realization of {@link InsertShapeTool}
+ * Swing realization of {@link InsertShapeTool}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingInsertShapeTool extends InsertShapeTool<SwingPainter> implements SwingCanvasElement {
 

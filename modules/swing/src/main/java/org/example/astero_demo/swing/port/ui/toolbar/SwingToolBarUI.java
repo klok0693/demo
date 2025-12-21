@@ -8,6 +8,12 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
+/**
+ * UI part of {@link SwingToolBarView}
+ *
+ * @since 1.2
+ * @author Pilip Yurchanka
+ */
 public class SwingToolBarUI extends Box implements ToolBarUI {
     private final JToggleButton insertRectBtn;
     private final JToggleButton insertCycleBtn;

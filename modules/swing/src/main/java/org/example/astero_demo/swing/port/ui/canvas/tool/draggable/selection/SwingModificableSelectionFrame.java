@@ -8,8 +8,13 @@ import org.example.astero_demo.core.port.ui.canvas.tool.draggable.selection.Modi
 import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
-import java.awt.*;
-
+/**
+ * Swing realization of {@link ModificableSelectionFrame}. Necessary, because it<p>
+ * hold a link to {@link SwingPainter}
+ *
+ * @author Pilip Yurchanka
+ * @since v1.2
+ */
 public class SwingModificableSelectionFrame extends ModificableSelectionFrame<SwingPainter>
         implements SwingCanvasElement {
 

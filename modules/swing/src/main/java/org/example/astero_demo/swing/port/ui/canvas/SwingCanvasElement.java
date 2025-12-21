@@ -10,7 +10,8 @@ import java.awt.*;
  * Swing realization of {@link CanvasElement}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
+@FunctionalInterface
 public interface SwingCanvasElement extends Drawable<SwingPainter> {
 }

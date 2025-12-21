@@ -11,6 +11,12 @@ import org.example.astero_demo.realization.level.async.RunnableWrapper;
 import org.example.astero_demo.realization.level.async.NonBlockingForegroundExecutor;
 import org.example.astero_demo.swing.initialization.multithreading.clipboard.SwingOSClipboardAsyncWrapper;
 
+/**
+ * DI config for async proxy
+ *
+ * @since 1.2
+ * @author Pilip Yurchanka
+ */
 class SwingAsynchModule extends AbstractModule {
 
     @Override

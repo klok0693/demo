@@ -1,5 +1,9 @@
 package org.example.astero_demo;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import lombok.extern.slf4j.Slf4j;
@@ -16,24 +20,67 @@ import java.awt.event.KeyEvent;
 import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_MARKER;
 
 /**
- * Config, initialize and launch the application
+ * Config, initialize and show Swing UI
+ *
+ * @since 1.2
+ * @author Pilip Yurchanka
  */
 @Slf4j
 public class SwingHelloApplication {
+    /**
+     * Used 'protected' modificator to let test classes<p>
+     * inherit and get access to application's component<p>
+     * for tests
+     */
     protected Injector injector;
 
-    public static void createAndShowGUI() {
+    public void createAndShowGUI() {
+        setupPLAF();
+        initInjector();
+        final SwingRootUI rootUI = builtRoot();
+        final JFrame frame = builtJFrame(rootUI);
+        addKeyHandler(frame);
+
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private void setupPLAF() {
+        FlatLightLaf.setup();
+        //FlatDarkLaf.setup();
+        //FlatIntelliJLaf.setup();
+        //FlatDarculaLaf.setup();
+
+        /*UIManager.setLookAndFeel(
+                UIManager.createLookAndFeel("Metal")
+                //.createLookAndFeel("FlatLaf Light")
+                //.createLookAndFeel("Nimbus")
+                // .getSystemLookAndFeelClassName()
+        );*/
+    }
+
+    private void initInjector() {
         log.debug(INITIALIZATION_MARKER, "Init DI container");
-        final Injector injector = Guice.createInjector(new CoreModule(), new SwingModule());
+        this.injector = Guice.createInjector(new CoreModule(), new SwingModule());
+    }
 
-        log.debug(INITIALIZATION_MARKER, "Built root fxml");
+    private SwingRootUI builtRoot() {
+        return injector.getInstance(SwingRootUI.class);
+    }
 
+    private JFrame builtJFrame(final SwingRootUI rootUI) {
+        log.debug(INITIALIZATION_MARKER, "Built root component");
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1200, 750));
         //frame.setLocationRelativeTo(null);
 
-        frame.getContentPane().add(injector.getInstance(SwingRootUI.class));
+        frame.getContentPane().add(rootUI);
+        SwingUtilities.updateComponentTreeUI(frame);
+        return frame;
+    }
+
+    private void addKeyHandler(final JFrame frame) {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(e -> {
             if (e.getID() == KeyEvent.KEY_PRESSED) {
                 injector.getInstance(SwingRootShortcutHandler.class).keyTyped(e);
@@ -42,11 +89,5 @@ public class SwingHelloApplication {
         });
         frame.setFocusable(true);
         frame.requestFocusInWindow();
-
-        SwingUtilities.updateComponentTreeUI(frame);
-        frame.pack();
-        frame.setVisible(true);
     }
-
-
 }

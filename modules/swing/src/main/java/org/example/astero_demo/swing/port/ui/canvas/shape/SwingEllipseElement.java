@@ -6,10 +6,10 @@ import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 /**
- * JavaFX's realization of {@link EllipseElement}
+ * Swing realization of {@link EllipseElement}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingEllipseElement extends EllipseElement<SwingPainter> implements SwingCanvasElement {
 

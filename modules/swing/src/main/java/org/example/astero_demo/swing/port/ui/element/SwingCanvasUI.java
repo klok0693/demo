@@ -1,6 +1,5 @@
 package org.example.astero_demo.swing.port.ui.element;
 
-import lombok.Setter;
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.core.port.ui.canvas.CanvasUI;
 import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLayer;
@@ -11,15 +10,14 @@ import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
- * Main(and the only=) canvas
+ * Swing realization of {@link CanvasUI}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
-public class SwingCanvasUI extends JComponent/*Canvas*/ implements CanvasUI {
+public class SwingCanvasUI extends JComponent implements CanvasUI {
     protected final List<CanvasLayer<SwingPainter, ?>> layers;
 
     public SwingCanvasUI(

@@ -6,10 +6,9 @@ import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.layerspanel.LayersAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
-import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
-import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.core.port.ui.canvas.CanvasUI;
+import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.core.port.ui.elements.LayersTree;
 import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLayer;
 import org.example.astero_demo.swing.port.ui.canvas.shape.SwingShapeLayer;
@@ -19,7 +18,6 @@ import org.example.astero_demo.swing.port.ui.layers.LayersPanelUI;
 import org.example.astero_demo.swing.port.ui.layers.SwingLayersPanelUI;
 import org.example.astero_demo.swing.port.ui.properties.PropertiesPanelUI;
 import org.example.astero_demo.swing.port.ui.properties.SwingPropertiesPanelUI;
-import org.example.astero_demo.swing.port.ui.properties.SwingPropertiesPanelView;
 import org.example.astero_demo.swing.port.ui.root.RootUI;
 import org.example.astero_demo.swing.port.ui.root.SwingRootUI;
 import org.example.astero_demo.swing.port.ui.element.SwingLayersTree;
@@ -30,7 +28,7 @@ import org.example.astero_demo.swing.port.ui.toolbar.ToolBarUI;
  * DI config for UI elements
  *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 class SwingUIElementModule extends AbstractModule {
 
@@ -40,10 +38,10 @@ class SwingUIElementModule extends AbstractModule {
         bind(RootUI.class).to(SwingRootUI.class).in(Scopes.SINGLETON);
         bind(PropertiesPanelUI.class).to(SwingPropertiesPanelUI.class).in(Scopes.SINGLETON);
         bind(LayersPanelUI.class).to(SwingLayersPanelUI.class).in(Scopes.SINGLETON);
-
         bind(CanvasUI.class).to(SwingCanvasUI.class);
 
         bind(LayersTree.class).to(SwingLayersTree.class).in(Scopes.SINGLETON);
+        bind(BackgroundLayer.class).to(SwingBackgroundLayer.class).in(Scopes.SINGLETON);
     }
 
     @Inject
@@ -78,14 +76,6 @@ class SwingUIElementModule extends AbstractModule {
     public SwingLayersPanelUI provideLayersPanelUI(final SwingLayersTree layersTree) {
         return new SwingLayersPanelUI(layersTree);
     }
-
-
-/*    @Inject
-    @Provides
-    @Singleton
-    public LayersTreeBuilder provideLayersTreeBuilder(final SwingLayersTree layersTree) {
-        return new LayersTreeBuilder(layersTree);
-    }*/
 
     @Inject
     @Provides

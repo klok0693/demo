@@ -12,10 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * JavaFX's realization of {@link ShapeSelectionTool}
+ * Swing realization of {@link ShapeSelectionTool}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingShapeSelectionTool extends ShapeSelectionTool<SwingPainter> implements SwingCanvasElement {
 

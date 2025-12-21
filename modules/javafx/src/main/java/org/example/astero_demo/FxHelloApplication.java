@@ -4,12 +4,12 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.core.port.keyboard.RootShortcutHandler;
 import org.example.astero_demo.fx.initialization.di.FxModule;
 import org.example.astero_demo.fx.port.keyboard.FxRootShortcutHandler;
 import org.example.astero_demo.realization.initialization.di.module.*;
@@ -27,9 +27,22 @@ public class FxHelloApplication extends Application {
 
     @Override
     public void start(final Stage stage) throws IOException {
+        createInjector();
+        final Parent parent = builtRoot();
+        final Scene scene = buildScene(parent);
+        setKeyHandler(scene);
+
+        stage.setTitle("FX Demo");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void createInjector() {
         log.debug(INITIALIZATION_MARKER, "Init DI container");
         this.injector = Guice.createInjector(new CoreModule(), new FxModule());
+    }
 
+    private Parent builtRoot() throws IOException {
         final Callback<Class<?>, Object> controllerFactory = injector.getInstance(Callback.class);
         final BuilderFactory nodeFactory = injector.getInstance(BuilderFactory.class);
 
@@ -37,11 +50,14 @@ public class FxHelloApplication extends Application {
         final FXMLLoader fxmlLoader = new FXMLLoader(FxHelloApplication.class.getResource("fxml/root.fxml"));
         fxmlLoader.setControllerFactory(controllerFactory);
         fxmlLoader.setBuilderFactory(nodeFactory);
+        return fxmlLoader.load();
+    }
 
-        final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
+    private Scene buildScene(final Parent parent) {
+        return new Scene(parent, 1200, 720);
+    }
+
+    private void setKeyHandler(final Scene scene) {
         scene.setOnKeyPressed(injector.getInstance(FxRootShortcutHandler.class));
-        stage.setTitle("FX Demo");
-        stage.setScene(scene);
-        stage.show();
     }
 }

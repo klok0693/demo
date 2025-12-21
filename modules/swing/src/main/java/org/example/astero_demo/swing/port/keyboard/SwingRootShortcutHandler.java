@@ -8,10 +8,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Bind keyboard shortcuts with specific operations and delegate it to the {@link OperationAdapter}.
+ * Swing realization of {@link RootShortcutHandler}.
  *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 public class SwingRootShortcutHandler extends RootShortcutHandler implements KeyListener {
 

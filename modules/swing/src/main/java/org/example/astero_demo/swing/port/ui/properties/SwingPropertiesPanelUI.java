@@ -6,10 +6,15 @@ import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.swing.util.ColorUtils;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.function.BiConsumer;
 
+/**
+ * UI part of {@link SwingPropertiesPanelView}
+ *
+ * @since 1.2
+ * @author Pilip Yurchanka
+ */
 public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
 
     private final JTextField xField;
@@ -121,13 +126,15 @@ public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
         add(propertiesGrid);
         add(Box.createVerticalGlue());
 
+        // Action Listeners
+
         this.xField.addActionListener(e -> panelView.updateX(xField.getText()));
         this.yField.addActionListener(e -> panelView.updateY(yField.getText()));
         this.widthField.addActionListener(e -> panelView.updateWidth(widthField.getText()));
         this.heightField.addActionListener(e -> panelView.updateHeight(heightField.getText()));
         this.layerField.addActionListener(e -> panelView.updateLayer(layerField.getText()));
         colorButton.addActionListener(e -> {
-            Color selectedColor = JColorChooser.showDialog(propertiesGrid, "Choose Color", Color.WHITE);
+            final Color selectedColor = JColorChooser.showDialog(propertiesGrid, "Choose Color", Color.WHITE);
             if (selectedColor != null) {
                 panelView.updateColor(String.valueOf(ColorUtils.convert(selectedColor)));
             }

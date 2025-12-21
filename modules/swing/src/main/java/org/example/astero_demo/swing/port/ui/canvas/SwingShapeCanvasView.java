@@ -21,7 +21,7 @@ import java.util.Optional;
  * Swing realization of {@link ShapeCanvasView}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> {
     private final SwingCanvasUI canvas;
@@ -113,12 +113,12 @@ public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> {
 
     @Override
     protected double getLayoutX() {
-        return canvas.getX();//.getLayoutX();
+        return canvas.getX();
     }
 
     @Override
     protected double getLayoutY() {
-        return canvas.getY();//.getLayoutY();
+        return canvas.getY();
     }
 
     @Override

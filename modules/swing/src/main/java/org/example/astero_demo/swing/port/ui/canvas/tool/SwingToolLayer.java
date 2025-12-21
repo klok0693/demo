@@ -7,14 +7,12 @@ import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.insert.SwingI
 import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.selection.SwingShapeSelectionTool;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
-import java.awt.*;
-
 /**
- * JavaFX's realization of {@link ToolLayer}. Necessary, because it<p>
- * hold a link to {@link GraphicsContext}
+ * Swing realization of {@link ToolLayer}. Necessary, because it<p>
+ * hold a link to {@link SwingPainter}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingToolLayer extends ToolLayer<SwingPainter> {
 

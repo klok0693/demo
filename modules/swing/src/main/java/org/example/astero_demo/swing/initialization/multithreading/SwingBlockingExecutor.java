@@ -6,6 +6,12 @@ import javax.swing.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Swing realization of {@link BlockingForegroundExecutor}
+ *
+ * @since 1.2
+ * @author Pilip Yurchanka
+ */
 public class SwingBlockingExecutor implements BlockingForegroundExecutor {
 
     @Override

@@ -5,7 +5,7 @@ import org.example.astero_demo.realization.level.async.RunnableWrapper;
 import javax.swing.*;
 
 /**
- * Wrap {@link Runnable} into {@link SwingWorker}
+ * Wrapped {@link Runnable} into {@link SwingWorker}
  *
  * @author Pilip Yurchanka
  * @since v1.2

@@ -5,10 +5,8 @@ import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 
-import java.awt.event.KeyEvent;
-
 /**
- * JavaFX's realization of {@link PropertiesPanelView}
+ * Swing realization of {@link PropertiesPanelView}
  *
  * @author Pilip Yurchanka
  * @since v1.1
@@ -38,9 +36,4 @@ public class SwingPropertiesPanelView extends PropertiesPanelView {
     protected void setUpField(final ShapeParam param, final Number value) {
         panelUI.setUpField(param, value);
     }
-
-/*    public void updateColor(final ActionEvent event) {
-        final Color selectedColor = colorField.getValue();
-        updateField(ShapeParam.COLOR, String.valueOf(ColorUtils.convert(selectedColor)));
-    }*/
 }

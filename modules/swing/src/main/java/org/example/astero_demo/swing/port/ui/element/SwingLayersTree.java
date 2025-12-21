@@ -49,9 +49,6 @@ public class SwingLayersTree extends JTree implements LayersTree {
         treeModel = new DefaultTreeModel(root);
         setModel(treeModel);
 
-        // Multi-selection
-        getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
-
         // Mouse handling
         addMouseListener(new MouseAdapter() {
             @Override
@@ -73,6 +70,8 @@ public class SwingLayersTree extends JTree implements LayersTree {
             }
         });
 
+        // Selection
+        getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
         addTreeSelectionListener(e -> repaint());
 
         setCellRenderer(new DefaultTreeCellRenderer() {

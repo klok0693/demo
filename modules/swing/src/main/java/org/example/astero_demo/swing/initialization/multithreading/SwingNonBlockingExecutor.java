@@ -5,12 +5,10 @@ import org.example.astero_demo.realization.level.async.NonBlockingForegroundExec
 import javax.swing.*;
 
 /**
- * Custom executor service, wrapping logic operations into<p>
- * separate non-blocking thread and ui update operations into<p>
- * Swing Application thread.
+ * Swing realization of {@link NonBlockingForegroundExecutor}
  *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 public class SwingNonBlockingExecutor implements NonBlockingForegroundExecutor {
 

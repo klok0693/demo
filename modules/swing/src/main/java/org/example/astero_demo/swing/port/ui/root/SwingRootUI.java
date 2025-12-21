@@ -9,6 +9,12 @@ import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarUI;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * UI part of {@link SwingRootView}
+ *
+ * @since 1.2
+ * @author Pilip Yurchanka
+ */
 public class SwingRootUI extends JPanel implements RootUI {
     private final RootView view;
 
@@ -25,7 +31,6 @@ public class SwingRootUI extends JPanel implements RootUI {
         add(canvas, BorderLayout.CENTER);
         add(toolBarUI, BorderLayout.NORTH);
         add(layersUI, BorderLayout.WEST);
-        //add(new Button("placeholder"), BorderLayout.SOUTH);
         add(propertiesPanelUI, BorderLayout.EAST);
     }
 

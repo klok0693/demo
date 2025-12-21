@@ -14,11 +14,9 @@ import java.awt.*;
  * Swing realization of {@link RootView}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingRootView extends RootView {
-    //private final EventHandler shortcutHandler;
-
     public ToolBarView toolBarRootController;
     public ShapeCanvasView canvasView;
     public PropertiesPanelView propertyRootController;
@@ -27,21 +25,13 @@ public class SwingRootView extends RootView {
     public RootUI root;
 
     public SwingRootView(
-            //final EventHandler shortcutHandler,
             final ShapeCanvasView canvasView,
             final UIState uiState,
             final RootUI root) {
         super(uiState);
         this.canvasView = canvasView;
         this.root = root;
-        //this.shortcutHandler = shortcutHandler;
     }
-
-/*    @Override
-    public void initialize(final URL url, final ResourceBundle resourceBundle) {
-        // TODO: Bind on scene, not root view
-        root.setOnKeyPressed(shortcutHandler::handle);
-    }*/
 
     @Override
     protected void setCursor(final Cursors cursor) {

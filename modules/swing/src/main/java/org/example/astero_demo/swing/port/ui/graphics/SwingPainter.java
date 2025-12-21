@@ -2,9 +2,16 @@ package org.example.astero_demo.swing.port.ui.graphics;
 
 import org.example.astero_demo.api.graphics.GraphicsPainter;
 import org.example.astero_demo.api.graphics.color.Color;
+import org.example.astero_demo.swing.port.ui.toolbar.SwingToolBarView;
 
 import java.awt.*;
 
+/**
+ * Swing painter, that use {@link Graphics} of canvas
+ *
+ * @since 1.2
+ * @author Pilip Yurchanka
+ */
 public class SwingPainter implements GraphicsPainter {
     private final Graphics2D gc;
 

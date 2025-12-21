@@ -5,10 +5,10 @@ import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 
 /**
- * JavaFX's realization of {@link SwitchableToolBarView}
+ * Swing realization of {@link ToolBarPanelView}
  *
+ * @since 1.2
  * @author Pilip Yurchanka
- * @since v1.1
  */
 public class SwingToolBarView extends ToolBarPanelView {
     private final ToolBarUI ui;

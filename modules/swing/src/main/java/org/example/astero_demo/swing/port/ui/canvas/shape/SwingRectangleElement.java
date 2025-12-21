@@ -6,10 +6,10 @@ import org.example.astero_demo.swing.port.ui.canvas.SwingCanvasElement;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 /**
- * JavaFX's realization of {@link RectangleElement}
+ * Swing realization of {@link RectangleElement}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingRectangleElement extends RectangleElement<SwingPainter> implements SwingCanvasElement {
     //TODO: Someday, sometime

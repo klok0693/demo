@@ -10,10 +10,10 @@ import org.example.astero_demo.core.port.ui.canvas.shape.ShapeLayer;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
 /**
- * JavaFX's realization of {@link ShapeLayer}
+ * Swing realization of {@link ShapeLayer}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingShapeLayer extends ShapeLayer<SwingPainter> {
 

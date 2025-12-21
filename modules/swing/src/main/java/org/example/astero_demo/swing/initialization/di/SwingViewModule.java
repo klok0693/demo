@@ -36,22 +36,15 @@ import org.example.astero_demo.swing.port.ui.toolbar.ToolBarUI;
  * DI config for UI views
  *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 class SwingViewModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        //bind(EventHandler.class).to(SwingRootShortcutHandler.class);
-        //bind(LayersView.class).to(LayersPanelView.class);
-        //bind(PropertiesView.class).to(PropertiesPanelView.class);
-        bind(BackgroundLayer.class).to(SwingBackgroundLayer.class).in(Scopes.SINGLETON);
-
         bind(ShapeCanvasView.class).to(SwingShapeCanvasView.class).in(Scopes.SINGLETON);
         bind(PropertiesPanelView.class).to(SwingPropertiesPanelView.class).in(Scopes.SINGLETON);
         bind(LayersPanelView.class).to(SwingLayersPanelView.class).in(Scopes.SINGLETON);
-
-        bind(RootShortcutHandler.class).to(SwingRootShortcutHandler.class).in(Scopes.SINGLETON);
     }
 
     @Inject
