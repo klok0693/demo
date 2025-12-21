@@ -4,6 +4,7 @@ import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.state.mode.ModeSwitchableView;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
+import org.example.astero_demo.model.entity.ShapeType;
 
 /**
  * Represents a view for the tool bar panel.
@@ -28,8 +29,8 @@ public abstract class ToolBarPanelView implements ToolBarView {
 
     @Override
     public void switchToInsertMode() {
-        setInsertRectBtnSelected(true);
-        setInsertCycleBtnSelected(true);
+        setInsertRectBtnSelected(uiState.getInsertShapeType() != ShapeType.RECT);
+        setInsertCycleBtnSelected(uiState.getInsertShapeType() != ShapeType.ELLIPSE);
         setDeleteBtnDisabled(true);
     }
 

@@ -30,10 +30,6 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
             view.onInsertCycleAction();
         });
 
-        final ButtonGroup insertGroup = new ButtonGroup();
-        insertGroup.add(insertRectBtn);
-        insertGroup.add(insertCycleBtn);
-
         final Box insertBtnBox = Box.createHorizontalBox();
         insertBtnBox.setAlignmentX(JComponent.LEFT_ALIGNMENT);
 
@@ -64,15 +60,18 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
     @Override
     public void setDeleteBtnDisabled(final boolean isDisabled) {
         deleteBtn.setEnabled(!isDisabled);
+        repaint();
     };
 
     @Override
     public void setInsertRectBtnSelected(final boolean setSelected) {
         insertRectBtn.setSelected(setSelected);
+        repaint();
     };
 
     @Override
     public void setInsertCycleBtnSelected(final boolean setSelected) {
         insertCycleBtn.setSelected(setSelected);
+        repaint();
     };
 }
