@@ -3,10 +3,11 @@ and investigation space**. I decided to open it to give reviewers a broader and 
 my technical level across different areas
 
 The project is primarily intended for technical readers rather than as a showcase of end-user 
-functionality. It is not intended to showcase a specific library or predefined technology stack. 
-Instead, it brings together multiple concepts within a *single, cohesive codebase*. Working on 
-one relatively complex project rather than many isolated examples was a deliberate choice, 
-allowing ideas to interact under more realistic constraints. The GitHub version is kept *clean, buildable, and stable*, even though 
+functionality as well as a specific library or predefined technology stack. 
+Instead, it brings together multiple concepts within a *single, cohesive codebase*. It was a deliberate choice, 
+allowing ideas to interact under more realistic constraints of relatively complex project rather than many isolated examples. 
+
+The GitHub version is kept *clean, buildable, and stable*, even though 
 local development may include experiments and refactoring
 
 > ⚠️ Some parts may appear overengineered by design - the focus is learning and validation rather 
