@@ -49,23 +49,9 @@ public abstract class ShapeCanvasView<E extends GraphicsPainter> implements Canv
         this.adapter = adapter;
         this.canvasUI = canvasUI;
 
-/*        layers = new LinkedList<>();
-        layers.add(backgroundLayer);*/
-
         this.shapeLayer = shapeLayer;
-        //layers.add(shapeLayer);
-
         this.toolLayer = toolLayer;
-        //layers.add(toolLayer);
     }
-
-/*    protected void redraw() {
-        layers.stream().sorted().forEach(layer -> layer.draw(getGraphicsPainter()));
-    }
-
-    protected void redraw(final E graphics) {
-        layers.stream().sorted().forEach(layer -> layer.draw(graphics));
-    }*/
 
     @Override
     public void update() {

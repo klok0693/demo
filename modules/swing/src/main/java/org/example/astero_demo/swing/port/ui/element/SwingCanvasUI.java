@@ -20,9 +20,6 @@ import java.util.function.Consumer;
  * @since v1.1
  */
 public class SwingCanvasUI extends JComponent/*Canvas*/ implements CanvasUI {
-    @Setter
-    private Consumer<Graphics> drawindConsumer;
-
     protected final List<CanvasLayer<SwingPainter, ?>> layers;
 
     public SwingCanvasUI(
@@ -34,22 +31,12 @@ public class SwingCanvasUI extends JComponent/*Canvas*/ implements CanvasUI {
         setBackground(Color.CYAN);
     }
 
-    private double[] mock = new double[] {0.0, 0.0};
-
-    public void mock(double x, double y) {
-        mock[0] = x;
-        mock[1] = y;
-    }
-
     @Override
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
-/*        g.setColor(Color.BLACK);
-        g.fillRect((int) mock[0], (int) mock[1], 30, 30);*/
-        if (drawindConsumer != null) {
-            drawindConsumer.accept(g);
-        }
         layers.stream().sorted().forEach(layer -> layer.draw(new SwingPainter(g)));
+
+        // Some canvas tools require fast canvas update
         Toolkit.getDefaultToolkit().sync();
     }
 

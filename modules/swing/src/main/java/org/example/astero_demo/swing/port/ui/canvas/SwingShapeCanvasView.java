@@ -1,5 +1,7 @@
 package org.example.astero_demo.swing.port.ui.canvas;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.context.state.ModelState;
@@ -14,12 +16,12 @@ import java.awt.event.*;
 import java.util.Optional;
 
 /**
- * JavaFX's realization of {@link ShapeCanvasView}
+ * Swing realization of {@link ShapeCanvasView}
  *
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implements Initializable*/ {
+public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> {
     private final SwingCanvasUI canvas;
 
     public SwingShapeCanvasView(
@@ -33,59 +35,41 @@ public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> /*implem
         super(uiState, modelState, adapter, backgroundLayer, shapeLayer, toolLayer, canvasUI);
 
         this.canvas = canvasUI;
-
-        //canvas.setDrawindConsumer(gc -> redraw(new SwingPainter(gc)));
         canvas.repaint();
 
-        canvas.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                //allowUpdate = false;
-                handleMouseDragged(e);
-                //allowUpdate = true;
-                canvas.repaint();
-/*                canvas.mock(e.getX(), e.getY());
-                canvas.repaint();*/
-                //canvas.paintImmediately(canvas.getBounds());
-            }
+        @Getter @Setter
+        class DragSwitch {
+            private boolean isDragStarted;
+        }
+        final DragSwitch dragSwitch = new DragSwitch();
+
+        canvas.addMouseMotionListener(new MouseMotionAdapter() {
 
             @Override
-            public void mouseMoved(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    handleDragDetected(e.getX(), e.getY());
+            public void mouseDragged(final MouseEvent e) {
+                if (!dragSwitch.isDragStarted()) {
+                    handleDragDetected(e);
+                    dragSwitch.setDragStarted(true);
                 }
+                handleMouseDragged(e);
+                canvas.repaint();
             }
         });
         canvas.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mousePressed(final MouseEvent e) {
-                //allowUpdate = false;
                 handleMousePressed(e);
+                dragSwitch.setDragStarted(false);
             }
 
             @Override
             public void mouseReleased(final MouseEvent e) {
                 handleMouseReleased(e);
-                //allowUpdate = true;
+                dragSwitch.setDragStarted(false);
             }
         });
     }
-
-/*    private boolean allowUpdate = true;*/
-
-/*
-    @Override
-    protected void redraw() {
-        if (allowUpdate)
-        super.redraw();
-    }
-
-    @Override
-    protected void redraw(SwingPainter graphics) {
-        if (allowUpdate)
-        super.redraw(graphics);
-    }
-*/
 
     public void handleMousePressed(final MouseEvent event) {
         canvas.requestFocus();
