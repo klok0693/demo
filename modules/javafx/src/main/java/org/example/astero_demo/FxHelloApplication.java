@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import javafx.util.Callback;
 import lombok.extern.slf4j.Slf4j;
+import org.example.astero_demo.core.port.keyboard.RootShortcutHandler;
 import org.example.astero_demo.fx.initialization.di.FxModule;
+import org.example.astero_demo.fx.port.keyboard.FxRootShortcutHandler;
 import org.example.astero_demo.realization.initialization.di.module.*;
 
 import java.io.IOException;
@@ -37,7 +39,8 @@ public class FxHelloApplication extends Application {
         fxmlLoader.setBuilderFactory(nodeFactory);
 
         final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
-        stage.setTitle("demo");
+        scene.setOnKeyPressed(injector.getInstance(FxRootShortcutHandler.class));
+        stage.setTitle("FX Demo");
         stage.setScene(scene);
         stage.show();
     }

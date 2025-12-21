@@ -9,7 +9,7 @@ import org.example.astero_demo.swing.port.os.SwingClipboard;
 import org.example.astero_demo.realization.level.async.BlockingForegroundExecutor;
 import org.example.astero_demo.realization.level.async.RunnableWrapper;
 import org.example.astero_demo.realization.level.async.NonBlockingForegroundExecutor;
-import org.example.astero_demo.swing.initialization.multithreading.clipboard.OSClipboardAsyncWrapper;
+import org.example.astero_demo.swing.initialization.multithreading.clipboard.SwingOSClipboardAsyncWrapper;
 
 class SwingAsynchModule extends AbstractModule {
 
@@ -19,14 +19,14 @@ class SwingAsynchModule extends AbstractModule {
         bind(NonBlockingForegroundExecutor.class).to(SwingNonBlockingExecutor.class).in(Scopes.SINGLETON);
         bind(BlockingForegroundExecutor.class).to(SwingBlockingExecutor.class).in(Scopes.SINGLETON);
 
-        bind(OSClipboard.class).to(OSClipboardAsyncWrapper.class).in(Scopes.SINGLETON);
+        bind(OSClipboard.class).to(SwingOSClipboardAsyncWrapper.class).in(Scopes.SINGLETON);
     }
 
     @Inject
     @Provides
     @Singleton
-    public OSClipboardAsyncWrapper provideOSClipboardAsyncWrapper(
+    public SwingOSClipboardAsyncWrapper provideOSClipboardAsyncWrapper(
             final SwingClipboard wrappedElement, final BlockingForegroundExecutor executor) {
-        return new OSClipboardAsyncWrapper(wrappedElement, executor);
+        return new SwingOSClipboardAsyncWrapper(wrappedElement, executor);
     }
 }

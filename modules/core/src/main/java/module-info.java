@@ -28,6 +28,7 @@ open module core {
     exports org.example.astero_demo.core.port.ui.canvas.tool;
     exports org.example.astero_demo.core.port.ui.canvas.tool.draggable.drag;
     exports org.example.astero_demo.core.port.ui.canvas.tool.draggable.insert;
+    exports org.example.astero_demo.core.port.keyboard;
     exports org.example.astero_demo.core.controller.ui;
     exports org.example.astero_demo.core.logic.command;
     exports org.example.astero_demo.core.controller.model;

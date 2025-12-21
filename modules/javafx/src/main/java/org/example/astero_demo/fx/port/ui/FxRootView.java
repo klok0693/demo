@@ -21,8 +21,7 @@ import java.util.ResourceBundle;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxRootView extends RootView implements Initializable {
-    private final EventHandler shortcutHandler;
+public class FxRootView extends RootView {
 
     public ToolBarView toolBarRootController;
     public ShapeCanvasView canvasRootController;
@@ -30,17 +29,8 @@ public class FxRootView extends RootView implements Initializable {
     public LayersPanelView layersRootController;
     public BorderPane root;
 
-    public FxRootView(
-            final EventHandler shortcutHandler,
-            final UIState uiState) {
+    public FxRootView(final UIState uiState) {
         super(uiState);
-        this.shortcutHandler = shortcutHandler;
-    }
-
-    @Override
-    public void initialize(final URL url, final ResourceBundle resourceBundle) {
-        // TODO: Bind on scene, not root view
-        root.setOnKeyPressed(shortcutHandler::handle);
     }
 
     @Override

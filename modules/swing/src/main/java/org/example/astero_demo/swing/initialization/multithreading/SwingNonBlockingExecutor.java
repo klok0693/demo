@@ -7,7 +7,7 @@ import javax.swing.*;
 /**
  * Custom executor service, wrapping logic operations into<p>
  * separate non-blocking thread and ui update operations into<p>
- * JavaFX Application thread.
+ * Swing Application thread.
  *
  * @author Pilip Yurchanka
  * @since v1.0

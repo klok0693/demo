@@ -5,11 +5,13 @@ import com.google.inject.Injector;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.realization.initialization.di.module.CoreModule;
 import org.example.astero_demo.swing.initialization.di.SwingModule;
+import org.example.astero_demo.swing.port.keyboard.SwingRootShortcutHandler;
 import org.example.astero_demo.swing.port.ui.root.SwingRootUI;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_MARKER;
 
@@ -24,18 +26,7 @@ public class SwingHelloApplication {
         log.debug(INITIALIZATION_MARKER, "Init DI container");
         final Injector injector = Guice.createInjector(new CoreModule(), new SwingModule());
 
-/*        final Callback<Class<?>, Object> controllerFactory = injector.getInstance(Callback.class);
-        final BuilderFactory nodeFactory = injector.getInstance(BuilderFactory.class);*/
-
-        log.debug(INITIALIZATION_MARKER, "Load root fxml");
-/*        final FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("fxml/root.fxml"));
-        fxmlLoader.setControllerFactory(controllerFactory);
-        fxmlLoader.setBuilderFactory(nodeFactory);
-
-        final Scene scene = new Scene(fxmlLoader.load(), 1200, 720);
-        stage.setTitle("demo");
-        stage.setScene(scene);
-        stage.show();*/
+        log.debug(INITIALIZATION_MARKER, "Built root fxml");
 
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,8 +34,16 @@ public class SwingHelloApplication {
         //frame.setLocationRelativeTo(null);
 
         frame.getContentPane().add(injector.getInstance(SwingRootUI.class));
-        SwingUtilities.updateComponentTreeUI(frame);
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(e -> {
+            if (e.getID() == KeyEvent.KEY_PRESSED) {
+                injector.getInstance(SwingRootShortcutHandler.class).keyTyped(e);
+            }
+            return false;
+        });
+        frame.setFocusable(true);
+        frame.requestFocusInWindow();
 
+        SwingUtilities.updateComponentTreeUI(frame);
         frame.pack();
         frame.setVisible(true);
     }

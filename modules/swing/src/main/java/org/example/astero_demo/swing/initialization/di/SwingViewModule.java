@@ -2,13 +2,12 @@ package org.example.astero_demo.swing.initialization.di;
 
 import com.google.inject.*;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
-import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesAdapter;
-import org.example.astero_demo.core.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
+import org.example.astero_demo.core.port.keyboard.RootShortcutHandler;
 import org.example.astero_demo.core.port.ui.LayersPanelView;
 import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
@@ -16,7 +15,6 @@ import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
 import org.example.astero_demo.core.port.ui.elements.LayersTree;
-import org.example.astero_demo.swing.port.ui.element.SwingLayersTree;
 import org.example.astero_demo.swing.port.ui.layers.SwingLayersPanelView;
 import org.example.astero_demo.swing.port.ui.properties.PropertiesPanelUI;
 import org.example.astero_demo.swing.port.ui.properties.SwingPropertiesPanelView;
@@ -31,7 +29,7 @@ import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.selection.Swi
 import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
 import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.drag.SwingDragShapeTool;
 import org.example.astero_demo.swing.port.ui.canvas.tool.draggable.insert.SwingInsertShapeTool;
-import org.example.astero_demo.swing.port.ui.keyboard.SwingRootShortcutHandler;
+import org.example.astero_demo.swing.port.keyboard.SwingRootShortcutHandler;
 import org.example.astero_demo.swing.port.ui.toolbar.ToolBarUI;
 
 /**
@@ -52,6 +50,8 @@ class SwingViewModule extends AbstractModule {
         bind(ShapeCanvasView.class).to(SwingShapeCanvasView.class).in(Scopes.SINGLETON);
         bind(PropertiesPanelView.class).to(SwingPropertiesPanelView.class).in(Scopes.SINGLETON);
         bind(LayersPanelView.class).to(SwingLayersPanelView.class).in(Scopes.SINGLETON);
+
+        bind(RootShortcutHandler.class).to(SwingRootShortcutHandler.class).in(Scopes.SINGLETON);
     }
 
     @Inject

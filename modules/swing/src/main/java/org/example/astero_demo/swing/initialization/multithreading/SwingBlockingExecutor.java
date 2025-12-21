@@ -10,10 +10,6 @@ public class SwingBlockingExecutor implements BlockingForegroundExecutor {
 
     @Override
     public <T> T execute(final Callable<T> supplier) {
-/*        if (Platform.isFxApplicationThread()) {
-            return supplier.get();
-        }*/
-
         final CompletableFuture<T> future = new CompletableFuture<>();
         // not invokeAndWait()!
         SwingUtilities.invokeLater(() -> {
@@ -23,7 +19,6 @@ public class SwingBlockingExecutor implements BlockingForegroundExecutor {
                 future.completeExceptionally(t);
             }
         });
-
         return future.join();
     }
 

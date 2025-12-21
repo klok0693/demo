@@ -12,6 +12,8 @@ import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvasUI;
 import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.Optional;
 
@@ -99,12 +101,14 @@ public class SwingShapeCanvasView extends ShapeCanvasView<SwingPainter> {
 
     @Override
     public Optional<double[]> getLocalCursorPosition() {
-        return Optional.empty();
-/*        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
-        final Point2D localPosition = canvas.screenToLocal(cursorPosition.getX(), cursorPosition.getY());
-        final double x = localPosition.getX();
-        final double y = localPosition.getY();
-        return canvas.contains(x, y) ? Optional.of(new double[] {x, y}) : Optional.empty();*/
+        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
+        final Point localPoint = new Point(cursorPosition);
+
+        SwingUtilities.convertPointFromScreen(localPoint, canvas);
+
+        return canvas.contains(localPoint)
+                ? Optional.of(new double[] {localPoint.getX(), localPoint.getY()})
+                : Optional.empty();
     }
 
     @Override

@@ -5,4 +5,6 @@ open module api {
 
     exports org.example.astero_demo.api.graphics;
     exports org.example.astero_demo.api.graphics.color;
+
+    exports org.example.astero_demo.api.keyboard;
 }

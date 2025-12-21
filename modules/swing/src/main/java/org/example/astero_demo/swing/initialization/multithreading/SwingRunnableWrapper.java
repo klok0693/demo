@@ -5,10 +5,10 @@ import org.example.astero_demo.realization.level.async.RunnableWrapper;
 import javax.swing.*;
 
 /**
- * Wrap {@link Runnable} into {@link Task}
+ * Wrap {@link Runnable} into {@link SwingWorker}
  *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 public class SwingRunnableWrapper implements RunnableWrapper {
     @Override

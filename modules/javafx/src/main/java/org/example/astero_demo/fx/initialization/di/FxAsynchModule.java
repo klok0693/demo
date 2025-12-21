@@ -9,7 +9,7 @@ import org.example.astero_demo.fx.port.os.FxClipboard;
 import org.example.astero_demo.realization.level.async.BlockingForegroundExecutor;
 import org.example.astero_demo.realization.level.async.RunnableWrapper;
 import org.example.astero_demo.realization.level.async.NonBlockingForegroundExecutor;
-import org.example.astero_demo.fx.initialization.multithreading.clipboard.OSClipboardAsyncWrapper;
+import org.example.astero_demo.fx.initialization.multithreading.clipboard.FxOSClipboardAsyncWrapper;
 
 class FxAsynchModule extends AbstractModule {
 
@@ -19,14 +19,14 @@ class FxAsynchModule extends AbstractModule {
         bind(NonBlockingForegroundExecutor.class).to(FxNonBlockingExecutor.class).in(Scopes.SINGLETON);
         bind(BlockingForegroundExecutor.class).to(FxBlockingExecutor.class).in(Scopes.SINGLETON);
 
-        bind(OSClipboard.class).to(OSClipboardAsyncWrapper.class).in(Scopes.SINGLETON);
+        bind(OSClipboard.class).to(FxOSClipboardAsyncWrapper.class).in(Scopes.SINGLETON);
     }
 
     @Inject
     @Provides
     @Singleton
-    public OSClipboardAsyncWrapper provideOSClipboardAsyncWrapper(
+    public FxOSClipboardAsyncWrapper provideOSClipboardAsyncWrapper(
             final FxClipboard wrappedElement, final BlockingForegroundExecutor executor) {
-        return new OSClipboardAsyncWrapper(wrappedElement, executor);
+        return new FxOSClipboardAsyncWrapper(wrappedElement, executor);
     }
 }

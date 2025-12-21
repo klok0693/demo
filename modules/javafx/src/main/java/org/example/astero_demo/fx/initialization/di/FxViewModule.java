@@ -3,13 +3,12 @@ package org.example.astero_demo.fx.initialization.di;
 import com.google.inject.*;
 import javafx.event.EventHandler;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;
-import org.example.astero_demo.core.adapter.ui.layerspanel.LayersView;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesAdapter;
-import org.example.astero_demo.core.adapter.ui.property.PropertiesView;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarAdapter;
+import org.example.astero_demo.core.port.keyboard.RootShortcutHandler;
 import org.example.astero_demo.core.port.ui.LayersPanelView;
 import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
@@ -29,7 +28,7 @@ import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShape
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;
 import org.example.astero_demo.fx.port.ui.element.FxCanvasUI;
 import org.example.astero_demo.fx.port.ui.element.FxLayersTree;
-import org.example.astero_demo.fx.port.ui.keyboard.FxRootShortcutHandler;
+import org.example.astero_demo.fx.port.keyboard.FxRootShortcutHandler;
 import org.example.astero_demo.fx.initialization.ui.builder.CanvasBuilder;
 
 /**
@@ -42,10 +41,11 @@ class FxViewModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(EventHandler.class).to(FxRootShortcutHandler.class);
         bind(ShapeCanvasView.class).to(FxShapeCanvasView.class).in(Scopes.SINGLETON);
         bind(BackgroundLayer.class).to(FxBackgroundLayer.class).in(Scopes.SINGLETON);
         bind(LayersPanelView.class).to(FxLayersPanelView.class).in(Scopes.SINGLETON);
+
+        bind(RootShortcutHandler.class).to(FxRootShortcutHandler.class).in(Scopes.SINGLETON);
     }
 
     @Inject
@@ -114,8 +114,8 @@ class FxViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public RootView provideRootView(final EventHandler shortcutHandler, final UIState uiState) {
-        return new FxRootView(shortcutHandler, uiState);
+    public RootView provideRootView(final UIState uiState) {
+        return new FxRootView(uiState);
     }
 
     @Inject
