@@ -1,6 +1,7 @@
 package org.example.astero_demo.fx.port.ui;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
@@ -19,12 +20,19 @@ import org.example.astero_demo.fx.util.ColorUtils;
  * @since v1.1
  */
 public class FxPropertiesPanelView extends PropertiesPanelView {
+    @FXML
     public VBox propertyRoot;
+    @FXML
     public TextField xField;
+    @FXML
     public TextField yField;
+    @FXML
     public TextField widthField;
+    @FXML
     public TextField heightField;
+    @FXML
     public TextField layerField;
+    @FXML
     public ColorPicker colorField;
 
     public FxPropertiesPanelView(

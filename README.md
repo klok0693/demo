@@ -42,11 +42,11 @@ Shapes are selectable, resizable, and draggable. The interface includes
 a property panel, layer's tree with a shape lists, and toolbar.
 
 &emsp;**JavaFX**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;**Java Swing**
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+&emsp;&emsp;&emsp;&emsp;**Java Swing**
 
-<img src="documentation/screenshot_0.png" align="left" width="400" hspace="10"/>
-<img src="documentation/screenshot_2.png" align="left" width="400" hspace="20"/>
+<img src="documentation/screenshot_0.png" align="left" width="370" hspace="10"/>
+<img src="documentation/screenshot_2.png" align="left" width="370" hspace="10"/>
 <br clear="left"/>
 
 ---
@@ -102,8 +102,8 @@ The testing strategy intentionally mixes multiple test types, each targeting a d
 
 To make this repository easier to explore, additional documentation is provided in the `/docs` directory.  
 Each document focuses on a specific aspect of the project, such as:
-- [architectural overview](documentation/architecture_overview.md)
 - [module structure](documentation/module_structure.md)
+- [architectural overview](documentation/architecture_overview.md)
 - [GUI features](documentation/gui_features.md)
 - [testing strategy](documentation/testing_strategy.md)
 - [build and execution](documentation/build_and_execution.md)  

@@ -6,28 +6,29 @@ The goal of this structure is to keep the core logic independent from UI framewo
 ## 📦 Modules Overview
 
 At a high level, the project consists of the following modules:
-- **core** — Application logic and business rules
-- **model** — Domain data structures and pure model logic
-- **realization** — orchestration, asynchronization, DI, etc
-- **util** — Shared utilities and technical helpers
-- **api** - Contracts to unbind application components from 
+- [core](../modules/core/src/main/java/org/example/astero_demo/core) — Application logic and business rules
+- [model](../modules/model/src/main/java/org/example/astero_demo/model/) — Domain data structures and pure model logic
+- [realization](../modules/realization/src/main/java/org/example/astero_demo/realization) — orchestration, asynchronization, DI, etc
+- [util](../modules/util/src/main/java/org/example/astero_demo/util) — Shared utilities and technical helpers
+- [api](../modules/api/src/main/java/org/example/astero_demo/api) - Contracts to unbind application components from 
   specific realizations. Currently only used for graphics platforms.
-- **platform** - aggregator module for GUI platform modules 
-  - **javafx** 
-  - **swing**
+- [platform](../modules/platform) - aggregator module for GUI platform modules 
+  - [javafx](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx) 
+  - [swing](../modules/platform/swing/src/main/java/org/example/astero_demo/swing)
 
 Dependencies generally flow from higher-level policy to lower-level implementation.
 ![Selection](Screenshot(22).png)
 
 ## 🧠 Model Module
 
-The model module contains the domain model of the application.
+The [model](../modules/model/src/main/java/org/example/astero_demo/model) 
+module contains the domain model of the application.
 It contains pure data structures and domain-level logic.
 
 📦 Typical contents:
-- Shape definitions (geometry, properties)
-- DTO and metadata objects
-- Domain invariants and validation
+- [Shape definitions](../modules/model/src/main/java/org/example/astero_demo/model/entity)
+  (geometry, properties)
+- [DTO and metadata](../modules/model/src/main/java/org/example/astero_demo/model/metadata) objects
 
 Model-level operations are independent of UI or execution context.
 
@@ -38,10 +39,13 @@ It is intentionally kept simple, deterministic, and easy to test.
 
 ## ⚙️ Core Module
 
-The core module contains the application logic. This is where:
-- Domain objects are manipulated according to application rules
-- Commands are defined and executed
-- State machines control application modes
+The [core](../modules/core/src/main/java/org/example/astero_demo/core) 
+module contains the application logic. This is where:
+- Domain objects [are manipulated](../modules/core/src/main/java/org/example/astero_demo/core/logic/LogicClipboardProcessor.java) 
+  according to application rules
+- Commands are [defined and executed](../modules/core/src/main/java/org/example/astero_demo/core/logic/command)
+- State machines control application [modes](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/state/mode/UIMode.java)
+- [Unit, intergration and functional tests](../modules/core/src/test/java/org/example/astero_demo) are placed
 
 🎯 Key responsibilities:
 - Coordinating model changes
@@ -59,10 +63,11 @@ From an architectural perspective, this module represents the policy and behavio
 
 ## 🧩 API Module
 
-The api module defines platform-independent UI **contracts** and abstractions used by all graphical implementations.
+The [api](../modules/api/src/main/java/org/example/astero_demo/api) 
+module defines platform-independent UI **contracts** and abstractions used by all graphical implementations.
 
 📦 Typical contents:
-- Rendering and drawing interfaces
+- [Rendering and drawing interfaces](../modules/api/src/main/java/org/example/astero_demo/api/graphics)
 - Input and interaction contracts
 
 🎯 Key responsibilities:
@@ -72,10 +77,10 @@ The api module defines platform-independent UI **contracts** and abstractions us
 
 ## 🧱 Platform Module
 
-The platform module is an **aggregator** for platform-specific UI implementations.
+The [platform](../modules/platform) module is an **aggregator** for platform-specific UI implementations.
 
 📦 Typical contents:
-- Maven aggregation and shared build configuration
+- [Maven aggregation and shared build configuration](../modules/platform/pom.xml)
 - Common build and packaging logic
 
 🔗 Dependencies:
@@ -87,15 +92,17 @@ This module contains no production code and exists purely to structure,
 
 ## 🎨 JavaFX Module
 
-The javafx module contains all JavaFX-specific code and acts as the primary UI layer of the application.
+The [javafx](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx) module contains all JavaFX-specific code and acts as the primary UI layer of the application.
 
 📦 Typical contents:
-- JavaFX controllers
-- FXML files
-- UI builders and factories
-- JavaFX-specific implementation of core ports
-- GUI-related implementations of functional tests
-- Application Main class (launchers are platform-specific)
+- [JavaFX controllers](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx/port/ui)
+- [FXML files](../modules/platform/javafx/src/main/resources/org/example/astero_demo/fxml)
+- [UI builders and factories](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx/initialization/ui)
+- [JavaFX-specific implementation of core ports](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx/port/ui/element/FxLayersTree.java)
+- [GUI-related implementations of functional tests](../modules/platform/javafx/src/test/java/org/example/astero_demo/func)
+- [Custom renderers and painters](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx/port/ui/graphics/FxPainter.java)
+- [Application's launcher](../modules/platform/javafx/src/main/java/org/example/astero_demo/FxHelloApplication.java) 
+  (launchers are platform-specific)
 
 🎯 Key responsibilities:
 - Rendering the application state
@@ -113,20 +120,20 @@ This module is intentionally isolated so that UI concerns do not leak into the c
 
 ## 🪟 Swing Module
 
-The swing module contains all Swing/AWT-specific code 
+The [swing](../modules/platform/swing/src/main/java/org/example/astero_demo/swing) 
+module contains all Swing/AWT-specific code 
 and provides a complete alternative UI implementation.
 
 📦 Typical contents:
-- Swing components and panels
-- Custom renderers and painters
-- Event handling and input translation
-- Swing-based application launcher
+- [Swing components and panels](../modules/platform/swing/src/main/java/org/example/astero_demo/swing/port/ui)
+- [Custom renderers and painters](../modules/platform/swing/src/main/java/org/example/astero_demo/swing/port/ui/graphics/SwingPainter.java)
+- [Event handling and input translation](../modules/platform/swing/src/main/java/org/example/astero_demo/swing/port/ui/canvas/SwingShapeCanvasView.java)
+- [Swing-based application launcher](../modules/platform/swing/src/main/java/org/example/astero_demo/SwingHelloApplication.java)
 
 🎯 Key responsibilities:
 - Rendering the application using Swing/AWT
 - Handling user input via Swing event mechanisms
 - Mapping Swing events to domain actions
-- Providing a functional UI without JavaFX dependencies
 
 🔗 Dependencies:
 
@@ -146,12 +153,13 @@ on hybrid solutions like JFXPanel.
 
 ## 🧬 Realization Module
 
-The realization module provides systems that serve the application logic without modifying it.
+The [realization](../modules/realization/src/main/java/org/example/astero_demo/realization) 
+module provides systems that serve the application logic without modifying it.
 This is where the following concerns are handled:
-- Dependency Injection (DI)
-- Application configuration
-- Thread management
-- Event orchestration
+- [Dependency Injection](../modules/realization/src/main/java/org/example/astero_demo/realization/initialization)
+- [Application configuration](../modules/realization/src/main/java/org/example/astero_demo/realization/configuration)
+- [Thread management](../modules/realization/src/main/java/org/example/astero_demo/realization/level/async)
+- [Event orchestration](../modules/realization/src/main/java/org/example/astero_demo/realization/level/transport)
 
 🔗 Dependencies:
 - model
@@ -163,7 +171,7 @@ avoiding overloading that layer with non-business responsibilities.
 
 ## 🛠 Util Module
 
-The util module contains shared technical utilities used across multiple modules.
+The [util](../modules/util/src/main/java/org/example/astero_demo/util) module contains shared technical utilities used across multiple modules.
 
 📦 Typical contents:
 - General-purpose helpers
@@ -175,7 +183,8 @@ These are reusable utilities not tied to a specific domain or UI concern.
 
 Testing is aligned with module boundaries, but with one important detail:
 
-Because realization of functional tests is separated from test definitions themselves,
+Because realization of functional tests [is separated](../modules/platform/javafx/src/test/java/org/example/astero_demo/) 
+from test definitions themselves,
 test classes from the javafx module depend on test classes from the core module.
 
 🔗 More details are described in the dedicated [testing documentation](testing_strategy.md).

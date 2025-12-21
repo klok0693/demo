@@ -9,9 +9,9 @@ integration points**.
 ## 🗂️ Test Levels
 
 The project uses *three levels of testing*, each targeting a different layer of the system:
- - Unit Tests
- - Integration Tests
- - Functional Tests
+ - [Unit Tests](../modules/core/src/test/java/org/example/astero_demo/unit)
+ - [Integration Tests](../modules/core/src/test/java/org/example/astero_demo/integration)
+ - [Functional Tests](../modules/core/src/test/java/org/example/astero_demo/functional)
 
 Each level serves a distinct purpose and is intentionally scoped.
 
@@ -44,14 +44,14 @@ The execution mode is controlled via **Maven profiles** and **JVM arguments**.
 One notable design decision is the separation of functional test intent from platform-specific realization.
 
 📦 **Core** module contains:
- - Gherkin scenarios 
- - Step definitions 
+ - [Gherkin scenarios](../modules/core/src/test/resources/org/example/astero_demo/functional/scenario) 
+ - [Step definitions](../modules/core/src/test/java/org/example/astero_demo/functional) 
  - Shared test helpers and abstractions
 
 🎨 **JavaFX** module contains
- - JavaFX-specific test implementations 
- - TestFX-based realizations of interactions 
- - Application startup and lifecycle handling
+ - [JavaFX-specific test implementations](../modules/platform/javafx/src/test/java/org/example/astero_demo/func/launchers)
+ - [TestFX-based realizations of interactions](../modules/platform/javafx/src/test/java/org/example/astero_demo/func/ApplicationFxRobot.java)
+ - [Application startup and lifecycle handling](../modules/platform/javafx/src/test/java/org/example/astero_demo/func/hooks/FxHook.java)
 
 This structure keeps test intent and behavior description independent of the UI framework, while still 
 enabling realistic end-to-end testing, which made possible to reuse tests scenarios across various 

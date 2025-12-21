@@ -12,11 +12,11 @@ import org.slf4j.MarkerFactory;
 @UtilityClass
 public class MarkerStorage {
     /**
-     * {@link Marker} to track GUI elements
+     * {@link Marker} to track GUI element's behavior
      */
     public static final Marker UI_MARKER = MarkerFactory.getMarker("ui");
     /**
-     * {@link Marker} to track users actions
+     * {@link Marker} to track user's actions
      */
     public static final Marker USER_INPUT_MARKER = MarkerFactory.getMarker("user_input");
     /**

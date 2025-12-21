@@ -42,7 +42,7 @@ have the same runtime environment
 
 ### 🗃️ Thin Jar
 
-> ⚠️ Available only gor JavaFX version
+> ⚠️ Available only for JavaFX version
 
 To build a jar without additional dependencies, run from the root:
 
@@ -52,7 +52,7 @@ mvn clean verify
 
 After a successful build the application JAR can be launched manually:
 ```bash
-java -jar modules/javafx/target/javafx-1.0-SNAPSHOT.jar
+java -jar modules/javafx/target/javafx-1.0-SNAPSHOT-thin.jar
 ```
 
 Used mostly for *JPackager*
@@ -84,12 +84,12 @@ of the dedicated maven's profiles activated:
 
 - *package-swing-installer* - created an installer, but do **not** automatically install the app into system
   ```bash
-  mvn clean verify -Ppackage-fx-installer
+  mvn clean verify -Ppackage-swing-installer
   ```
 
 - *package-swing-app-image* - create a runtime image
   ```bash
-  mvn clean verify -Ppackage-fx-app-image
+  mvn clean verify -Ppackage-swing-app-image
   ```
 
 Generated output *can be founded at /dist package*. 

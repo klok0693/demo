@@ -19,7 +19,10 @@ import java.io.IOException;
 import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_MARKER;
 
 /**
- * Config, initialize and launch the application
+ * Config, initialize and launch the application.
+ * <p>
+ * !!! Must not be in the same class with 'psvm' method
+ * for correct initialization of JavaFX
  */
 @Slf4j
 public class FxHelloApplication extends Application {

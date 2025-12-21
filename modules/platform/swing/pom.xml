@@ -64,7 +64,7 @@
         <platform.args></platform.args>
         <platform.headless.args></platform.headless.args>
         <platform.appName>Swing_Demo</platform.appName>
-        <platform.mainJar>swing-1.0-SNAPSHOT-shaded.jar</platform.mainJar>
+        <platform.mainJar>swing-1.0-SNAPSHOT-fat.jar</platform.mainJar>
         <platform.mainClass>org.example.astero_demo.SwingMain</platform.mainClass>
     </properties>
 

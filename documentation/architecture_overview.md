@@ -12,9 +12,9 @@ The application is intentionally designed to explore architectural ideas under r
 The application is built around **Hexagonal Architecture (Ports & Adapters)**.
 
 At a high level:
-- **Core logic** defines *what* the application does
-- **Ports** define *how the outside world can interact with it*
-- **Adapters** decide *how those interactions are actually realized*
+- [Core logic](../modules/core/src/main/java/org/example/astero_demo/core/logic) defines *what* the application does
+- [Ports](../modules/core/src/main/java/org/example/astero_demo/core/port) define *how the outside world can interact with it*
+- [Adapters](../modules/core/src/main/java/org/example/astero_demo/core/adapter) decide *how those interactions are actually realized*
 
 ### Scheme
 
@@ -26,7 +26,7 @@ At a high level:
 
 ### Model vs Data Source
 
-Although the `model` module contains domain classes, **the model state is not treated as a special or privileged data source**.
+Although the [model](../modules/model) module contains domain classes, **the model state is not treated as a special or privileged data source**.
 
 From the application’s perspective:
 - in-memory model state
@@ -66,7 +66,7 @@ There is **no one-to-one relationship** between:
 
 Although in practice many are connected only once, the architecture does not assume that.
 
-#### Example: Clipboard
+#### Example: [Clipboard](../modules/core/src/main/java/org/example/astero_demo/core/adapter/clipboard)
 
 A single clipboard adapter may work with:
 - **system clipboard** (text-based, OS-level)
@@ -84,12 +84,11 @@ This keeps logic agnostic of implementation details.
 
 ## 🧩 Operational Context (Non-Model State)
 
-In addition to model data, the application maintains an **operational context**.
+In addition to model data, the application maintains an [operational context](../modules/core/src/main/java/org/example/astero_demo/core/context/ops).
 
 This context stores data required during the application’s working cycle, but not belonging to the domain model.
 
-Current examples:
-- internal clipboard
+Example [internal clipboard](../modules/core/src/main/java/org/example/astero_demo/core/context/ops/workspace/InnerClipboard.java)
 
 Characteristics:
 - treated as a data storage, just like model state
@@ -104,10 +103,11 @@ Operational data is **not less important** than model data — it is simply diff
 
 ### Model State Holder
 
-Model state is stored in a **ModelStateHolder**. Holder can store multiple states at once
+Model state is stored in a [ModelStateHolder](../modules/core/src/main/java/org/example/astero_demo/core/context/state/ModelStateHolder.java). 
+Holder can store multiple states at once
 
 Key detail:
-- `ModelState` and `ModelStateHolder` implement the **same interface**
+- [ModelState](../modules/core/src/main/java/org/example/astero_demo/core/context/state/ModelState.java) and `ModelStateHolder` implement the **same interface**
 
 This allows:
 - injecting the holder wherever a state is expected
@@ -142,7 +142,8 @@ A future extension could include:
 
 ## 🧾 Command Pattern & Undo Support
 
-All changes to model state are performed using the **Command Pattern**.
+All changes to model state are performed using the 
+[Command](../modules/core/src/main/java/org/example/astero_demo/core/logic/command/Command.java) Pattern.
 
 Characteristics:
 - every sensitive operation is encapsulated as a command
@@ -167,7 +168,8 @@ Redo is intentionally not implemented yet and may remain unsupported.
 Logic components are allowed to call each other.
 
 Example:
-- `ClipboardProcessor` may call `ShapeProcessor`
+- [ClipboardProcessor](../modules/core/src/main/java/org/example/astero_demo/core/logic/LogicClipboardProcessor.java) 
+  may call [ShapeProcessor](../modules/core/src/main/java/org/example/astero_demo/core/logic/LogicShapeProcessor.java)
 
 This enables:
 - rich logic graphs
@@ -194,7 +196,7 @@ The system favors:
 
 ## 🪵 Logging & Observability
 
-Logging is structured and tagged.
+Logging is structured and [tagged](../modules/util/src/main/java/org/example/astero_demo/util/logging/MarkerStorage.java).
 
 Features:
 - logs are marked with semantic tags
@@ -214,19 +216,21 @@ Some logic is required for the application to work but does **not belong to busi
 
 This includes *how* things are done, not *what* is done.
 
-Such logic is separated into **infrastructure levels**, implemented in the `realization` module.
+Such logic is separated into **infrastructure levels**, implemented in the 
+[realization](../modules/realization/src/main/java/org/example/astero_demo/) module.
 
 ---
 
 ### 🧵 Thread Level
 
-The thread level:
+The [thread level](../modules/realization/src/main/java/org/example/astero_demo/realization/level/async):
 - defines the boundary between synchronous and asynchronous execution
 - owns the concept of threads
-- wraps calls transparently
+- [wraps calls](../modules/realization/src/main/java/org/example/astero_demo/realization/level/async/RunnableWrapper.java) transparently
 
 Example:
-- all calls from UI are wrapped into appropriate threads
+- [all calls from UI are wrapped](../modules/realization/src/main/java/org/example/astero_demo/realization/level/async/ui/RootAdapterAsyncWrapper.java) 
+  into appropriate threads
 - business logic remains unaware of threading
 
 From the core’s perspective, execution appears synchronous and direct.
@@ -236,10 +240,10 @@ From the core’s perspective, execution appears synchronous and direct.
 ### 📡 Event Level
 
 Not all events are part of the domain model. Such non-model events live in
-dedicated **transport level**. This level:
-- wraps direct calls into explicit events
+dedicated [transport level](../modules/realization/src/main/java/org/example/astero_demo/realization/level/transport). This level:
+- [wraps direct calls](../modules/realization/src/main/java/org/example/astero_demo/realization/level/transport/SenderWrapper.java) into explicit events
 - routes events to receivers
-- unwraps and executes logic
+- [unwraps and executes](../modules/realization/src/main/java/org/example/astero_demo/realization/level/transport/ReceiverWrapper.java) logic
 
 From business logic perspective:
 - it looks like a direct method call
@@ -263,10 +267,11 @@ A full event system may be integrated later.
 
 ## 🧬 Dependency Injection & Proxies
 
-All infrastructure levels are implemented using **Dependency Injection**.
+All infrastructure levels are implemented using 
+[Dependency Injection](../modules/realization/src/main/java/org/example/astero_demo/realization/initialization/di).
 
 Key rules:
-- all components depend on interfaces
+- Most components depend on interfaces
 - original implementations implement those interfaces
 - level components also implement the same interface
 - original component is wrapped inside the level component

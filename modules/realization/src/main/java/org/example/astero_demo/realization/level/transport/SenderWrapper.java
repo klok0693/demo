@@ -1,7 +1,5 @@
 package org.example.astero_demo.realization.level.transport;
 
-import org.example.astero_demo.realization.level.transport.logic.event.LogicEvent;
-
 /**
  * Transform direct method call to event signal
  *
