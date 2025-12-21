@@ -43,7 +43,6 @@ class FxViewModule extends AbstractModule {
         bind(EventHandler.class).to(FxRootShortcutHandler.class);
         bind(ShapeCanvasView.class).to(FxShapeCanvasView.class).in(Scopes.SINGLETON);
         bind(LayersView.class).to(LayersPanelView.class);
-        bind(PropertiesView.class).to(PropertiesPanelView.class);
         bind(BackgroundLayer.class).to(FxBackgroundLayer.class).in(Scopes.SINGLETON);
     }
 

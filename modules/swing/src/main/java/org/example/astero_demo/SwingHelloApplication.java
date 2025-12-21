@@ -39,7 +39,7 @@ public class SwingHelloApplication {
 
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(1200, 720));
+        frame.setPreferredSize(new Dimension(1200, 750));
         //frame.setLocationRelativeTo(null);
 
         frame.getContentPane().add(injector.getInstance(SwingRootUI.class));

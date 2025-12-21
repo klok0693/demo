@@ -4,8 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesAdapter;
@@ -88,42 +86,28 @@ public class FxPropertiesPanelView extends PropertiesPanelView {
         field.setDisable(true);
     }
 
-    public void updateX(final KeyEvent event) {
-        if (needToHandle(event)) {
-            updateField(ShapeParam.X, xField.getText());
-        }
+    public void updateX(final ActionEvent event) {
+        updateX(xField.getText());
     }
 
-    public void updateY(final KeyEvent event) {
-        if (needToHandle(event)) {
-            updateField(ShapeParam.Y, yField.getText());
-        }
+    public void updateY(final ActionEvent event) {
+        updateY(yField.getText());
     }
 
-    public void updateWidth(final KeyEvent event) {
-        if (needToHandle(event)) {
-            updateField(ShapeParam.WIDTH, widthField.getText());
-        }
+    public void updateWidth(final ActionEvent event) {
+        updateWidth(widthField.getText());
     }
 
-    public void updateHeight(final KeyEvent event) {
-        if (needToHandle(event)) {
-            updateField(ShapeParam.HEIGHT, heightField.getText());
-        }
+    public void updateHeight(final ActionEvent event) {
+        updateHeight(heightField.getText());
     }
 
-    public void updateLayer(final KeyEvent event) {
-        if (needToHandle(event)) {
-            updateField(ShapeParam.PRIORITY, layerField.getText());
-        }
+    public void updateLayer(final ActionEvent event) {
+        updateLayer(layerField.getText());
     }
 
     public void updateColor(final ActionEvent event) {
         final Color selectedColor = colorField.getValue();
-        updateField(ShapeParam.COLOR, String.valueOf(ColorUtils.convert(selectedColor)));
-    }
-
-    private static boolean needToHandle(final KeyEvent event) {
-        return event.getCode() == KeyCode.ENTER;
+        updateColor(String.valueOf(ColorUtils.convert(selectedColor)));
     }
 }

@@ -55,7 +55,37 @@ public abstract class PropertiesPanelView implements PropertiesView {
 
     protected abstract void setPanelDisabled(boolean isDisabled);
 
-    protected void updateField(final ShapeParam param, final String value) {
+    @Override
+    public void updateX(final String text) {
+        updateField(ShapeParam.X, text);
+    }
+
+    @Override
+    public void updateY(final String text) {
+        updateField(ShapeParam.Y, text);
+    }
+
+    @Override
+    public void updateWidth(final String text) {
+        updateField(ShapeParam.WIDTH, text);
+    }
+
+    @Override
+    public void updateHeight(final String text) {
+        updateField(ShapeParam.HEIGHT, text);
+    }
+
+    @Override
+    public void updateLayer(final String text) {
+        updateField(ShapeParam.PRIORITY, text);
+    }
+
+    @Override
+    public void updateColor(final String text) {
+        updateField(ShapeParam.COLOR, text);
+    }
+
+    private void updateField(final ShapeParam param, final String value) {
         propertyUpdatable.updateField(param, value);
     }
 }

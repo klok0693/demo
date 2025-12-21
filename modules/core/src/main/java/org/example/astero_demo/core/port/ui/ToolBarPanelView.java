@@ -53,18 +53,22 @@ public abstract class ToolBarPanelView implements ToolBarView {
 
     protected abstract void setInsertCycleBtnSelected(boolean setSelected);
 
+    @Override
     public void onInsertRectAction() {
         operationProcessor.onInsertRectAction();
     }
 
+    @Override
     public void onInsertCycleAction() {
         operationProcessor.onInsertCycleAction();
     }
 
+    @Override
     public void onDeleteAction() {
         operationProcessor.onDeleteAction();
     }
 
+    @Override
     public void onUndoAction() {
         operationProcessor.onUndoAction();
     }

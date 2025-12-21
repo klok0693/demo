@@ -29,17 +29,17 @@
         </rowConstraints>
 
         <Label text="x:"          GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="xField" GridPane.rowIndex="0" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateX"/>
+        <TextField fx:id="xField" GridPane.rowIndex="0" GridPane.columnIndex="1" disable="true" onAction="#updateX"/>
         <Label text="y:"          GridPane.rowIndex="0" GridPane.columnIndex="2" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="yField" GridPane.rowIndex="0" GridPane.columnIndex="3" disable="true" onKeyPressed="#updateY"/>
+        <TextField fx:id="yField" GridPane.rowIndex="0" GridPane.columnIndex="3" disable="true" onAction="#updateY"/>
 
         <Label text="width:"           GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="widthField"  GridPane.rowIndex="1" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateWidth"/>
+        <TextField fx:id="widthField"  GridPane.rowIndex="1" GridPane.columnIndex="1" disable="true" onAction="#updateWidth"/>
         <Label text="height:"          GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="heightField" GridPane.rowIndex="1" GridPane.columnIndex="3" disable="true" onKeyPressed="#updateHeight"/>
+        <TextField fx:id="heightField" GridPane.rowIndex="1" GridPane.columnIndex="3" disable="true" onAction="#updateHeight"/>
 
         <Label text="layer:"          GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
-        <TextField fx:id="layerField" GridPane.rowIndex="2" GridPane.columnIndex="1" disable="true" onKeyPressed="#updateLayer"/>
+        <TextField fx:id="layerField" GridPane.rowIndex="2" GridPane.columnIndex="1" disable="true" onAction="#updateLayer"/>
 
         <Label text="color:"            GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
         <ColorPicker fx:id="colorField" GridPane.rowIndex="3" GridPane.columnIndex="1" disable="true" onAction="#updateColor"/>

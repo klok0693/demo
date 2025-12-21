@@ -15,7 +15,8 @@ import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
-import org.example.astero_demo.swing.port.ui.SwingPropertiesPanelView;
+import org.example.astero_demo.swing.port.ui.properties.PropertiesPanelUI;
+import org.example.astero_demo.swing.port.ui.properties.SwingPropertiesPanelView;
 import org.example.astero_demo.swing.port.ui.root.RootUI;
 import org.example.astero_demo.swing.port.ui.root.SwingRootView;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvasUI;
@@ -45,6 +46,8 @@ class SwingViewModule extends AbstractModule {
         bind(LayersView.class).to(LayersPanelView.class);
         bind(PropertiesView.class).to(PropertiesPanelView.class);
         bind(BackgroundLayer.class).to(SwingBackgroundLayer.class).in(Scopes.SINGLETON);
+
+        bind(PropertiesPanelView.class).to(SwingPropertiesPanelView.class).in(Scopes.SINGLETON);
     }
 
     @Inject
@@ -121,10 +124,11 @@ class SwingViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public PropertiesPanelView providePropertyPanelView(
+    public SwingPropertiesPanelView providePropertyPanelView(
             final PropertiesAdapter propertyUpdatable,
-            final UIState uiState) {
-        return new SwingPropertiesPanelView(propertyUpdatable, uiState);
+            final UIState uiState,
+            final PropertiesPanelUI panelUI) {
+        return new SwingPropertiesPanelView(propertyUpdatable, uiState, panelUI);
     }
 
     @Inject

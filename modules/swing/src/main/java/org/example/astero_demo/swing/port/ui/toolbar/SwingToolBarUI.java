@@ -1,5 +1,6 @@
 package org.example.astero_demo.swing.port.ui.toolbar;
 
+import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 
 import javax.swing.*;
@@ -11,11 +12,13 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
     private final JToggleButton undoBtn;
     private final JToggleButton deleteBtn;
 
-    public SwingToolBarUI(final ToolBarPanelView view) {
+    public SwingToolBarUI(final ToolBarView view) {
         super(BoxLayout.X_AXIS);
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        setBackground(Color.red);
+        setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(10, 10, 10, 10),
+                BorderFactory.createLineBorder(Color.BLACK)));
         setOpaque(true);
+        setPreferredSize(new Dimension(getWidth(), 70));
 
         this.insertRectBtn = new JToggleButton("Rect");
         this.insertRectBtn.addActionListener(e -> {
