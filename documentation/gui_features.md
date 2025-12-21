@@ -131,7 +131,7 @@ The GUI package uses **strict state separation**.
 
 ### 📦 Model State
 
-- Provided to the UI as [immutable views](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/state/UIState.java)
+- Provided to the UI as [immutable views](../modules/core/src/main/java/org/example/astero_demo/core/context/state/ModelState.java)
 - UI components cannot modify model data directly
 - All changes must be requested via logic components
 
@@ -140,7 +140,7 @@ This enforces a unidirectional flow:
 
 ### 🧩 UI State
 
-The UI maintains its own [internal state](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/state/UIStateInstance.java), such as:
+The UI maintains its own [internal state](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/state/UIState.java), such as:
 - active mode
 - shape type to insert
 - temporary interaction flags

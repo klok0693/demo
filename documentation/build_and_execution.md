@@ -1,12 +1,45 @@
 ## 🔧 Build & Execution
 
-This project uses **Maven** as the primary build tool and relies on a **multi-module setup**.
+This project uses **Maven** as the primary build tool and relies on a **multi-module setup**. 
+**JPackager** are used to generate the complete bundles, served to users
 
 ---
 
 ## ▶️ Running the Application
 
+### 🗃️ Jar
+
+To build a jar without additional dependencies, run from the root:
+
+```bash
+mvn clean verify -Pheadless
+```
+
+After a successful build the application JAR can be launched manually:
+
+*JavaFX*
+```bash
+java -jar modules/platform/javafx/target/javafx-1.0-SNAPSHOT-thin.jar
+```
+
+*Java Swing*
+```bash
+java -jar modules/platform/swing/target/swing-1.0-SNAPSHOT-all.jar
+```
+
+Generated jars are used mostly for *JPackager*
+
+#### 📋 Runtime Requirements
+
+The produced artifact is a *thin JAR*. This means that it doesn't
+include a bundled JavaFX or other dependencies and *can be shared*
+across different operating systems. Generated on Linux, it can run under any
+system, as long as it have **preinstalled java21+**, *JavaFX version*
+additionally requires **openjfx21+**
+
 ### 🗃️ Fat Jar 
+
+> ⚠️ Works for JavaFX version only. Swing's jar has no 'thin' or 'fat' differences  
 
 To build a jar, run from the project's root:
 
@@ -18,12 +51,7 @@ After a successful build the JARs can be launched manually:
 
 *JavaFX*
 ```bash
-java -jar modules/javafx/target/javafx-1.0-SNAPSHOT-fat.jar
-```
-
-*Java Swing*
-```bash
-java -jar modules/swing/target/swing-1.0-SNAPSHOT-fat.jar
+java -jar modules/platform/javafx/target/javafx-1.0-SNAPSHOT-fat.jar
 ```
 
 > ⚠️ Included UI render components are platform specific, so generated jar is
@@ -32,37 +60,16 @@ java -jar modules/swing/target/swing-1.0-SNAPSHOT-fat.jar
 
 #### 📋 Runtime Requirements
 
-Generated jar include a bundled JVM, which blow 
+Preinstalled **java21+**, but **no** need of *openjfx* dependency
+
+Generated jar contains all dependencies, *including JavaFX*, which blow 
 it size, through provide the ability to launch application 
-on systems without java runtime or additional libraries.
+on systems, having *java9+* as system java.
 
 *JavaFX's libraries for a jar are taken from the
 Maven dependencies*, not from the system path, to ensure, that every developer
 have the same runtime environment
 
-### 🗃️ Thin Jar
-
-> ⚠️ Available only for JavaFX version
-
-To build a jar without additional dependencies, run from the root:
-
-```bash
-mvn clean verify
-```
-
-After a successful build the application JAR can be launched manually:
-```bash
-java -jar modules/javafx/target/javafx-1.0-SNAPSHOT-thin.jar
-```
-
-Used mostly for *JPackager*
-
-#### 📋 Runtime Requirements
-
-The produced artifact is a **thin JAR**. This means that it doesn't
-include a bundled JVM or JavaFX dependencies and *can be shared*
-across different operating systems. Generated on Linux, it can run under any
-system, as long as it have **preinstalled java21+ and openjfx21+**
 
 ### 🗃️ Jpackager
 
@@ -72,24 +79,24 @@ of the dedicated maven's profiles activated:
 **JavaFX**
 - *package-fx-installer* - created an installer, but do **not** automatically install the app into system
   ```bash
-  mvn clean verify -Ppackage-fx-installer
+  mvn clean verify -Ppackage-fx-installer -Pheadless
   ```
   
 - *package-fx-app-image* - create a runtime image
   ```bash
-  mvn clean verify -Ppackage-fx-app-image
+  mvn clean verify -Ppackage-fx-app-image -Pheadless
   ```
 
 **Java Swing**
 
 - *package-swing-installer* - created an installer, but do **not** automatically install the app into system
   ```bash
-  mvn clean verify -Ppackage-swing-installer
+  mvn clean verify -Ppackage-swing-installer -Pheadless
   ```
 
 - *package-swing-app-image* - create a runtime image
   ```bash
-  mvn clean verify -Ppackage-swing-app-image
+  mvn clean verify -Ppackage-swing-app-image -Pheadless
   ```
 
 Generated output *can be founded at /dist package*. 

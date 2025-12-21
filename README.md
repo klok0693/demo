@@ -4,8 +4,8 @@ my technical level across different areas
 
 The project is primarily intended for technical readers rather than as a showcase of end-user 
 functionality as well as a specific library or predefined technology stack. 
-Instead, it brings together multiple concepts within a *single, cohesive codebase*. It was a deliberate choice, 
-allowing ideas to interact under more realistic constraints of relatively complex project rather than many isolated examples. 
+Instead, it brings together multiple concepts within a *single, cohesive codebase*,
+allowing the ideas to interact under more complex project rather than isolated examples. 
 
 The GitHub version is kept *clean, buildable, and stable*, even though 
 local development may include experiments and refactoring
@@ -32,12 +32,12 @@ with basic shapes on a canvas. Users can:
 - interact via mouse or keyboard
 - perform copy, paste and cut operations
 - select multiple shapes holding 'ctrl' or switch between shapes under 
-  the cursor by shift + right click
+  the cursor by 'shift + right click'
 
 Shapes are selectable, resizable, and draggable. The interface includes 
 a property panel, layer's tree with a shape lists, and toolbar.
 
-Application support two platforms:
+Applications support two platforms:
 
 &emsp;**JavaFX**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
