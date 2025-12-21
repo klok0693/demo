@@ -1,4 +1,5 @@
 open module swing_gui {
+    requires com.formdev.flatlaf;
     requires com.google.guice;
     requires org.apache.commons.lang3;
     requires commons.math3;

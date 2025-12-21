@@ -43,6 +43,7 @@ public class SwingHelloApplication {
         //frame.setLocationRelativeTo(null);
 
         frame.getContentPane().add(injector.getInstance(SwingRootUI.class));
+        SwingUtilities.updateComponentTreeUI(frame);
 
         frame.pack();
         frame.setVisible(true);

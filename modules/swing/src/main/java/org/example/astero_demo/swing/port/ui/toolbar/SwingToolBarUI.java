@@ -11,8 +11,8 @@ import java.awt.*;
 public class SwingToolBarUI extends Box implements ToolBarUI {
     private final JToggleButton insertRectBtn;
     private final JToggleButton insertCycleBtn;
-    private final JToggleButton undoBtn;
-    private final JToggleButton deleteBtn;
+    private final JButton undoBtn;
+    private final JButton deleteBtn;
 
     public SwingToolBarUI(final ToolBarView view) {
         super(BoxLayout.X_AXIS);
@@ -40,12 +40,12 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
         insertBtnBox.add(insertRectBtn);
         insertBtnBox.add(insertCycleBtn);
 
-        this.undoBtn = new JToggleButton("Undo");
+        this.undoBtn = new JButton("Undo");
         this.undoBtn.addActionListener(e -> {
             view.onUndoAction();
         });
 
-        this.deleteBtn = new JToggleButton("Delete");
+        this.deleteBtn = new JButton("Delete");
         this.deleteBtn.addActionListener(e -> {
             view.onDeleteAction();
         });
