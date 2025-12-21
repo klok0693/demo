@@ -10,10 +10,13 @@ import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.core.port.ui.canvas.CanvasUI;
+import org.example.astero_demo.core.port.ui.elements.LayersTree;
 import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLayer;
 import org.example.astero_demo.swing.port.ui.canvas.shape.SwingShapeLayer;
 import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
 import org.example.astero_demo.swing.port.ui.element.SwingCanvasUI;
+import org.example.astero_demo.swing.port.ui.layers.LayersPanelUI;
+import org.example.astero_demo.swing.port.ui.layers.SwingLayersPanelUI;
 import org.example.astero_demo.swing.port.ui.properties.PropertiesPanelUI;
 import org.example.astero_demo.swing.port.ui.properties.SwingPropertiesPanelUI;
 import org.example.astero_demo.swing.port.ui.properties.SwingPropertiesPanelView;
@@ -36,19 +39,23 @@ class SwingUIElementModule extends AbstractModule {
         bind(ToolBarUI.class).to(SwingToolBarUI.class).in(Scopes.SINGLETON);
         bind(RootUI.class).to(SwingRootUI.class).in(Scopes.SINGLETON);
         bind(PropertiesPanelUI.class).to(SwingPropertiesPanelUI.class).in(Scopes.SINGLETON);
+        bind(LayersPanelUI.class).to(SwingLayersPanelUI.class).in(Scopes.SINGLETON);
 
         bind(CanvasUI.class).to(SwingCanvasUI.class);
+
+        bind(LayersTree.class).to(SwingLayersTree.class).in(Scopes.SINGLETON);
     }
 
     @Inject
     @Provides
     @Singleton
     public SwingRootUI provideRootUI(
+            final SwingLayersPanelUI layersPanelUI,
             final SwingPropertiesPanelUI propertiesPanelUI,
             final SwingToolBarUI toolBarUI,
             final SwingCanvasUI canvas,
             final RootView rootView) {
-        return new SwingRootUI(propertiesPanelUI, toolBarUI, canvas, rootView);
+        return new SwingRootUI(layersPanelUI, propertiesPanelUI, toolBarUI, canvas, rootView);
     }
 
     @Inject
@@ -65,6 +72,12 @@ class SwingUIElementModule extends AbstractModule {
         return new SwingPropertiesPanelUI(panelView);
     }
 
+    @Inject
+    @Provides
+    @Singleton
+    public SwingLayersPanelUI provideLayersPanelUI(final SwingLayersTree layersTree) {
+        return new SwingLayersPanelUI(layersTree);
+    }
 
 
 /*    @Inject

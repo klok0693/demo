@@ -16,6 +16,7 @@ import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
+import org.example.astero_demo.fx.port.ui.FxLayersPanelView;
 import org.example.astero_demo.fx.port.ui.FxPropertiesPanelView;
 import org.example.astero_demo.fx.port.ui.FxRootView;
 import org.example.astero_demo.fx.port.ui.FxToolBarView;
@@ -27,6 +28,7 @@ import org.example.astero_demo.fx.port.ui.canvas.tool.FxToolLayer;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.drag.FxDragShapeTool;
 import org.example.astero_demo.fx.port.ui.canvas.tool.draggable.insert.FxInsertShapeTool;
 import org.example.astero_demo.fx.port.ui.element.FxCanvasUI;
+import org.example.astero_demo.fx.port.ui.element.FxLayersTree;
 import org.example.astero_demo.fx.port.ui.keyboard.FxRootShortcutHandler;
 import org.example.astero_demo.fx.initialization.ui.builder.CanvasBuilder;
 
@@ -42,8 +44,8 @@ class FxViewModule extends AbstractModule {
     protected void configure() {
         bind(EventHandler.class).to(FxRootShortcutHandler.class);
         bind(ShapeCanvasView.class).to(FxShapeCanvasView.class).in(Scopes.SINGLETON);
-        bind(LayersView.class).to(LayersPanelView.class);
         bind(BackgroundLayer.class).to(FxBackgroundLayer.class).in(Scopes.SINGLETON);
+        bind(LayersPanelView.class).to(FxLayersPanelView.class).in(Scopes.SINGLETON);
     }
 
     @Inject
@@ -119,13 +121,6 @@ class FxViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public LayersPanelView provideLayersPanelView() {
-        return new LayersPanelView();
-    }
-
-    @Inject
-    @Provides
-    @Singleton
     public PropertiesPanelView providePropertyPanelView(
             final PropertiesAdapter propertyUpdatable,
             final UIState uiState) {
@@ -144,5 +139,12 @@ class FxViewModule extends AbstractModule {
     @Singleton
     public FxRootShortcutHandler provideShortcutHandler(final OperationAdapter adapter) {
         return new FxRootShortcutHandler(adapter);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public FxLayersPanelView provideLayersPanelView(final FxLayersTree layersTree) {
+        return new FxLayersPanelView(layersTree);
     }
 }

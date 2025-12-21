@@ -9,8 +9,12 @@ import org.example.astero_demo.core.port.ui.elements.LayersTree;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class LayersPanelView implements LayersView {
-    public LayersTree layersTree;
+public abstract class LayersPanelView implements LayersView {
+    private final LayersTree layersTree;
+
+    protected LayersPanelView(final LayersTree layersTree) {
+        this.layersTree = layersTree;
+    }
 
     @Override
     public void update() {

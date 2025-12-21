@@ -6,6 +6,7 @@ import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.swing.util.ColorUtils;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.function.BiConsumer;
 
@@ -21,14 +22,10 @@ public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
     public SwingPropertiesPanelUI(final PropertiesView panelView) {
         super(BoxLayout.Y_AXIS);
 
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         //setBackground(Color.green);
         //setOpaque(true);
         setEnabled(false);
-
-        setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(10, 10, 10, 10),
-                BorderFactory.createLineBorder(Color.BLACK)));
+        setBorder(org.example.astero_demo.swing.util.SwingConstants.VIEW_BORDER);
 
         setPreferredSize(new Dimension(240, 380));
         setAlignmentY(JComponent.TOP_ALIGNMENT);

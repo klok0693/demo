@@ -1,55 +1,119 @@
 package org.example.astero_demo.swing.port.ui.element;
 
-import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.core.adapter.ui.ShapeSelector;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.elements.LayersTree;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
+import javax.swing.tree.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
 import java.util.stream.Collectors;
 
-import static java.lang.Integer.parseInt;
-
 /**
- * JavaFX's realization of {@link LayersTree}
+ * Swing realization of {@link LayersTree}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class SwingLayersTree extends JTree implements LayersTree {
+
     private final ModelState modelState;
     private final UIState uiState;
+    private final ShapeSelector shapeSelector;
 
-    public SwingLayersTree(final ModelState modelState, final UIState uiState, final ShapeSelector shapeSelector) {
+    private DefaultTreeModel treeModel;
+    private LayerRootNode root;
+
+    public SwingLayersTree(
+            final ModelState modelState,
+            final UIState uiState,
+            final ShapeSelector shapeSelector) {
+
         this.modelState = modelState;
         this.uiState = uiState;
+        this.shapeSelector = shapeSelector;
 
-/*        addMouseListener(new MouseAdapter() {
+        //setBackground(Color.red);
+        //setOpaque(true);
+
+        setMinimumSize(new Dimension(200, 300));
+        setAlignmentX(JComponent.LEFT_ALIGNMENT);
+
+        // Root
+        root = new LayerRootNode();
+        treeModel = new DefaultTreeModel(root);
+        setModel(treeModel);
+
+        // Multi-selection
+        getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+
+        // Mouse handling
+        addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(final MouseEvent e) {
-                final DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) getLastSelectedPathComponent();
-                String item = (String) selectedNode.getUserObject();
+            public void mouseClicked(MouseEvent e) {
+                final TreePath path = getPathForLocation(e.getX(), e.getY());
+                if (path == null) {
+                    return;
+                }
+
+                final Object node = path.getLastPathComponent();
+                if (node instanceof final LayerNode layerNode) {
+                    final String id = layerNode.getFirstChildId();
+                    if (id != null) {
+                        shapeSelector.selectShape(id);
+                    }
+                } else if (node instanceof final ShapeNode shapeNode) {
+                    shapeSelector.selectShape(shapeNode.getId());
+                }
             }
         });
 
-        setOnMouseClicked(event -> {
-            final TreePath path = getSelectionModel().getSelectionPath();
+        addTreeSelectionListener(e -> repaint());
 
-            final TreeItem<String> selectedItem = .getSelectedItem();
-            if (selectedItem != null) {
-                final String id = selectedItem instanceof final LayerItem item ? item.getFirstChildId() : selectedItem.getValue();
-                shapeSelector.selectShape(id);
+        setCellRenderer(new DefaultTreeCellRenderer() {
+            @Override
+            public Component getTreeCellRendererComponent(
+                    final JTree tree,
+                    final Object value,
+                    final boolean selected,
+                    final boolean expanded,
+                    final boolean leaf,
+                    final int row,
+                    final boolean hasFocus) {
+
+                final JLabel c = (JLabel) super.getTreeCellRendererComponent(
+                        tree, value, selected, expanded, leaf, row, hasFocus
+                );
+
+                final boolean isLeafSelected;
+                if (value instanceof final ShapeNode node) {
+                    isLeafSelected = uiState.isIdSelected(Integer.parseInt(node.getId()));
+                }
+                else {
+                    isLeafSelected = false;
+                }
+
+                if (selected || isLeafSelected) {
+                    c.setBackground(new Color(0xCCE5FF));
+                    c.setForeground(Color.BLACK);
+                }
+                else {
+                    c.setBackground(tree.getBackground());
+                    c.setForeground(tree.getForeground());
+                }
+
+                c.setOpaque(true);
+                return c;
             }
         });
 
-        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);*/
+        setRootVisible(false);
+        setShowsRootHandles(false);
     }
 
     @Override
@@ -57,56 +121,85 @@ public class SwingLayersTree extends JTree implements LayersTree {
         cleanUp();
 
         final var layers = modelState.getShapes().collect(Collectors.groupingBy(Shape::getPriority));
+
         if (layers.isEmpty()) {
+            treeModel.reload();
             return;
         }
 
-/*        final TreeItem<String> rootItem = new TreeItem<>(StringUtils.EMPTY);
-        setRoot(rootItem);
-        layers.forEach((key, value) -> {
-            final LayerItem layerItem = new LayerItem(key);
-            rootItem.getChildren().add(layerItem);
-            layerItem.setExpanded(true);
-            layerItem.addShapes(value);
-        });*/
+        layers.forEach((priority, shapes) -> {
+            final LayerNode layerNode = new LayerNode(priority);
+            root.add(layerNode);
+
+            shapes.forEach(shape -> {
+                final ShapeNode shapeNode = new ShapeNode(shape.getId());
+                layerNode.add(shapeNode);
+
+                if (uiState.hasSelectedId() && uiState.isIdSelected(shape.getId())) {
+                    selectNode(shapeNode);
+                }
+            });
+        });
+
+        treeModel.reload();
+        expandAll();
     }
 
     @Override
     public void unSelectAll() {
-        getSelectionModel().clearSelection();
+        clearSelection();
     }
 
     private void cleanUp() {
-/*        final TreeItem<String> root = getRoot();
-        if (root != null) {
-            root.getChildren().clear();
-            setRoot(null);
-        }*/
+        root.removeAllChildren();
+        treeModel.reload();
     }
 
-/*    private class LayerItem extends TreeItem<String> {
+    private void expandAll() {
+        for (int i = 0; i < getRowCount(); i++) {
+            expandRow(i);
+        }
+    }
 
-        LayerItem(final String key) {
-            super(key);
+    private void selectNode(final DefaultMutableTreeNode node) {
+        final TreePath path = new TreePath(node.getPath());
+        addSelectionPath(path);
+    }
+
+    /* ---------------- Tree Nodes ---------------- */
+
+    private static class LayerRootNode extends DefaultMutableTreeNode {
+        LayerRootNode() {
+            super("ROOT");
+        }
+    }
+
+    private static class LayerNode extends DefaultMutableTreeNode {
+        LayerNode(final String layerKey) {
+            super(layerKey);
         }
 
-        void addShapes(final Collection<Shape> shapes) {
-            shapes.stream()
-                    .map(Shape::getId)
-                    .map(String::valueOf)
-                    .forEach(id -> {
-                        final var item = new TreeItem<>(id);
-                        item.setExpanded(true);
-                        getChildren().add(item);
-
-                        if (uiState.hasSelectedId() && uiState.isIdSelected(parseInt(id))) {
-                            getSelectionModel().select(item);
-                        }
-                    });
-        }
-
+        @Nullable
         String getFirstChildId() {
-            return getChildren().getFirst().getValue();
-        };
-    }*/
+            if (getChildCount() == 0) {
+                return null;
+            }
+            final Object child = getChildAt(0);
+            return child instanceof final ShapeNode sn ? sn.getId() : null;
+        }
+    }
+
+    private static class ShapeNode extends DefaultMutableTreeNode {
+        private final String id;
+
+        ShapeNode(final int id) {
+            this.id = String.valueOf(id);
+            setUserObject(this.id);
+        }
+
+        String getId() {
+            return id;
+        }
+    }
 }
+

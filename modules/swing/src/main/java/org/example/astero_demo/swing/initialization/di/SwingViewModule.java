@@ -15,6 +15,9 @@ import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.canvas.background.BackgroundLayer;
+import org.example.astero_demo.core.port.ui.elements.LayersTree;
+import org.example.astero_demo.swing.port.ui.element.SwingLayersTree;
+import org.example.astero_demo.swing.port.ui.layers.SwingLayersPanelView;
 import org.example.astero_demo.swing.port.ui.properties.PropertiesPanelUI;
 import org.example.astero_demo.swing.port.ui.properties.SwingPropertiesPanelView;
 import org.example.astero_demo.swing.port.ui.root.RootUI;
@@ -42,12 +45,13 @@ class SwingViewModule extends AbstractModule {
     @Override
     protected void configure() {
         //bind(EventHandler.class).to(SwingRootShortcutHandler.class);
-        bind(ShapeCanvasView.class).to(SwingShapeCanvasView.class).in(Scopes.SINGLETON);
-        bind(LayersView.class).to(LayersPanelView.class);
-        bind(PropertiesView.class).to(PropertiesPanelView.class);
+        //bind(LayersView.class).to(LayersPanelView.class);
+        //bind(PropertiesView.class).to(PropertiesPanelView.class);
         bind(BackgroundLayer.class).to(SwingBackgroundLayer.class).in(Scopes.SINGLETON);
 
+        bind(ShapeCanvasView.class).to(SwingShapeCanvasView.class).in(Scopes.SINGLETON);
         bind(PropertiesPanelView.class).to(SwingPropertiesPanelView.class).in(Scopes.SINGLETON);
+        bind(LayersPanelView.class).to(SwingLayersPanelView.class).in(Scopes.SINGLETON);
     }
 
     @Inject
@@ -117,13 +121,6 @@ class SwingViewModule extends AbstractModule {
     @Inject
     @Provides
     @Singleton
-    public LayersPanelView provideLayersPanelView() {
-        return new LayersPanelView();
-    }
-
-    @Inject
-    @Provides
-    @Singleton
     public SwingPropertiesPanelView providePropertyPanelView(
             final PropertiesAdapter propertyUpdatable,
             final UIState uiState,
@@ -139,6 +136,13 @@ class SwingViewModule extends AbstractModule {
             final ToolBarAdapter operationProcessor,
             final ToolBarUI ui) {
         return new SwingToolBarView(uiState, operationProcessor, ui); /*new ToolBarView(uiState, operationProcessor);*/
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public SwingLayersPanelView provideLayersPanelView(final LayersTree layersTree) {
+        return new SwingLayersPanelView(layersTree);
     }
 
     @Inject

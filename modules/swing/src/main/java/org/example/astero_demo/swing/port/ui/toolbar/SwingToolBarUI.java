@@ -2,8 +2,10 @@ package org.example.astero_demo.swing.port.ui.toolbar;
 
 import org.example.astero_demo.core.adapter.ui.toolbar.ToolBarView;
 import org.example.astero_demo.core.port.ui.ToolBarPanelView;
+import org.example.astero_demo.swing.util.SwingConstants;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 public class SwingToolBarUI extends Box implements ToolBarUI {
@@ -14,9 +16,7 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
 
     public SwingToolBarUI(final ToolBarView view) {
         super(BoxLayout.X_AXIS);
-        setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(10, 10, 10, 10),
-                BorderFactory.createLineBorder(Color.BLACK)));
+        setBorder(SwingConstants.VIEW_BORDER);
         setOpaque(true);
         setPreferredSize(new Dimension(getWidth(), 70));
 
