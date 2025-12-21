@@ -1,11 +1,11 @@
 ## 🎨 GUI Features & Interaction Model
 
 This document describes the **GUI structure, behavior, and interaction model** of the application.  
-It intentionally avoids focusing on JavaFX as a technology and instead explains **how the GUI is designed 
+It intentionally avoids focusing on JavaFX or Swing as a technology and instead explains **how the GUI is designed 
 and behaves conceptually**.
 
-The GUI package is designed to be **platform-agnostic**. JavaFX is only one realization; the same 
-concepts are intended to be reusable for other UI frameworks (e.g. **Swing, Qt**).
+The GUI package is designed to be **platform-agnostic**. There are two realizations: 
+*JavaFX* and *Swing*. The same concepts are intended to be reusable for other UI frameworks (e.g. **Qt**).
 
 ---
 
@@ -29,10 +29,38 @@ Its logic is organized into **explicit layers**, each with a well-defined respon
     - Selection frames, drag previews, insertion hints, etc.
     - May render temporary or auxiliary elements
 
-Each canvas layer is itself **hierarchical**. Layers can contain **sub-layers**, forming a recursive structure that 
+Each canvas layer is itself **hierarchical**. Layers can contain **sub-layers**, forming a recursive structure that
 explicitly controls render order and visual stacking of elements. This makes ordering rules deterministic and 
 manageable even as the number of visual elements grows. Direct manipulation of layer position is intentionally limited: 
 only elements belonging to the shapes layer can change their layer placement explicitly.
+
+## 🧪 GUI Feature: Multi-Platform UI Experiment
+
+I have long been interested in how difficult it would be to migrate an application 
+from one UI platform to another—especially given how many Swing applications still 
+wait for a modern UI.
+
+Surprisingly, the migration itself was not as hard as expected. Separating components 
+and avoiding logic duplication turned out to be very manageable. Almost all 
+logic—including most UI behavior—is shared and reused across platforms. This approach 
+proved highly effective: the overall structure remained nearly unchanged, and very 
+few bugs appeared during the migration.
+
+Rendering did not cause a lot of problem too. To avoid duplicating drawing logic, 
+a dedicated rendering API was introduced and moved into a separate api module, while 
+the core logic remained platform-agnostic. This allowed both JavaFX and Swing 
+implementations to reuse the same rendering intent with different backends.
+
+The challenges came from differences in platform lifecycles, event handling, and 
+underlying behavior. JavaFX follows a frame-driven rendering model, while Swing 
+relies on passive repainting and the EDT. Some UI and UX aspects were sensitive 
+to these differences, but they were resolved.
+
+The most unresolved area is markup and styling. Swing lacks native CSS support, 
+and defining layouts and styles purely in code is verbose and difficult to maintain. 
+Ideally, UI appearance should come from a single declarative source. This remains 
+an open problem, and as a result, the appearance sometimes too primitive in 
+realization
 
 ### 🖱️ Input Handling
 

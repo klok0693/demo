@@ -6,49 +6,56 @@ This project uses **Maven** as the primary build tool and relies on a **multi-mo
 
 ## ▶️ Running the Application
 
-### 🗃️ Jar bundled with FX libs
+### 🗃️ Fat Jar 
 
-To build a jar, run from the project's root: 
+To build a jar, run from the project's root:
 
 ```bash
 mvn clean verify -Pheadless
 ```
 
-After a successful build the application JAR can be launched manually:
+After a successful build the JARs can be launched manually:
+
+*JavaFX*
 ```bash
-java -jar modules/javafx/target/javafx-1.0-SNAPSHOT.jar
+java -jar modules/javafx/target/javafx-1.0-SNAPSHOT-fat.jar
 ```
+
+*Java Swing*
+```bash
+java -jar modules/swing/target/swing-1.0-SNAPSHOT-fat.jar
+```
+
+> ⚠️ Included UI render components are platform specific, so generated jar is
+> not a multi-platform. Generated under Linux, it would not run under Windows
+> and *vice versa*
 
 #### 📋 Runtime Requirements
 
-Generated jar doesn't include a bundled JVM, but, *because JavaFX libraries 
-aren't part of the JRE anymore, they are added to executable jar*, which blow 
-it size, through still keep it fit and provide the ability to launch application 
-on systems, having java9+ runtime. 
-
-> ⚠️ Included JavaFX components are platform specific, so generated jar is 
-> not a multi-platform. Generated under Linux, it would not run under Windows 
-> and *vice versa*
+Generated jar include a bundled JVM, which blow 
+it size, through provide the ability to launch application 
+on systems without java runtime or additional libraries.
 
 *JavaFX's libraries for a jar are taken from the
 Maven dependencies*, not from the system path, to ensure, that every developer
 have the same runtime environment
 
-To run the application, the environment must provide only
-compatible **java21+ version**
-
 ### 🗃️ Thin Jar
+
+> ⚠️ Available only gor JavaFX version
 
 To build a jar without additional dependencies, run from the root:
 
 ```bash
-mvn clean verify -PexcludeFxDeps
+mvn clean verify
 ```
 
 After a successful build the application JAR can be launched manually:
 ```bash
 java -jar modules/javafx/target/javafx-1.0-SNAPSHOT.jar
 ```
+
+Used mostly for *JPackager*
 
 #### 📋 Runtime Requirements
 
@@ -61,14 +68,28 @@ system, as long as it have **preinstalled java21+ and openjfx21+**
 
 Project can be bundled via **Jpackager**, called on *verify* step if one 
 of the dedicated maven's profiles activated:
-- package-installer - created an installer, but do **not** automatically install the app into system
+
+**JavaFX**
+- *package-fx-installer* - created an installer, but do **not** automatically install the app into system
   ```bash
-  mvn clean verify -Ppackage-installer
+  mvn clean verify -Ppackage-fx-installer
   ```
   
-- package-app-image - create a runtime image
+- *package-fx-app-image* - create a runtime image
   ```bash
-  mvn clean verify -Ppackage-app-image
+  mvn clean verify -Ppackage-fx-app-image
+  ```
+
+**Java Swing**
+
+- *package-swing-installer* - created an installer, but do **not** automatically install the app into system
+  ```bash
+  mvn clean verify -Ppackage-fx-installer
+  ```
+
+- *package-swing-app-image* - create a runtime image
+  ```bash
+  mvn clean verify -Ppackage-fx-app-image
   ```
 
 Generated output *can be founded at /dist package*. 
@@ -166,9 +187,10 @@ Not for using with maven's commands
 
 ### Build profiles
 
-- *excludeFxDeps*
-- *package-installer*
-- *package-app-image*
+- *package-fx-installer*
+- *package-fx-app-image*
+- *package-swing-installer*
+- *package-swing-app-image*
 
 ### Test Profiles
 

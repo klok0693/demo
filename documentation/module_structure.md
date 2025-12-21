@@ -8,9 +8,13 @@ The goal of this structure is to keep the core logic independent from UI framewo
 At a high level, the project consists of the following modules:
 - **core** — Application logic and business rules
 - **model** — Domain data structures and pure model logic
-- **javafx** — JavaFX-based user interface and platform-specific components
 - **realization** — orchestration, asynchronization, DI, etc
 - **util** — Shared utilities and technical helpers
+- **api** - Contracts to unbind application components from 
+  specific realizations. Currently only used for graphics platforms.
+- **platform** - aggregator module for GUI platform modules 
+  - **javafx** 
+  - **swing**
 
 Dependencies generally flow from higher-level policy to lower-level implementation.
 ![Selection](Screenshot(22).png)
@@ -53,6 +57,34 @@ The module remains independent of platform-specific parts.
 
 From an architectural perspective, this module represents the policy and behavior of the application.
 
+## 🧩 API Module
+
+The api module defines platform-independent UI **contracts** and abstractions used by all graphical implementations.
+
+📦 Typical contents:
+- Rendering and drawing interfaces
+- Input and interaction contracts
+
+🎯 Key responsibilities:
+- Enabling multiple UI implementations without code duplication
+
+🚫 Does not depend on any other module
+
+## 🧱 Platform Module
+
+The platform module is an **aggregator** for platform-specific UI implementations.
+
+📦 Typical contents:
+- Maven aggregation and shared build configuration
+- Common build and packaging logic
+
+🔗 Dependencies:
+
+(none — aggregator module)
+
+This module contains no production code and exists purely to structure, 
+ and configure platform-specific implementations.
+
 ## 🎨 JavaFX Module
 
 The javafx module contains all JavaFX-specific code and acts as the primary UI layer of the application.
@@ -78,6 +110,39 @@ The javafx module contains all JavaFX-specific code and acts as the primary UI l
 - util
 
 This module is intentionally isolated so that UI concerns do not leak into the core logic.
+
+## 🪟 Swing Module
+
+The swing module contains all Swing/AWT-specific code 
+and provides a complete alternative UI implementation.
+
+📦 Typical contents:
+- Swing components and panels
+- Custom renderers and painters
+- Event handling and input translation
+- Swing-based application launcher
+
+🎯 Key responsibilities:
+- Rendering the application using Swing/AWT
+- Handling user input via Swing event mechanisms
+- Mapping Swing events to domain actions
+- Providing a functional UI without JavaFX dependencies
+
+🔗 Dependencies:
+
+api
+
+core
+
+model
+
+realization
+
+util
+
+This module demonstrates that the application can be ported 
+to a different UI toolkit without duplicating logic or relying 
+on hybrid solutions like JFXPanel.
 
 ## 🧬 Realization Module
 

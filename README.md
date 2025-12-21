@@ -35,17 +35,25 @@ with basic shapes on a canvas. Users can:
 - edit visual properties (position, size, color)
 - interact via mouse or keyboard
 - perform copy, paste and cut operations
+- select multiple shapes holding 'ctrl' or switch between shapes under 
+  the cursor by shift + right click
 
 Shapes are selectable, resizable, and draggable. The interface includes 
 a property panel, layer's tree with a shape lists, and toolbar.
 
-![Selection](documentation/screenshot_0.png)
+&emsp;**JavaFX**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;**Java Swing**
+
+<img src="documentation/screenshot_0.png" align="left" width="400" hspace="10"/>
+<img src="documentation/screenshot_2.png" align="left" width="400" hspace="20"/>
+<br clear="left"/>
 
 ---
 
 ## Tech Stack
 
-#### 💼 Project: Java, JavaFX, Google Guice, Logback, Maven, Lombock 
+#### 💼 Project: Java, JavaFX, Java Swing, Google Guice, Logback, Maven, Lombock 
 #### 📋 Tests: JUnit, Mockito, Cucumber, TestFX, Monocle
 
 ---
@@ -57,6 +65,11 @@ a property panel, layer's tree with a shape lists, and toolbar.
 - A developed **domain model**, kept independent from UI and infrastructure concerns
 - **Events orchestration** separated from business logic, avoiding UI-driven control flow
 - Clear boundaries between **synchronous and asynchronous execution**, explicitly modeled and kept out of core logic
+
+### 🏗️ Multi-platform UI architecture
+- Demonstrates how a single application architecture can target **multiple GUI toolkits** (*JavaFX* and *Swing*) 
+  without UI embedding via JFXPanel or SwingNode, platform hacks, or duplicated business logic. The implementation 
+  avoids element duplication - almost all components, including the canvas logic, are shared across platforms
 
 ### 🔌 Dependency Management
 - **Dependency Injection (Guice)**, including runtime bindings, test-specific configuration, pre-initialization 
