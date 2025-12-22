@@ -6,43 +6,38 @@
 
     <parent>
         <groupId>org.example</groupId>
-        <artifactId>astero_demo</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>demo</artifactId>
+        <version>1.2</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>realization</artifactId>
 
+    <properties>
+        <!-- DEPENDENCIES VESRIONS -->
+        <guice.version>7.0.0</guice.version>
+
+        <!-- TEST DEPENDENCIES VERSIONS -->
+        <junit.platfrom.version>1.10.2</junit.platfrom.version>
+        <cucumber.version>7.18.1</cucumber.version>
+
+        <!-- PLUGINS VERSIONS -->
+        <failsafe.plugin.version>3.5.4</failsafe.plugin.version>
+        <dependency.plugin.version>3.1.2</dependency.plugin.version>
+    </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
+        <!-- MODULES -->
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <!--<scope>compile</scope>-->
+            <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
             <classifier>tests</classifier>
@@ -50,84 +45,98 @@
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>model</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>util</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
 
-        <!-- Tests -->
+        <!-- DI -->
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+
+        <!-- LOGGING -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- CODE GENERATION -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- TESTS -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junit.platfrom.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>5.5.0</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.5.0</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
-            <version>7.18.1</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit-platform-engine</artifactId>
-            <version>7.18.1</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-guice</artifactId>
-            <version>7.18.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-suite</artifactId>
-            <version>1.10.2</version>
+            <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.5.4</version>
+                <version>${failsafe.plugin.version}</version>
                 <configuration>
-                    <!--suppress UnresolvedMavenProperty -->
+                    &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;
                     <argLine>
                         ${platform.args}
                         ${headless.args}
                     </argLine>
-                    <!--IMPORTANT: Because test dependencies from core module
+                    &lt;!&ndash;IMPORTANT: Because test dependencies from core module
                     packed into jar and injected into tests of another module,
                     using of module path leads to exception related to duplicating
                     dependency - JPMS do not recognize test as separate module.
                     That's why, avoiding JPMS module systems is allowed, but
                     (!) only for tests (!), production code must follow JPMS rules
-                    strictly-->
-                    <!--<useModulePath>false</useModulePath>-->
+                    strictly&ndash;&gt;
+                    <useModulePath>false</useModulePath>
                     <includes>
                         <include>**/launchers/**/*.java</include>
                     </includes>
+                    &lt;!&ndash; Needs for UI tests to fully reinitialize application &ndash;&gt;
                     <forkCount>1</forkCount>
                     <reuseForks>false</reuseForks>
                 </configuration>
@@ -135,19 +144,26 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <!--Important: need for functional tests-->
+                &lt;!&ndash;Important: need for functional tests&ndash;&gt;
                 <configuration>
-                    <!--suppress UnresolvedMavenProperty -->
+                    &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;
                     <argLine>
                         ${platform.args}
                     </argLine>
+                    &lt;!&ndash;IMPORTANT: Because test dependencies from core module
+                    packed into jar and injected into tests of another module,
+                    using of module path leads to exception related to duplicating
+                    dependency - JPMS do not recognize test as separate module.
+                    That's why, avoiding JPMS module systems is allowed, but
+                    (!) only for tests (!), production code must follow JPMS rules
+                    strictly&ndash;&gt;
                     <useModulePath>false</useModulePath>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>${dependency.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>share-tests</id>
@@ -162,7 +178,7 @@
                         <artifactItem>
                             <groupId>org.example</groupId>
                             <artifactId>core</artifactId>
-                            <version>1.0-SNAPSHOT</version>
+                            <version>${project.version}</version>
                             <classifier>tests</classifier>
                             <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
                         </artifactItem>

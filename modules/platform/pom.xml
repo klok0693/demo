@@ -6,8 +6,8 @@
 
     <parent>
         <groupId>org.example</groupId>
-        <artifactId>astero_demo</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>demo</artifactId>
+        <version>1.2</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -19,47 +19,68 @@
         <module>swing</module>
     </modules>
 
-    <dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-            <!--<classifier>tests</classifier>-->
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>realization</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+    <properties>
+        <!-- DEPENDENCIES VERSIONS -->
+        <guice.version>7.0.0</guice.version>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+        <!-- PLUGINS VERSIONS -->
+        <failsafe.plugin.version>3.5.4</failsafe.plugin.version>
+        <dependency.plugin.version>3.1.2</dependency.plugin.version>
+        <enforcer.plugin.version>3.6.2</enforcer.plugin.version>
+        <execution.plugin.version>3.5.0</execution.plugin.version>
+
+        <!-- BUILD PROPERTIES -->
+        <!--suppress UnresolvedMavenProperty -->
+        <jpackager.config>
+            --name ${platform.appName}
+            --input target
+            --main-jar ${platform.mainJar}
+            --main-class ${platform.mainClass}
+            --dest ../../../dist
+        </jpackager.config>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- MODULES -->
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>realization</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!-- DI -->
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <profiles>
+        <!-- 'WINDOWS' PROFILE -->
         <profile>
             <id>windows</id>
             <activation>
@@ -72,6 +93,7 @@
                 <headless.args></headless.args>
             </properties>
         </profile>
+        <!-- 'LINUX' PROFILE -->
         <profile>
             <id>linux</id>
             <activation>
@@ -84,6 +106,7 @@
                 <headless.args></headless.args>
             </properties>
         </profile>
+        <!-- 'SKIP TESTS' PROFILE -->
         <profile>
             <id>skipTests</id>
             <properties>
@@ -100,6 +123,7 @@
                 </headless.args>
             </properties>
         </profile>
+        <!-- 'GUI TESTS' PROFILE -->
         <profile>
             <id>guiTests</id>
             <activation>
@@ -117,7 +141,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.5.4</version>
+                    <version>${failsafe.plugin.version}</version>
                     <configuration>
                         <!--suppress UnresolvedMavenProperty -->
                         <argLine>
@@ -141,6 +165,13 @@
                         <argLine>
                             ${platform.args}
                         </argLine>
+                        <!--IMPORTANT: Because test dependencies from core module
+                            packed into jar and injected into tests of another module,
+                            using of module path leads to exception related to duplicating
+                            dependency - JPMS do not recognize test as separate module.
+                            That's why, avoiding JPMS module systems is allowed, but
+                            (!) only for tests (!), production code must follow JPMS rules
+                            strictly-->
                         <useModulePath>false</useModulePath>
                     </configuration>
                 </plugin>
@@ -152,13 +183,13 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>${dependency.plugin.version}</version>
                     <configuration>
                         <artifactItems>
                             <artifactItem>
                                 <groupId>org.example</groupId>
                                 <artifactId>core</artifactId>
-                                <version>1.0-SNAPSHOT</version>
+                                <version>${project.version}</version>
                                 <classifier>tests</classifier>
                                 <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
                             </artifactItem>
@@ -168,7 +199,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.6.2</version>
+                    <version>${enforcer.plugin.version}</version>
                     <configuration>
                         <rules>
                             <requireProperty>
@@ -184,6 +215,11 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${execution.plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

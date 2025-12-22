@@ -19,12 +19,12 @@ After a successful build the application JAR can be launched manually:
 
 *JavaFX*
 ```bash
-java -jar modules/platform/javafx/target/javafx-1.0-SNAPSHOT-thin.jar
+java -jar modules/platform/javafx/target/javafx-1.2-thin.jar
 ```
 
 *Java Swing*
 ```bash
-java -jar modules/platform/swing/target/swing-1.0-SNAPSHOT-all.jar
+java -jar modules/platform/swing/target/swing-1.2-all.jar
 ```
 
 Generated jars are used mostly for *JPackager*
@@ -51,7 +51,7 @@ After a successful build the JARs can be launched manually:
 
 *JavaFX*
 ```bash
-java -jar modules/platform/javafx/target/javafx-1.0-SNAPSHOT-fat.jar
+java -jar modules/platform/javafx/target/javafx-1.2-fat.jar
 ```
 
 > ⚠️ Included UI render components are platform specific, so generated jar is

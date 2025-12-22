@@ -5,10 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>astero_demo</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>astero_demo</name>
+    <artifactId>demo</artifactId>
+    <version>1.2</version>
     <packaging>pom</packaging>
+
+    <name>demo</name>
 
     <modules>
         <module>modules/api</module>
@@ -20,67 +21,86 @@
     </modules>
 
     <properties>
+        <!-- DEPENDENCIES VERSIONS -->
+        <slf4j.version>2.0.16</slf4j.version>
+        <logback.version>1.5.13</logback.version>
+        <lombok.version>1.18.34</lombok.version>
+        <apache.common.lang.version>3.12.0</apache.common.lang.version>
+        <apache.common.math.version>3.6.1</apache.common.math.version>
+        <findbug.version>3.0.2</findbug.version>
+
+        <!-- TEST DEPENDENCIES VERSIONS -->
+        <junit.version>5.10.2</junit.version>
+        <mockito.version>5.5.0</mockito.version>
+
+        <!-- BUILD PARAMS -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.10.0</junit.version>
+        <java.version>21</java.version>
+
+        <!-- PLUGINS VERSIONS -->
+        <compiler.plugin.version>3.11.0</compiler.plugin.version>
+        <surefire.plugin.version>3.2.5</surefire.plugin.version>
     </properties>
 
     <dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <version>7.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.16</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.5.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.34</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-            <version>3.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>3.0.2</version>
-        </dependency>
+        <dependencies>
+            <!-- LOGGING -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.10.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>5.5.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.5.0</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+            <!-- CODE GENERATION -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <!--<scope>provided</scope>-->
+            </dependency>
+
+            <!-- UTILS -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache.common.lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>${apache.common.math.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${findbug.version}</version>
+            </dependency>
+
+            <!-- TESTS -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <build>
@@ -89,15 +109,15 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.11.0</version>
+                    <version>${compiler.plugin.version}</version>
                     <configuration>
-                        <source>21</source>
-                        <target>21</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                                <version>1.18.34</version>
+                                <version>${lombok.version}</version>
                             </path>
                         </annotationProcessorPaths>
                     </configuration>
@@ -105,18 +125,31 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.2.5</version>
+                    <version>${surefire.plugin.version}</version>
                     <configuration>
+                        <useModulePath>false</useModulePath>
                         <includes>
                             <include>**/unit/**/*.java</include>
                             <include>**/integration/**/*.java</include>
                         </includes>
                         <excludes>
+                            <!-- Functional tests executed via FailSafe plugin -->
                             <exclude>**/launchers/**/*.java</exclude>
                         </excludes>
-                        <!-- for JavaFX / Cucumber tests -->
-                        <forkCount>1</forkCount>
-                        <reuseForks>false</reuseForks>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <!--IMPORTANT: Because test dependencies from core module
+                            packed into jar and injected into tests of another module,
+                            using of module path leads to exception related to duplicating
+                            dependency - JPMS do not recognize test as separate module.
+                            That's why, avoiding JPMS module systems is allowed, but
+                            (!) only for tests (!), production code must follow JPMS rules
+                            strictly-->
+                        <useModulePath>false</useModulePath>
                     </configuration>
                 </plugin>
             </plugins>

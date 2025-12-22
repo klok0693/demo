@@ -7,24 +7,60 @@
     <parent>
         <groupId>org.example</groupId>
         <artifactId>platform</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>swing</artifactId>
 
+    <properties>
+        <!-- DEPENDENCIES VERSIONS -->
+        <flatlaf.version>3.7</flatlaf.version>
+
+        <!-- BUILD VARIABLES -->
+        <jpackager.prefix.all>all</jpackager.prefix.all>
+
+        <!-- PROFILE SETTINGS -->
+        <platform.args></platform.args>
+        <platform.headless.args></platform.headless.args>
+        <platform.appName>Swing_Demo</platform.appName>
+        <platform.mainJar>${project.artifactId}-${project.version}-${jpackager.prefix.all}.jar</platform.mainJar>
+        <platform.mainClass>org.example.astero_demo.SwingMain</platform.mainClass>
+    </properties>
+
     <dependencies>
+        <!-- MODULES -->
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+<!--        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>-->
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>realization</artifactId>
+        </dependency>
+
+        <!-- UI -->
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
-            <version>3.7</version>
+            <version>${flatlaf.version}</version>
         </dependency>
 
+        <!-- DI -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
         </dependency>
 
+        <!-- LOGGING -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -33,42 +69,16 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
         </dependency>
+
+        <!-- CODE GENERATION -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-            <!--<classifier>tests</classifier>-->
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>realization</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
-    <properties>
-        <platform.args></platform.args>
-        <platform.headless.args></platform.headless.args>
-        <platform.appName>Swing_Demo</platform.appName>
-        <platform.mainJar>swing-1.0-SNAPSHOT-fat.jar</platform.mainJar>
-        <platform.mainClass>org.example.astero_demo.SwingMain</platform.mainClass>
-    </properties>
-
     <profiles>
+        <!-- 'PACKAGE-SWING-APP-IMAGE' PROFILE -->
         <profile>
             <id>package-swing-app-image</id>
             <activation>
@@ -79,7 +89,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.5.0</version>
                         <executions>
                             <execution>
                                 <id>jpackage-app-image</id>
@@ -92,11 +101,7 @@
                                     <!--suppress UnresolvedMavenProperty -->
                                     <commandlineArgs>
                                         --type app-image
-                                        --name ${platform.appName}
-                                        --input target
-                                        --main-jar ${platform.mainJar}
-                                        --main-class ${platform.mainClass}
-                                        --dest ../../../dist
+                                        ${jpackager.config}
                                     </commandlineArgs>
                                 </configuration>
                             </execution>
@@ -108,6 +113,7 @@
                 <headless.args></headless.args>
             </properties>
         </profile>
+        <!-- 'PACKAGE-SWING-INSTALLER' PROFILE -->
         <profile>
             <id>package-swing-installer</id>
             <activation>
@@ -118,7 +124,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.5.0</version>
                         <executions>
                             <execution>
                                 <id>jpackage-installer</id>
@@ -131,11 +136,7 @@
                                     <!--suppress UnresolvedMavenProperty -->
                                     <commandlineArgs>
                                         --type ${jpackage.installer}
-                                        --name ${platform.appName}
-                                        --input target
-                                        --main-jar ${platform.mainJar}
-                                        --main-class ${platform.mainClass}
-                                        --dest ../../../dist
+                                        ${jpackager.config}
                                     </commandlineArgs>
                                 </configuration>
                             </execution>
@@ -205,7 +206,7 @@
                         </goals>
                         <configuration>
                             <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>all</shadedClassifierName>
+                            <shadedClassifierName>${jpackager.prefix.all}</shadedClassifierName>
                             <filters>
                                 <filter>
                                     <!-- Security: Remove signature files from dependencies to avoid SecurityException -->
