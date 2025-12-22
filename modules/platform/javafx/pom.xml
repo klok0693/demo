@@ -95,14 +95,26 @@
             <groupId>org.example</groupId>
             <artifactId>core</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <!--<classifier>tests</classifier>-->
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
-            <!--<classifier>tests</classifier>-->
+            <classifier>tests</classifier>
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>realization</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.example</groupId>
+                    <artifactId>core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -336,7 +348,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <executions>
-                    <!-- Fat JAR (All Dependencies) -->
+                    <!-- Thin jar without javafx libraries -->
                     <execution>
                         <id>thin</id>
                         <phase>verify</phase>
@@ -372,7 +384,7 @@
                         </configuration>
                     </execution>
 
-                    <!-- Fat JAR (All Dependencies) -->
+                    <!-- Fat jar(all dependencies) -->
                     <execution>
                         <id>fat-jar</id>
                         <phase>verify</phase>
