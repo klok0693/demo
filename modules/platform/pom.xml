@@ -23,6 +23,10 @@
         <!-- DEPENDENCIES VERSIONS -->
         <guice.version>7.0.0</guice.version>
 
+        <!-- TEST DEPENDENCIES VERSION -->
+        <junit.platfrom.version>1.10.2</junit.platfrom.version>
+        <cucumber.version>7.18.1</cucumber.version>
+
         <!-- PLUGINS VERSIONS -->
         <failsafe.plugin.version>3.5.4</failsafe.plugin.version>
         <dependency.plugin.version>3.1.2</dependency.plugin.version>
@@ -75,6 +79,32 @@
                 <groupId>com.google.inject</groupId>
                 <artifactId>guice</artifactId>
                 <version>${guice.version}</version>
+            </dependency>
+
+            <!-- TESTS -->
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-junit-platform-engine</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-guice</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-suite</artifactId>
+                <version>${junit.platfrom.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

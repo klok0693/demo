@@ -27,6 +27,7 @@ public class SwingCanvasUI extends JComponent implements CanvasUI {
 
         this.layers = List.of(backgroundLayer, shapeLayer, toolLayer);
         setBackground(Color.CYAN);
+        setName("canvasRoot");
     }
 
     @Override

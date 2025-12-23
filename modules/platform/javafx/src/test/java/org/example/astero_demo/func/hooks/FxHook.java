@@ -1,16 +1,16 @@
 package org.example.astero_demo.func.hooks;
 
 import io.cucumber.java.Before;
-import org.example.astero_demo.func.TestHelloApplication;
+import org.example.astero_demo.func.FxTestHelloApplication;
 import org.testfx.api.FxToolkit;
 
 public class FxHook {
 
     private static boolean started = false;
 
-    private final TestHelloApplication application;
+    private final FxTestHelloApplication application;
 
-    public FxHook(final TestHelloApplication application) {
+    public FxHook(final FxTestHelloApplication application) {
         this.application = application;
     }
 

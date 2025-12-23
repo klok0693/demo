@@ -13,8 +13,6 @@ public class SwingMain {
 
     public static void main(String[] args) {
         log.debug(INITIALIZATION_MARKER, "Start application with args:{}", List.of(args));
-        AppConfiguration.INSTANCE.setUp();
-
         SwingUtilities.invokeLater(() -> new SwingHelloApplication().createAndShowGUI());
     }
 }

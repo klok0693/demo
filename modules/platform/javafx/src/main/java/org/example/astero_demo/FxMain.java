@@ -13,8 +13,6 @@ public class FxMain {
 
     public static void main(final String[] args) {
         log.debug(INITIALIZATION_MARKER, "Start application with args:{}", List.of(args));
-
-        AppConfiguration.INSTANCE.setUp();
         Application.launch(FxHelloApplication.class, args);
     }
 }

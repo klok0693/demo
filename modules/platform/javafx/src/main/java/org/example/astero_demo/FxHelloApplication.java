@@ -9,12 +9,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.BuilderFactory;
 import javafx.util.Callback;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.astero_demo.fx.initialization.di.FxModule;
 import org.example.astero_demo.fx.port.keyboard.FxRootShortcutHandler;
+import org.example.astero_demo.realization.configuration.AppConfiguration;
 import org.example.astero_demo.realization.initialization.di.module.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_MARKER;
 
@@ -25,11 +28,14 @@ import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_
  * for correct initialization of JavaFX
  */
 @Slf4j
+@Getter
 public class FxHelloApplication extends Application {
-    protected Injector injector;
+    private Injector injector;
 
     @Override
     public void start(final Stage stage) throws IOException {
+        AppConfiguration.INSTANCE.setUp();
+
         createInjector();
         final Parent parent = builtRoot();
         final Scene scene = buildScene(parent);

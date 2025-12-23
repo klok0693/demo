@@ -14,10 +14,12 @@ public class ToolBarStep extends Step {
     @When("Click on create Rectangular button")
     public void clickOnCreateRectBtn() {
         robot.clickOnCreateRectBtn();
+        robot.hold();
     }
 
     @When("Click on Delete button")
     public void clickOnDeleteBtn() {
         robot.clickOnDeleteRectBtn();
+        robot.hold();
     }
 }

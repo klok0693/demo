@@ -17,11 +17,14 @@
         <!-- DEPENDENCIES VERSIONS -->
         <flatlaf.version>3.7</flatlaf.version>
 
+        <!-- TESTS DEPENDENCIES VERSIONS -->
+        <assertj.version>3.17.1</assertj.version>
+
         <!-- BUILD VARIABLES -->
         <jpackager.prefix.all>all</jpackager.prefix.all>
 
         <!-- PROFILE SETTINGS -->
-        <platform.args></platform.args>
+        <platform.args>--add-opens java.base/java.util=ALL-UNNAMED</platform.args>
         <platform.headless.args></platform.headless.args>
         <platform.appName>Swing_Demo</platform.appName>
         <platform.mainJar>${project.artifactId}-${project.version}-${jpackager.prefix.all}.jar</platform.mainJar>
@@ -34,17 +37,29 @@
             <groupId>org.example</groupId>
             <artifactId>model</artifactId>
         </dependency>
-<!--        <dependency>
+        <dependency>
             <groupId>org.example</groupId>
             <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>core</artifactId>
+            <version>${project.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
             <classifier>tests</classifier>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>realization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>realization</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+            <classifier>tests</classifier>
         </dependency>
 
         <!-- UI -->
@@ -74,6 +89,49 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!-- TESTS -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-guice</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-swing-testng</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-swing-junit</artifactId>
+            <version>${assertj.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -17,6 +17,7 @@ public class CanvasStep extends Step {
     @When("Cursor are moved on a Canvas")
     public void moveCursorOnCanvas() {
         robot.moveCursorOnCanvas();
+        robot.hold();
     }
 
     @When("Drag and drop by x: {double}, y: {double}")
@@ -37,5 +38,6 @@ public class CanvasStep extends Step {
 
         robot.moveCursorOnCanvasBy(x + (width / 2), y + (height / 2));
         robot.mousePrimaryClick();
+        robot.hold();
     }
 }

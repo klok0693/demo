@@ -1,15 +1,15 @@
 package org.example.astero_demo.func.module.provider;
 
 import com.google.inject.Provider;
-import org.example.astero_demo.func.TestHelloApplication;
+import org.example.astero_demo.func.FxTestHelloApplication;
 
-public class TestComponentHolderProvider implements Provider<TestHelloApplication> {
-    private static TestHelloApplication holder;
+public class TestComponentHolderProvider implements Provider<FxTestHelloApplication> {
+    private static FxTestHelloApplication holder;
 
     @Override
-    public TestHelloApplication get() {
+    public FxTestHelloApplication get() {
         if (holder == null) {
-            holder = new TestHelloApplication();
+            holder = new FxTestHelloApplication();
         }
         return holder;
     }

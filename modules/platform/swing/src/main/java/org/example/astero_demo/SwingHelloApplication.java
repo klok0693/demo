@@ -3,7 +3,9 @@ package org.example.astero_demo;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.example.astero_demo.realization.configuration.AppConfiguration;
 import org.example.astero_demo.realization.initialization.di.module.CoreModule;
 import org.example.astero_demo.swing.initialization.di.SwingModule;
 import org.example.astero_demo.swing.port.keyboard.SwingRootShortcutHandler;
@@ -23,15 +25,19 @@ import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_
  * @author Pilip Yurchanka
  */
 @Slf4j
+@Getter
 public class SwingHelloApplication {
     /**
      * Used 'protected' modificator to let test classes<p>
      * inherit and get access to application's component<p>
      * for tests
      */
-    protected Injector injector;
+    private Injector injector;
+    private JFrame frame;
 
-    public void createAndShowGUI() {
+    public JFrame createAndShowGUI() {
+        AppConfiguration.INSTANCE.setUp();
+
         setupPLAF();
         initInjector();
         final SwingRootUI rootUI = builtRoot();
@@ -40,6 +46,7 @@ public class SwingHelloApplication {
 
         frame.pack();
         frame.setVisible(true);
+        return frame;
     }
 
     private void setupPLAF() {
@@ -67,7 +74,7 @@ public class SwingHelloApplication {
 
     private JFrame builtJFrame(final SwingRootUI rootUI) {
         log.debug(INITIALIZATION_MARKER, "Built root component");
-        final JFrame frame = new JFrame();
+        this.frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1200, 750));
         //frame.setLocationRelativeTo(null);

@@ -2,14 +2,14 @@ package org.example.astero_demo.func.module.provider.hook;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import org.example.astero_demo.func.TestHelloApplication;
+import org.example.astero_demo.func.FxTestHelloApplication;
 import org.example.astero_demo.func.hooks.FxHook;
 
-public class HookProvider implements Provider<FxHook> {
-    private final TestHelloApplication application;
+public class FxHookProvider implements Provider<FxHook> {
+    private final FxTestHelloApplication application;
 
     @Inject
-    public HookProvider(final TestHelloApplication application) {
+    public FxHookProvider(final FxTestHelloApplication application) {
         this.application = application;
     }
 

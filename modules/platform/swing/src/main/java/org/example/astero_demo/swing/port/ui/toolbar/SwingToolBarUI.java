@@ -25,6 +25,7 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
         setPreferredSize(new Dimension(getWidth(), 70));
 
         this.insertRectBtn = new JToggleButton("Rect");
+        this.insertRectBtn.setName("insertRectBtn");
         this.insertRectBtn.addActionListener(e -> {
             view.onInsertRectAction();
         });
@@ -46,6 +47,7 @@ public class SwingToolBarUI extends Box implements ToolBarUI {
         });
 
         this.deleteBtn = new JButton("Delete");
+        this.deleteBtn.setName("deleteBtn");
         this.deleteBtn.addActionListener(e -> {
             view.onDeleteAction();
         });

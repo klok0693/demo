@@ -1,15 +1,13 @@
 package org.example.astero_demo.func;
 
-import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
 import org.example.astero_demo.functional.Robot;
 import org.testfx.api.FxRobot;
-import org.testfx.service.query.NodeQuery;
 
 import java.util.concurrent.TimeUnit;
 
-public class ApplicationFxRobot extends FxRobot implements Robot {
+public class FxApplicationRobot extends FxRobot implements Robot {
     private static final String INSERT_BTN_ID = "#insertRectBtn";
     private static final String DELETE_BTN_ID = "#deleteBtn";
     private static final String CANVAS_ID = "#canvasRoot";
