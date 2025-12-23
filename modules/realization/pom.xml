@@ -22,8 +22,8 @@
         <cucumber.version>7.18.1</cucumber.version>
 
         <!-- PLUGINS VERSIONS -->
-        <failsafe.plugin.version>3.5.4</failsafe.plugin.version>
         <dependency.plugin.version>3.1.2</dependency.plugin.version>
+        <jar.plugin.version>3.3.0</jar.plugin.version>
     </properties>
 
     <dependencies>
@@ -115,51 +115,6 @@
 
     <build>
         <plugins>
-<!--            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${failsafe.plugin.version}</version>
-                <configuration>
-                    &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;
-                    <argLine>
-                        ${platform.args}
-                        ${headless.args}
-                    </argLine>
-                    &lt;!&ndash;IMPORTANT: Because test dependencies from core module
-                    packed into jar and injected into tests of another module,
-                    using of module path leads to exception related to duplicating
-                    dependency - JPMS do not recognize test as separate module.
-                    That's why, avoiding JPMS module systems is allowed, but
-                    (!) only for tests (!), production code must follow JPMS rules
-                    strictly&ndash;&gt;
-                    <useModulePath>false</useModulePath>
-                    <includes>
-                        <include>**/launchers/**/*.java</include>
-                    </includes>
-                    &lt;!&ndash; Needs for UI tests to fully reinitialize application &ndash;&gt;
-                    <forkCount>1</forkCount>
-                    <reuseForks>false</reuseForks>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                &lt;!&ndash;Important: need for functional tests&ndash;&gt;
-                <configuration>
-                    &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;
-                    <argLine>
-                        ${platform.args}
-                    </argLine>
-                    &lt;!&ndash;IMPORTANT: Because test dependencies from core module
-                    packed into jar and injected into tests of another module,
-                    using of module path leads to exception related to duplicating
-                    dependency - JPMS do not recognize test as separate module.
-                    That's why, avoiding JPMS module systems is allowed, but
-                    (!) only for tests (!), production code must follow JPMS rules
-                    strictly&ndash;&gt;
-                    <useModulePath>false</useModulePath>
-                </configuration>
-            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -184,6 +139,22 @@
                         </artifactItem>
                     </artifactItems>
                 </configuration>
+            </plugin>
+            <!-- Because functional tests are platform-dependent, general logic of
+            them are stored in module 'core', while realization stored in dedicated
+            platform-specific modules. To make it work, tests from 'core' are packed
+            into test-jar, that can be used by other modules -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${jar.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -148,31 +148,19 @@
                             ${platform.args}
                             ${headless.args}
                         </argLine>
+                        <!--IMPORTANT: Because test dependencies from core module
+                        packed into jar and injected into tests of another module,
+                        using of module path leads to exception related to duplicating
+                        dependency - JPMS do not recognize test as separate module.
+                        That's why, avoiding JPMS module systems is allowed, but
+                        (!) only for tests (!), production code must follow JPMS rules
+                        strictly-->
                         <useModulePath>false</useModulePath>
                         <includes>
                             <include>**/launchers/**/*.java</include>
                         </includes>
                         <forkCount>1</forkCount>
                         <reuseForks>false</reuseForks>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <!--Important: need for functional tests-->
-                    <configuration>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <argLine>
-                            ${platform.args}
-                        </argLine>
-                        <!--IMPORTANT: Because test dependencies from core module
-                            packed into jar and injected into tests of another module,
-                            using of module path leads to exception related to duplicating
-                            dependency - JPMS do not recognize test as separate module.
-                            That's why, avoiding JPMS module systems is allowed, but
-                            (!) only for tests (!), production code must follow JPMS rules
-                            strictly-->
-                        <useModulePath>false</useModulePath>
                     </configuration>
                 </plugin>
                 <!-- By default, maven doesn't package tests in a jar, so, if tests from
@@ -189,6 +177,13 @@
                             <artifactItem>
                                 <groupId>org.example</groupId>
                                 <artifactId>core</artifactId>
+                                <version>${project.version}</version>
+                                <classifier>tests</classifier>
+                                <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.example</groupId>
+                                <artifactId>realization</artifactId>
                                 <version>${project.version}</version>
                                 <classifier>tests</classifier>
                                 <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>

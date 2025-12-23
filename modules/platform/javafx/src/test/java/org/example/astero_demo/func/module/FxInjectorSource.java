@@ -15,8 +15,7 @@ public class FxInjectorSource implements InjectorSource {
         //return ROOT.createChildInjector(CucumberModules.createScenarioModule());
         return Guice.createInjector(Stage.PRODUCTION,
                 CucumberModules.createScenarioModule(),
-                new FxTestModule()
-/*                new CoreModule(),
-                new FxModule()*/);
+                new TestModule(),
+                new FxTestModule());
     }
 }
