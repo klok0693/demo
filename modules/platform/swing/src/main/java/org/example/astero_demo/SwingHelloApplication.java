@@ -38,7 +38,7 @@ public class SwingHelloApplication {
     public JFrame createAndShowGUI() {
         AppConfiguration.INSTANCE.setUp();
 
-        setupPLAF();
+        //setupPLAF();
         initInjector();
         final SwingRootUI rootUI = builtRoot();
         final JFrame frame = builtJFrame(rootUI);

@@ -20,7 +20,7 @@ public class SwingHook {
 
     static {
         FailOnThreadViolationRepaintManager.install();
-        FlatLightLaf.setup();
+        //FlatLightLaf.setup();
     }
 
     public SwingHook(final SwingTestHelloApplication application, final Robot robot) {
@@ -33,7 +33,7 @@ public class SwingHook {
         if (!started) {
             window = new FrameFixture(robot, GuiActionRunner.execute(application::createAndShowGUI));
             window.show();
-            started = false;
+            started = true;
         }
     }
 

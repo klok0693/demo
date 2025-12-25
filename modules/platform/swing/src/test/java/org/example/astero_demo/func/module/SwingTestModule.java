@@ -4,6 +4,7 @@ import com.google.inject.*;
 import org.assertj.swing.core.BasicRobot;
 import org.example.astero_demo.func.SwingApplicationRobot;
 import org.example.astero_demo.func.SwingTestHelloApplication;
+import org.example.astero_demo.func.hooks.CacioInitializer;
 import org.example.astero_demo.func.hooks.SwingHook;
 import org.example.astero_demo.func.launchers.SwingDeleteShapeTest;
 import org.example.astero_demo.func.launchers.SwingInsertShapeTest;
@@ -17,6 +18,8 @@ public class SwingTestModule extends AbstractModule {
     @Override
     protected void configure()
     {
+        bind(CacioInitializer.class).toInstance(new CacioInitializer());
+
         bind(Robot.class).to(SwingApplicationRobot.class);
 
         bind(TestComponentHolder.class).to(SwingTestHelloApplication.class);

@@ -1,6 +1,5 @@
 package org.example.astero_demo.func.module;
 
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Stage;
