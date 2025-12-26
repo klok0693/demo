@@ -7,7 +7,9 @@ import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
 import org.example.astero_demo.realization.level.async.BackgroundExecutor;
 
-public class ClipboardProcessorAsyncWrapper extends AsynchWrapper<ClipboardProcessor> implements ClipboardProcessor {
+public class ClipboardProcessorAsyncWrapper
+        extends AsynchWrapper<ClipboardProcessor, BackgroundExecutor>
+        implements ClipboardProcessor {
 
     @Inject
     public ClipboardProcessorAsyncWrapper(

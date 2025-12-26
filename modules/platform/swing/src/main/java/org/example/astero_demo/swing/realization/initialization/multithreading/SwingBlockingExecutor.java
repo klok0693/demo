@@ -1,4 +1,4 @@
-package org.example.astero_demo.swing.initialization.multithreading;
+package org.example.astero_demo.swing.realization.initialization.multithreading;
 
 import org.example.astero_demo.realization.level.async.BlockingForegroundExecutor;
 

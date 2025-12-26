@@ -8,7 +8,6 @@ import org.example.astero_demo.func.hooks.CacioInitializer;
 import org.example.astero_demo.func.hooks.SwingHook;
 import org.example.astero_demo.func.launchers.SwingDeleteShapeTest;
 import org.example.astero_demo.func.launchers.SwingInsertShapeTest;
-import org.example.astero_demo.func.module.provider.SwingTestComponentHolderProvider;
 import org.example.astero_demo.func.module.provider.hook.SwingHookProvider;
 import org.example.astero_demo.functional.Robot;
 import org.example.astero_demo.functional.TestComponentHolder;
@@ -23,7 +22,7 @@ public class SwingTestModule extends AbstractModule {
         bind(Robot.class).to(SwingApplicationRobot.class);
 
         bind(TestComponentHolder.class).to(SwingTestHelloApplication.class);
-        bind(SwingTestHelloApplication.class).toProvider(SwingTestComponentHolderProvider.class);
+        bind(SwingTestHelloApplication.class).in(Scopes.SINGLETON);
 
         bind(SwingHook.class).toProvider(SwingHookProvider.class).in(Scopes.SINGLETON);
 

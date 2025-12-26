@@ -1,4 +1,4 @@
-package org.example.astero_demo.swing.initialization.di;
+package org.example.astero_demo.swing.realization.initialization.di;
 
 import com.google.inject.*;
 import org.example.astero_demo.core.adapter.keyboard.OperationAdapter;

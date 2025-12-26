@@ -4,7 +4,9 @@ import org.example.astero_demo.core.port.os.OSClipboard;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
 import org.example.astero_demo.realization.level.async.BlockingForegroundExecutor;
 
-public class FxOSClipboardAsyncWrapper extends AsynchWrapper<OSClipboard> implements OSClipboard {
+public class FxOSClipboardAsyncWrapper
+        extends AsynchWrapper<OSClipboard, BlockingForegroundExecutor>
+        implements OSClipboard {
 
     public FxOSClipboardAsyncWrapper(
             final OSClipboard wrappedElement,

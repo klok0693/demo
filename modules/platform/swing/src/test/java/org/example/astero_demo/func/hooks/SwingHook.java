@@ -7,6 +7,7 @@ import org.assertj.swing.core.Robot;
 import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
+import org.example.astero_demo.func.SwingTestAppInitializer;
 import org.example.astero_demo.func.SwingTestHelloApplication;
 
 public class SwingHook {
@@ -31,7 +32,8 @@ public class SwingHook {
     @Before(order = 0)
     public void setUp() {
         if (!started) {
-            window = new FrameFixture(robot, GuiActionRunner.execute(application::createAndShowGUI));
+            window = new FrameFixture(robot, GuiActionRunner.execute(() ->
+                    new SwingTestAppInitializer(application).initialize()));
             window.show();
             started = true;
         }

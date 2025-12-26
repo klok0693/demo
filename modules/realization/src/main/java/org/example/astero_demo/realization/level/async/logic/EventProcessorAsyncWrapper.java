@@ -15,7 +15,9 @@ import org.example.astero_demo.realization.level.async.BackgroundExecutor;
  * @since v1.0
  */
 @Slf4j
-public class EventProcessorAsyncWrapper extends AsynchWrapper<ShapeProcessor> implements ShapeProcessor {
+public class EventProcessorAsyncWrapper
+        extends AsynchWrapper<ShapeProcessor, BackgroundExecutor>
+        implements ShapeProcessor {
 
     @Inject
     public EventProcessorAsyncWrapper(

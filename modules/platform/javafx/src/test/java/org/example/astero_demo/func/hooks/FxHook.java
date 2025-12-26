@@ -1,24 +1,22 @@
 package org.example.astero_demo.func.hooks;
 
 import io.cucumber.java.Before;
-import org.example.astero_demo.func.FxTestHelloApplication;
-import org.testfx.api.FxToolkit;
+import org.example.astero_demo.func.FxTestAppInitializer;
 
 public class FxHook {
 
     private static boolean started = false;
 
-    private final FxTestHelloApplication application;
+    private final FxTestAppInitializer initializer;
 
-    public FxHook(final FxTestHelloApplication application) {
-        this.application = application;
+    public FxHook(final FxTestAppInitializer initializer) {
+        this.initializer = initializer;
     }
 
     @Before(order = 0)
     public void startFxApp() throws Exception {
         if (!started) {
-            FxToolkit.registerPrimaryStage();
-            FxToolkit.setupApplication(() -> application);
+            initializer.initialize();
             started = true;
         }
     }

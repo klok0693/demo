@@ -13,7 +13,9 @@ import org.example.astero_demo.util.logging.MarkerStorage;
  * merging them into non-freezable thread
  */
 @Slf4j
-public class RootAdapterAsyncWrapper extends AsynchWrapper<ControllerAdapter> implements ControllerAdapter {
+public class RootAdapterAsyncWrapper
+        extends AsynchWrapper<ControllerAdapter, NonBlockingForegroundExecutor>
+        implements ControllerAdapter {
 
     @Inject
     public RootAdapterAsyncWrapper(

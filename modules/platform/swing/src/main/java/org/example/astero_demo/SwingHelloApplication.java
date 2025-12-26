@@ -1,13 +1,8 @@
 package org.example.astero_demo;
 
-import com.formdev.flatlaf.FlatLightLaf;
-import com.google.inject.Guice;
 import com.google.inject.Injector;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.realization.configuration.AppConfiguration;
-import org.example.astero_demo.realization.initialization.di.module.CoreModule;
-import org.example.astero_demo.swing.initialization.di.SwingModule;
 import org.example.astero_demo.swing.port.keyboard.SwingRootShortcutHandler;
 import org.example.astero_demo.swing.port.ui.root.SwingRootUI;
 
@@ -26,22 +21,24 @@ import static org.example.astero_demo.util.logging.MarkerStorage.INITIALIZATION_
  */
 @Slf4j
 @Getter
-public class SwingHelloApplication {
+public class SwingHelloApplication implements HelloApplication<JFrame> {
     /**
      * Used 'protected' modificator to let test classes<p>
      * inherit and get access to application's component<p>
      * for tests
      */
-    private Injector injector;
+    protected Injector injector;
     private JFrame frame;
 
-    public JFrame createAndShowGUI() {
-        AppConfiguration.INSTANCE.setUp();
+    public SwingHelloApplication(final Injector injector) {
+        this.injector = injector;
+    }
 
-        //setupPLAF();
-        initInjector();
-        final SwingRootUI rootUI = builtRoot();
-        final JFrame frame = builtJFrame(rootUI);
+    @Override
+    public JFrame launchGUI /*createAndShowGUI*/() {
+        setupPLAF();
+
+        this.frame = builtJFrame(builtRoot());
         addKeyHandler(frame);
 
         frame.pack();
@@ -50,7 +47,7 @@ public class SwingHelloApplication {
     }
 
     private void setupPLAF() {
-        FlatLightLaf.setup();
+        //FlatLightLaf.setup();
         //FlatDarkLaf.setup();
         //FlatIntelliJLaf.setup();
         //FlatDarculaLaf.setup();
@@ -61,11 +58,6 @@ public class SwingHelloApplication {
                 //.createLookAndFeel("Nimbus")
                 // .getSystemLookAndFeelClassName()
         );*/
-    }
-
-    private void initInjector() {
-        log.debug(INITIALIZATION_MARKER, "Init DI container");
-        this.injector = Guice.createInjector(new CoreModule(), new SwingModule());
     }
 
     private SwingRootUI builtRoot() {

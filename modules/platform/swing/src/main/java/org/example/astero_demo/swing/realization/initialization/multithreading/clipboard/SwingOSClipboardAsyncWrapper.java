@@ -1,10 +1,12 @@
-package org.example.astero_demo.swing.initialization.multithreading.clipboard;
+package org.example.astero_demo.swing.realization.initialization.multithreading.clipboard;
 
 import org.example.astero_demo.core.port.os.OSClipboard;
 import org.example.astero_demo.realization.level.async.AsynchWrapper;
 import org.example.astero_demo.realization.level.async.BlockingForegroundExecutor;
 
-public class SwingOSClipboardAsyncWrapper extends AsynchWrapper<OSClipboard> implements OSClipboard {
+public class SwingOSClipboardAsyncWrapper
+        extends AsynchWrapper<OSClipboard, BlockingForegroundExecutor>
+        implements OSClipboard {
 
     public SwingOSClipboardAsyncWrapper(
             final OSClipboard wrappedElement,

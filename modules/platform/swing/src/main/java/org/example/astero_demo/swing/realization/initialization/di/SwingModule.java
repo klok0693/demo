@@ -1,4 +1,4 @@
-package org.example.astero_demo.swing.initialization.di;
+package org.example.astero_demo.swing.realization.initialization.di;
 
 import com.google.inject.AbstractModule;
 
@@ -12,7 +12,8 @@ public class SwingModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        install(new SwingAsynchModule());
+        install(new SwingApplicationModule());
+        install(new SwingAsyncModule());
         install(new SwingUIElementModule());
         install(new SwingViewModule());
         install(new KeyboardModule());

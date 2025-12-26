@@ -2,19 +2,19 @@ package org.example.astero_demo.func.module.provider.hook;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import org.example.astero_demo.func.FxTestHelloApplication;
+import org.example.astero_demo.func.FxTestAppInitializer;
 import org.example.astero_demo.func.hooks.FxHook;
 
 public class FxHookProvider implements Provider<FxHook> {
-    private final FxTestHelloApplication application;
+    private final FxTestAppInitializer initializer;
 
     @Inject
-    public FxHookProvider(final FxTestHelloApplication application) {
-        this.application = application;
+    public FxHookProvider(final FxTestAppInitializer initializer) {
+        this.initializer = initializer;
     }
 
     @Override
     public FxHook get() {
-        return new FxHook(application);
+        return new FxHook(initializer);
     }
 }

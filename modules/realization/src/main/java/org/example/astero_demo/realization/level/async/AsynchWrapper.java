@@ -16,10 +16,10 @@ import java.util.concurrent.Executor;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public abstract class AsynchWrapper<T> extends WrapperLink<T> {
-    protected final Executor executor;
+public abstract class AsynchWrapper<T, E extends Executor> extends WrapperLink<T> {
+    protected final E executor;
 
-    protected AsynchWrapper(final T wrappedElement, final Executor executor) {
+    protected AsynchWrapper(final T wrappedElement, final E executor) {
         super(wrappedElement);
         this.executor = executor;
     }
