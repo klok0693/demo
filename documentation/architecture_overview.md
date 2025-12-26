@@ -194,6 +194,17 @@ The system favors:
 
 ---
 
+## ⚙️ Configuration
+
+Initial configuration include two stages:
+- [parse command line and jvm variables](../modules/realization/src/main/java/org/example/astero_demo/realization/configuration/parser)
+- [prepare application](../modules/realization/src/main/java/org/example/astero_demo/realization/configuration/preparer)
+
+Data from *parser* used mostly to set up application's behavior and appearance,
+while *preparers* performed hardcoded initial operations
+
+---
+
 ## 🪵 Logging & Observability
 
 Logging is structured and [tagged](../modules/util/src/main/java/org/example/astero_demo/util/logging/MarkerStorage.java).

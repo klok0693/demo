@@ -59,7 +59,8 @@ implementations to reuse the same rendering intent with different backends.
 The challenges came from differences in platform lifecycles, event handling, and 
 underlying behavior. JavaFX follows a frame-driven rendering model, while Swing 
 relies on passive repainting and the EDT. Some UI and UX aspects were sensitive 
-to these differences, but they were resolved.
+to these differences, but they were resolved. Some tests also required tinkering,
+mostly in the way how application being initialized
 
 The most unresolved area is markup and styling. Swing lacks native CSS support, 
 and defining layouts and styles purely in code is verbose and difficult to maintain. 
@@ -256,6 +257,8 @@ This allows:
 - alignment between UI creation and application configuration
 
 The use of DI in JavaFX is treated as an implementation detail, not a design dependency.
+
+---
 
 ## ⌨️ Keyboard
 

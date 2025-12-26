@@ -130,7 +130,7 @@ mvn clean verify -PskipTests
 
 ### 🖼️ GUI Mode (default)
 
-* Uses a real JavaFX window
+* Uses a real window
 * Intended for local development and debugging
 * Allows visual inspection of UI behavior and interactions
 
@@ -144,9 +144,10 @@ mvn clean verify
 
 ### 🔲 Headless Mode
 
-* Runs JavaFX without a display using **Monocle**
+* Runs application in headless mode
 * Intended for CI environments and automated execution
 * Enables functional GUI tests without rendering a visible window
+* Do not require *xvfb* or any other virtual sreen
 
 To build and execute the project in headless mode:
 
@@ -164,15 +165,15 @@ Different test types are executed at different build phases:
 This separation allows:
 - Controlled JVM restarts for GUI tests
 - Isolation of application lifecycle per test
-- Reliable execution of JavaFX-based scenarios
+- Reliable execution of based scenarios
 
 #### 🔒 JVM Isolation
 
-All tests are executed in **separate JVM instances**, enforced by Maven configuration
+All GUI tests are executed in **separate JVM instances**, enforced by Maven configuration
 (forkCount / reuseForks=false).
 
 This is especially important for:
-- JavaFX application lifecycle correctness
+- Application lifecycle correctness
 - GUI and functional tests that require clean startup and shutdown
 - Preventing shared static or platform state from leaking between tests
 
@@ -205,3 +206,8 @@ Not for using with maven's commands
 - *guiTests*
 - *headlessTests*
  
+---
+
+## ❯ Command line arguments
+
+There is only one argument, available for now: *-no-custom-ui*, used mostly for tests 

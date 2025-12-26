@@ -52,7 +52,7 @@ Applications support two platforms:
 ## Tech Stack
 
 #### 💼 Project: Java, JavaFX, Java Swing, Google Guice, Logback, Maven, Lombock 
-#### 📋 Tests: JUnit, Mockito, Cucumber, TestFX, Monocle
+#### 📋 Tests: JUnit, Mockito, Cucumber, TestFX, Monocle, AssertJ, Cacio
 
 ---
 
@@ -84,6 +84,7 @@ Applications support two platforms:
 ### ⚙️ Application Behavior & Control
 - A [Command Pattern](documentation/architecture_overview.md#-command-pattern--undo-support) implementation with undo support
 - A [state machine–based approach](documentation/gui_features.md#-ui-modes--state-machine) to control application modes and UI behavior
+- [Configuration](documentation/architecture_overview.md#-configuration) on startup
 - **Fail-safe validation and defaulting**, keeping the system operational under partial or invalid input
 - **Structured logging with markers**, aimed at tracing behavior across layers and threads
 - [JavaFX controller and node builder factories](documentation/gui_features.md#-dependency-injection-in-javafx), used to decouple UI creation from application logic
@@ -92,8 +93,9 @@ Applications support two platforms:
 The [testing strategy](documentation/testing_strategy.md) intentionally mixes multiple test types, each targeting a different level of the system:
 - **Unit tests** — model logic, geometry, and pure computation
 - **Integration tests** — interaction between components
-- **Functional tests** — GUI behavior and user interactions, using TestFX  
-  (with Monocle for headless execution), running the entire instance of an application
+- **Functional tests** — GUI behavior and user interactions, using *TestFX and 
+  Monocle* for JavaFX, and *AssertJ and Cacio* for Swing, running the entire instance of 
+  an application in headless mode
 
 ---
 

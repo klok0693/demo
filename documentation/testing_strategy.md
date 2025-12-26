@@ -1,8 +1,7 @@
 ## 🧪 Testing Strategy
 
-Testing in this project is treated as a first-class architectural concern, not merely a supporting activity.
-The goal is **not exhaustive coverage**, but validation of key **design decisions, interaction patterns, and 
-integration points**.
+The goal is **not** exhaustive coverage, but validation of key *design decisions, interaction patterns, and 
+integration points*.
 
 ---
 
@@ -23,17 +22,23 @@ Key characteristics:
  - Validate observable behavior and selected internal state
  - Run against a fully initialized application instance
 
-These tests are implemented using **TestFX**, simulating real user behavior rather than mocking UI interactions.
+These tests are implemented using: 
+
+*JavaFX*: **TestFX**
+
+*Swing*: **AssertJ**
+
+simulating real user behavior rather than mocking UI interactions
 
 #### 🪟 GUI vs Headless Execution
 
 Functional tests can be executed in two modes:
 
-🖼️ **GUI mode**:
-Uses a real JavaFX window - useful during development and debugging
+🖼️ *GUI mode*:
+Uses a real window - useful during development and debugging
 
-🔲 **Headless mode**:
-Uses **Monocle**, allowing execution without a display (CI-friendly)
+🔲 *Headless mode*:
+Uses **Monocle** for JavaFX or [**Cacio**](https://github.com/CaciocavalloSilano/caciocavallo) for Swing, allowing execution without a display (CI-friendly)
 
 The execution mode is controlled via **Maven profiles** and **JVM arguments**.
 
@@ -61,13 +66,14 @@ GUI platforms
 
 This approach introduces additional complexity:
 
-🔍 Test classes from the core module must be visible to tests in the javafx module
+🔍 Test classes from the core module must be visible to tests 
+in the platform's modules
 
 📦 Maven does not expose test classes by default
 
 To address this:
  - Tests from the core module are packaged into a **test-only JAR** 
- - This JAR is added as a test dependency to the javafx module
+ - This JAR is added as a test dependency to the javafx and swing modules
 
 This is achieved using **Maven’s test-JAR packaging** and dependency configuration.
 
@@ -90,5 +96,3 @@ Instead:
 - Tests focus on interesting or non-trivial aspects of the system 
 - Emphasis is placed on architectural correctness, interaction safety, and integration behavior 
 - The current number of tests is intentionally limited
-
-This reflects the exploratory, research-oriented nature of the project.
