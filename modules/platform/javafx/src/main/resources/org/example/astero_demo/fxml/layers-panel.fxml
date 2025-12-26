@@ -4,6 +4,7 @@
 
 <?import java.net.URL?>
 <?import org.example.astero_demo.fx.port.ui.element.FxLayersTree?>
+<?import org.example.astero_demo.core.port.ui.markup.ElementID?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:id="layersRoot"
@@ -14,6 +15,12 @@
         <URL value="@../css/layers-panel.css"/>
     </stylesheets>
 
-    <FxLayersTree fx:id="layersTree" showRoot="false"/>
+    <!-- Fxml do not recognize unknown links and put null values instead.
+The hack with fx:define are used to fix this -->
+    <fx:define>
+        <ElementID fx:id="layersTreeId" fx:value="LAYERS_TREE"/>
+    </fx:define>
+
+    <FxLayersTree fx:id="layersTree" id="$layersTreeId" showRoot="false"/>
 
 </VBox>

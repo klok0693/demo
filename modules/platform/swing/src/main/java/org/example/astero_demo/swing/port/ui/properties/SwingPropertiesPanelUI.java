@@ -2,12 +2,15 @@ package org.example.astero_demo.swing.port.ui.properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.example.astero_demo.core.adapter.ui.property.PropertiesView;
+import org.example.astero_demo.core.port.ui.markup.ElementID;
 import org.example.astero_demo.model.metadata.ShapeParam;
 import org.example.astero_demo.swing.util.ColorUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.function.BiConsumer;
+
+import static org.example.astero_demo.core.port.ui.markup.ElementID.*;
 
 /**
  * UI part of {@link SwingPropertiesPanelView}
@@ -68,18 +71,22 @@ public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
         c.anchor = GridBagConstraints.EAST;
         propertiesGrid.add(createLabel("x"), c.clone());
 
+        this.xField = createTextField();
+        this.xField.setName(X_FIELD.toString());
+
         setGrid.accept(0, 1);
         c.anchor = GridBagConstraints.WEST;
-        this.xField = createTextField();
         propertiesGrid.add(xField, c.clone());
 
         setGrid.accept(0, 2);
         c.anchor = GridBagConstraints.EAST;
         propertiesGrid.add(createLabel("y"), c.clone());
 
+        this.yField = createTextField();
+        this.yField.setName(Y_FIELD.toString());
+
         setGrid.accept(0, 3);
         c.anchor = GridBagConstraints.WEST;
-        this.yField = createTextField();
         propertiesGrid.add(yField, c.clone());
 
         // ---- Row 1 ----
@@ -87,9 +94,11 @@ public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
         c.anchor = GridBagConstraints.EAST;
         propertiesGrid.add(createLabel("width"), c.clone());
 
+        this.widthField = createTextField();
+        this.widthField.setName(WIDTH_FIELD.toString());
+
         setGrid.accept(1, 1);
         c.anchor = GridBagConstraints.WEST;
-        this.widthField = createTextField();
         propertiesGrid.add(widthField, c.clone());
 
         setGrid.accept(1, 2);
@@ -98,9 +107,11 @@ public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
         heightClone.fill = GridBagConstraints.NONE;
         propertiesGrid.add(createLabel("height"), heightClone);
 
+        this.heightField = createTextField();
+        this.heightField.setName(HEIGHT_FIELD.toString());
+
         setGrid.accept(1, 3);
         c.anchor = GridBagConstraints.WEST;
-        this.heightField = createTextField();
         propertiesGrid.add(heightField, c.clone());
 
         // ---- Row 2 ----
@@ -108,9 +119,11 @@ public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
         c.anchor = GridBagConstraints.EAST;
         propertiesGrid.add(createLabel("layer"), c.clone());
 
+        this.layerField = createTextField();
+        this.layerField.setName(LAYER_FIELD.toString());
+
         setGrid.accept(2, 1);
         c.anchor = GridBagConstraints.WEST;
-        this.layerField = createTextField();
         propertiesGrid.add(layerField, c.clone());
 
         // ---- Row 3 ----
@@ -118,9 +131,11 @@ public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
         c.anchor = GridBagConstraints.EAST;
         propertiesGrid.add(createLabel("color"), c.clone());
 
+        this.colorButton = getButton(propertiesGrid);
+        this.colorButton.setName(COLOR_FIELD.toString());
+
         setGrid.accept(3, 1);
         c.anchor = GridBagConstraints.WEST;
-        this.colorButton = getButton(propertiesGrid);
         propertiesGrid.add(colorButton, c);
 
         add(propertiesGrid);

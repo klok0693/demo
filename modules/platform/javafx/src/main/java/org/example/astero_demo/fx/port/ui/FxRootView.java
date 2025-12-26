@@ -1,7 +1,5 @@
 package org.example.astero_demo.fx.port.ui;
 
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.layout.BorderPane;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
@@ -11,9 +9,6 @@ import org.example.astero_demo.core.port.ui.PropertiesPanelView;
 import org.example.astero_demo.core.port.ui.RootView;
 import org.example.astero_demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.astero_demo.core.port.ui.model.Cursors;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * JavaFX's realization of {@link RootView}

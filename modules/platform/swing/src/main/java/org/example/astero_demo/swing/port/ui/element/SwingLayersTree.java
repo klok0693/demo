@@ -2,6 +2,7 @@ package org.example.astero_demo.swing.port.ui.element;
 
 import org.example.astero_demo.core.adapter.ui.ShapeSelector;
 import org.example.astero_demo.core.adapter.ui.state.UIState;
+import org.example.astero_demo.core.port.ui.markup.ElementID;
 import org.example.astero_demo.model.entity.Shape;
 import org.example.astero_demo.core.context.state.ModelState;
 import org.example.astero_demo.core.port.ui.elements.LayersTree;
@@ -13,6 +14,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.stream.Collectors;
+
+import static org.example.astero_demo.core.port.ui.markup.ElementID.LAYERS_TREE;
 
 /**
  * Swing realization of {@link LayersTree}
@@ -37,6 +40,8 @@ public class SwingLayersTree extends JTree implements LayersTree {
         this.modelState = modelState;
         this.uiState = uiState;
         this.shapeSelector = shapeSelector;
+
+        setName(LAYERS_TREE.toString());
 
         //setBackground(Color.red);
         //setOpaque(true);

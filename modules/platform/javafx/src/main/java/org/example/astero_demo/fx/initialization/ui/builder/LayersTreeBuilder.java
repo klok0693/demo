@@ -4,17 +4,13 @@ import javafx.util.Builder;
 import org.example.astero_demo.core.port.ui.elements.LayersTree;
 import org.example.astero_demo.fx.port.ui.element.FxLayersTree;
 
-import java.util.HashMap;
-
-import static java.lang.Boolean.parseBoolean;
-
 /**
  * {@link Builder} for {@link LayersTree}
  *
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public class LayersTreeBuilder extends HashMap<String, String> implements Builder<FxLayersTree> {
+public class LayersTreeBuilder extends NodeIdBuilder<FxLayersTree> {
     private final FxLayersTree layersTree;
 
     public LayersTreeBuilder(final FxLayersTree layersTree) {
@@ -22,8 +18,12 @@ public class LayersTreeBuilder extends HashMap<String, String> implements Builde
     }
 
     @Override
-    public FxLayersTree build() {
-        layersTree.setShowRoot(parseBoolean(get("showRoot")));
+    protected FxLayersTree buildNode() {
         return layersTree;
+    }
+
+    @Override
+    protected void setUpNode(final FxLayersTree node) {
+        layersTree.setShowRoot(getBoolean("showRoot"));
     }
 }

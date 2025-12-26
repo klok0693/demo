@@ -1,19 +1,16 @@
 package org.example.astero_demo.func;
 
-import org.assertj.swing.core.BasicComponentFinder;
-import org.assertj.swing.core.BasicRobot;
-import org.assertj.swing.core.ComponentFinder;
 import org.assertj.swing.core.MouseButton;
 import org.assertj.swing.timing.Pause;
+import org.example.astero_demo.core.port.ui.markup.ElementID;
 import org.example.astero_demo.functional.Robot;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
-public class SwingApplicationRobot /*extends FxRobot*/ implements Robot {
-    private static final String INSERT_BTN_ID = "insertRectBtn";
-    private static final String DELETE_BTN_ID = "deleteBtn";
-    private static final String CANVAS_ID = "canvasRoot";
+import static org.example.astero_demo.core.port.ui.markup.ElementID.*;
+
+public class SwingApplicationRobot implements Robot {
 
     private final org.assertj.swing.core.Robot robot;
 
@@ -23,17 +20,17 @@ public class SwingApplicationRobot /*extends FxRobot*/ implements Robot {
 
     @Override
     public void clickOnCreateRectBtn() {
-        clickOnNode(INSERT_BTN_ID);
+        clickOnNode(INSERT_RECT_BTN);
     }
 
     @Override
     public void clickOnDeleteRectBtn() {
-        clickOnNode(DELETE_BTN_ID);
+        clickOnNode(DELETE_BTN);
     }
 
     @Override
     public void moveCursorOnCanvasBy(final double x, final double y) {
-        Component canvas = robot.finder().findByName(CANVAS_ID);
+        Component canvas = robot.finder().findByName(CANVAS_ROOT.toString());
 
         Rectangle bounds = canvas.getBounds();
         Point screenLocation = canvas.getLocationOnScreen();
@@ -49,7 +46,7 @@ public class SwingApplicationRobot /*extends FxRobot*/ implements Robot {
 
     @Override
     public void moveCursorOnCanvas() {
-        moveToNode(CANVAS_ID);
+        moveToNode(CANVAS_ROOT);
     }
 
     @Override
@@ -75,16 +72,16 @@ public class SwingApplicationRobot /*extends FxRobot*/ implements Robot {
         Pause.pause(2, TimeUnit.SECONDS);
     }
 
-    private void moveToNode(final String id) {
+    private void moveToNode(final Enum<ElementID> id) {
         performAndHold(() -> {
-            final Component c = robot.finder().findByName(id);
+            final Component c = robot.finder().findByName(id.toString());
             robot.moveMouse(c);
         });
     }
 
-    private void clickOnNode(final String id) {
+    private void clickOnNode(final Enum<ElementID> id) {
         performAndHold(() -> {
-            final Component c = robot.finder().findByName(id);
+            final Component c = robot.finder().findByName(id.toString());
             robot.click(c);
         });
     }

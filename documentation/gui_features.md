@@ -59,8 +59,10 @@ implementations to reuse the same rendering intent with different backends.
 The challenges came from differences in platform lifecycles, event handling, and 
 underlying behavior. JavaFX follows a frame-driven rendering model, while Swing 
 relies on passive repainting and the EDT. Some UI and UX aspects were sensitive 
-to these differences, but they were resolved. Some tests also required tinkering,
-mostly in the way how application being initialized
+to these differences, but they were resolved. 
+
+Some tests also required tinkering, mostly in the way how application being initialized.
+Also, all node's ids, used by test's robots, are moved in a [shared class](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/markup/ElementID.java)
 
 The most unresolved area is markup and styling. Swing lacks native CSS support, 
 and defining layouts and styles purely in code is verbose and difficult to maintain. 

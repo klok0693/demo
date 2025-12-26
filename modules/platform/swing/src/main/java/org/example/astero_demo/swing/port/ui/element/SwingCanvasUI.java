@@ -2,6 +2,7 @@ package org.example.astero_demo.swing.port.ui.element;
 
 import org.example.astero_demo.core.port.ui.canvas.CanvasLayer;
 import org.example.astero_demo.core.port.ui.canvas.CanvasUI;
+import org.example.astero_demo.core.port.ui.markup.ElementID;
 import org.example.astero_demo.swing.port.ui.canvas.background.SwingBackgroundLayer;
 import org.example.astero_demo.swing.port.ui.canvas.shape.SwingShapeLayer;
 import org.example.astero_demo.swing.port.ui.canvas.tool.SwingToolLayer;
@@ -10,6 +11,8 @@ import org.example.astero_demo.swing.port.ui.graphics.SwingPainter;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+
+import static org.example.astero_demo.core.port.ui.markup.ElementID.CANVAS_ROOT;
 
 /**
  * Swing realization of {@link CanvasUI}
@@ -27,7 +30,7 @@ public class SwingCanvasUI extends JComponent implements CanvasUI {
 
         this.layers = List.of(backgroundLayer, shapeLayer, toolLayer);
         setBackground(Color.CYAN);
-        setName("canvasRoot");
+        setName(CANVAS_ROOT.toString());
     }
 
     @Override

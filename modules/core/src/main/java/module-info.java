@@ -43,4 +43,5 @@ open module core {
     exports org.example.astero_demo.core.context.ops;
     exports org.example.astero_demo.core.context.ops.workspace;
     exports org.example.astero_demo.core.context.ops.execution;
+    exports org.example.astero_demo.core.port.ui.markup;
 }
