@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.example.demo.fx.port.ui.element.FxCanvasUI?>
+
+<?import javafx.scene.layout.Pane?>
+<?import org.example.demo.core.port.ui.markup.ElementID?>
+
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="canvasRoot"
+      id="$canvasRootId"
+      fx:controller="org.example.demo.fx.port.ui.canvas.FxShapeCanvasView">
+
+    <!-- Fxml do not recognize unknown links and put null values instead.
+    The hack with fx:define are used to fix this -->
+    <fx:define>
+        <ElementID fx:id="canvasId" fx:value="CANVAS"/>
+        <ElementID fx:id="canvasRootId" fx:value="CANVAS_ROOT"/>
+    </fx:define>
+
+    <FxCanvasUI fx:id="canvas"
+                id = "$canvasId"
+                width="720" height="630"
+                focusTraversable="true"
+                onMousePressed="#handleMousePressed"
+                onDragDetected="#handleDragDetected"
+                onMouseDragged="#handleMouseDragged"
+                onMouseReleased="#handleMouseReleased"
+    />
+
+<!--    <stylesheets>
+        <URL value="@../css/canvas.css"/>
+    </stylesheets>-->
+</Pane>

@@ -38,7 +38,7 @@
         </platform.headless.args>
         <platform.appName>FX_Demo</platform.appName>
         <platform.mainJar>${project.artifactId}-${project.version}-${jar.prefix.thin}.jar</platform.mainJar>
-        <platform.mainClass>org.example.astero_demo.FxMain</platform.mainClass>
+        <platform.mainClass>org.example.demo.FxMain</platform.mainClass>
     </properties>
 
     <dependencies>

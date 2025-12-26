@@ -48,7 +48,7 @@
         </platform.headless.args>
         <platform.appName>Swing_Demo</platform.appName>
         <platform.mainJar>${project.artifactId}-${project.version}-${jpackager.prefix.all}.jar</platform.mainJar>
-        <platform.mainClass>org.example.astero_demo.SwingMain</platform.mainClass>
+        <platform.mainClass>org.example.demo.SwingMain</platform.mainClass>
     </properties>
 
     <dependencies>

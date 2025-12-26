@@ -12,14 +12,14 @@ open module realization {
     requires util;
     requires static lombok;
 
-    exports org.example.astero_demo.realization.initialization.di.module;
-    exports org.example.astero_demo.realization.configuration;
-    exports org.example.astero_demo.realization.level.async.logic;
-    exports org.example.astero_demo.realization.level.async.clipboard;
-    exports org.example.astero_demo.realization.level.async.ui;
-    exports org.example.astero_demo.realization.level.async;
-    exports org.example.astero_demo.realization.initialization.launch;
-    exports org.example.astero_demo.realization.context.ops.runtime;
-    exports org.example.astero_demo.realization.configuration.parser;
-    exports org.example.astero_demo.realization.configuration.preparer;
+    exports org.example.demo.realization.initialization.di.module;
+    exports org.example.demo.realization.configuration;
+    exports org.example.demo.realization.level.async.logic;
+    exports org.example.demo.realization.level.async.clipboard;
+    exports org.example.demo.realization.level.async.ui;
+    exports org.example.demo.realization.level.async;
+    exports org.example.demo.realization.initialization.launch;
+    exports org.example.demo.realization.context.ops.runtime;
+    exports org.example.demo.realization.configuration.parser;
+    exports org.example.demo.realization.configuration.preparer;
 }

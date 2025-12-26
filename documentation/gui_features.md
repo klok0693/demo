@@ -11,26 +11,26 @@ The GUI package is designed to be **platform-agnostic**. There are two realizati
 
 ## 🧩 Canvas Architecture
 
-The [canvas](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/ShapeCanvasView.java) 
+The [canvas](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/ShapeCanvasView.java) 
 is the central interaction surface of the application.  
-Its logic is organized into [explicit layers](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas), 
+Its logic is organized into [explicit layers](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas), 
 each with a well-defined responsibility.
 
 ### 🗂️ Canvas Layers
 
-1. [Background layer](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/background/BackgroundLayer.java)
+1. [Background layer](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/background/BackgroundLayer.java)
     - Responsible for static background rendering
     - Grid, background color, and non-interactive visuals
 
-2. [Shapes layer](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/shape/ShapeLayer.java)
+2. [Shapes layer](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/shape/ShapeLayer.java)
     - Renders model-backed shapes
     - Reflects current model state without owning it
 
-3. [Tools layer](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/tool/ToolLayer.java)
+3. [Tools layer](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/tool/ToolLayer.java)
     - Handles interaction visuals
-    - [Selection frames](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/tool/draggable/selection), 
-      [drag previews](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/tool/draggable/drag/DragShapeTool.java), 
-      [insertion hints](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/tool/draggable/insert/InsertShapeTool.java)
+    - [Selection frames](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/tool/draggable/selection), 
+      [drag previews](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/tool/draggable/drag/DragShapeTool.java), 
+      [insertion hints](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/tool/draggable/insert/InsertShapeTool.java)
     - May render temporary or auxiliary elements
 
 Each canvas layer is itself **hierarchical**. Layers can contain **sub-layers**, forming a recursive structure that
@@ -51,7 +51,7 @@ proved highly effective: the overall structure remained nearly unchanged, and ve
 few bugs appeared during the migration.
 
 Rendering did not cause a lot of problem too. To avoid duplicating drawing logic, 
-a dedicated [rendering API](../modules/api/src/main/java/org/example/astero_demo/api/graphics) 
+a dedicated [rendering API](../modules/api/src/main/java/org/example/demo/api/graphics) 
 was introduced and moved into a separate api module, while 
 the core logic remained platform-agnostic. This allowed both JavaFX and Swing 
 implementations to reuse the same rendering intent with different backends.
@@ -62,7 +62,7 @@ relies on passive repainting and the EDT. Some UI and UX aspects were sensitive
 to these differences, but they were resolved. 
 
 Some tests also required tinkering, mostly in the way how application being initialized.
-Also, all node's ids, used by test's robots, are moved in a [shared class](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/markup/ElementID.java)
+Also, all node's ids, used by test's robots, are moved in a [shared class](../modules/core/src/main/java/org/example/demo/core/port/ui/markup/ElementID.java)
 
 The most unresolved area is markup and styling. Swing lacks native CSS support, 
 and defining layouts and styles purely in code is verbose and difficult to maintain. 
@@ -73,22 +73,22 @@ realization
 ### 🖱️ Input Handling
 
 All input events (mouse, keyboard) are intercepted by a 
-[canvas controller](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/ShapeCanvasView.java).  
+[canvas controller](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/ShapeCanvasView.java).  
 The controller does not interpret events itself; instead, it **delegates them to the active tool**.
 
 ### 🛠️ Tools
 
 The following tools are currently implemented:
-- [SelectionTool](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/tool/draggable/selection/ModificableSelectionFrame.java)
+- [SelectionTool](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/tool/draggable/selection/ModificableSelectionFrame.java)
   — selecting shapes and handling selection logic
-- [DraggableTool](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/tool/draggable/drag/DragShapeTool.java) — dragging and repositioning shapes
-- [InsertTool](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/tool/draggable/insert/InsertShapeTool.java) — inserting new shapes into the canvas
+- [DraggableTool](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/tool/draggable/drag/DragShapeTool.java) — dragging and repositioning shapes
+- [InsertTool](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/tool/draggable/insert/InsertShapeTool.java) — inserting new shapes into the canvas
 
 ---
 
 ## 🔁 UI Modes & State Machine
 
-The UI is structured around [explicit interaction modes](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/state/mode/UIMode.java).
+The UI is structured around [explicit interaction modes](../modules/core/src/main/java/org/example/demo/core/adapter/ui/state/mode/UIMode.java).
 
 ### 🎛️ Mode-Based UI Behavior
 
@@ -119,7 +119,7 @@ Conceptually, mods can be mixed together, while it isn't implemented for now
 ### 🧭 Mode Switching via Visitor Pattern
 
 To manage increasing complexity, mode transitions are implemented using a 
-[Visitor pattern](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/state/mode/ModeSwitchable.java):
+[Visitor pattern](../modules/core/src/main/java/org/example/demo/core/adapter/ui/state/mode/ModeSwitchable.java):
 - each UI node defines its own rules for reacting to mode changes
 - mode transitions are applied structurally and consistently
 - prevents scattered conditional logic
@@ -134,7 +134,7 @@ The GUI package uses **strict state separation**.
 
 ### 📦 Model State
 
-- Provided to the UI as [immutable views](../modules/core/src/main/java/org/example/astero_demo/core/context/state/ModelState.java)
+- Provided to the UI as [immutable views](../modules/core/src/main/java/org/example/demo/core/context/state/ModelState.java)
 - UI components cannot modify model data directly
 - All changes must be requested via logic components
 
@@ -143,7 +143,7 @@ This enforces a unidirectional flow:
 
 ### 🧩 UI State
 
-The UI maintains its own [internal state](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/state/UIState.java), such as:
+The UI maintains its own [internal state](../modules/core/src/main/java/org/example/demo/core/adapter/ui/state/UIState.java), such as:
 - active mode
 - shape type to insert
 - temporary interaction flags
@@ -165,10 +165,10 @@ The GUI package strictly respects the rendering thread of the platform.
 
 ### 🧵 Threading Model
 
-- All UI updates occur on the render thread([Swing](../modules/platform/swing/src/main/java/org/example/astero_demo/swing/initialization/multithreading/SwingNonBlockingExecutor.java),
-[JavaFX](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx/initialization/multithreading/FxNonBlockingExecutor.java))
-- Non-UI operations are executed in background threads([Swing](../modules/platform/swing/src/main/java/org/example/astero_demo/swing/initialization/multithreading/SwingRunnableWrapper.java),
-  [JavaFX](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx/initialization/multithreading/FxRunnableWrapper.java))
+- All UI updates occur on the render thread([Swing](../modules/platform/swing/src/main/java/org/example/demo/swing/realization/initialization/multithreading/SwingNonBlockingExecutor.java),
+[JavaFX](../modules/platform/javafx/src/main/java/org/example/demo/fx/initialization/multithreading/FxNonBlockingExecutor.java))
+- Non-UI operations are executed in background threads([Swing](../modules/platform/swing/src/main/java/org/example/demo/swing/realization/initialization/multithreading/SwingRunnableWrapper.java),
+  [JavaFX](../modules/platform/javafx/src/main/java/org/example/demo/fx/initialization/multithreading/FxRunnableWrapper.java))
 - Communication with UI components is always non-blocking
 
 Platform-specific mechanisms (e.g. `Task`, `SwingWorker`) are used only as an implementation detail.
@@ -211,7 +211,7 @@ UI updates are performed in a **strictly guided manner**.
 
 ### 🔁 Update Flow
 
-- UI components are updated **only via an explicit [update()](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/Updatable.java) call**
+- UI components are updated **only via an explicit [update()](../modules/core/src/main/java/org/example/demo/core/adapter/ui/Updatable.java) call**
 - Updates are triggered **from parent components only**
 - Child components never update themselves independently
 
@@ -223,8 +223,8 @@ This prevents:
 ### 🧼 Stateless Rendering Principle
 
 If a parameter affects rendering behavior:
-- it is stored in [UI state](../modules/core/src/main/java/org/example/astero_demo/core/adapter/ui/state/UIState.java) 
-  or came from [Model state](../modules/core/src/main/java/org/example/astero_demo/core/context/state/ModelState.java)
+- it is stored in [UI state](../modules/core/src/main/java/org/example/demo/core/adapter/ui/state/UIState.java) 
+  or came from [Model state](../modules/core/src/main/java/org/example/demo/core/context/state/ModelState.java)
 - not inside the rendering component itself
 
 Updatable components are therefore *effectively stateless* with respect to appearance.  
@@ -239,7 +239,7 @@ This makes UI behavior predictable and testable.
 ## 🧱 Composite UI Components
 
 Some UI elements have a **non-trivial internal structure**, composed of multiple subcomponents.
-Like [SelectionFrame](../modules/core/src/main/java/org/example/astero_demo/core/port/ui/canvas/tool/draggable/selection/ModificableSelectionFrame.java) tool
+Like [SelectionFrame](../modules/core/src/main/java/org/example/demo/core/port/ui/canvas/tool/draggable/selection/ModificableSelectionFrame.java) tool
 
 ---
 
@@ -250,8 +250,8 @@ While the GUI design is framework-agnostic, the JavaFX realization includes some
 ### 🧬 Dependency Injection in JavaFX
 
 The DI container is integrated into:
-- [ControllerFactory](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx/initialization/ui/CustomControllerFactory.java)
-- [NodeBuilderFactory](../modules/platform/javafx/src/main/java/org/example/astero_demo/fx/initialization/ui/NodeBuilderFactory.java)
+- [ControllerFactory](../modules/platform/javafx/src/main/java/org/example/demo/fx/initialization/ui/CustomControllerFactory.java)
+- [NodeBuilderFactory](../modules/platform/javafx/src/main/java/org/example/demo/fx/initialization/ui/NodeBuilderFactory.java)
 
 This allows:
 - dependency injection in JavaFX controllers
@@ -264,7 +264,7 @@ The use of DI in JavaFX is treated as an implementation detail, not a design dep
 
 ## ⌨️ Keyboard
 
-[Keyboard](../modules/core/src/main/java/org/example/astero_demo/core/adapter/keyboard/EditorOperationAdapter.java) 
+[Keyboard](../modules/core/src/main/java/org/example/demo/core/adapter/keyboard/EditorOperationAdapter.java) 
 input is handled as an **independent input channel**, loosely coupled to UI components, while still sharing the 
 same GUI platform as mouse and visual controls—allowing multiple packages to use the same tech stack without mixing 
 responsibilities. This means that **application concerns are not confined to a single package**; instead, multiple 

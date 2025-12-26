@@ -71,8 +71,8 @@ Applications support two platforms:
   avoids element duplication - almost all components, including the canvas logic, are shared across platforms
 
 ### 🔌 Dependency Management
-- **Dependency Injection (Guice)**, including [pre-initialization dependency setup](modules/realization/src/main/java/org/example/astero_demo/realization/initialization), 
-  [test-specific configuration](modules/platform/javafx/src/test/java/org/example/astero_demo/func/module) etc
+- **Dependency Injection (Guice)**, including [pre-initialization dependency setup](modules/realization/src/main/java/org/example/demo/realization/initialization), 
+  [test-specific configuration](modules/platform/javafx/src/test/java/org/example/demo/func/module) etc
 - **Strong modular separation, using Maven multi-module setup and JPMS**, with a clear distinction between:
   - platform-agnostic core logic
   - platform-specific implementations (JavaFX, Swing)

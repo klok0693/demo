@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+
+<?import java.net.URL?>
+
+<?import javafx.scene.layout.HBox?>
+<?import org.example.demo.core.port.ui.markup.ElementID?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="toolBarRoot"
+      fx:controller="org.example.demo.core.port.ui.ToolBarPanelView">
+
+    <stylesheets>
+        <URL value="@../css/tool-bar.css"/>
+    </stylesheets>
+
+    <!-- Fxml do not recognize unknown links and put null values instead.
+    The hack with fx:define are used to fix this -->
+    <fx:define>
+        <ElementID fx:id="insertRectBtnId" fx:value="INSERT_RECT_BTN"/>
+        <ElementID fx:id="insertCycleBtnId" fx:value="INSERT_CYCLE_BTN"/>
+        <ElementID fx:id="undoBtnId" fx:value="UNDO_BTN"/>
+        <ElementID fx:id="deleteBtnId" fx:value="DELETE_BTN"/>
+    </fx:define>
+
+    <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+        <fx:define>
+            <ToggleGroup fx:id="insertElementButton"/>
+        </fx:define>
+
+        <ToggleButton fx:id="insertRectBtn" id="$insertRectBtnId"
+                      text="Rect" onAction="#onInsertRectAction" toggleGroup="$insertElementButton"/>
+        <ToggleButton fx:id="insertCycleBtn" id="$insertCycleBtnId"
+                      text="Cycle" onAction="#onInsertCycleAction" toggleGroup="$insertElementButton"/>
+    </HBox>
+
+    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+        <Button fx:id="undoBtn" id="$undoBtnId" text="Undo" onAction="#onUndoAction"/>
+        <Button fx:id="deleteBtn" id="$deleteBtnId" text="Delete" onAction="#onDeleteAction" disable="true"/>
+    </HBox>
+
+<!--    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>-->
+</HBox>

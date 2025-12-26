@@ -5,7 +5,7 @@ open module model {
 
     requires static lombok;
 
-    exports org.example.astero_demo.model.entity;
-    exports org.example.astero_demo.model.metadata;
-    exports org.example.astero_demo.model.metadata.dto;
+    exports org.example.demo.model.entity;
+    exports org.example.demo.model.metadata;
+    exports org.example.demo.model.metadata.dto;
 }

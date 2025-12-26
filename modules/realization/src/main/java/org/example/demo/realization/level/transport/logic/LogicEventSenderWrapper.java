@@ -1,0 +1,36 @@
+package org.example.demo.realization.level.transport.logic;
+
+import com.google.inject.Inject;
+import org.example.demo.core.logic.ShapeProcessor;
+import org.example.demo.model.metadata.dto.ShapeParams;
+import org.example.demo.realization.level.transport.Channel;
+import org.example.demo.realization.level.transport.SenderWrapper;
+import org.example.demo.realization.level.transport.logic.event.*;
+
+public class LogicEventSenderWrapper extends SenderWrapper<LogicEvent> implements ShapeProcessor {
+
+    @Inject
+    public LogicEventSenderWrapper(final Channel channelMock) {
+        super(channelMock);
+    }
+
+    @Override
+    public void createShape(final ShapeParams shapeParams) {
+        send(new CreateNewShapeEvent(shapeParams));
+    }
+
+    @Override
+    public void modifyShape(final int shapeId, final ShapeParams shapeParams) {
+        send(new ModifyShapeEvent(shapeId, shapeParams));
+    }
+
+    @Override
+    public void removeShape(final int id) {
+        send(new RemoveShapeEvent(id));
+    }
+
+    @Override
+    public void undoLastOperation() {
+        send(new UndoLastOperationEvent());
+    }
+}

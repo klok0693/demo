@@ -3,8 +3,8 @@ open module api {
 
     requires static lombok;
 
-    exports org.example.astero_demo.api.graphics;
-    exports org.example.astero_demo.api.graphics.color;
+    exports org.example.demo.api.graphics;
+    exports org.example.demo.api.graphics.color;
 
-    exports org.example.astero_demo.api.keyboard;
+    exports org.example.demo.api.keyboard;
 }
