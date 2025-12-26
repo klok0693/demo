@@ -3,6 +3,7 @@ package org.example.astero_demo.func;
 import com.google.inject.Injector;
 import org.example.astero_demo.SwingHelloApplication;
 import org.example.astero_demo.functional.TestComponentHolder;
+import org.example.astero_demo.realization.context.ops.runtime.Configuration;
 
 /**
  * Test instance that provide access to inner objects
@@ -14,7 +15,7 @@ public class SwingTestHelloApplication extends SwingHelloApplication implements 
 
     public SwingTestHelloApplication() {
         // Must be set up later
-        super(null);
+        super(null, null);
     }
 
     @Override
@@ -22,7 +23,8 @@ public class SwingTestHelloApplication extends SwingHelloApplication implements 
         return getInjector().getInstance(tClass);
     }
 
-    public void setInjector(final Injector injector) {
+    public void setUp(final Injector injector) {
+        this.configuration = injector.getInstance(Configuration.class);
         this.injector = injector;
     }
 }

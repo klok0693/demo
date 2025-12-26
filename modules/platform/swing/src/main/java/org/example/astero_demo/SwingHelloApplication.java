@@ -1,8 +1,10 @@
 package org.example.astero_demo;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.google.inject.Injector;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.example.astero_demo.realization.context.ops.runtime.Configuration;
 import org.example.astero_demo.swing.port.keyboard.SwingRootShortcutHandler;
 import org.example.astero_demo.swing.port.ui.root.SwingRootUI;
 
@@ -27,16 +29,22 @@ public class SwingHelloApplication implements HelloApplication<JFrame> {
      * inherit and get access to application's component<p>
      * for tests
      */
+    protected Configuration configuration;
     protected Injector injector;
     private JFrame frame;
 
-    public SwingHelloApplication(final Injector injector) {
+    public SwingHelloApplication(
+            final Configuration configuration,
+            final Injector injector) {
+        this.configuration = configuration;
         this.injector = injector;
     }
 
     @Override
-    public JFrame launchGUI /*createAndShowGUI*/() {
-        setupPLAF();
+    public JFrame launchGUI() {
+        if (configuration.isCustomSkinsAllowed()) {
+            setupPLAF();
+        }
 
         this.frame = builtJFrame(builtRoot());
         addKeyHandler(frame);
@@ -47,7 +55,7 @@ public class SwingHelloApplication implements HelloApplication<JFrame> {
     }
 
     private void setupPLAF() {
-        //FlatLightLaf.setup();
+        FlatLightLaf.setup();
         //FlatDarkLaf.setup();
         //FlatIntelliJLaf.setup();
         //FlatDarculaLaf.setup();

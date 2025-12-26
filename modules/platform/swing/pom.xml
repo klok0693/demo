@@ -44,6 +44,7 @@
             -Dawt.toolkit=com.github.caciocavallosilano.cacio.ctc.CTCToolkit
             -Djava.awt.graphicsenv=com.github.caciocavallosilano.cacio.ctc.CTCGraphicsEnvironment
             -Djava.awt.headless=false
+            -Dapp.properties=-no-custom-ui
         </platform.headless.args>
         <platform.appName>Swing_Demo</platform.appName>
         <platform.mainJar>${project.artifactId}-${project.version}-${jpackager.prefix.all}.jar</platform.mainJar>

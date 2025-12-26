@@ -55,8 +55,6 @@ class UIAdapterModule extends AbstractModule {
         bind(OperationAdapter.class).to(EditorOperationAdapter.class).in(Scopes.SINGLETON);
 
         bind(CursorLocator.class).to(RootAdapter.class).in(Scopes.SINGLETON);
-
-        bind(new TypeLiteral<Clipboard<Shape, ShapeParams>>() {}).toInstance(OpsStateHolder.INSTANCE);
     }
 
     @Inject

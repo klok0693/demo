@@ -7,8 +7,9 @@ public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
         install(new AsyncModule());
+        install(new ConfigurationModule());
         install(new ProviderModule());
-        install(new ModelModule());
+        install(new ContextModule());
         install(new CommandModule());
         install(new ControllerModule());
         install(new LogicModule());

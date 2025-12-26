@@ -3,7 +3,8 @@ package org.example.astero_demo.realization.initialization.launch;
 import com.google.inject.*;
 import com.google.inject.Module;
 import lombok.extern.slf4j.Slf4j;
-import org.example.astero_demo.realization.configuration.AppConfiguration;
+import org.example.astero_demo.realization.configuration.AppConfigurationManager;
+import org.example.astero_demo.realization.context.ops.runtime.Configuration;
 import org.example.astero_demo.realization.initialization.di.module.CoreModule;
 
 import java.util.LinkedList;
@@ -23,8 +24,9 @@ public abstract class AppInitializer<E> implements Initializer<E> {
         log.debug(INITIALIZATION_MARKER, "Initializing DI container");
         final Injector injector = Guice.createInjector(getModules());
 
-        log.debug(INITIALIZATION_MARKER, "Setting up configuration");
-        AppConfiguration.INSTANCE.setUp();
+        log.debug(INITIALIZATION_MARKER, "Setting up configuration from args: {}", (Object[]) args);
+        injector.getInstance(AppConfigurationManager.class).setUp(args);
+        log.debug(INITIALIZATION_MARKER, "{}", injector.getInstance(Configuration.class));
 
         log.debug(INITIALIZATION_MARKER, "Launching GUI");
         return launchGUI(injector);

@@ -1,4 +1,4 @@
-package org.example.astero_demo.realization.configuration;
+package org.example.astero_demo.realization.configuration.preparer;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,11 +6,10 @@ import lombok.extern.slf4j.Slf4j;
  * Configuration, necessary to set up before {@link javafx.application.Application#launch} would be called
  */
 @Slf4j
-public enum BeforeLaunchConfiguration implements Configuration {
-    INSTANCE;
+public class BeforeLaunchPreparer implements Preparer {
 
     @Override
-    public void setUp() {
+    public void prepare() {
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
             log.error("Exception in thread " + thread.getName(), throwable);
         });

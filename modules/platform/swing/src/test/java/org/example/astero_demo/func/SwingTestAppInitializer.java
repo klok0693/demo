@@ -17,7 +17,7 @@ public class SwingTestAppInitializer extends SwingAppInitializer {
 
     @Override
     protected SwingHelloApplication buildApplication(final Injector injector) {
-        application.setInjector(injector);
+        application.setUp(injector);
         return application;
     }
 }

@@ -22,7 +22,6 @@ public class SwingTestModule extends AbstractModule {
         bind(Robot.class).to(SwingApplicationRobot.class);
 
         bind(TestComponentHolder.class).to(SwingTestHelloApplication.class);
-        bind(SwingTestHelloApplication.class).in(Scopes.SINGLETON);
 
         bind(SwingHook.class).toProvider(SwingHookProvider.class).in(Scopes.SINGLETON);
 
@@ -42,5 +41,12 @@ public class SwingTestModule extends AbstractModule {
     @Singleton
     public SwingApplicationRobot provideSwingRobotHolder(org.assertj.swing.core.Robot robot) {
         return new SwingApplicationRobot(robot);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public SwingTestHelloApplication provideSwingHelloApplication() {
+        return new SwingTestHelloApplication();
     }
 }
