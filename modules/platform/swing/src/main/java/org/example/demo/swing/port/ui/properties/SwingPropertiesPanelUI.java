@@ -3,7 +3,7 @@ package org.example.demo.swing.port.ui.properties;
 import org.apache.commons.lang3.StringUtils;
 import org.example.demo.core.adapter.ui.property.PropertiesView;
 import org.example.demo.model.metadata.ShapeParam;
-import org.example.demo.swing.util.ColorUtils;
+import org.example.demo.swing.util.SwingColorUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -150,7 +150,7 @@ public class SwingPropertiesPanelUI extends Box implements PropertiesPanelUI {
         colorButton.addActionListener(e -> {
             final Color selectedColor = JColorChooser.showDialog(propertiesGrid, "Choose Color", Color.WHITE);
             if (selectedColor != null) {
-                panelView.updateColor(String.valueOf(ColorUtils.convert(selectedColor)));
+                panelView.updateColor(String.valueOf(SwingColorUtils.convert(selectedColor)));
             }
         });
     }

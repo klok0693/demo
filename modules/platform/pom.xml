@@ -17,6 +17,7 @@
     <modules>
         <module>javafx</module>
         <module>swing</module>
+        <module>qt</module>
     </modules>
 
     <properties>

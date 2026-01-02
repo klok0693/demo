@@ -1,17 +1,9 @@
-package org.example.demo.fx.port.ui;
+package org.example.demo.qt.port.ui;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import org.example.demo.core.adapter.ui.property.PropertiesAdapter;
 import org.example.demo.core.adapter.ui.state.UIState;
 import org.example.demo.model.metadata.ShapeParam;
 import org.example.demo.core.port.ui.PropertiesPanelView;
-import org.example.demo.fx.util.FxColorUtils;
 
 /**
  * JavaFX's realization of {@link PropertiesPanelView}
@@ -19,23 +11,9 @@ import org.example.demo.fx.util.FxColorUtils;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxPropertiesPanelView extends PropertiesPanelView {
-    @FXML
-    public VBox propertyRoot;
-    @FXML
-    public TextField xField;
-    @FXML
-    public TextField yField;
-    @FXML
-    public TextField widthField;
-    @FXML
-    public TextField heightField;
-    @FXML
-    public TextField layerField;
-    @FXML
-    public ColorPicker colorField;
+public class QtPropertiesPanelView extends PropertiesPanelView {
 
-    public FxPropertiesPanelView(
+    public QtPropertiesPanelView(
             final PropertiesAdapter propertyUpdatable,
             final UIState uiState) {
         super(propertyUpdatable, uiState);
@@ -43,26 +21,26 @@ public class FxPropertiesPanelView extends PropertiesPanelView {
 
     @Override
     protected void setPanelDisabled(final boolean isDisabled) {
-        propertyRoot.setDisable(isDisabled);
+        //propertyRoot.setDisable(isDisabled);
     }
 
     @Override
     protected void clearPanel() {
-        clearAndDisable(xField);
+/*        clearAndDisable(xField);
         clearAndDisable(yField);
         clearAndDisable(widthField);
         clearAndDisable(heightField);
         clearAndDisable(layerField);
 
         colorField.setValue(null);
-        colorField.setDisable(true);
+        colorField.setDisable(true);*/
     }
 
     @Override
     protected void setUpField(final ShapeParam param, final Number value) {
-        if (param == ShapeParam.COLOR) {
+/*        if (param == ShapeParam.COLOR) {
             if (value != null) {
-                colorField.setValue(FxColorUtils.convert((Integer) value));
+                colorField.setValue(QtColorUtils.convert((Integer) value));
                 colorField.setDisable(false);
             } else {
                 colorField.setValue(null);
@@ -86,10 +64,10 @@ public class FxPropertiesPanelView extends PropertiesPanelView {
         }
         else {
             clearAndDisable(field);
-        }
+        }*/
     }
 
-    private static void clearAndDisable(final TextInputControl field) {
+/*    private static void clearAndDisable(final TextInputControl field) {
         field.clear();
         field.setDisable(true);
     }
@@ -116,6 +94,6 @@ public class FxPropertiesPanelView extends PropertiesPanelView {
 
     public void updateColor(final ActionEvent event) {
         final Color selectedColor = colorField.getValue();
-        updateColor(String.valueOf(FxColorUtils.convert(selectedColor)));
-    }
+        updateColor(String.valueOf(QtColorUtils.convert(selectedColor)));
+    }*/
 }

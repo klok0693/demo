@@ -1,0 +1,37 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "linux-gcc",
+      "displayName": "Linux GCC",
+      "generator": "Ninja",
+      "binaryDir": "build/linux-gcc",
+      "toolchainFile": "cmake/toolchains/linux-gcc.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "CMAKE_PREFIX_PATH": "/home/pilip/6.10.0/gcc_64"
+      }
+    },
+    {
+      "name": "windows-msvc",
+      "displayName": "Windows MSVC",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "build/windows-msvc",
+      "toolchainFile": "cmake/toolchains/windows-msvc.cmake",
+        "cacheVariables": {
+          "CMAKE_BUILD_TYPE": "Debug",
+          "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    {
+      "name": "linux-gcc",
+      "configurePreset": "linux-gcc"
+    }
+  ]
+}

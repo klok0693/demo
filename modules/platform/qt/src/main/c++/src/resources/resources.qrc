@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC>
+  <qresource prefix="/">
+    <file>MainView.qml</file>
+    <file>AppToolBar.qml</file>
+    <file>AppPropertiesPanel.qml</file>
+    <file>AppLayersPanel.qml</file>
+    <file>QtCanvas.qml</file>
+  </qresource>
+</RCC>

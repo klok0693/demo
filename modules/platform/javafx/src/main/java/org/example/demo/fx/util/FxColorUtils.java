@@ -11,7 +11,7 @@ import org.example.demo.api.graphics.color.Colors;
  * @since v1.0
  */
 @UtilityClass
-public class ColorUtils {
+public class FxColorUtils {
 
     public static int convert(final Color color) {
         return Colors.convert(

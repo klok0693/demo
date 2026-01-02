@@ -1,37 +1,34 @@
-package org.example.demo.swing.util;
+package org.example.demo.qt.util;
 
 import lombok.experimental.UtilityClass;
-import org.example.demo.api.graphics.color.Colors;
-
-import java.awt.*;
 
 /**
- * Convert from/to RGB color
+ * Convert from/to sRGB color
  *
  * @author Pilip Yurchanka
- * @since v1.2
+ * @since v1.0
  */
 @UtilityClass
-public class ColorUtils {
+public class QtColorUtils {
 
-    public static int convert(final Color color) {
+/*    public static int convert(final Color color) {
         return Colors.convert(
                 org.example.demo.api.graphics.color.Color.rgba(
                         color.getRed(),
                         color.getGreen(),
                         color.getBlue(),
-                        color.getAlpha()
+                        color.getOpacity()
                 )
         );
     }
 
     public static Color convert(final int color) {
         final org.example.demo.api.graphics.color.Color apiColor = Colors.convert(color);
-        return new Color(
-                (int) apiColor.getRed(),
-                (int) apiColor.getGreen(),
-                (int) apiColor.getBlue(),
-                (int) apiColor.getAlpha()
+        return Color.color(
+                apiColor.getRed(),
+                apiColor.getGreen(),
+                apiColor.getBlue(),
+                apiColor.getAlpha()
         );
-    }
+    }*/
 }
