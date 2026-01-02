@@ -18,7 +18,7 @@ public class QtMain {
         new QtAppInitializer().initialize(args);
     }
 
-    public static void init(final String[] args) {
-        main(args);
+    public static void init() {
+        main(new String[]{});
     }
 }

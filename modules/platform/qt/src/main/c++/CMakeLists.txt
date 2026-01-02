@@ -5,6 +5,8 @@ project(QtQuickNoJS LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# ---- Qt ----
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
@@ -14,6 +16,30 @@ find_package(Qt6 REQUIRED COMPONENTS
     Quick 
     QuickControls2
     Gui)
+
+
+# ---- JAVA / JNI ----
+find_package(JNI REQUIRED)
+
+message(STATUS "JNI include dirs: ${JNI_INCLUDE_DIRS}")
+message(STATUS "JNI libraries: ${JNI_LIBRARIES}")    
+
+#add_executable(qt-jvm
+#    src/app/main.cpp
+#)
+
+#target_include_directories(qt-jvm PRIVATE
+#    ${JNI_INCLUDE_DIRS}
+#)
+
+#target_link_libraries(qt-jvm
+#    PUBLIC Qt6::Quick
+#    PUBLIC Qt6::Core
+#    Qt6::Gui
+#    ${JNI_LIBRARIES}
+#)
+
+# ------ UI -------------
 
 
 add_library(ui)
@@ -40,8 +66,22 @@ add_executable(QtQuickNoJS
     src/resources/resources.qrc
 )
 
+target_include_directories(QtQuickNoJS 
+    PRIVATE ${JNI_INCLUDE_DIRS}
+)
+
+#target_link_libraries(QtQuickNoJS 
+#    PRIVATE ${JNI_LIBRARIES}
+#)
+
+#BUILD_RPATH "${JAVA_HOME}/lib/server"
+set_target_properties(QtQuickNoJS PROPERTIES
+    BUILD_RPATH "$ENV{JAVA_HOME}/lib/server"
+)
+
 target_link_libraries(QtQuickNoJS
     Qt6::Quick
     Qt6::Gui
     ui
+    ${JNI_LIBRARIES}
 )

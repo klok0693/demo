@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QtGlobal>
 
+#include <jni.h>
 #include <iostream>
 
 #include "../ui/toolbar/ToolBarController.h"
@@ -40,6 +41,53 @@ private:
     bool m_labelVisible = false;
 };
 
+
+static JavaVM* gJvm = nullptr;
+
+void startJvmAndCallJava() {
+    JavaVMInitArgs vm_args{};
+    JavaVMOption options[2];
+
+    options[0].optionString =
+        const_cast<char*>("-Djava.class.path=qt-1.2-raw.jar");
+    options[1].optionString =
+        const_cast<char*>("-Xmx256m");
+
+    vm_args.version = JNI_VERSION_10;
+    vm_args.nOptions = 2;
+    vm_args.options = options;
+    vm_args.ignoreUnrecognized = JNI_FALSE;
+
+    JNIEnv* env = nullptr;
+
+    jint res = JNI_CreateJavaVM(&gJvm,
+                               reinterpret_cast<void**>(&env),
+                               &vm_args);
+
+    if (res != JNI_OK) {
+        qFatal("Failed to create JVM");
+    }
+
+    jclass cls = env->FindClass("org/example/demo/QtMain");
+    if (!cls) {
+        qFatal("Cannot find QtBridge class");
+    }
+
+    jmethodID mid = env->GetStaticMethodID(cls, "init", "()V");
+    if (!mid) {
+        qFatal("Cannot find init() method");
+    }
+
+    env->CallStaticVoidMethod(cls, mid);
+
+    if (env->ExceptionCheck()) {
+        env->ExceptionDescribe();
+        env->ExceptionClear();
+    }
+
+    qDebug() << "Java init() executed";
+}
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -70,6 +118,8 @@ int main(int argc, char *argv[])
         return -1;
     }
     
+    startJvmAndCallJava();
+
     // QQuickStyle::setStyle("Imagine");    
     return app.exec();
 }
