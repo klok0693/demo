@@ -44,6 +44,21 @@ UI_API ToolBarController* ui_toolbar_get() {
     return toolbar;
 }
 
+UI_API void setToolBarInsertRectBtnSelected(void* toolbar, bool isSelected) {
+    auto* ctrl = static_cast<ToolBarController*>(toolbar);
+    ctrl->setinsertRectBtnSelected(isSelected);
+}
+
+UI_API void setToolBarInsertCycleBtnSelected(void* toolbar, bool isSelected) {
+    auto* ctrl = static_cast<ToolBarController*>(toolbar);
+    ctrl->setinsertCycleBtnSelected(isSelected);
+}
+
+UI_API void setToolBarDeleteBtnDisabled(void* toolbar, bool disabled) {
+    auto* ctrl = static_cast<ToolBarController*>(toolbar);
+    ctrl->setDeleteBtnDisabled(disabled);
+}
+
 UI_API void setToolBarInsertRectCallback(
         void* toolbar,
         ToolbarCallback cb,

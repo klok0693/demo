@@ -13,11 +13,17 @@ public:
     explicit ToolBarController(QObject* parent = nullptr);
 
     bool deleteEnabled() const;
+    bool insertRectBtnSelected() const;
+    bool insertCycleBtnSelected() const;
 
     void setInsertRectCallback(void* cb, void* userData);
     void setInsertCycleCallback(void* cb, void* userData);
     void setUndoCallback(void* cb, void* userData);
     void setDeleteCallback(void* cb, void* userData);
+
+    void setDeleteBtnDisabled(bool isDisabled);
+    void setinsertRectBtnSelected(bool isSelected);
+    void setinsertCycleBtnSelected(bool isSelected);
 
 public slots:
     void onInsertRectAction();
@@ -29,6 +35,8 @@ signals:
     void deleteEnabledChanged();
 
 private:
+    bool m_insertRectBtnSelected = false;
+    bool m_insertCycleBtnSelected = false;
     bool m_deleteEnabled = false;
     
     ToolbarCallback insertRectCallback = nullptr;

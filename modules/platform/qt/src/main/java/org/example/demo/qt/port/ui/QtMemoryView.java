@@ -31,7 +31,7 @@ public interface QtMemoryView {
         final MemorySegment segment =
                 createMemorySegment(javaName, rtype, ptypes, upcallDescription);
 
-        final MemorySegment qtToolBarRef =
+        final MemorySegment qtRef =
                 (MemorySegment) LINKER.downcallHandle(
                         LOOKUP.find(nativeRefName).orElseThrow(),
                         FunctionDescriptor.of(ValueLayout.ADDRESS)
@@ -44,7 +44,7 @@ public interface QtMemoryView {
                         ValueLayout.ADDRESS,
                         ValueLayout.ADDRESS));
 
-        downcallHandle.invoke(qtToolBarRef, segment, MemorySegment.NULL);
+        downcallHandle.invoke(qtRef, segment, MemorySegment.NULL);
 
         return segment;
     }

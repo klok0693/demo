@@ -17,12 +17,14 @@ ToolBar {
             Button {
                 text: "Rect"
                 checkable: true
+                checked: toolBarController.insertRectBtnSelected
                 onClicked: toolBarController.onInsertRectAction()
             }
 
             Button {
                 text: "Cycle"
                 checkable: true
+                checked: toolBarController.insertCycleBtnSelected
                 onClicked: toolBarController.onInsertCycleAction()
             }
         }

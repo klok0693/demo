@@ -1,11 +1,13 @@
 package org.example.demo.qt.port.ui;
 
+import lombok.SneakyThrows;
 import org.example.demo.core.adapter.ui.state.UIState;
 import org.example.demo.core.adapter.ui.toolbar.ToolBarAdapter;
 import org.example.demo.core.port.ui.ToolBarPanelView;
 
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
+import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 
 /**
@@ -15,12 +17,21 @@ import java.lang.invoke.MethodHandle;
  * @since v1.1
  */
 public class QtToolBarView extends ToolBarPanelView implements QtMemoryView {
+    private static final String NATIVE_REF_NAME = "ui_toolbar_get";
+
     private MemorySegment onInsertRectSegment;
     private MemorySegment onInsertCycleSegment;
     private MemorySegment onUndoSegment;
     private MemorySegment onDeleteSegment;
 
+    /**
+     * Java objects do not store native object's references, only
+     * MethodHandler, that provide references
+     */
+    private MethodHandle getQtRefHandle;
     private MethodHandle deleteBtnDisabledHandle;
+    private MethodHandle insertRectBtnSelectedHandle;
+    private MethodHandle insertCycleBtnSelectedHandle;
 
     public QtToolBarView(
             final UIState uiState,
@@ -39,7 +50,32 @@ public class QtToolBarView extends ToolBarPanelView implements QtMemoryView {
         this.onDeleteSegment =
                 createBoundSegment("onDeleteAction", "setToolBarDeleteCallback");
 
-        //this.deleteBtnDisabledHandle = findNative();
+        this.getQtRefHandle =
+                findNative(NATIVE_REF_NAME, FunctionDescriptor.of(ValueLayout.ADDRESS));
+
+        this.deleteBtnDisabledHandle =
+                findNative(
+                        "setToolBarDeleteBtnDisabled",
+                        FunctionDescriptor.ofVoid(
+                                ValueLayout.ADDRESS,
+                                ValueLayout.JAVA_BOOLEAN
+                        ));
+
+        this.insertRectBtnSelectedHandle =
+                findNative(
+                        "setToolBarInsertRectBtnSelected",
+                        FunctionDescriptor.ofVoid(
+                                ValueLayout.ADDRESS,
+                                ValueLayout.JAVA_BOOLEAN
+                        ));
+
+        this.insertCycleBtnSelectedHandle =
+                findNative(
+                        "setToolBarInsertCycleBtnSelected",
+                        FunctionDescriptor.ofVoid(
+                                ValueLayout.ADDRESS,
+                                ValueLayout.JAVA_BOOLEAN
+                        ));
     }
 
     private MemorySegment createBoundSegment(
@@ -52,23 +88,26 @@ public class QtToolBarView extends ToolBarPanelView implements QtMemoryView {
                 void.class,
                 new Class[]{},
                 FunctionDescriptor.ofVoid(),
-                "ui_toolbar_get",
+                NATIVE_REF_NAME,
                 nativeName
         );
     }
 
     @Override
+    @SneakyThrows
     protected void setDeleteBtnDisabled(final boolean isDisabled) {
-        //deleteBtn.setDisable(isDisabled);
+        deleteBtnDisabledHandle.invoke(getQtRefHandle.invoke(), isDisabled);
     }
 
     @Override
+    @SneakyThrows
     protected void setInsertRectBtnSelected(final boolean setSelected) {
-        //insertRectBtn.setSelected(setSelected);
+        insertRectBtnSelectedHandle.invoke(getQtRefHandle.invoke(), setSelected);
     }
 
     @Override
+    @SneakyThrows
     protected void setInsertCycleBtnSelected(final boolean setSelected) {
-        //insertCycleBtn.setSelected(setSelected);
+        insertCycleBtnSelectedHandle.invoke(getQtRefHandle.invoke(), setSelected);
     }
 }
