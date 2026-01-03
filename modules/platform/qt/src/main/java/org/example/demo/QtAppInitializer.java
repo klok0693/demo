@@ -2,7 +2,10 @@ package org.example.demo;
 
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import org.example.demo.core.port.ui.ToolBarPanelView;
 import org.example.demo.qt.initialization.di.QtModule;
+import org.example.demo.qt.port.ui.QtMemoryView;
+import org.example.demo.qt.port.ui.QtToolBarView;
 import org.example.demo.realization.initialization.launch.AppInitializer;
 
 import java.lang.foreign.*;
@@ -32,12 +35,17 @@ public class QtAppInitializer extends AppInitializer {
     protected List<Module> getModules() {
         final var modules = super.getModules();
         modules.add(new QtModule());
+
+        System.out.println("Qt module loaded");
+
         return modules;
     }
 
     @Override
     protected Object launchGUI(final Injector injector) {
         try {
+            ((QtMemoryView) injector.getInstance(ToolBarPanelView.class)).initialize();
+
             setupCallback();
         } catch (Throwable e) {
             e.printStackTrace();

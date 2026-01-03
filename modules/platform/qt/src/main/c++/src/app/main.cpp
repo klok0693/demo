@@ -136,6 +136,7 @@ int main(int argc, char *argv[])
         return -1;
     }
     
+    setEngine(&engine);
     startJvmAndCallJava();
 
     // QQuickStyle::setStyle("Imagine");    

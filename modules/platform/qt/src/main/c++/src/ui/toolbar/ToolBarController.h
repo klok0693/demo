@@ -2,6 +2,8 @@
 
 #include <QObject>
 
+#include "../ui_bridge.h"
+
 class ToolBarController : public QObject
 {
     Q_OBJECT
@@ -11,6 +13,11 @@ public:
     explicit ToolBarController(QObject* parent = nullptr);
 
     bool deleteEnabled() const;
+
+    void setInsertRectCallback(void* cb, void* userData);
+    void setInsertCycleCallback(void* cb, void* userData);
+    void setUndoCallback(void* cb, void* userData);
+    void setDeleteCallback(void* cb, void* userData);
 
 public slots:
     void onInsertRectAction();
@@ -23,4 +30,11 @@ signals:
 
 private:
     bool m_deleteEnabled = false;
+    
+    ToolbarCallback insertRectCallback = nullptr;
+    ToolbarCallback insertCycleCallback = nullptr;
+    ToolbarCallback undoCallback = nullptr;
+    ToolbarCallback deleteCallback = nullptr;
+
+    void* insertRectUserData = nullptr;
 };
