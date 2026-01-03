@@ -5,16 +5,28 @@ import com.google.inject.Module;
 import org.example.demo.qt.initialization.di.QtModule;
 import org.example.demo.realization.initialization.launch.AppInitializer;
 
+import java.lang.foreign.*;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.util.List;
 
 /**
- * Fx applicatiob initializer
+ * application initializer
  *
  * @since 1.2
  * @author Pilip Yurchanka
  */
 
 public class QtAppInitializer extends AppInitializer {
+    private static MemorySegment CALLBACK_STUB;
+    private static Linker LINKER/* = Linker.nativeLinker()*/;
+    private static SymbolLookup LOOKUP /*= SymbolLookup.libraryLookup(*//*"ui"*//*"libui.so", Arena.global())*/;
+
+    public QtAppInitializer() {
+        LINKER = Linker.nativeLinker();
+        LOOKUP = SymbolLookup.libraryLookup(/*"ui"*/"libui.so", Arena.global());
+    }
 
     @Override
     protected List<Module> getModules() {
@@ -25,8 +37,55 @@ public class QtAppInitializer extends AppInitializer {
 
     @Override
     protected Object launchGUI(final Injector injector) {
+        try {
+            setupCallback();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
         //FxHelloApplication.setInjector(injector);
         //Application.launch(FxHelloApplication.class);
         return null;
+    }
+
+    public void handleStatus(final int status) {
+        System.out.println("!!!!!!!!!!!!! " + status);
+    }
+
+    public void setupCallback() throws Throwable {
+        final MethodHandle handle = MethodHandles.lookup().findVirtual(
+                QtAppInitializer.class, "handleStatus",
+                MethodType.methodType(void.class, int.class));
+
+        final MethodHandle boundHandle = handle.bindTo(this);
+
+        System.out.println("Handle ready");
+
+        CALLBACK_STUB = LINKER.upcallStub(
+                boundHandle,
+                FunctionDescriptor.ofVoid(ValueLayout.JAVA_INT),
+                Arena.global()
+        );
+
+        System.out.println("Stub ready");
+
+        final MethodHandle setCallback = LINKER.downcallHandle(
+                LOOKUP.find("setStatusCallback").orElseThrow(),
+                FunctionDescriptor.ofVoid(ValueLayout.ADDRESS)
+        );
+        setCallback.invoke(CALLBACK_STUB);
+
+        System.out.println("Call c++ func");
+
+        final MethodHandle setToolState = LINKER.downcallHandle(
+                LOOKUP.find("setToolState").orElseThrow(),
+                FunctionDescriptor.ofVoid(
+                        ValueLayout.JAVA_INT,
+                        ValueLayout.JAVA_INT
+                )
+        );
+
+        setToolState.invoke(3, 1);
+
+        System.out.println("FFM init finished");
     }
 }

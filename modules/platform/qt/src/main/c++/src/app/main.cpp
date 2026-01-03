@@ -13,6 +13,18 @@
 #include "../ui/layer/QtLayersPanelController.h"
 #include "../ui/element/QtCanvasItem.h"
 #include "../ui/canvas/QtCanvasController.h"
+#include "../ui/ui_bridge.h"
+
+/* extern "C" {
+    typedef void (*StatusFunc)(int);
+    UI_API void setStatusCallback(StatusFunc callback);
+} */
+
+/* StatusFunc javaCallback = nullptr;
+
+UI_API void setStatusCallback(StatusFunc callback) {
+    javaCallback = callback;
+} */
 
 class UiState : public QObject {
     Q_OBJECT
@@ -46,15 +58,14 @@ static JavaVM* gJvm = nullptr;
 
 void startJvmAndCallJava() {
     JavaVMInitArgs vm_args{};
-    JavaVMOption options[2];
+    JavaVMOption options[3];
 
-    options[0].optionString =
-        const_cast<char*>("-Djava.class.path=qt-1.2-raw.jar");
-    options[1].optionString =
-        const_cast<char*>("-Xmx256m");
+    options[0].optionString = const_cast<char*>("-Djava.class.path=qt-1.2-raw.jar");
+    options[1].optionString = const_cast<char*>("-Xmx256m");
+    options[2].optionString = const_cast<char*>("--enable-native-access=ALL-UNNAMED");
 
     vm_args.version = JNI_VERSION_10;
-    vm_args.nOptions = 2;
+    vm_args.nOptions = 3;
     vm_args.options = options;
     vm_args.ignoreUnrecognized = JNI_FALSE;
 
@@ -86,6 +97,13 @@ void startJvmAndCallJava() {
     }
 
     qDebug() << "Java init() executed";
+
+    //if (javaCallback) {
+        //qDebug() << "Send callback";
+        //JNIEnv* env = nullptr;
+        gJvm->AttachCurrentThread((void**)&env, nullptr);
+        emitStatus(200);
+    //}
 }
 
 int main(int argc, char *argv[])

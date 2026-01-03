@@ -42,7 +42,7 @@ message(STATUS "JNI libraries: ${JNI_LIBRARIES}")
 # ------ UI -------------
 
 
-add_library(ui)
+add_library(ui SHARED)
 
 target_sources(ui PRIVATE
     src/ui/toolbar/ToolBarController.cpp
@@ -50,9 +50,15 @@ target_sources(ui PRIVATE
     src/ui/layer/QtLayersPanelController.cpp
     src/ui/canvas/QtCanvasController.cpp
     src/ui/element/QtCanvasItem.cpp
+    src/ui/ui_bridge.cpp
 )
 
 target_include_directories(ui PUBLIC src/ui)
+
+#set_target_properties(ui PROPERTIES
+#    CXX_VISIBILITY_PRESET default
+#    VISIBILITY_INLINES_HIDDEN OFF
+#)
 
 target_link_libraries(ui
     PUBLIC Qt6::Quick
@@ -75,8 +81,9 @@ target_include_directories(QtQuickNoJS
 #)
 
 #BUILD_RPATH "${JAVA_HOME}/lib/server"
+#BUILD_RPATH "$ENV{JAVA_HOME}/lib/server"
 set_target_properties(QtQuickNoJS PROPERTIES
-    BUILD_RPATH "$ENV{JAVA_HOME}/lib/server"
+    BUILD_RPATH "$ORIGIN"
 )
 
 target_link_libraries(QtQuickNoJS

@@ -19,7 +19,7 @@
         <cucumber.version>7.18.1</cucumber.version>
 
         <!-- PROFILE SETTINGS -->
-        <platform.args></platform.args>
+        <platform.args>--enable-native-access=ALL-UNNAMED</platform.args>
         <platform.headless.args></platform.headless.args>
         <platform.appName>QT_Demo</platform.appName>
         <platform.mainJar>${project.artifactId}-${project.version}.jar</platform.mainJar>
