@@ -5,7 +5,6 @@ import org.example.demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.SelectionFrame;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ContactPoint;
-import org.example.demo.fx.port.ui.canvas.FxCanvasElement;
 import org.example.demo.fx.port.ui.graphics.FxPainter;
 
 /**
@@ -14,7 +13,7 @@ import org.example.demo.fx.port.ui.graphics.FxPainter;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxContactPoint extends ContactPoint<FxPainter> implements FxCanvasElement {
+public class FxContactPoint extends ContactPoint<FxPainter> {
 
     public FxContactPoint(
             final SelectionFrame<FxPainter> selectionTool,
@@ -23,12 +22,5 @@ public class FxContactPoint extends ContactPoint<FxPainter> implements FxCanvasE
             final Color fillColor,
             final ContactAlignment alignment) {
         super(selectionTool, adapter, layer, alignment, fillColor);
-    }
-
-    @Override
-    public void draw(final FxPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
     }
 }

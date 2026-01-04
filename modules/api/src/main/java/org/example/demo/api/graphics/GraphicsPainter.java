@@ -12,6 +12,10 @@ import org.example.demo.api.graphics.color.Color;
  */
 public interface GraphicsPainter {
 
+    void save();
+
+    void restore();
+
     void setFill(Color color);
 
     void strokeRect(double x, double y, double width, double height);

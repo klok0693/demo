@@ -12,6 +12,16 @@ public class FxPainter implements GraphicsPainter {
     }
 
     @Override
+    public void save() {
+        gc.save();
+    }
+
+    @Override
+    public void restore() {
+        gc.restore();
+    }
+
+    @Override
     public void setFill(final Color color) {
         gc.setFill(javafx.scene.paint.Color.color(
                 color.getRed(),
@@ -48,13 +58,5 @@ public class FxPainter implements GraphicsPainter {
     @Override
     public void setLineWidth(final double width) {
         gc.setLineWidth(width);
-    }
-
-    public void save() {
-        gc.save();
-    }
-
-    public void restore() {
-        gc.restore();
     }
 }

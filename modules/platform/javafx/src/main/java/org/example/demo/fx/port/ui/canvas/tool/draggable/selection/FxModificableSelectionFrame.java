@@ -5,21 +5,12 @@ import org.example.demo.core.adapter.ui.state.UIState;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ContactPoint;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
-import org.example.demo.fx.port.ui.canvas.FxCanvasElement;
 import org.example.demo.fx.port.ui.graphics.FxPainter;
 
-public class FxModificableSelectionFrame extends ModificableSelectionFrame<FxPainter>
-        implements FxCanvasElement {
+public class FxModificableSelectionFrame extends ModificableSelectionFrame<FxPainter> {
 
     public FxModificableSelectionFrame(final CanvasAdapter adapter, final UIState uiState) {
         super(adapter, uiState);
-    }
-
-    @Override
-    public void draw(final FxPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
     }
 
     @Override

@@ -2,7 +2,6 @@ package org.example.demo.fx.port.ui.canvas.shape;
 
 import org.example.demo.api.graphics.color.Color;
 import org.example.demo.core.port.ui.canvas.shape.EllipseElement;
-import org.example.demo.fx.port.ui.canvas.FxCanvasElement;
 import org.example.demo.fx.port.ui.graphics.FxPainter;
 
 /**
@@ -11,7 +10,7 @@ import org.example.demo.fx.port.ui.graphics.FxPainter;
  * @author Pilip Yurchanka
  * @since v1.1
  */
-public class FxEllipseElement extends EllipseElement<FxPainter> implements FxCanvasElement {
+public class FxEllipseElement extends EllipseElement<FxPainter> {
 
     protected FxEllipseElement(
             final int layer,
@@ -22,12 +21,5 @@ public class FxEllipseElement extends EllipseElement<FxPainter> implements FxCan
             final double height,
             final Color fillColor) {
         super(layer, modelRelatedId, x, y, width, height, fillColor);
-    }
-
-    @Override
-    public void draw(final FxPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
     }
 }

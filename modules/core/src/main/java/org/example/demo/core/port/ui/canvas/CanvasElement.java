@@ -34,7 +34,9 @@ public abstract class CanvasElement<E extends GraphicsPainter> implements Drawab
 
     @Override
     public void draw(final E gc) {
+        gc.save();
         drawElement(gc);
+        gc.restore();
     }
 
     protected abstract void drawElement(E gc);
