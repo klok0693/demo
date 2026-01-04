@@ -75,10 +75,10 @@ UI_API void setDrawingCallback(
 
 UI_API void ui_painter_set_fill(
     PainterContext* ctx,
-    int r, int g, int b, int a
+    const char* utf8
 );
 
-UI_API void ui_painter_draw_rect(
+UI_API void ui_painter_fill_rect(
     PainterContext* ctx,
     double x, double y, double w, double h
 );

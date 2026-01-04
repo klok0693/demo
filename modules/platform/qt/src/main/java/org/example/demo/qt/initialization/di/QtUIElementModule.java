@@ -12,6 +12,7 @@ import org.example.demo.qt.port.ui.canvas.shape.QtShapeLayer;
 import org.example.demo.qt.port.ui.canvas.tool.QtToolLayer;
 import org.example.demo.qt.port.ui.element.QtCanvasUI;
 import org.example.demo.qt.port.ui.element.QtLayersTree;
+import org.example.demo.qt.port.ui.graphics.QtPainterFactory;
 
 /**
  * DI config for UI elements
@@ -46,5 +47,12 @@ class QtUIElementModule extends AbstractModule {
             final QtShapeLayer shapeLayer,
             final QtToolLayer toolLayer) {
         return new QtCanvasUI(backgroundLayer, shapeLayer, toolLayer);
+    }
+
+    @Inject
+    @Provides
+    @Singleton
+    public QtPainterFactory providePainterFactory() {
+        return new QtPainterFactory();
     }
 }

@@ -146,7 +146,8 @@ public class Color {
         final int g = (int)Math.round(green * RANGE_FACTOR);
         final int b = (int)Math.round(blue * RANGE_FACTOR);
         final int o = (int)Math.round(alpha * RANGE_FACTOR);
-        return String.format("0x%02x%02x%02x%02x" , r, g, b, o);
+        return String.format("#%02X%02X%02X", r, g, b);
+        //return String.format("0x%02x%02x%02x%02x" , r, g, b, o);
     }
 
     private static double clamp(final double v) {

@@ -1,17 +1,37 @@
 package org.example.demo.qt.port.ui.graphics;
 
+import lombok.SneakyThrows;
 import org.example.demo.api.graphics.GraphicsPainter;
 import org.example.demo.api.graphics.color.Color;
+import org.example.demo.qt.port.ui.QtMemoryView;
+
+import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
+import java.lang.invoke.MethodHandle;
 
 public class QtPainter implements GraphicsPainter {
-/*    private final GraphicsContext gc;
+    private final MemorySegment ctxPtr;
 
-    public QtPainter(final GraphicsContext gc) {
-        this.gc = gc;
-    }*/
+    private final MethodHandle setFillSegment;
+    private final MethodHandle fillRectSegment;
+
+    public QtPainter(
+            final MemorySegment ctxPtr,
+            final MethodHandle setFillSegment,
+            final MethodHandle fillRectSegment) {
+        this.ctxPtr = ctxPtr;
+        this.setFillSegment = setFillSegment;
+        this.fillRectSegment = fillRectSegment;
+    }
 
     @Override
+    @SneakyThrows
     public void setFill(final Color color) {
+        try (Arena arena = Arena.ofConfined()) {
+            final MemorySegment utf8 = arena.allocateUtf8String(color.toString());
+            setFillSegment.invoke(ctxPtr, utf8);
+        }
+        //setFillSegment.invoke(ctxPtr, color.toString());
 /*        gc.setFill(javafx.scene.paint.Color.color(
                 color.getRed(),
                 color.getGreen(),
@@ -25,7 +45,9 @@ public class QtPainter implements GraphicsPainter {
     }
 
     @Override
+    @SneakyThrows
     public void fillRect(final double x, final double y, final double width, final double height) {
+        fillRectSegment.invoke(ctxPtr, x, y, width, height);
         //gc.fillRect(x, y, width, height);
     }
 

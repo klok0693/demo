@@ -7,9 +7,11 @@ import org.example.demo.qt.port.ui.canvas.background.QtBackgroundLayer;
 import org.example.demo.qt.port.ui.canvas.shape.QtShapeLayer;
 import org.example.demo.qt.port.ui.canvas.tool.QtToolLayer;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
+import org.example.demo.qt.port.ui.graphics.QtPainterFactory;
 
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
+import java.lang.foreign.ValueLayout;
 import java.util.List;
 
 /**
@@ -33,10 +35,10 @@ public class QtCanvasUI implements CanvasUI, QtMemoryView {
     @Override
     public void initialize() throws Throwable {
         onDrawSegment = bindMethodToNative(
-                "redraw",
+                /*"redraw"*/"paintComponent",
                 void.class,
-                new Class[]{},
-                FunctionDescriptor.ofVoid(),
+                new Class[]{ MemorySegment.class },
+                FunctionDescriptor.ofVoid(ValueLayout.ADDRESS),
                 "ui_canvas_get",
                 "setDrawingCallback"
         );
@@ -45,6 +47,11 @@ public class QtCanvasUI implements CanvasUI, QtMemoryView {
     @Override
     public void redraw() {
         System.out.println("redraw");
-        layers.stream().sorted().forEach(layer -> layer.draw(new QtPainter(/*getGraphicsContext2D()*/)));
+        //layers.stream().sorted().forEach(layer -> layer.draw(new QtPainter(/*getGraphicsContext2D()*/)));
+    }
+
+    public void paintComponent(final MemorySegment ctxPtr) {
+        System.out.println("paint component " + (ctxPtr != null));
+        layers.stream().sorted().forEach(layer -> layer.draw(QtPainterFactory.build(ctxPtr)));
     }
 }

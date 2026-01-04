@@ -137,16 +137,30 @@ UI_API void setDrawingCallback(
 
 UI_API void ui_painter_set_fill(
     PainterContext* ctx,
-    int r, int g, int b, int a
+    const char* utf8
 ) {
-    ctx->painter->setBrush(QColor(r, g, b, a));
+    qDebug() << "set fill ";
+
+    const QString colorStr = QString::fromUtf8(utf8);
+    QColor color(colorStr);
+
+    if (!color.isValid()) {
+        qDebug() << "color not valid " << colorStr;
+        // fallback: transparent to avoid undefined state
+        color = Qt::transparent;
+    }
+
+    ctx->painter->setBrush(color);
+    ctx->painter->setPen(Qt::NoPen);
 }
 
-UI_API void ui_painter_draw_rect(
+UI_API void ui_painter_fill_rect(
     PainterContext* ctx,
     double x, double y, double w, double h
 ) {
-    ctx->painter->drawRect(QRectF(x, y, w, h));
+    qDebug() << "fill rect";
+
+    ctx->painter->fillRect(QRectF(x, y, w, h), ctx->painter->brush());
 }
 
 }
