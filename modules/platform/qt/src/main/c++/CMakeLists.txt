@@ -51,6 +51,7 @@ target_sources(ui PRIVATE
     src/ui/canvas/QtCanvasController.cpp
     src/ui/element/QtCanvasItem.cpp
     src/ui/ui_bridge.cpp
+    src/ui/root/RootView.cpp
 )
 
 target_include_directories(ui PUBLIC src/ui)

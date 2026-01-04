@@ -2,9 +2,11 @@ package org.example.demo;
 
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import org.example.demo.core.port.ui.RootView;
 import org.example.demo.core.port.ui.ToolBarPanelView;
 import org.example.demo.qt.initialization.di.QtModule;
 import org.example.demo.qt.port.ui.QtMemoryView;
+import org.example.demo.qt.port.ui.QtRootView;
 import org.example.demo.qt.port.ui.QtToolBarView;
 import org.example.demo.realization.initialization.launch.AppInitializer;
 
@@ -45,6 +47,7 @@ public class QtAppInitializer extends AppInitializer {
     protected Object launchGUI(final Injector injector) {
         try {
             ((QtMemoryView) injector.getInstance(ToolBarPanelView.class)).initialize();
+            ((QtMemoryView) injector.getInstance(RootView.class)).initialize();
 
             setupCallback();
         } catch (Throwable e) {

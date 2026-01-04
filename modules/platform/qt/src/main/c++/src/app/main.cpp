@@ -14,6 +14,7 @@
 #include "../ui/element/QtCanvasItem.h"
 #include "../ui/canvas/QtCanvasController.h"
 #include "../ui/ui_bridge.h"
+#include "../ui/root/RootView.h"
 
 /* extern "C" {
     typedef void (*StatusFunc)(int);
@@ -58,14 +59,15 @@ static JavaVM* gJvm = nullptr;
 
 void startJvmAndCallJava() {
     JavaVMInitArgs vm_args{};
-    JavaVMOption options[3];
+    JavaVMOption options[4];
 
     options[0].optionString = const_cast<char*>("-Djava.class.path=qt-1.2-raw.jar");
     options[1].optionString = const_cast<char*>("-Xmx256m");
     options[2].optionString = const_cast<char*>("--enable-native-access=ALL-UNNAMED");
+    options[3].optionString = const_cast<char*>("--enable-preview");
 
     vm_args.version = JNI_VERSION_10;
-    vm_args.nOptions = 3;
+    vm_args.nOptions = 4;
     vm_args.options = options;
     vm_args.ignoreUnrecognized = JNI_FALSE;
 
@@ -116,11 +118,12 @@ int main(int argc, char *argv[])
 
     UiState uiState;
     engine.rootContext()->setContextProperty("uiState", &uiState);
+
+    RootView rootView;
+    engine.rootContext()->setContextProperty("rootView", &rootView);
     
     QtCanvasController canvasController;
     engine.rootContext()->setContextProperty("canvasController", &canvasController);
-
-    //QQmlApplicationEngine engine;
 
     ToolBarController toolBarController;
     engine.rootContext()->setContextProperty("toolBarController", &toolBarController);

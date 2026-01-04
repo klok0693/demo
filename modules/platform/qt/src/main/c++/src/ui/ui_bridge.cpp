@@ -1,4 +1,5 @@
 #include "ui_bridge.h"
+#include "root/RootView.h"
 #include "toolbar/ToolBarController.h"
 
 #include <QGuiApplication>
@@ -31,11 +32,32 @@ void setToolState(int toolId, int enabled) {
     qDebug() << "Java says: tool" << toolId << "enabled:" << enabled;
 }
 
+// --------- ROOT -----------
+
+UI_API void setCursor(const char* utf8) {
+    QObject* obj =
+        engine->rootContext()
+          ->contextProperty("rootView")
+          .value<QObject*>();
+
+    auto* rootView = qobject_cast<RootView*>(obj);    
+     const QString cursor = QString::fromUtf8(utf8); 
+    //rootView->setCursor(QString::fromUtf8(utf8)); 
+
+    QMetaObject::invokeMethod(
+        rootView,
+        [rootView, cursor]() {
+            rootView->setCursor(cursor);
+        },
+        Qt::QueuedConnection
+    );
+}
+
 // --------- TOOLBAR -----------
 
 UI_API ToolBarController* ui_toolbar_get() {
     QObject* obj =
-    engine->rootContext()
+        engine->rootContext()
           ->contextProperty("toolBarController")
           .value<QObject*>();
 
