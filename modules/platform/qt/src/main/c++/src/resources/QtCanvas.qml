@@ -7,6 +7,7 @@ Item {
 
     QtCanvasUI {
         id: canvas
+        objectName: "canvasItem"
         width: 720
         height: 600
         anchors.centerIn: parent

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QQmlApplicationEngine>
+#include <QPainter>
 
 #if defined(_WIN32)
   #define UI_API __declspec(dllexport)
@@ -58,6 +59,29 @@ UI_API void setToolBarInsertRectBtnSelected(void* toolbar, bool isSelected);
 UI_API void setToolBarInsertCycleBtnSelected(void* toolbar, bool isSelected);
 
 UI_API void setToolBarDeleteBtnDisabled(void* toolbar, bool disabled);
+
+// --------- CANVAS -----------
+
+struct PainterContext {
+    QPainter* painter;
+};
+
+typedef void (*DrawingCallback)(PainterContext* ctx);
+
+UI_API void setDrawingCallback(
+        void* canvasItem,
+        DrawingCallback callback
+);
+
+UI_API void ui_painter_set_fill(
+    PainterContext* ctx,
+    int r, int g, int b, int a
+);
+
+UI_API void ui_painter_draw_rect(
+    PainterContext* ctx,
+    double x, double y, double w, double h
+);
 
 #ifdef __cplusplus
 }

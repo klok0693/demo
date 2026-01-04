@@ -1,6 +1,7 @@
 #include "ui_bridge.h"
 #include "root/RootView.h"
 #include "toolbar/ToolBarController.h"
+#include "element/QtCanvasItem.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -117,5 +118,35 @@ UI_API void setToolBarDeleteCallback(
     ctrl->setDeleteCallback((void*)cb, userData);
 }
 
+// --------- CANVAS -----------
+
+UI_API QtCanvasItem* ui_canvas_get() {
+    const auto roots = engine->rootObjects();
+    QObject* obj = roots.first()->findChild<QObject*>("canvasItem");
+    
+    return qobject_cast<QtCanvasItem*>(obj);
+}
+
+UI_API void setDrawingCallback(
+        void* canvasItem,
+        DrawingCallback callback
+) {
+    auto* ctrl = static_cast<QtCanvasItem*>(canvasItem);
+    ctrl->setDrawingCallback((void*)callback);
+}
+
+UI_API void ui_painter_set_fill(
+    PainterContext* ctx,
+    int r, int g, int b, int a
+) {
+    ctx->painter->setBrush(QColor(r, g, b, a));
+}
+
+UI_API void ui_painter_draw_rect(
+    PainterContext* ctx,
+    double x, double y, double w, double h
+) {
+    ctx->painter->drawRect(QRectF(x, y, w, h));
+}
 
 }

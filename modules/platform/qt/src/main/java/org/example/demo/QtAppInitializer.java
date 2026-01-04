@@ -8,6 +8,7 @@ import org.example.demo.qt.initialization.di.QtModule;
 import org.example.demo.qt.port.ui.QtMemoryView;
 import org.example.demo.qt.port.ui.QtRootView;
 import org.example.demo.qt.port.ui.QtToolBarView;
+import org.example.demo.qt.port.ui.element.QtCanvasUI;
 import org.example.demo.realization.initialization.launch.AppInitializer;
 
 import java.lang.foreign.*;
@@ -48,6 +49,7 @@ public class QtAppInitializer extends AppInitializer {
         try {
             ((QtMemoryView) injector.getInstance(ToolBarPanelView.class)).initialize();
             ((QtMemoryView) injector.getInstance(RootView.class)).initialize();
+            ((QtMemoryView) injector.getInstance(QtCanvasUI.class)).initialize();
 
             setupCallback();
         } catch (Throwable e) {
