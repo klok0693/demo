@@ -4,6 +4,7 @@ open module qt_gui {
     requires commons.math3;
     requires org.slf4j;
     requires jsr305;
+    requires it.unimi.dsi.fastutil;
 
     requires java.desktop;
 

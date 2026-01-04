@@ -12,6 +12,7 @@ import org.example.demo.qt.port.ui.QtToolBarView;
 import org.example.demo.qt.port.ui.element.QtCanvasUI;
 import org.example.demo.qt.port.ui.graphics.QtPainterFactory;
 import org.example.demo.realization.initialization.launch.AppInitializer;
+import org.example.demo.realization.level.async.NonBlockingForegroundExecutor;
 
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
@@ -54,6 +55,7 @@ public class QtAppInitializer extends AppInitializer {
             ((QtMemoryView) injector.getInstance(QtCanvasUI.class)).initialize();
             ((QtMemoryView) injector.getInstance(QtPainterFactory.class)).initialize();
             ((QtMemoryView) injector.getInstance(ShapeCanvasView.class)).initialize();
+            ((QtMemoryView) injector.getInstance(NonBlockingForegroundExecutor.class)).initialize();
 
             setupCallback();
         } catch (Throwable e) {

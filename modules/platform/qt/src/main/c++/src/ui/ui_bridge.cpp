@@ -227,4 +227,21 @@ UI_API void ui_painter_fill_rect(
     ctx->painter->fillRect(QRectF(x, y, w, h), ctx->painter->brush());
 }
 
+// --------- THREAD -----------
+
+UI_API void ui_run_later(
+    JavaRunnableCallback cb,
+    jlong id
+) {
+    qDebug() << "s++ set up run later";
+        QMetaObject::invokeMethod(
+        QCoreApplication::instance(),
+        [cb, id]() {
+            qDebug() << "c++ run java runnable";
+            cb(id);
+        },
+        Qt::QueuedConnection
+    );
+}
+
 }

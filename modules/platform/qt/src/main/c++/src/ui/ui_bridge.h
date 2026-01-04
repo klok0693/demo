@@ -1,5 +1,7 @@
 #pragma once
 
+#include <jni.h>
+
 #include <QQmlApplicationEngine>
 #include <QPainter>
 
@@ -112,6 +114,15 @@ UI_API void ui_painter_set_fill(
 UI_API void ui_painter_fill_rect(
     PainterContext* ctx,
     double x, double y, double w, double h
+);
+
+// --------- THREAD -----------
+
+typedef void (*JavaRunnableCallback)(jlong id);
+
+UI_API void ui_run_later(
+    JavaRunnableCallback cb,
+    jlong id
 );
 
 #ifdef __cplusplus

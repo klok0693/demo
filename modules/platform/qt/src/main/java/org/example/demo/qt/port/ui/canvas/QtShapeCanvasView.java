@@ -118,37 +118,6 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
         this.canvasHeight = height;
     }
 
-    /*    @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
-        getCanvas().redraw();
-    }*/
-
-/*    public void handleMousePressed(final MouseEvent event) {
-        getCanvas().requestFocus();
-        handleMousePressed(
-                event.getX(),
-                event.getY(),
-                event.isControlDown(),
-                event.isShiftDown());
-
-        event.consume();
-    }
-
-    public void handleDragDetected(final MouseEvent event) {
-        handleDragDetected(event.getX(), event.getY());
-        event.consume();
-    }
-
-    public void handleMouseDragged(final MouseEvent event) {
-        handleMouseDragged(event.getX(), event.getY());
-        event.consume();
-    }
-
-    public void handleMouseReleased(final MouseEvent event) {
-        handleMouseReleased(event.getX(), event.getY());
-        event.consume();
-    }*/
-
     @Override
     public Optional<double[]> getLocalCursorPosition() {
 /*        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();

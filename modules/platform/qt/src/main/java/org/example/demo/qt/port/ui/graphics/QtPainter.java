@@ -31,12 +31,6 @@ public class QtPainter implements GraphicsPainter {
             final MemorySegment utf8 = arena.allocateUtf8String(color.toString());
             setFillSegment.invoke(ctxPtr, utf8);
         }
-        //setFillSegment.invoke(ctxPtr, color.toString());
-/*        gc.setFill(javafx.scene.paint.Color.color(
-                color.getRed(),
-                color.getGreen(),
-                color.getBlue(),
-                color.getAlpha()));*/
     }
 
     @Override
@@ -48,7 +42,6 @@ public class QtPainter implements GraphicsPainter {
     @SneakyThrows
     public void fillRect(final double x, final double y, final double width, final double height) {
         fillRectSegment.invoke(ctxPtr, x, y, width, height);
-        //gc.fillRect(x, y, width, height);
     }
 
     @Override

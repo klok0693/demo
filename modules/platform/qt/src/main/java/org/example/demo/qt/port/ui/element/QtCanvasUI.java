@@ -61,10 +61,12 @@ public class QtCanvasUI implements CanvasUI, QtMemoryView {
     @Override
     @SneakyThrows
     public void redraw() {
+        System.out.println("redraw");
         redrawHandle.invoke(getQtRefHandle.invoke());
     }
 
     public void paintComponent(final MemorySegment ctxPtr) {
+        System.out.println("paint components layers" + layers.size());
         layers.stream().sorted().forEach(layer -> layer.draw(QtPainterFactory.build(ctxPtr)));
     }
 }

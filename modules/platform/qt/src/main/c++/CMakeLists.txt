@@ -54,7 +54,10 @@ target_sources(ui PRIVATE
     src/ui/root/RootView.cpp
 )
 
-target_include_directories(ui PUBLIC src/ui)
+target_include_directories(ui PUBLIC 
+    src/ui
+    ${JNI_INCLUDE_DIRS}
+)
 
 #set_target_properties(ui PROPERTIES
 #    CXX_VISIBILITY_PRESET default
@@ -65,6 +68,7 @@ target_link_libraries(ui
     PUBLIC Qt6::Quick
     PUBLIC Qt6::Core
     Qt6::Gui
+    ${JNI_LIBRARIES}
 )
 
 

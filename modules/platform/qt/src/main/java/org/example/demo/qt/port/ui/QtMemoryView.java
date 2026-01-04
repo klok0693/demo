@@ -57,9 +57,10 @@ public interface QtMemoryView {
             throws Throwable {
 
         try {
-            final MethodHandle boundHandle = MethodHandles.lookup()
+            final MethodHandle boundHandle = createJavaHandle(javaName, rtype, ptypes);
+/*                    MethodHandles.lookup()
                     .findVirtual(this.getClass(), javaName, methodType(rtype, ptypes))
-                    .bindTo(this);
+                    .bindTo(this);*/
 
             final MemorySegment callbackSegment = LINKER.upcallStub(
                     boundHandle,
@@ -72,6 +73,17 @@ public interface QtMemoryView {
             e.printStackTrace();
             throw e;
         }
+    }
+
+    default MethodHandle createJavaHandle(
+            final String javaName,
+            final Class<?> rtype,
+            final Class<?>[] ptypes
+    ) throws NoSuchMethodException, IllegalAccessException {
+
+        return MethodHandles.lookup()
+                .findVirtual(this.getClass(), javaName, methodType(rtype, ptypes))
+                .bindTo(this);
     }
 
     default MethodHandle findNative(
