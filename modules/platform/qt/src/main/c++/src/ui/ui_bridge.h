@@ -68,11 +68,40 @@ struct PainterContext {
 
 typedef void (*DrawingCallback)(PainterContext* ctx);
 
+typedef void (*MouseEventCallback)(double x, double y);
+
+typedef void (*InitCanvasControllerFunc)(double x, double y);
+
 UI_API void updateCanvasItem(void* canvasItem);
 
 UI_API void setDrawingCallback(
         void* canvasItem,
         DrawingCallback callback
+);
+
+UI_API void initCanvasController(
+        void* canvasItem,
+        InitCanvasControllerFunc callback
+);
+
+UI_API void setMousePressedCallback(
+        void* canvasController,
+        MouseEventCallback callback
+);
+
+UI_API void setDragDetectedCallback(
+        void* canvasController,
+        MouseEventCallback callback
+);
+
+UI_API void setMouseDraggedCallback(
+        void* canvasController,
+        MouseEventCallback callback
+);
+
+UI_API void setMouseReleasedCallback(
+        void* canvasController,
+        MouseEventCallback callback
 );
 
 UI_API void ui_painter_set_fill(

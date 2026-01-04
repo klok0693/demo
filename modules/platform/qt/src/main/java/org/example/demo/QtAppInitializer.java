@@ -4,6 +4,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import org.example.demo.core.port.ui.RootView;
 import org.example.demo.core.port.ui.ToolBarPanelView;
+import org.example.demo.core.port.ui.canvas.ShapeCanvasView;
 import org.example.demo.qt.initialization.di.QtModule;
 import org.example.demo.qt.port.ui.QtMemoryView;
 import org.example.demo.qt.port.ui.QtRootView;
@@ -52,6 +53,7 @@ public class QtAppInitializer extends AppInitializer {
             ((QtMemoryView) injector.getInstance(RootView.class)).initialize();
             ((QtMemoryView) injector.getInstance(QtCanvasUI.class)).initialize();
             ((QtMemoryView) injector.getInstance(QtPainterFactory.class)).initialize();
+            ((QtMemoryView) injector.getInstance(ShapeCanvasView.class)).initialize();
 
             setupCallback();
         } catch (Throwable e) {

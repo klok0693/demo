@@ -5,6 +5,8 @@
 
 #include "../ui_bridge.h"
 
+using initFunc = void (*)(double, double);
+
 class QtCanvasItem : public QQuickPaintedItem {
     Q_OBJECT
 
@@ -14,6 +16,8 @@ public:
     void paint(QPainter* painter) override;
 
     void setDrawingCallback(void* callback);
+
+    void initController(initFunc func);
 
 private:
     DrawingCallback drawingCallback = nullptr;

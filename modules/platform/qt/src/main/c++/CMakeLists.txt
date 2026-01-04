@@ -68,26 +68,26 @@ target_link_libraries(ui
 )
 
 
-add_executable(QtQuickNoJS
+add_executable(QtDemo
     src/app/main.cpp
     src/resources/resources.qrc
 )
 
-target_include_directories(QtQuickNoJS 
+target_include_directories(QtDemo
     PRIVATE ${JNI_INCLUDE_DIRS}
 )
 
-#target_link_libraries(QtQuickNoJS 
+#target_link_libraries(QtDemo
 #    PRIVATE ${JNI_LIBRARIES}
 #)
 
 #BUILD_RPATH "${JAVA_HOME}/lib/server"
 #BUILD_RPATH "$ENV{JAVA_HOME}/lib/server"
-set_target_properties(QtQuickNoJS PROPERTIES
+set_target_properties(QtDemo PROPERTIES
     BUILD_RPATH "$ORIGIN"
 )
 
-target_link_libraries(QtQuickNoJS
+target_link_libraries(QtDemo
     Qt6::Quick
     Qt6::Gui
     ui

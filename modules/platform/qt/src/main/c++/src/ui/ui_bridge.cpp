@@ -2,6 +2,7 @@
 #include "root/RootView.h"
 #include "toolbar/ToolBarController.h"
 #include "element/QtCanvasItem.h"
+#include "canvas/QtCanvasController.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -127,6 +128,16 @@ UI_API QtCanvasItem* ui_canvas_get() {
     return qobject_cast<QtCanvasItem*>(obj);
 }
 
+UI_API QtCanvasController* ui_canvas_controller_get() {
+    QObject* obj =
+        engine->rootContext()
+          ->contextProperty("canvasController")
+          .value<QObject*>();
+
+    auto* toolbar = qobject_cast<QtCanvasController*>(obj);
+    return toolbar;
+}
+
 UI_API void updateCanvasItem(void* canvasItem) {
     auto* ctrl = static_cast<QtCanvasItem*>(canvasItem);
     QMetaObject::invokeMethod(
@@ -142,6 +153,54 @@ UI_API void setDrawingCallback(
 ) {
     auto* ctrl = static_cast<QtCanvasItem*>(canvasItem);
     ctrl->setDrawingCallback((void*)callback);
+}
+
+UI_API void initCanvasController(
+        void* canvasItem,
+        InitCanvasControllerFunc callback
+) {
+    auto* ctrl = static_cast<QtCanvasItem*>(canvasItem);
+    ctrl->initController(callback);
+}
+
+UI_API void setMousePressedCallback(
+        void* canvasController,
+        MouseEventCallback callback
+) {
+    qDebug() << "UI_BRIDGE mouse pressed callback";
+
+    auto* ctrl = static_cast<QtCanvasController*>(canvasController);
+    ctrl->setOnMousePressedCallback(callback);
+}
+
+UI_API void setDragDetectedCallback(
+        void* canvasController,
+        MouseEventCallback callback
+) {
+    qDebug() << "UI_BRIDGE drag detected callback";
+
+    auto* ctrl = static_cast<QtCanvasController*>(canvasController);
+    ctrl->setOnDragDetectedCallback(callback);
+}
+
+UI_API void setMouseDraggedCallback(
+        void* canvasController,
+        MouseEventCallback callback
+) {
+    qDebug() << "UI_BRIDGE mouse dragged callback";
+
+    auto* ctrl = static_cast<QtCanvasController*>(canvasController);
+    ctrl->setOnMouseDraggedCallback(callback);
+}
+
+UI_API void setMouseReleasedCallback(
+        void* canvasController,
+        MouseEventCallback callback
+) {
+    qDebug() << "UI_BRIDGE mouse released callback";
+
+    auto* ctrl = static_cast<QtCanvasController*>(canvasController);
+    ctrl->setOnMouseReleasedCallback(callback);
 }
 
 UI_API void ui_painter_set_fill(

@@ -14,9 +14,15 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onPressed: canvasController.handleMousePressed(mouse.position)
-            onPositionChanged: canvasController.handleMouseDragged(mouse.position)
-            onReleased: canvasController.handleMouseReleased(mouse.position)
+            onPressed: function(mouse) {
+                canvasController.handleMousePressed(Qt.point(mouse.x, mouse.y))
+            }
+            onPositionChanged: function(mouse) {
+                canvasController.handleMouseDragged(Qt.point(mouse.x, mouse.y))
+            }
+            onReleased: function(mouse) {
+                canvasController.handleMouseReleased(Qt.point(mouse.x, mouse.y))
+            }
         }
     }
 }

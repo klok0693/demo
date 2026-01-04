@@ -40,7 +40,7 @@ public class LogicShapeProcessor implements ShapeProcessor {
 
     private void performShapeOperation(final ShapeParams params, final Supplier<? extends Command> commandSupplier) {
         if (!isValid(params)) {
-            log.warn("Provided params are not valid!");
+            log.warn("Provided params are not valid: {}", params);
             return;
         }
         commandProcessor.processCommand(commandSupplier.get());
