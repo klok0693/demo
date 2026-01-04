@@ -5,7 +5,7 @@ QtCanvasController::QtCanvasController(QObject* parent)
     : QObject(parent)
 {}
 
-/* void QtCanvasController::handleMousePressed(QPointF pos) {
+void QtCanvasController::handleMousePressed(QPointF pos) {
     qDebug() << "Mouse pressed at" << pos;
 }
 
@@ -15,4 +15,4 @@ void QtCanvasController::handleMouseDragged(QPointF pos) {
 
 void QtCanvasController::handleMouseReleased(QPointF pos) {
     qDebug() << "Mouse released at" << pos;
-} */
+}

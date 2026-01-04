@@ -68,6 +68,8 @@ struct PainterContext {
 
 typedef void (*DrawingCallback)(PainterContext* ctx);
 
+UI_API void updateCanvasItem(void* canvasItem);
+
 UI_API void setDrawingCallback(
         void* canvasItem,
         DrawingCallback callback

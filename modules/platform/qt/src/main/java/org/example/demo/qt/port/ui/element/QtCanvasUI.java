@@ -1,5 +1,6 @@
 package org.example.demo.qt.port.ui.element;
 
+import lombok.SneakyThrows;
 import org.example.demo.core.port.ui.canvas.CanvasLayer;
 import org.example.demo.core.port.ui.canvas.CanvasUI;
 import org.example.demo.qt.port.ui.QtMemoryView;
@@ -12,6 +13,7 @@ import org.example.demo.qt.port.ui.graphics.QtPainterFactory;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
+import java.lang.invoke.MethodHandle;
 import java.util.List;
 
 /**
@@ -21,7 +23,11 @@ import java.util.List;
  * @since v1.1
  */
 public class QtCanvasUI implements CanvasUI, QtMemoryView {
+    private static final String NATIVE_REF_NAME = "ui_canvas_get";
+
     private MemorySegment onDrawSegment;
+    private MethodHandle getQtRefHandle;
+    private MethodHandle redrawHandle;
 
     protected final List<CanvasLayer<QtPainter, ?>> layers;
 
@@ -34,7 +40,7 @@ public class QtCanvasUI implements CanvasUI, QtMemoryView {
 
     @Override
     public void initialize() throws Throwable {
-        onDrawSegment = bindMethodToNative(
+        this.onDrawSegment = bindMethodToNative(
                 /*"redraw"*/"paintComponent",
                 void.class,
                 new Class[]{ MemorySegment.class },
@@ -42,16 +48,23 @@ public class QtCanvasUI implements CanvasUI, QtMemoryView {
                 "ui_canvas_get",
                 "setDrawingCallback"
         );
+
+        this.getQtRefHandle =
+                findNative(NATIVE_REF_NAME, FunctionDescriptor.of(ValueLayout.ADDRESS));
+
+        this.redrawHandle =
+                findNative(
+                        "updateCanvasItem",
+                        FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
     }
 
     @Override
+    @SneakyThrows
     public void redraw() {
-        System.out.println("redraw");
-        //layers.stream().sorted().forEach(layer -> layer.draw(new QtPainter(/*getGraphicsContext2D()*/)));
+        redrawHandle.invoke(getQtRefHandle.invoke());
     }
 
     public void paintComponent(final MemorySegment ctxPtr) {
-        System.out.println("paint component " + (ctxPtr != null));
         layers.stream().sorted().forEach(layer -> layer.draw(QtPainterFactory.build(ctxPtr)));
     }
 }

@@ -14,9 +14,9 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            //onPressed: canvasController.handleMousePressed(mouse.position)
-            //onPositionChanged: canvasController.handleMouseDragged(mouse.position)
-            //onReleased: canvasController.handleMouseReleased(mouse.position)
+            onPressed: canvasController.handleMousePressed(mouse.position)
+            onPositionChanged: canvasController.handleMouseDragged(mouse.position)
+            onReleased: canvasController.handleMouseReleased(mouse.position)
         }
     }
 }

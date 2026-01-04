@@ -9,8 +9,8 @@ class QtCanvasController : public QObject {
 public:
     explicit QtCanvasController(QObject* parent = nullptr);
 
-/* public slots:
+public slots:
     void handleMousePressed(QPointF pos);
     void handleMouseDragged(QPointF pos);
-    void handleMouseReleased(QPointF pos); */
+    void handleMouseReleased(QPointF pos);
 };

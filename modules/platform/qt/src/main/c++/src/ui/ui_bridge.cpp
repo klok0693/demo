@@ -127,6 +127,15 @@ UI_API QtCanvasItem* ui_canvas_get() {
     return qobject_cast<QtCanvasItem*>(obj);
 }
 
+UI_API void updateCanvasItem(void* canvasItem) {
+    auto* ctrl = static_cast<QtCanvasItem*>(canvasItem);
+    QMetaObject::invokeMethod(
+        ctrl,
+        "update",
+        Qt::QueuedConnection
+    );
+}
+
 UI_API void setDrawingCallback(
         void* canvasItem,
         DrawingCallback callback
@@ -139,8 +148,6 @@ UI_API void ui_painter_set_fill(
     PainterContext* ctx,
     const char* utf8
 ) {
-    qDebug() << "set fill ";
-
     const QString colorStr = QString::fromUtf8(utf8);
     QColor color(colorStr);
 
@@ -158,8 +165,6 @@ UI_API void ui_painter_fill_rect(
     PainterContext* ctx,
     double x, double y, double w, double h
 ) {
-    qDebug() << "fill rect";
-
     ctx->painter->fillRect(QRectF(x, y, w, h), ctx->painter->brush());
 }
 
