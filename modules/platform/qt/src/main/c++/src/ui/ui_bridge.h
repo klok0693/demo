@@ -106,6 +106,10 @@ UI_API void setMouseReleasedCallback(
         MouseEventCallback callback
 );
 
+UI_API void ui_painter_save(PainterContext* ctx);
+
+UI_API void ui_painter_restore(PainterContext* ctx);
+
 UI_API void ui_painter_set_fill(
     PainterContext* ctx,
     const char* utf8
@@ -114,6 +118,31 @@ UI_API void ui_painter_set_fill(
 UI_API void ui_painter_fill_rect(
     PainterContext* ctx,
     double x, double y, double w, double h
+);
+
+UI_API void ui_painter_stroke_rect(
+    PainterContext* ctx,
+    double x, double y, double w, double h
+);
+
+UI_API void ui_painter_fill_oval(
+    PainterContext* ctx,
+    double x, double y, double w, double h
+);
+
+UI_API void ui_painter_set_opacity(
+    PainterContext* ctx,
+    double opacity
+);
+
+UI_API void ui_painter_set_stroke(
+    PainterContext* ctx,
+    const char* utf8
+);
+
+UI_API void ui_painter_set_line_width(
+    PainterContext* ctx,
+    double width
 );
 
 // --------- THREAD -----------

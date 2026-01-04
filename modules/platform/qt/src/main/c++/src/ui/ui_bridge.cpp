@@ -167,8 +167,6 @@ UI_API void setMousePressedCallback(
         void* canvasController,
         MouseEventCallback callback
 ) {
-    qDebug() << "UI_BRIDGE mouse pressed callback";
-
     auto* ctrl = static_cast<QtCanvasController*>(canvasController);
     ctrl->setOnMousePressedCallback(callback);
 }
@@ -177,8 +175,6 @@ UI_API void setDragDetectedCallback(
         void* canvasController,
         MouseEventCallback callback
 ) {
-    qDebug() << "UI_BRIDGE drag detected callback";
-
     auto* ctrl = static_cast<QtCanvasController*>(canvasController);
     ctrl->setOnDragDetectedCallback(callback);
 }
@@ -187,8 +183,6 @@ UI_API void setMouseDraggedCallback(
         void* canvasController,
         MouseEventCallback callback
 ) {
-    qDebug() << "UI_BRIDGE mouse dragged callback";
-
     auto* ctrl = static_cast<QtCanvasController*>(canvasController);
     ctrl->setOnMouseDraggedCallback(callback);
 }
@@ -197,10 +191,16 @@ UI_API void setMouseReleasedCallback(
         void* canvasController,
         MouseEventCallback callback
 ) {
-    qDebug() << "UI_BRIDGE mouse released callback";
-
     auto* ctrl = static_cast<QtCanvasController*>(canvasController);
     ctrl->setOnMouseReleasedCallback(callback);
+}
+
+UI_API void ui_painter_save(PainterContext* ctx) {
+    ctx->painter->save();
+}
+
+UI_API void ui_painter_restore(PainterContext* ctx) {
+    ctx->painter->restore();
 }
 
 UI_API void ui_painter_set_fill(
@@ -225,6 +225,47 @@ UI_API void ui_painter_fill_rect(
     double x, double y, double w, double h
 ) {
     ctx->painter->fillRect(QRectF(x, y, w, h), ctx->painter->brush());
+}
+
+UI_API void ui_painter_stroke_rect(
+    PainterContext* ctx,
+    double x, double y, double w, double h
+) {
+    ctx->painter->drawRect(QRectF(x, y, w, h));
+}
+
+UI_API void ui_painter_fill_oval(
+    PainterContext* ctx,
+    double x, double y, double w, double h
+) {
+    ctx->painter->drawEllipse(QRectF(x, y, w, h));
+}
+
+UI_API void ui_painter_set_opacity(
+    PainterContext* ctx,
+    double opacity
+) {
+    ctx->painter->setOpacity(opacity);
+}
+
+UI_API void ui_painter_set_stroke(
+    PainterContext* ctx,
+    const char* utf8
+) {
+    QColor color(QString::fromUtf8(utf8));
+
+    QPen pen = ctx->painter->pen();
+    pen.setColor(color);
+    ctx->painter->setPen(pen);
+}
+
+UI_API void ui_painter_set_line_width(
+    PainterContext* ctx,
+    double width
+) {
+    QPen pen = ctx->painter->pen();
+    pen.setWidthF(width);
+    ctx->painter->setPen(pen);
 }
 
 // --------- THREAD -----------

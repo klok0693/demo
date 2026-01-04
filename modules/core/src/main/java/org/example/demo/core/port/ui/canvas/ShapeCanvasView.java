@@ -127,7 +127,6 @@ public abstract class ShapeCanvasView<E extends GraphicsPainter> implements Canv
         final double toolX = Math.min(Math.max(0, mouseX), endX);
         final double toolY = Math.min(Math.max(0, mouseY), endY);
 
-        System.out.println("tool coord " + toolX + " " + toolY);
         toolLayer.onMouseDragged(toolX, toolY);
         canvasUI.redraw();
     }
