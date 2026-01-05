@@ -1,4 +1,4 @@
-#include "PropertiesPanelController.h"
+#include "ui/property/PropertiesPanelController.h"
 
 PropertiesPanelController::PropertiesPanelController(QObject* parent)
     : QObject(parent)

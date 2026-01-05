@@ -23,7 +23,11 @@ import java.util.List;
  * @since v1.1
  */
 public class QtCanvasUI implements CanvasUI, QtMemoryView {
+    //<editor-fold desc="ABI method's names">
     private static final String NATIVE_REF_NAME = "ui_canvas_get";
+    private static final String NATIVE_SET_DRAWING_CALLBACK_NAME = "set_drawing_callback";
+    private static final String NATIVE_UPDATE_CANVAS_ITEM_NAME = "update_canvas_item";
+    //</editor-fold>
 
     private MemorySegment onDrawSegment;
     private MethodHandle getQtRefHandle;
@@ -41,12 +45,12 @@ public class QtCanvasUI implements CanvasUI, QtMemoryView {
     @Override
     public void initialize() throws Throwable {
         this.onDrawSegment = bindMethodToNative(
-                /*"redraw"*/"paintComponent",
+                "paintComponent",
                 void.class,
                 new Class[]{ MemorySegment.class },
                 FunctionDescriptor.ofVoid(ValueLayout.ADDRESS),
-                "ui_canvas_get",
-                "setDrawingCallback"
+                NATIVE_REF_NAME,
+                NATIVE_SET_DRAWING_CALLBACK_NAME
         );
 
         this.getQtRefHandle =
@@ -54,7 +58,7 @@ public class QtCanvasUI implements CanvasUI, QtMemoryView {
 
         this.redrawHandle =
                 findNative(
-                        "updateCanvasItem",
+                        NATIVE_UPDATE_CANVAS_ITEM_NAME,
                         FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
     }
 

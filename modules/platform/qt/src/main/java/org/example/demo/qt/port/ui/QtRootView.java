@@ -22,6 +22,9 @@ import java.lang.invoke.MethodHandle;
  * @since v1.1
  */
 public class QtRootView extends RootView implements QtMemoryView {
+    //<editor-fold desc="ABI method's names">
+    private static final String NATIVE_SET_CURSOR_NAME = "set_cursor";
+    //</editor-fold>
 
     public ToolBarView toolBarRootController;
     public ShapeCanvasView canvasRootController;
@@ -38,17 +41,14 @@ public class QtRootView extends RootView implements QtMemoryView {
     public void initialize() throws Throwable {
         this.setCursorHandle =
                 findNative(
-                        "setCursor",
+                        NATIVE_SET_CURSOR_NAME,
                         FunctionDescriptor.ofVoid(ValueLayout.ADDRESS)
                 );
-
-        System.out.println("set cursor handle");
     }
 
     @Override
     @SneakyThrows
     protected void setCursor(final Cursors cursor) {
-        System.out.println("change cursor");
         try (final Arena arena = Arena.ofConfined()) {
             final MemorySegment utf8 = arena.allocateUtf8String(cursor.toString());
             setCursorHandle.invoke(utf8);

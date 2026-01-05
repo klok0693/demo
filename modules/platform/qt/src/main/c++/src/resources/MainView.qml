@@ -6,7 +6,7 @@ ApplicationWindow {
     width: 1200
     height: 720
     visible: true
-    title: "Qt Quick (no JS)"
+    title: "Qt Demo"
 
     header: AppToolBar { }
 
@@ -20,10 +20,6 @@ ApplicationWindow {
         }
 
         // CENTER (canvas / main area)
-/*         Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        } */
         QtCanvas {
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -35,19 +31,4 @@ ApplicationWindow {
             Layout.fillHeight: true
         }
     }
-
-/*     Column {
-        anchors.centerIn: parent
-        spacing: 10
-
-        Button {
-            text: "Show label"
-            onClicked: uiState.onButtonClicked()
-        }
-
-        Label {
-            text: "Hello from Qt Quick!"
-            visible: uiState.labelVisible
-        }
-    } */
 }

@@ -8,7 +8,7 @@ RootView::RootView(QObject* parent)
 {
 }
 
-void RootView::setCursor(const QString& cursor) const {
+void RootView::setCursor(const QString& cursor) {
     if (cursor == "CROSSHAIR") {
         QGuiApplication::setOverrideCursor(QCursor(Qt::CrossCursor));
     } else {

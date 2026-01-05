@@ -2,7 +2,7 @@
 
 #include <QObject>
 
-#include "../ui_bridge.h"
+#include "ui/toolbar/tool_bar_ui_bridge.h"
 
 class ToolBarController : public QObject
 {
@@ -43,10 +43,10 @@ private:
     bool m_insertCycleBtnSelected = false;
     bool m_deleteEnabled = false;
     
-    ToolbarCallback insertRectCallback = nullptr;
-    ToolbarCallback insertCycleCallback = nullptr;
-    ToolbarCallback undoCallback = nullptr;
-    ToolbarCallback deleteCallback = nullptr;
+    ToolbarCallback m_insertRectCallback = nullptr;
+    ToolbarCallback m_insertCycleCallback = nullptr;
+    ToolbarCallback m_undoCallback = nullptr;
+    ToolbarCallback m_deleteCallback = nullptr;
 
-    void* insertRectUserData = nullptr;
+    void* m_insertRectUserData = nullptr;
 };

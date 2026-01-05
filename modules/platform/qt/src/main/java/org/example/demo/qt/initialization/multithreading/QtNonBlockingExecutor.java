@@ -23,6 +23,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * @since v1.0
  */
 public class QtNonBlockingExecutor implements NonBlockingForegroundExecutor, QtMemoryView {
+    //<editor-fold desc="ABI method's names">
+    private static final String NATIVE_RUN_LATER_NAME = "ui_run_later";
+    //</editor-fold>
     private MethodHandle runLaterHandle;
     private MemorySegment runnableStub;
 
@@ -46,7 +49,7 @@ public class QtNonBlockingExecutor implements NonBlockingForegroundExecutor, QtM
                 );
 
         this.runLaterHandle = findNative(
-                "ui_run_later",
+                NATIVE_RUN_LATER_NAME,
                 FunctionDescriptor.ofVoid(
                         ValueLayout.ADDRESS,
                         ValueLayout.JAVA_LONG
@@ -56,16 +59,16 @@ public class QtNonBlockingExecutor implements NonBlockingForegroundExecutor, QtM
     @Override
     @SneakyThrows
     public void execute(final Runnable runnable) {
-        long id = IDS.incrementAndGet();
+        final long id = IDS.incrementAndGet();
         RUNNABLES.put(id, runnable);
 
         runLaterHandle.invoke(runnableStub, id);
     }
 
-    public void invokeRunnable(long id) {
-        final Runnable r = RUNNABLES.remove(id);
-        if (r != null) {
-            r.run();
+    public void invokeRunnable(final long id) {
+        final Runnable runnable = RUNNABLES.remove(id);
+        if (runnable != null) {
+            runnable.run();
         }
     }
 }

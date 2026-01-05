@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QPointF>
 
-#include "../ui_bridge.h"
+#include "ui/canvas/canvas_view_ui_bridge.h"
 
 using MousePressedCallback = void (*)(double, double);
 
@@ -11,9 +11,9 @@ class QtCanvasController : public QObject {
     Q_OBJECT
 
     struct DragSource {
-        QPointF pressPos;
-        bool dragging = false;
-    } dragSource;
+        QPointF m_pressPos;
+        bool m_dragging = false;
+    } m_dragSource;
 
 public:
     explicit QtCanvasController(QObject* parent = nullptr);

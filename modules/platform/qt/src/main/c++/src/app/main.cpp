@@ -8,52 +8,12 @@
 #include <jni.h>
 #include <iostream>
 
-#include "../ui/toolbar/ToolBarController.h"
-#include "../ui/property/PropertiesPanelController.h"
-#include "../ui/layer/QtLayersPanelController.h"
-#include "../ui/element/QtCanvasItem.h"
-#include "../ui/canvas/QtCanvasController.h"
-#include "../ui/ui_bridge.h"
-#include "../ui/root/RootView.h"
-
-/* extern "C" {
-    typedef void (*StatusFunc)(int);
-    UI_API void setStatusCallback(StatusFunc callback);
-} */
-
-/* StatusFunc javaCallback = nullptr;
-
-UI_API void setStatusCallback(StatusFunc callback) {
-    javaCallback = callback;
-} */
-
-class UiState : public QObject {
-    Q_OBJECT
-    Q_PROPERTY(bool labelVisible READ labelVisible NOTIFY labelVisibleChanged)
-
-public:
-    explicit UiState(QObject *parent = nullptr)
-        : QObject(parent) {}
-
-    bool labelVisible() const {
-        return m_labelVisible;
-    }
-
-public slots:
-    void onButtonClicked() {
-        if (!m_labelVisible) {
-            m_labelVisible = true;
-            emit labelVisibleChanged();
-        }
-    }
-
-signals:
-    void labelVisibleChanged();
-
-private:
-    bool m_labelVisible = false;
-};
-
+#include "ui/toolbar/ToolBarController.h"
+#include "ui/property/PropertiesPanelController.h"
+#include "ui/layer/QtLayersPanelController.h"
+#include "ui/element/QtCanvasItem.h"
+#include "ui/canvas/QtCanvasController.h"
+#include "ui/root/RootView.h"
 
 static JavaVM* gJvm = nullptr;
 
@@ -98,14 +58,9 @@ void startJvmAndCallJava() {
         env->ExceptionClear();
     }
 
-    qDebug() << "Java init() executed";
+    gJvm->AttachCurrentThread((void**)&env, nullptr);
 
-    //if (javaCallback) {
-        //qDebug() << "Send callback";
-        //JNIEnv* env = nullptr;
-        gJvm->AttachCurrentThread((void**)&env, nullptr);
-        emitStatus(200);
-    //}
+    qDebug() << "Java init() executed temp9";
 }
 
 int main(int argc, char *argv[])
@@ -115,9 +70,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<QtCanvasItem>("App.Canvas", 1, 0, "QtCanvasUI");
     
     QQmlApplicationEngine engine;
-
-    UiState uiState;
-    engine.rootContext()->setContextProperty("uiState", &uiState);
 
     RootView rootView;
     engine.rootContext()->setContextProperty("rootView", &rootView);
@@ -139,7 +91,7 @@ int main(int argc, char *argv[])
         return -1;
     }
     
-    setEngine(&engine);
+    set_engine(&engine);
     startJvmAndCallJava();
 
     // QQuickStyle::setStyle("Imagine");    

@@ -24,6 +24,17 @@ import java.util.Optional;
  * @since v1.1
  */
 public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtMemoryView {
+    //<editor-fold desc="ABI method's names">
+    private static final String NATIVE_SET_MOUSE_PRESSED_CALLBACK_NAME = "set_mouse_pressed_callback";
+    private static final String NATIVE_DRAG_DETECTED_CALLBACK_NAME = "set_drag_detected_callback";
+    private static final String NATIVE_SET_MOUSE_DRAGGED_CALLBACK_NAME = "set_mouse_dragged_callback";
+    private static final String NATIVE_SET_MOUSE_RELEASED_CALLBACK_NAME = "set_mouse_released_callback";
+
+    private static final String NATIVE_CANVAS_REF_NAME = "ui_canvas_get";
+    private static final String NATIVE_CANVAS_CONTROLLER_REF_NAME = "ui_canvas_controller_get";
+    private static final String NATIVE_INIT_CANVAS_CONTROLLER_NAME = "init_canvas_controller";
+    //</editor-fold>
+
     private MemorySegment onMousePressedSegment;
     private MemorySegment onDragDetectedSegment;
     private MemorySegment onMouseDraggedSegment;
@@ -49,16 +60,16 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
     @Override
     public void initialize() throws Throwable {
         this.onMousePressedSegment =
-                createBoundSegment("handleMousePressCallback", "setMousePressedCallback");
+                createBoundSegment("handleMousePressCallback", NATIVE_SET_MOUSE_PRESSED_CALLBACK_NAME);
 
         this.onDragDetectedSegment =
-                createBoundSegment("handleDragDetectedCallback", "setDragDetectedCallback");
+                createBoundSegment("handleDragDetectedCallback", NATIVE_DRAG_DETECTED_CALLBACK_NAME);
 
         this.onMousePressedSegment =
-                createBoundSegment("handleMouseDraggedCallback", "setMouseDraggedCallback");
+                createBoundSegment("handleMouseDraggedCallback", NATIVE_SET_MOUSE_DRAGGED_CALLBACK_NAME);
 
         this.onMousePressedSegment =
-                createBoundSegment("handleMouseReleasedCallback", "setMouseReleasedCallback");
+                createBoundSegment("handleMouseReleasedCallback", NATIVE_SET_MOUSE_RELEASED_CALLBACK_NAME);
 
         bindMethodToNative(
                 "setCanvasBounds",
@@ -68,8 +79,8 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
                         ValueLayout.JAVA_DOUBLE,
                         ValueLayout.JAVA_DOUBLE
                 ),
-                "ui_canvas_get",
-                "initCanvasController"
+                NATIVE_CANVAS_REF_NAME,
+                NATIVE_INIT_CANVAS_CONTROLLER_NAME
         );
     }
 
@@ -86,34 +97,28 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
                         ValueLayout.JAVA_DOUBLE,
                         ValueLayout.JAVA_DOUBLE
                 ),
-                "ui_canvas_controller_get",
+                NATIVE_CANVAS_CONTROLLER_REF_NAME,
                 nativeName
         );
     }
 
-    /*@Override*/
     public void handleMousePressCallback(double mouseX, double mouseY) {
-        System.out.println("handle pressed " + mouseX + " " + mouseY);
         super.handleMousePressed(mouseX, mouseY, false, false);
     }
 
     public void handleDragDetectedCallback(double mouseX, double mouseY) {
-        //System.out.println("handle drag detected");
         super.handleDragDetected(mouseX, mouseY);
     }
 
     public void handleMouseDraggedCallback(double mouseX, double mouseY) {
-        //System.out.println("handle dragged");
         super.handleMouseDragged(mouseX, mouseY);
     }
 
     public void handleMouseReleasedCallback(double mouseX, double mouseY) {
-        System.out.println("handle released " + mouseX + " " + mouseY);
         super.handleMouseReleased(mouseX, mouseY);
     }
 
     public void setCanvasBounds(double width, double height) {
-        System.out.println("Canvas bounded");
         this.canvasWidth = width;
         this.canvasHeight = height;
     }
@@ -140,12 +145,12 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
 
     @Override
     protected double getWidth() {
-        return this.canvasWidth; //700.0;//getCanvas().getWidth();
+        return this.canvasWidth; //getCanvas().getWidth();
     }
 
     @Override
     protected double getHeight() {
-        return this.canvasHeight; //700.0;//getCanvas().getHeight();
+        return this.canvasHeight; //getCanvas().getHeight();
     }
 
     private QtCanvasUI getCanvas() {

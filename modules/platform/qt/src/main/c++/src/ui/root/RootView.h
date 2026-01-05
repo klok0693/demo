@@ -9,5 +9,5 @@ class RootView : public QObject {
 public:
     explicit RootView(QObject* parent = nullptr);
 
-    void setCursor(const QString& cursor) const;
+    void setCursor(const QString& cursor);
 };

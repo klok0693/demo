@@ -3,7 +3,7 @@
 #include <QQuickPaintedItem>
 #include <QPainter>
 
-#include "../ui_bridge.h"
+#include "ui/element/canvas_item_ui_bridge.h"
 
 using initFunc = void (*)(double, double);
 
@@ -17,8 +17,8 @@ public:
 
     void setDrawingCallback(void* callback);
 
-    void initController(initFunc func);
+    void initController(initFunc func) const;
 
 private:
-    DrawingCallback drawingCallback = nullptr;
+    DrawingCallback m_drawingCallback = nullptr;
 };

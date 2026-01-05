@@ -1,13 +1,14 @@
-#include "QtLayersPanelController.h"
+#include "ui/layer/QtLayersPanelController.h"
 /* #include "ModelState.h"
 #include "UIState.h"
 #include "ShapeSelector.h"
 #include "Shape.h" */
 
+#include <iostream>
+
 #include <QStandardItem>
 #include <QString>
 
-#include <iostream>
 
 QtLayersPanelController::QtLayersPanelController(
 /*     ModelState* modelState,

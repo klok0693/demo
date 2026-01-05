@@ -53,23 +53,20 @@ public interface QtMemoryView {
             final String javaName,
             final Class<?> rtype,
             final Class<?>[] ptypes,
-            final FunctionDescriptor upcallDescription)
-            throws Throwable {
-
+            final FunctionDescriptor upcallDescription
+    ) throws Throwable {
         try {
-            final MethodHandle boundHandle = createJavaHandle(javaName, rtype, ptypes);
-/*                    MethodHandles.lookup()
-                    .findVirtual(this.getClass(), javaName, methodType(rtype, ptypes))
-                    .bindTo(this);*/
-
-            final MemorySegment callbackSegment = LINKER.upcallStub(
-                    boundHandle,
+            return LINKER.upcallStub(
+                    createJavaHandle(javaName, rtype, ptypes),
                     upcallDescription,
                     Arena.global());
-
-            return callbackSegment;
         }
         catch (final Throwable e) {
+            /**
+             * Wrong FFM initialization can lead to SEGFAULT and jvm crash.
+             * To help investigate the issue without digging into the crash dump file,
+             * trouble output is printed to stdout stream
+             */
             e.printStackTrace();
             throw e;
         }
@@ -86,6 +83,10 @@ public interface QtMemoryView {
                 .bindTo(this);
     }
 
+    /**
+     * Java objects do not store native object's references, only
+     * MethodHandler, that provide references
+     */
     default MethodHandle findNative(
             final String nativeName,
             final FunctionDescriptor downcallDescription) {

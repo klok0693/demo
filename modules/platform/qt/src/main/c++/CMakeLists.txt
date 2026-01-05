@@ -46,17 +46,24 @@ add_library(ui SHARED)
 
 target_sources(ui PRIVATE
     src/ui/toolbar/ToolBarController.cpp
+    src/ui/toolbar/tool_bar_ui_bridge.cpp
     src/ui/property/PropertiesPanelController.cpp
     src/ui/layer/QtLayersPanelController.cpp
     src/ui/canvas/QtCanvasController.cpp
+    src/ui/canvas/canvas_view_ui_bridge.cpp
     src/ui/element/QtCanvasItem.cpp
+    src/ui/element/canvas_item_ui_bridge.cpp
     src/ui/ui_bridge.cpp
     src/ui/root/RootView.cpp
+    src/ui/root/root_ui_bridge.cpp
+
+    src/realization/thread_manager_ui_bridge.cpp
 )
 
 target_include_directories(ui PUBLIC 
     src/ui
     ${JNI_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 #set_target_properties(ui PROPERTIES

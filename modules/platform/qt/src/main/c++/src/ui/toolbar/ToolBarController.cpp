@@ -1,9 +1,8 @@
-#include "ToolBarController.h"
+#include "ui/toolbar/ToolBarController.h"
 
 #include <QGuiApplication>
 
 void ToolBarController::setDeleteBtnDisabled(bool isDisabled) {
-    qDebug() << "set delete enabled " << !isDisabled;
     m_deleteEnabled = !isDisabled;
 
     emit deleteEnabledChanged();
@@ -24,29 +23,29 @@ void ToolBarController::setinsertCycleBtnSelected(bool isSelected) {
 void ToolBarController::setInsertRectCallback(
         void* cb,
         void* userData) {
-    insertRectCallback = reinterpret_cast<ToolbarCallback>(cb);
-    insertRectUserData = userData;
+    m_insertRectCallback = reinterpret_cast<ToolbarCallback>(cb);
+    m_insertRectUserData = userData;
 }
 
 void ToolBarController::setInsertCycleCallback(
         void* cb,
         void* userData) {
-    insertCycleCallback = reinterpret_cast<ToolbarCallback>(cb);
-    insertRectUserData = userData;
+    m_insertCycleCallback = reinterpret_cast<ToolbarCallback>(cb);
+    m_insertRectUserData = userData;
 }
 
 void ToolBarController::setUndoCallback(
         void* cb,
         void* userData) {
-    undoCallback = reinterpret_cast<ToolbarCallback>(cb);
-    insertRectUserData = userData;
+    m_undoCallback = reinterpret_cast<ToolbarCallback>(cb);
+    m_insertRectUserData = userData;
 }
 
 void ToolBarController::setDeleteCallback(
         void* cb,
         void* userData) {
-    deleteCallback = reinterpret_cast<ToolbarCallback>(cb);
-    insertRectUserData = userData;
+    m_deleteCallback = reinterpret_cast<ToolbarCallback>(cb);
+    m_insertRectUserData = userData;
 }
 
 ToolBarController::ToolBarController(QObject* parent)
@@ -66,26 +65,25 @@ bool ToolBarController::insertCycleBtnSelected() const
 
 bool ToolBarController::deleteEnabled() const
 {
-    qDebug() << "get delete enabled " << m_deleteEnabled;
     return m_deleteEnabled;
 }
 
 void ToolBarController::onInsertRectAction()
 {
-    insertRectCallback(insertRectUserData);
+    m_insertRectCallback(m_insertRectUserData);
 }
 
 void ToolBarController::onInsertCycleAction()
 {
-    insertCycleCallback(insertRectUserData);
+    m_insertCycleCallback(m_insertRectUserData);
 }
 
 void ToolBarController::onUndoAction()
 {
-    undoCallback(insertRectUserData);
+    m_undoCallback(m_insertRectUserData);
 }
 
 void ToolBarController::onDeleteAction()
 {
-    deleteCallback(insertRectUserData);
+    m_deleteCallback(m_insertRectUserData);
 }

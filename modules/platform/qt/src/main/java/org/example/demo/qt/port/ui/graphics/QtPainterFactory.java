@@ -8,53 +8,65 @@ import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 
 public class QtPainterFactory implements QtMemoryView {
-    private static MethodHandle saveSegment;
+    //<editor-fold desc="ABI method's names">
+    private static final String NATIVE_PAINTER_SAVE_NAME = "ui_painter_save";
+    private static final String NATIVE_PAINTER_RESTORE_NAME = "ui_painter_restore";
+    private static final String NATIVE_PAINTER_SET_FILL_NAME = "ui_painter_set_fill";
+    private static final String NATIVE_PAINTER_FILL_RECT_NAME = "ui_painter_fill_rect";
+    private static final String NATIVE_PAINTER_STROKE_RECT_NAME = "ui_painter_stroke_rect";
+    private static final String NATIVE_PAINTER_FILL_OVAL_NAME = "ui_painter_fill_oval";
+    private static final String NATIVE_PAINTER_SET_OPACITY_NAME = "ui_painter_set_opacity";
+    private static final String NATIVE_PAINTER_SET_STROKE_NAME = "ui_painter_set_stroke";
+    private static final String NATIVE_PAINTER_SET_LINE_WIDTH_NAME = "ui_painter_set_line_width";
+    //</editor-fold>
+
+    private static MethodHandle saveHandle;
     private static MethodHandle restoreSegment;
-    private static MethodHandle setFillSegment;
-    private static MethodHandle fillRectSegment;
-    private static MethodHandle setStrokeRectSegment;
-    private static MethodHandle fillOvalSegment;
-    private static MethodHandle setOpacitySegment;
-    private static MethodHandle setStrokeSegment;
-    private static MethodHandle setLineWidthSegment;
+    private static MethodHandle setFillHandle;
+    private static MethodHandle fillRectHandle;
+    private static MethodHandle setStrokeRectHandle;
+    private static MethodHandle fillOvalHandle;
+    private static MethodHandle setOpacityHandle;
+    private static MethodHandle setStrokeHandle;
+    private static MethodHandle setLineWidthHandle;
 
     public static QtPainter build(final MemorySegment segment) {
         return new QtPainter(
                 segment,
-                saveSegment,
+                saveHandle,
                 restoreSegment,
-                setFillSegment,
-                fillRectSegment,
-                setStrokeRectSegment,
-                fillOvalSegment,
-                setOpacitySegment,
-                setStrokeSegment,
-                setLineWidthSegment);
+                setFillHandle,
+                fillRectHandle,
+                setStrokeRectHandle,
+                fillOvalHandle,
+                setOpacityHandle,
+                setStrokeHandle,
+                setLineWidthHandle);
     }
 
     @Override
     public void initialize() throws Throwable {
-        this.saveSegment =
+        this.saveHandle =
                 findNative(
-                        "ui_painter_save",
+                        NATIVE_PAINTER_SAVE_NAME,
                         FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
 
         this.restoreSegment =
                 findNative(
-                        "ui_painter_restore",
+                        NATIVE_PAINTER_RESTORE_NAME,
                         FunctionDescriptor.ofVoid(ValueLayout.ADDRESS));
 
-        this.setFillSegment =
+        this.setFillHandle =
                 findNative(
-                        "ui_painter_set_fill",
+                        NATIVE_PAINTER_SET_FILL_NAME,
                         FunctionDescriptor.ofVoid(
                                 ValueLayout.ADDRESS,
                                 ValueLayout.ADDRESS
                         ));
 
-        this.fillRectSegment =
+        this.fillRectHandle =
                 findNative(
-                        "ui_painter_fill_rect",
+                        NATIVE_PAINTER_FILL_RECT_NAME,
                         FunctionDescriptor.ofVoid(
                                 ValueLayout.ADDRESS,
                                 ValueLayout.JAVA_DOUBLE,
@@ -63,9 +75,9 @@ public class QtPainterFactory implements QtMemoryView {
                                 ValueLayout.JAVA_DOUBLE
                         ));
 
-        this.setStrokeRectSegment =
+        this.setStrokeRectHandle =
                 findNative(
-                        "ui_painter_stroke_rect",
+                        NATIVE_PAINTER_STROKE_RECT_NAME,
                         FunctionDescriptor.ofVoid(
                                 ValueLayout.ADDRESS,
                                 ValueLayout.JAVA_DOUBLE,
@@ -75,9 +87,9 @@ public class QtPainterFactory implements QtMemoryView {
                         ));
 
 
-        this.fillOvalSegment =
+        this.fillOvalHandle =
                 findNative(
-                        "ui_painter_fill_oval",
+                        NATIVE_PAINTER_FILL_OVAL_NAME,
                         FunctionDescriptor.ofVoid(
                                 ValueLayout.ADDRESS,
                                 ValueLayout.JAVA_DOUBLE,
@@ -86,25 +98,25 @@ public class QtPainterFactory implements QtMemoryView {
                                 ValueLayout.JAVA_DOUBLE
                         ));
 
-        this.setOpacitySegment =
+        this.setOpacityHandle =
                 findNative(
-                        "ui_painter_set_opacity",
+                        NATIVE_PAINTER_SET_OPACITY_NAME,
                         FunctionDescriptor.ofVoid(
                                 ValueLayout.ADDRESS,
                                 ValueLayout.JAVA_DOUBLE
                         ));
 
-        this.setStrokeSegment =
+        this.setStrokeHandle =
                 findNative(
-                        "ui_painter_set_stroke",
+                        NATIVE_PAINTER_SET_STROKE_NAME,
                         FunctionDescriptor.ofVoid(
                                 ValueLayout.ADDRESS,
                                 ValueLayout.ADDRESS
                         ));
 
-        this.setLineWidthSegment =
+        this.setLineWidthHandle =
                 findNative(
-                        "ui_painter_set_line_width",
+                        NATIVE_PAINTER_SET_LINE_WIDTH_NAME,
                         FunctionDescriptor.ofVoid(
                                 ValueLayout.ADDRESS,
                                 ValueLayout.JAVA_DOUBLE
