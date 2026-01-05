@@ -48,6 +48,7 @@ target_sources(ui PRIVATE
     src/ui/toolbar/ToolBarController.cpp
     src/ui/toolbar/tool_bar_ui_bridge.cpp
     src/ui/property/PropertiesPanelController.cpp
+    src/ui/property/properties_panel_ui_bridge.cpp
     src/ui/layer/QtLayersPanelController.cpp
     src/ui/canvas/QtCanvasController.cpp
     src/ui/canvas/canvas_view_ui_bridge.cpp

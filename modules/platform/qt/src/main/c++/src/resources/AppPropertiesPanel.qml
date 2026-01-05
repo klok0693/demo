@@ -5,9 +5,10 @@ import QtQuick.Layouts
 Rectangle {
     id: propertyRoot
     width: 240
+    enabled: propertiesPanelController.enabled
     //anchors.right: parent.right;
     //anchors.top: parent.top;
-    color: "green"
+    //color: "green"
 
     ColumnLayout {
         anchors.fill: parent
@@ -27,18 +28,18 @@ Rectangle {
                 Layout.alignment: Qt.AlignRight
             }
             TextField {
-                enabled: propertiesPanelController.enabled
+                enabled: propertiesPanelController.x && propertiesPanelController.x.length > 0
                 text: propertiesPanelController.x
-                onEditingFinished: propertiesPanelController.updateX(text)
+                onAccepted: propertiesPanelController.updateX(text)
             }
             Label {
                 text: "y:"
                 Layout.alignment: Qt.AlignRight
             }
             TextField {
-                enabled: propertiesPanelController.enabled
+                enabled: propertiesPanelController.y && propertiesPanelController.y.length > 0
                 text: propertiesPanelController.y
-                onEditingFinished: propertiesPanelController.updateY(text)
+                onAccepted: propertiesPanelController.updateY(text)
             }
 
             // Row 1 — Width / Height
@@ -47,18 +48,18 @@ Rectangle {
                 Layout.alignment: Qt.AlignRight
             }
             TextField {
-                enabled: propertiesPanelController.enabled
+                enabled: propertiesPanelController.width && propertiesPanelController.width.length > 0
                 text: propertiesPanelController.width
-                onEditingFinished: propertiesPanelController.updateWidth(text)
+                onAccepted: propertiesPanelController.updateWidth(text)
             }
             Label {
                 text: "height:"
                 Layout.alignment: Qt.AlignRight
             }
             TextField {
-                enabled: propertiesPanelController.enabled
+                enabled: propertiesPanelController.height && propertiesPanelController.height.length > 0
                 text: propertiesPanelController.height
-                onEditingFinished: propertiesPanelController.updateHeight(text)
+                onAccepted: propertiesPanelController.updateHeight(text)
             }
 
             // Row 2 — Layer
@@ -67,9 +68,9 @@ Rectangle {
                 Layout.alignment: Qt.AlignRight
             }
             TextField {
-                enabled: propertiesPanelController.enabled
+                enabled: propertiesPanelController.propertiesPanelController.layer && propertiesPanelController.layer.length > 0
                 text: propertiesPanelController.layer
-                onEditingFinished: propertiesPanelController.updateLayer(text)
+                onAccepted: propertiesPanelController.updateLayer(text)
             }
 
             Item { }  // spacer

@@ -3,6 +3,7 @@ package org.example.demo;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import lombok.extern.slf4j.Slf4j;
+import org.example.demo.core.port.ui.PropertiesPanelView;
 import org.example.demo.core.port.ui.RootView;
 import org.example.demo.core.port.ui.ToolBarPanelView;
 import org.example.demo.core.port.ui.canvas.ShapeCanvasView;
@@ -37,6 +38,7 @@ public class QtAppInitializer extends AppInitializer {
     protected Object launchGUI(final Injector injector) {
         Stream.of(
                         ToolBarPanelView.class,
+                        PropertiesPanelView.class,
                         RootView.class,
                         QtCanvasUI.class,
                         QtPainterFactory.class,

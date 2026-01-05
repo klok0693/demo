@@ -60,7 +60,7 @@ void startJvmAndCallJava() {
 
     gJvm->AttachCurrentThread((void**)&env, nullptr);
 
-    qDebug() << "Java init() executed temp9";
+    qDebug() << "Java init() executed temp2";
 }
 
 int main(int argc, char *argv[])
