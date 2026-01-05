@@ -3,15 +3,22 @@
 #include <QGuiApplication>
 
 void ToolBarController::setDeleteBtnDisabled(bool isDisabled) {
+    qDebug() << "set delete enabled " << !isDisabled;
     m_deleteEnabled = !isDisabled;
+
+    emit deleteEnabledChanged();
 }
 
 void ToolBarController::setinsertRectBtnSelected(bool isSelected) {
     m_insertRectBtnSelected = isSelected;
+
+    emit insertRectBtnSelectedChanged();
 }
 
 void ToolBarController::setinsertCycleBtnSelected(bool isSelected) {
     m_insertCycleBtnSelected = isSelected;
+
+    emit insertCycleBtnSelectedChanged();
 }
 
 void ToolBarController::setInsertRectCallback(
@@ -59,6 +66,7 @@ bool ToolBarController::insertCycleBtnSelected() const
 
 bool ToolBarController::deleteEnabled() const
 {
+    qDebug() << "get delete enabled " << m_deleteEnabled;
     return m_deleteEnabled;
 }
 

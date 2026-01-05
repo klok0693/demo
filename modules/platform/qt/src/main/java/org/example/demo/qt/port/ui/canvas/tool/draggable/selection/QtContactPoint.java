@@ -24,11 +24,4 @@ public class QtContactPoint extends ContactPoint<QtPainter> implements QtCanvasE
             final ContactAlignment alignment) {
         super(selectionTool, adapter, layer, alignment, fillColor);
     }
-
-    @Override
-    public void draw(final QtPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
-    }
 }

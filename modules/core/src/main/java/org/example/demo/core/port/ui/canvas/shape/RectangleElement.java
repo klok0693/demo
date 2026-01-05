@@ -24,7 +24,6 @@ public abstract class RectangleElement<E extends GraphicsPainter> extends ShapeE
 
     @Override
     protected void drawElement(final GraphicsPainter gc) {
-        System.out.println("Draw rect element");
         gc.setFill(fillColor);
         gc.fillRect(x, y, width, height);
     }

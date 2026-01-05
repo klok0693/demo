@@ -8,6 +8,8 @@ class ToolBarController : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool deleteEnabled READ deleteEnabled NOTIFY deleteEnabledChanged)
+    Q_PROPERTY(bool insertRectBtnSelected READ insertRectBtnSelected NOTIFY insertRectBtnSelectedChanged)
+    Q_PROPERTY(bool insertCycleBtnSelected READ insertCycleBtnSelected NOTIFY insertCycleBtnSelectedChanged)
 
 public:
     explicit ToolBarController(QObject* parent = nullptr);
@@ -33,6 +35,8 @@ public slots:
 
 signals:
     void deleteEnabledChanged();
+    void insertRectBtnSelectedChanged();
+    void insertCycleBtnSelectedChanged();
 
 private:
     bool m_insertRectBtnSelected = false;

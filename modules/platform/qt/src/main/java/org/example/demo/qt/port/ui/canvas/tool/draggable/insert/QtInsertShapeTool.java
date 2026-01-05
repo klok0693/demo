@@ -17,11 +17,4 @@ public class QtInsertShapeTool extends InsertShapeTool<QtPainter> implements QtC
     public QtInsertShapeTool(final CanvasAdapter adapter, final UIState uiState) {
         super(adapter, uiState);
     }
-
-    @Override
-    public void draw(final QtPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
-    }
 }

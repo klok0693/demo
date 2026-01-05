@@ -28,11 +28,4 @@ public class QtRectangleElement extends RectangleElement<QtPainter> implements Q
             final Color fillColor) {
         super(layer, modelRelatedId, x, y, width, height, fillColor);
     }
-
-    @Override
-    public void draw(final QtPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
-    }
 }

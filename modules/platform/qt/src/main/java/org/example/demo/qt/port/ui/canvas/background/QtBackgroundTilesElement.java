@@ -15,11 +15,4 @@ class QtBackgroundTilesElement extends BackgroundTilesElement<QtPainter> impleme
     protected QtBackgroundTilesElement() {
         super(0.0, 0.0, 710, 620);
     }
-
-    @Override
-    public void draw(final QtPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
-    }
 }

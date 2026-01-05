@@ -34,11 +34,4 @@ public class QtShapeSelectionTool extends ShapeSelectionTool<QtPainter> implemen
             final UIState uiState) {
         return new QtModificableSelectionFrame(adapter, uiState);
     }
-
-    @Override
-    public void draw(final QtPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
-    }
 }

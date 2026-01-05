@@ -16,13 +16,6 @@ public class QtModificableSelectionFrame extends ModificableSelectionFrame<QtPai
     }
 
     @Override
-    public void draw(final QtPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
-    }
-
-    @Override
     protected ContactPoint<QtPainter> createPoint(
             final CanvasAdapter adapter,
             final int layer,

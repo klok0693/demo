@@ -21,11 +21,4 @@ public class QtDragShapeTool extends DragShapeTool<QtPainter> implements QtCanva
             final UIState uiState) {
         super(adapter, modelState, uiState);
     }
-
-    @Override
-    public void draw(final QtPainter gc) {
-        save(gc);
-        super.draw(gc);
-        restore(gc);
-    }
 }
