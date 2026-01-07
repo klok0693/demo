@@ -1,8 +1,11 @@
 #pragma once
 
 #include <QObject>
+#include <QItemSelectionModel>
 #include <QStandardItemModel>
 #include <QModelIndex>
+
+#include "ui/layer/layers_panel_ui_bridge.h"
 
 /* class ModelState;
 class UIState;
@@ -13,6 +16,7 @@ class QtLayersPanelController : public QObject {
 
     Q_PROPERTY(QAbstractItemModel* model READ model CONSTANT)
     Q_PROPERTY(QModelIndex rootIndex READ rootIndex CONSTANT)
+    Q_PROPERTY(QItemSelectionModel* selectionModel READ selectionModel CONSTANT)
 
 public:
     explicit QtLayersPanelController(
@@ -24,19 +28,30 @@ public:
 
     QAbstractItemModel* model();
     QModelIndex rootIndex() const;
+    QItemSelectionModel* selectionModel();
 
-public slots:
-    void update();
-    void unSelectAll();
-    void onItemActivated(const QModelIndex& index);
-
-private:
+    void layersUpdate(const LayersSnapshot* snapshot, const char* selectedId);
     void cleanUp();
+    void unSelectAll();
+
+    void setSelectShapeCallback(SelectShapeCallback callback);
+    
+public slots:
+    void setSelectedId(const QString& value);
+
+    void update();
+    //void unSelectAll();
+    //void onItemActivated(const QModelIndex& index);
+    
 
 /*     ModelState* m_modelState;
     UIState* m_uiState;
     ShapeSelector* m_shapeSelector; */
 
+private:    
     QStandardItemModel m_model;
     QStandardItem* m_rootItem = nullptr;
+    QItemSelectionModel m_selectionModel;
+
+    SelectShapeCallback m_selectShapeCallback;
 };

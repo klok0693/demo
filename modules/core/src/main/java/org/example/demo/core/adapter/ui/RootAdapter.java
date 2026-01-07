@@ -147,7 +147,6 @@ public class RootAdapter extends UIAdapter<MutableUIState>
     }
 
     private void updateChildren() {
-        log.debug("Updating ui root children");
         toolBarAdapter.update();
         canvasAdapter.update();
         propertyAdapter.update();

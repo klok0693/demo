@@ -7,6 +7,7 @@ import org.example.demo.core.port.ui.PropertiesPanelView;
 import org.example.demo.core.port.ui.RootView;
 import org.example.demo.core.port.ui.ToolBarPanelView;
 import org.example.demo.core.port.ui.canvas.ShapeCanvasView;
+import org.example.demo.core.port.ui.elements.LayersTree;
 import org.example.demo.qt.initialization.di.QtModule;
 import org.example.demo.qt.port.ui.QtMemoryView;
 import org.example.demo.qt.port.ui.element.QtCanvasUI;
@@ -39,6 +40,7 @@ public class QtAppInitializer extends AppInitializer {
         Stream.of(
                         ToolBarPanelView.class,
                         PropertiesPanelView.class,
+                        LayersTree.class,
                         RootView.class,
                         QtCanvasUI.class,
                         QtPainterFactory.class,

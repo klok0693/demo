@@ -50,6 +50,7 @@ target_sources(ui PRIVATE
     src/ui/property/PropertiesPanelController.cpp
     src/ui/property/properties_panel_ui_bridge.cpp
     src/ui/layer/QtLayersPanelController.cpp
+    src/ui/layer/layers_panel_ui_bridge.cpp
     src/ui/canvas/QtCanvasController.cpp
     src/ui/canvas/canvas_view_ui_bridge.cpp
     src/ui/element/QtCanvasItem.cpp

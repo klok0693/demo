@@ -1,12 +1,10 @@
 package org.example.demo.qt.initialization.di;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
+import com.google.inject.*;
 import org.example.demo.core.context.state.ModelState;
 import org.example.demo.core.adapter.ui.layerspanel.LayersAdapter;
 import org.example.demo.core.adapter.ui.state.UIState;
+import org.example.demo.core.port.ui.elements.LayersTree;
 import org.example.demo.qt.port.ui.canvas.background.QtBackgroundLayer;
 import org.example.demo.qt.port.ui.canvas.shape.QtShapeLayer;
 import org.example.demo.qt.port.ui.canvas.tool.QtToolLayer;
@@ -21,13 +19,10 @@ import org.example.demo.qt.port.ui.graphics.QtPainterFactory;
  * @since v1.0
  */
 class QtUIElementModule extends AbstractModule {
-
-/*    @Inject
-    @Provides
-    @Singleton
-    public LayersTreeBuilder provideLayersTreeBuilder(final QtLayersTree layersTree) {
-        return new LayersTreeBuilder(layersTree);
-    }*/
+    @Override
+    protected void configure() {
+        bind(LayersTree.class).to(QtLayersTree.class).in(Scopes.SINGLETON);
+    }
 
     @Inject
     @Provides

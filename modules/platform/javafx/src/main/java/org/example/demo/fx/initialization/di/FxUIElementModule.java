@@ -1,12 +1,10 @@
 package org.example.demo.fx.initialization.di;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
+import com.google.inject.*;
 import org.example.demo.core.context.state.ModelState;
 import org.example.demo.core.adapter.ui.layerspanel.LayersAdapter;
 import org.example.demo.core.adapter.ui.state.UIState;
+import org.example.demo.core.port.ui.elements.LayersTree;
 import org.example.demo.fx.initialization.ui.builder.LayersTreeBuilder;
 import org.example.demo.fx.port.ui.canvas.background.FxBackgroundLayer;
 import org.example.demo.fx.port.ui.canvas.shape.FxShapeLayer;
@@ -21,6 +19,11 @@ import org.example.demo.fx.port.ui.element.FxLayersTree;
  * @since v1.0
  */
 class FxUIElementModule extends AbstractModule {
+
+    @Override
+    protected void configure() {
+        bind(LayersTree.class).to(FxLayersTree.class).in(Scopes.SINGLETON);
+    }
 
     @Inject
     @Provides

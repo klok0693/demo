@@ -199,7 +199,31 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <executions>
+                <executions>                    <execution>
+                    <id>jextract</id>
+                    <phase>generate-sources</phase>
+                    <goals><goal>exec</goal></goals>
+                    <configuration>
+                        <executable>jextract</executable>
+                        <arguments>
+                            <argument>--source</argument>
+
+                            <argument>-I</argument>
+                            <argument>${project.basedir}/src/main/c++/src/</argument>
+
+                            <argument>--output</argument>
+                            <argument>${project.basedir}/src/generated/java</argument>
+
+                            <argument>--target-package</argument>
+                            <argument>org.example.demo.qt.port.ui.bridge</argument>
+
+                            <argument>--header-class-name</argument>
+                            <argument>UiBridgeConstants</argument>
+
+                            <argument>${project.basedir}/src/main/c++/src/ui/layer/layers_panel_ui_bridge.h</argument>
+                        </arguments>
+                    </configuration>
+                </execution>
                     <execution>
                         <id>configure-qt</id>
                         <phase>verify</phase>
@@ -261,7 +285,25 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>add-generated-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/generated/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
