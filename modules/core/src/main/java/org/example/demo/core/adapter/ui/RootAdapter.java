@@ -57,18 +57,22 @@ public class RootAdapter extends UIAdapter<MutableUIState>
 
     @Override
     public void onCreateUpdate(final int id) {
+        updateModel();
         selectElement(id);
     }
 
     @Override
     public void onModifyUpdate(final int id) {
+        updateModel();
         selectElement(id);
     }
 
     @Override
     public void onRemoveUpdate() {
+        updateModel();
+
         uiState.reset();
-        updateChildren();
+        updateUI();
     }
 
     @Override
@@ -119,7 +123,7 @@ public class RootAdapter extends UIAdapter<MutableUIState>
         }
         else {
             uiState.reset();
-            updateChildren();
+            updateUI();
         }
     }
 
@@ -128,7 +132,7 @@ public class RootAdapter extends UIAdapter<MutableUIState>
         final Optional<Shape> newSelectedShape = modelState.findTopShapeAt(x, y);
 
         uiState.reset();
-        updateChildren();
+        updateUI();
         if (newSelectedShape.isEmpty()) {
             return;
         }
@@ -143,14 +147,22 @@ public class RootAdapter extends UIAdapter<MutableUIState>
         propertyAdapter.switchMode(newMode);
         rootView.switchMode(newMode);
 
-        updateChildren();
+        updateUI();
     }
 
-    private void updateChildren() {
-        toolBarAdapter.update();
-        canvasAdapter.update();
-        propertyAdapter.update();
-        layersAdapter.update();
-        rootView.update();
+    private void updateUI() {
+        toolBarAdapter.onUIUpdate();
+        canvasAdapter.onUIUpdate();
+        propertyAdapter.onUIUpdate();
+        layersAdapter.onUIUpdate();
+        rootView.onUIUpdate();
+    }
+
+    private void updateModel() {
+        toolBarAdapter.onModelUpdate();
+        canvasAdapter.onModelUpdate();
+        propertyAdapter.onModelUpdate();
+        layersAdapter.onModelUpdate();
+        rootView.onModelUpdate();
     }
 }

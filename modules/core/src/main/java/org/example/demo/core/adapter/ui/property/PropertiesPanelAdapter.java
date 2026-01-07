@@ -29,8 +29,13 @@ public class PropertiesPanelAdapter extends LeafAdapter implements PropertiesAda
     }
 
     @Override
-    public void update() {
-        propertyView.update();
+    public void onUIUpdate() {
+        propertyView.onUIUpdate();
+    }
+
+    @Override
+    public void onModelUpdate() {
+        propertyView.onModelUpdate();
     }
 
     @Override

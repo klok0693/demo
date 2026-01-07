@@ -34,7 +34,7 @@ public abstract class ShapeLayer<E extends GraphicsPainter>
     }
 
     @Override
-    public void update() {
+    public void onUIUpdate() {
         removeAll();
         modelState.getShapes()
                 .map(this::createElement)
@@ -46,6 +46,11 @@ public abstract class ShapeLayer<E extends GraphicsPainter>
                     canvasLayer.addAll(elements);
                     children.add(canvasLayer);
                 });
+    }
+
+    @Override
+    public void onModelUpdate() {
+        onUIUpdate();
     }
 
     private ShapeElement<E> createElement(final Shape shape) {

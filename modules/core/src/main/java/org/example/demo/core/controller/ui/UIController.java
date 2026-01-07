@@ -6,5 +6,5 @@ package org.example.demo.core.controller.ui;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface UIController extends UIUpdatable {
+public interface UIController extends Updatable {
 }

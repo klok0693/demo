@@ -23,8 +23,13 @@ public class LayersPanelAdapter extends LeafAdapter implements LayersAdapter {
     }
 
     @Override
-    public void update() {
-        layersRoot.update();
+    public void onUIUpdate() {
+        layersRoot.onUIUpdate();
+    }
+
+    @Override
+    public void onModelUpdate() {
+        layersRoot.onModelUpdate();
     }
 
     @Override

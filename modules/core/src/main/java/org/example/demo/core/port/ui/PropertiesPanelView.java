@@ -22,7 +22,7 @@ public abstract class PropertiesPanelView implements PropertiesView {
     }
 
     @Override
-    public void update() {
+    public void onUIUpdate() {
         setUpField(ShapeParam.X,        uiState.getSelectedX());
         setUpField(ShapeParam.Y,        uiState.getSelectedY());
         setUpField(ShapeParam.WIDTH,    uiState.getSelectedWidth());
@@ -31,6 +31,10 @@ public abstract class PropertiesPanelView implements PropertiesView {
         setUpField(ShapeParam.COLOR,    uiState.getSelectedColor());
     }
 
+    @Override
+    public void onModelUpdate() {
+        clearPanel();
+    }
 
     @Override
     public void switchToInsertMode() {

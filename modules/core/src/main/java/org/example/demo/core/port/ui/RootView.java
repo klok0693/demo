@@ -18,7 +18,10 @@ public abstract class RootView implements ModeSwitchableView {
     }
 
     @Override
-    public void update() {}
+    public void onUIUpdate() {}
+
+    @Override
+    public void onModelUpdate() {}
 
     @Override
     public void switchToInsertMode() {

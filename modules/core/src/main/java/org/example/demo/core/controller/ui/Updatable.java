@@ -1,12 +1,12 @@
 package org.example.demo.core.controller.ui;
 
 /**
- * Interface for classes that can be updated in a UI context
+ * Interface for classes that can be updated
  *
  * @author Pilip Yurchanka
  * @since v1.0
  */
-public interface UIUpdatable {
+public interface Updatable {
 
     void onCreateUpdate(int id);
 

@@ -46,7 +46,7 @@ public abstract class ShapeSelectionTool<E extends GraphicsPainter>
     }
 
     @Override
-    public void update() {
+    public void onUIUpdate() {
         reset();
 
         if (uiState.hasSelectedId()) {
@@ -64,6 +64,11 @@ public abstract class ShapeSelectionTool<E extends GraphicsPainter>
                 ShapeSelectionTool.this.setVisible(true);
             });
         }
+    }
+
+    @Override
+    public void onModelUpdate() {
+        reset();
     }
 
     @Override

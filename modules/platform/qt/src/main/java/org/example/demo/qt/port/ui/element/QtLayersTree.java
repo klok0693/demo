@@ -13,7 +13,6 @@ import org.example.demo.qt.port.ui.bridge.*;
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
-import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +104,7 @@ public class QtLayersTree /*extends TreeView<String>*/ implements LayersTree, Qt
 
     @Override
     @SneakyThrows
-    public void update() {
+    public void onUIUpdate() {
         System.out.println("layer update");
         cleanUp();
 
@@ -120,6 +119,11 @@ public class QtLayersTree /*extends TreeView<String>*/ implements LayersTree, Qt
             }
         }
         System.out.println("update ends");
+    }
+
+    @Override
+    public void onModelUpdate() {
+        onUIUpdate();
     }
 
     private MemorySegment buildSelectedIdSegment(final Arena arena) {

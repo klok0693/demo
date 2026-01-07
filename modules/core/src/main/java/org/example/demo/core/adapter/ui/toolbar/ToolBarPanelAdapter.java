@@ -31,8 +31,13 @@ public class ToolBarPanelAdapter extends LeafAdapter implements ToolBarAdapter {
     }
 
     @Override
-    public void update() {
-        toolBarView.update();
+    public void onUIUpdate() {
+        toolBarView.onUIUpdate();
+    }
+
+    @Override
+    public void onModelUpdate() {
+        toolBarView.onModelUpdate();
     }
 
     @Override

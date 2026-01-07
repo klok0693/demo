@@ -12,6 +12,7 @@ import org.example.demo.core.port.ui.elements.LayersTree;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
 
@@ -41,7 +42,32 @@ public class FxLayersTree extends TreeView<String> implements LayersTree {
     }
 
     @Override
-    public void update() {
+    public void onUIUpdate() {
+        getSelectionModel().clearSelection();
+
+        final TreeItem<String> root = getRoot();
+        if (root != null && uiState.hasSelectedId()) {
+            getChildrenRecurs(root)
+                    .filter(item -> uiState.isIdSelected(parseInt(item.getValue())))
+                    .forEach(getSelectionModel()::select);
+        }
+    }
+
+    private Stream<TreeItem<String>> getChildrenRecurs(final TreeItem<String> root) {
+        if (root.getChildren().isEmpty()) {
+            return Stream.of(root);
+        }
+        else {
+            return root.getChildren()
+                    .stream()
+                    .map(this::getChildrenRecurs)
+                    .reduce(Stream::concat)
+                    .orElseGet(Stream::empty);
+        }
+    }
+
+    @Override
+    public void onModelUpdate() {
         cleanUp();
 
         final var layers = modelState.getShapes().collect(Collectors.groupingBy(Shape::getPriority));
@@ -86,10 +112,6 @@ public class FxLayersTree extends TreeView<String> implements LayersTree {
                         final var item = new TreeItem<>(id);
                         item.setExpanded(true);
                         getChildren().add(item);
-
-                        if (uiState.hasSelectedId() && uiState.isIdSelected(parseInt(id))) {
-                            getSelectionModel().select(item);
-                        }
                     });
         }
 

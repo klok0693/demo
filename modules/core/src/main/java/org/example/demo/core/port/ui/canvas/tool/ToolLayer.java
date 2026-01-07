@@ -38,13 +38,18 @@ public abstract class ToolLayer<E extends GraphicsPainter> extends CanvasLayer<E
     }
 
     @Override
-    public void update() {
+    public void onUIUpdate() {
         if (!uiState.hasSelectedId()) {
             resetAll();
         }
         else {
-            selectionTool.update();
+            selectionTool.onUIUpdate();
         }
+    }
+
+    @Override
+    public void onModelUpdate() {
+        resetAll();
     }
 
     @Override

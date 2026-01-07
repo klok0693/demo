@@ -50,9 +50,16 @@ public abstract class ShapeCanvasView<E extends GraphicsPainter> implements Canv
     }
 
     @Override
-    public void update() {
-        shapeLayer.update();
-        toolLayer.update();
+    public void onUIUpdate() {
+        shapeLayer.onUIUpdate();
+        toolLayer.onUIUpdate();
+        canvasUI.redraw();
+    }
+
+    @Override
+    public void onModelUpdate() {
+        shapeLayer.onModelUpdate();
+        toolLayer.onModelUpdate();
         canvasUI.redraw();
     }
 
@@ -110,7 +117,7 @@ public abstract class ShapeCanvasView<E extends GraphicsPainter> implements Canv
         // we can select it(nothing badly, if it has already been selected)
         else {
             adapter.primaryMouseBtnPressed(mouseX, mouseY, isAdditional);
-            update();
+            onUIUpdate();
             canvasUI.redraw();
         }
     }

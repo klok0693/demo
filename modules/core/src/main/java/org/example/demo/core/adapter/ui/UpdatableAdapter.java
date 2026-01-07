@@ -6,6 +6,5 @@ package org.example.demo.core.adapter.ui;
  * @author Pilip Yurchanka
  * @since v1.0
  */
-@FunctionalInterface
-public interface UpdatableAdapter extends Updatable {
+public interface UpdatableAdapter extends UIUpdatable, ModelUpdatable {
 }

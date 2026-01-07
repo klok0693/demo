@@ -31,8 +31,13 @@ public class ShapeCanvasAdapter extends LeafAdapter implements CanvasAdapter {
     }
 
     @Override
-    public void update() {
-        canvasRoot.update();
+    public void onUIUpdate() {
+        canvasRoot.onUIUpdate();
+    }
+
+    @Override
+    public void onModelUpdate() {
+        canvasRoot.onModelUpdate();
     }
 
     @Override

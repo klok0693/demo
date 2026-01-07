@@ -12,8 +12,11 @@ import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collections;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static java.lang.Integer.parseInt;
 import static org.example.demo.core.port.ui.markup.ElementID.LAYERS_TREE;
 
 /**
@@ -120,11 +123,41 @@ public class SwingLayersTree extends JTree implements LayersTree {
     }
 
     @Override
-    public void update() {
+    public void onUIUpdate() {
+        getSelectionModel().clearSelection();
+
+        if (uiState.hasSelectedId()) {
+            getChildrenRecurs(root)
+                    .map(DefaultMutableTreeNode.class::cast)
+                    .filter(item -> {
+                        final String value = String.valueOf(item.getUserObject());
+                        return uiState.isIdSelected(parseInt(value));
+                    })
+                    .forEach(this::selectNode);
+        }
+
+        treeModel.reload();
+        expandAll();
+    }
+
+    private Stream<TreeNode> getChildrenRecurs(final TreeNode root) {
+        if (root.isLeaf()) {
+            return Stream.of(root);
+        }
+        else {
+            return Collections.list(root.children())
+                    .stream()
+                    .map(this::getChildrenRecurs)
+                    .reduce(Stream::concat)
+                    .orElseGet(Stream::empty);
+        }
+    }
+
+    @Override
+    public void onModelUpdate() {
         cleanUp();
 
         final var layers = modelState.getShapes().collect(Collectors.groupingBy(Shape::getPriority));
-
         if (layers.isEmpty()) {
             treeModel.reload();
             return;
@@ -134,14 +167,7 @@ public class SwingLayersTree extends JTree implements LayersTree {
             final LayerNode layerNode = new LayerNode(priority);
             root.add(layerNode);
 
-            shapes.forEach(shape -> {
-                final ShapeNode shapeNode = new ShapeNode(shape.getId());
-                layerNode.add(shapeNode);
-
-                if (uiState.hasSelectedId() && uiState.isIdSelected(shape.getId())) {
-                    selectNode(shapeNode);
-                }
-            });
+            shapes.forEach(shape -> layerNode.add(new ShapeNode(shape.getId())));
         });
 
         treeModel.reload();

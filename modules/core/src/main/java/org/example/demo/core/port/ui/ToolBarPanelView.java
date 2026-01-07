@@ -21,9 +21,14 @@ public abstract class ToolBarPanelView implements ToolBarView {
     }
 
     @Override
-    public void update() {
+    public void onUIUpdate() {
         final boolean disableRelated = !uiState.hasSelectedId() || uiState.isMultipleSelection();
         setDeleteBtnDisabled(disableRelated);
+    }
+
+    @Override
+    public void onModelUpdate() {
+
     }
 
     @Override

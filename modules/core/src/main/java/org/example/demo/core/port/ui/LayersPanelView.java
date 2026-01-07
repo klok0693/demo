@@ -17,8 +17,13 @@ public abstract class LayersPanelView implements LayersView {
     }
 
     @Override
-    public void update() {
-        layersTree.update();
+    public void onUIUpdate() {
+        layersTree.onUIUpdate();
+    }
+
+    @Override
+    public void onModelUpdate() {
+        layersTree.onModelUpdate();
     }
 
     @Override
