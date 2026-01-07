@@ -38,24 +38,27 @@ public class QtLayersTree /*extends TreeView<String>*/ implements LayersTree, Qt
     private static final String NATIVE_UPDATE_PANEL_NAME = "ui_layers_update";
     private static final String NATIVE_CLEANUP_PANEL_NAME = "ui_layers_panel_cleanup";
     private static final String NATIVE_UNSELECT_ALL_NAME = "ui_layers_panel_unselect_all";
+    private static final String NATIVE_SET_SELECTED_ID_NAME = "set_selected_id";
     //</editor-fold>
 
     private final ModelState modelState;
     private final UIState uiState;
-
     private final ShapeSelector shapeSelector;
 
+    //<editor-fold desc="ABI method's">
     private MemorySegment selectShapeSegment;
 
     private MethodHandle qtRefHandle;
     private MethodHandle updateTreeHandle;
     private MethodHandle cleanupTreeHandle;
     private MethodHandle unselectAllHandle;
+    private MethodHandle selectIdHandle;
+    //</editor-fold>
 
     @Override
     public void initialize() throws Throwable {
         this.selectShapeSegment = bindMethodToNative(
-                "selectItem",
+                "onSelectItem",
                 void.class,
                 new Class[]{ MemorySegment.class },
                 FunctionDescriptor.ofVoid(ADDRESS),
@@ -71,7 +74,7 @@ public class QtLayersTree /*extends TreeView<String>*/ implements LayersTree, Qt
         this.updateTreeHandle =
                 findNative(
                         NATIVE_UPDATE_PANEL_NAME,
-                        FunctionDescriptor.ofVoid(ADDRESS, ADDRESS, ADDRESS));
+                        FunctionDescriptor.ofVoid(ADDRESS, ADDRESS));
 
         this.cleanupTreeHandle =
                 findNative(
@@ -83,53 +86,37 @@ public class QtLayersTree /*extends TreeView<String>*/ implements LayersTree, Qt
                         NATIVE_UNSELECT_ALL_NAME,
                         FunctionDescriptor.ofVoid(ADDRESS));
 
-
+        this.selectIdHandle =
+                findNative(
+                        NATIVE_SET_SELECTED_ID_NAME,
+                        FunctionDescriptor.ofVoid(ADDRESS, ADDRESS));
     }
 
     public QtLayersTree(final ModelState modelState, final UIState uiState, final ShapeSelector shapeSelector) {
         this.modelState = modelState;
         this.uiState = uiState;
         this.shapeSelector = shapeSelector;
-
-/*        setOnMouseClicked(event -> {
-            final TreeItem<String> selectedItem = getSelectionModel().getSelectedItem();
-            if (selectedItem != null) {
-                final String id = selectedItem instanceof final LayerItem item ? item.getFirstChildId() : selectedItem.getValue();
-                shapeSelector.selectShape(id);
-            }
-        });
-
-        getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);*/
     }
 
     @Override
     @SneakyThrows
     public void onUIUpdate() {
-        System.out.println("layer update");
+        unSelectAll();
+        setSelectedIdIfExist();
+    }
+
+    @Override
+    @SneakyThrows
+    public void onModelUpdate() {
         cleanUp();
 
         final var layers = modelState.getShapes().collect(Collectors.groupingBy(Shape::getPriority));
         if (!layers.isEmpty()) {
-            System.out.println("layer add values " + layers);
             try (final Arena arena = Arena.ofConfined()) {
                 final MemorySegment mapSegment = buildSegmentFromMap(arena, layers);
-                final MemorySegment utf8 = buildSelectedIdSegment(arena);
-
-                updateTreeHandle.invoke(qtRefHandle.invoke(), mapSegment, utf8);
+                updateTreeHandle.invoke(qtRefHandle.invoke(), mapSegment);
             }
         }
-        System.out.println("update ends");
-    }
-
-    @Override
-    public void onModelUpdate() {
-        onUIUpdate();
-    }
-
-    private MemorySegment buildSelectedIdSegment(final Arena arena) {
-        return  uiState.hasSelectedId() ?
-                arena.allocateUtf8String(valueOf(uiState.getSelectedShapeId()))
-                : MemorySegment.NULL;
     }
 
     private MemorySegment buildSegmentFromMap(
@@ -170,51 +157,31 @@ public class QtLayersTree /*extends TreeView<String>*/ implements LayersTree, Qt
         return snapshot;
     }
 
+    @SneakyThrows
+    public void setSelectedIdIfExist() {
+        if (uiState.hasSelectedId()) {
+            try (final Arena arena = Arena.ofConfined()) {
+                final String selectedId = valueOf(uiState.getSelectedShapeId());
+                final MemorySegment utf8 = arena.allocateUtf8String(selectedId);
+                selectIdHandle.invoke(qtRefHandle.invoke(), utf8);
+            }
+        }
+    }
+
     @Override
     @SneakyThrows
     public void unSelectAll() {
-        System.out.println("layer unselect all");
         unselectAllHandle.invoke(qtRefHandle.invoke());
     }
 
     @SneakyThrows
     private void cleanUp() {
-        System.out.println("layer clean up");
         cleanupTreeHandle.invoke(qtRefHandle.invoke());
     }
 
-    public void selectItem(final MemorySegment strId) {
-        System.out.println("layer select item");
+    public void onSelectItem(final MemorySegment strId) {
         final MemorySegment sizedSegment = strId.reinterpret(Long.MAX_VALUE);
         final String selectedId = sizedSegment.getUtf8String(0);
-        System.out.println("layer select item " + selectedId);
-
         shapeSelector.selectShape(selectedId);
     }
-
-/*    private class LayerItem extends TreeItem<String> {
-
-        LayerItem(final String key) {
-            super(key);
-        }
-
-        void addShapes(final Collection<Shape> shapes) {
-            shapes.stream()
-                    .map(Shape::getId)
-                    .map(String::valueOf)
-                    .forEach(id -> {
-                        final var item = new TreeItem<>(id);
-                        item.setExpanded(true);
-                        getChildren().add(item);
-
-                        if (uiState.hasSelectedId() && uiState.isIdSelected(parseInt(id))) {
-                            getSelectionModel().select(item);
-                        }
-                    });
-        }
-
-        String getFirstChildId() {
-            return getChildren().getFirst().getValue();
-        };
-    }*/
 }

@@ -21,11 +21,10 @@ UI_API QtLayersPanelController* ui_layers_controller_get() {
 
 UI_API void ui_layers_update(
     void* layersController,
-    const LayersSnapshot* snapshot,
-    const char* selectedId
+    const LayersSnapshot* snapshot
 ) {
     auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
-    ctrl->layersUpdate(snapshot, selectedId);
+    ctrl->layersUpdate(snapshot);
 }
 
 UI_API void ui_layers_panel_cleanup(
@@ -35,12 +34,20 @@ UI_API void ui_layers_panel_cleanup(
     ctrl->cleanUp();
 }
 
+UI_API void set_selected_id(
+    void* layersController,
+    const char* selectedId
+) {
+    auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
+    ctrl->setSelectedId(selectedId);
+}
+
 UI_API void set_select_shape_callback(
     void* layersController,
     SelectShapeCallback callback
 ) {
     auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
-    ctrl->setSelectShapeCallback(callback);
+    ctrl->setOnShapeSelectCallback(callback);
 }
 
 UI_API void ui_layers_panel_unselect_all(

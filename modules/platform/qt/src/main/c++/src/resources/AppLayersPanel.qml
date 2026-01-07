@@ -34,9 +34,14 @@ Rectangle {
 
                 background: Rectangle {
                     anchors.fill: parent
-                    visible: delegate.selected
+                    visible: delegate.highlighted && depth > 0
                     color: delegate.palette.highlight
-                    //color: delegate.selected ? delegate.palette.highlight : "transparent"
+                }
+
+                onClicked: {
+                    let mi = layersTree.index(row, column)
+                    layersTree.selectionModel.setCurrentIndex(mi, layersTree.selectionModel.ClearAndSelect)
+                    layersTreeController.onShapeSelect(mi.data())
                 }
 
                 //leftMargin: 0
@@ -50,15 +55,6 @@ Rectangle {
                     })
                 }
             }
-
-            Connections {
-                target: layersTreeController.selectionModel
-                function onCurrentChanged(current, previous) {
-                    layersTreeController.setSelectedId(current.data())
-                }
-            }
-
-            //Component.onCompleted: layersTree.expandAll()
         }
 
     }

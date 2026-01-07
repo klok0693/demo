@@ -30,14 +30,15 @@ public:
     QModelIndex rootIndex() const;
     QItemSelectionModel* selectionModel();
 
-    void layersUpdate(const LayersSnapshot* snapshot, const char* selectedId);
+    void layersUpdate(const LayersSnapshot* snapshot);
     void cleanUp();
     void unSelectAll();
 
-    void setSelectShapeCallback(SelectShapeCallback callback);
+    void setSelectedId(const char* selectedId);
+    void setOnShapeSelectCallback(SelectShapeCallback callback);
     
 public slots:
-    void setSelectedId(const QString& value);
+    void onShapeSelect(const QString& value);
 
     void update();
     //void unSelectAll();

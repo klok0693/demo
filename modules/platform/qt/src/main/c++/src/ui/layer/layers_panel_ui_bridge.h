@@ -21,12 +21,16 @@ typedef struct {
 
 UI_API void ui_layers_update(
     void* layersController,
-    const LayersSnapshot* snapshot,
-    const char* selectedId
+    const LayersSnapshot* snapshot
 );
 
 UI_API void ui_layers_panel_cleanup(
     void* layersController
+);
+
+UI_API void set_selected_id(
+    void* layersController,
+    const char* selectedId
 );
 
 UI_API void set_select_shape_callback(
