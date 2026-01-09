@@ -8,27 +8,50 @@ ApplicationWindow {
     visible: true
     title: "Qt Demo"
 
-    header: AppToolBar { }
+    header: AppToolBar {
+        Keys.forwardTo: [keyCatcher]
+    }
 
-    RowLayout {
-        anchors.fill: parent
-        //anchors.topMargin: header.height
+    FocusScope {
+       anchors.fill: parent
+       focus: true // Ensure the scope itself is focusable
+    
+       Item {
+           id: keyCatcher
+           anchors.fill: parent
+           focus: true 
+           
+           Keys.onPressed: (event) => {
+               keyboardView.onKeyEvent(event.key, event.modifiers)
+           }
 
-        AppLayersPanel {
-            Layout.preferredWidth: 240
-            Layout.fillHeight: true
-        }
+            RowLayout {
+                anchors.fill: parent
+                //anchors.topMargin: header.height
 
-        // CENTER (canvas / main area)
-        QtCanvas {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
+                AppLayersPanel {
+                    Layout.preferredWidth: 240
+                    Layout.fillHeight: true
 
-        // EAST (PropertyPanel)
-        AppPropertiesPanel {
-            Layout.preferredWidth: 240
-            Layout.fillHeight: true
-        }
+                    Keys.forwardTo: [keyCatcher]
+                }
+
+                // CENTER (canvas / main area)
+                QtCanvas {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    Keys.forwardTo: [keyCatcher]
+                }
+
+                // EAST (PropertyPanel)
+                AppPropertiesPanel {
+                    Layout.preferredWidth: 240
+                    Layout.fillHeight: true
+
+                    Keys.forwardTo: [keyCatcher]
+                }
+            }
+       }
     }
 }

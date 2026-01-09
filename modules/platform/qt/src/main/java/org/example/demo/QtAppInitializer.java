@@ -3,6 +3,7 @@ package org.example.demo;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import lombok.extern.slf4j.Slf4j;
+import org.example.demo.core.port.keyboard.RootShortcutHandler;
 import org.example.demo.core.port.ui.PropertiesPanelView;
 import org.example.demo.core.port.ui.RootView;
 import org.example.demo.core.port.ui.ToolBarPanelView;
@@ -45,6 +46,7 @@ public class QtAppInitializer extends AppInitializer {
                         QtCanvasUI.class,
                         QtPainterFactory.class,
                         ShapeCanvasView.class,
+                        RootShortcutHandler.class,
                         NonBlockingForegroundExecutor.class
                 )
                 .map(injector::getInstance)

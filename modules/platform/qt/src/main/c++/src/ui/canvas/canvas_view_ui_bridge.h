@@ -1,4 +1,6 @@
-#include "ui/ui_bridge.h"
+#pragma once
+
+#include "ui/ui_bridge_macros.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -4,6 +4,7 @@
 #include <QQmlContext>
 
 #include "ui/canvas/QtCanvasController.h"
+#include "ui/ui_bridge.h"
 
 #ifdef __cplusplus
 extern "C" {

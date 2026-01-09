@@ -7,6 +7,10 @@
 
 using initFunc = void (*)(double, double);
 
+struct PainterContext {
+    QPainter* painter;
+};
+
 class QtCanvasItem : public QQuickPaintedItem {
     Q_OBJECT
 
@@ -18,6 +22,8 @@ public:
     void setDrawingCallback(void* callback);
 
     void initController(initFunc func) const;
+
+    void getCursorPositionOnCanvas(Point* out_point);
 
 private:
     DrawingCallback m_drawingCallback = nullptr;

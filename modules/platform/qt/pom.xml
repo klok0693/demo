@@ -220,7 +220,7 @@
                             <argument>--header-class-name</argument>
                             <argument>UiBridgeConstants</argument>
 
-                            <argument>${project.basedir}/src/main/c++/src/ui/layer/layers_panel_ui_bridge.h</argument>
+                            <argument>${project.basedir}/src/main/c++/src/ui/extract.h</argument>
                         </arguments>
                     </configuration>
                 </execution>

@@ -15,6 +15,8 @@
 #include "ui/canvas/QtCanvasController.h"
 #include "ui/root/RootView.h"
 
+#include "keyboard/QtKeyboardView.h"
+
 static JavaVM* gJvm = nullptr;
 
 void startJvmAndCallJava() {
@@ -25,9 +27,10 @@ void startJvmAndCallJava() {
     options[1].optionString = const_cast<char*>("-Xmx256m");
     options[2].optionString = const_cast<char*>("--enable-native-access=ALL-UNNAMED");
     options[3].optionString = const_cast<char*>("--enable-preview");
+    options[4].optionString = const_cast<char*>("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005");
 
     vm_args.version = JNI_VERSION_10;
-    vm_args.nOptions = 4;
+    vm_args.nOptions = 5;
     vm_args.options = options;
     vm_args.ignoreUnrecognized = JNI_FALSE;
 
@@ -85,6 +88,9 @@ int main(int argc, char *argv[])
     
     QtLayersPanelController layersTreeController;
     engine.rootContext()->setContextProperty("layersTreeController", &layersTreeController);
+    
+    QtKeyboardView keyboardView;
+    engine.rootContext()->setContextProperty("keyboardView", &keyboardView);
 
     engine.load(QUrl(QStringLiteral("qrc:/MainView.qml")));
     if (engine.rootObjects().isEmpty()) {

@@ -1,5 +1,6 @@
 package org.example.demo.qt.port.ui.canvas;
 
+import lombok.SneakyThrows;
 import org.example.demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.demo.core.adapter.ui.state.UIState;
 import org.example.demo.core.context.state.ModelState;
@@ -11,11 +12,16 @@ import org.example.demo.qt.port.ui.canvas.tool.QtToolLayer;
 import org.example.demo.qt.port.ui.element.QtCanvasUI;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 
+import org.example.demo.qt.port.ui.bridge.*;
+
+import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 import java.util.Optional;
+
+import static java.lang.foreign.ValueLayout.ADDRESS;
 
 /**
  * JavaFX's realization of {@link ShapeCanvasView}
@@ -33,7 +39,10 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
     private static final String NATIVE_CANVAS_REF_NAME = "ui_canvas_get";
     private static final String NATIVE_CANVAS_CONTROLLER_REF_NAME = "ui_canvas_controller_get";
     private static final String NATIVE_INIT_CANVAS_CONTROLLER_NAME = "init_canvas_controller";
+    private static final String NATIVE_GET_CURSOR_POSITION_NAME = "get_cursor_position";
     //</editor-fold>
+
+    private MethodHandle getQtRefHandle;
 
     private MemorySegment onMousePressedSegment;
     private MemorySegment onDragDetectedSegment;
@@ -42,6 +51,8 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
 
     private MethodHandle canvasWidthHandle;
     private MethodHandle canvasHeightHandle;
+
+    private MethodHandle canvasCursorPositionHandle;
 
     private double canvasWidth;
     private double canvasHeight;
@@ -59,6 +70,11 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
 
     @Override
     public void initialize() throws Throwable {
+        this.getQtRefHandle =
+                findNative(
+                        NATIVE_CANVAS_REF_NAME,
+                        FunctionDescriptor.of(ValueLayout.ADDRESS));
+
         this.onMousePressedSegment =
                 createBoundSegment("handleMousePressCallback", NATIVE_SET_MOUSE_PRESSED_CALLBACK_NAME);
 
@@ -70,6 +86,12 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
 
         this.onMousePressedSegment =
                 createBoundSegment("handleMouseReleasedCallback", NATIVE_SET_MOUSE_RELEASED_CALLBACK_NAME);
+
+        this.canvasCursorPositionHandle =
+                findNative(
+                        NATIVE_GET_CURSOR_POSITION_NAME,
+                        FunctionDescriptor.ofVoid(ADDRESS, ADDRESS)
+                );
 
         bindMethodToNative(
                 "setCanvasBounds",
@@ -124,13 +146,24 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
     }
 
     @Override
+    @SneakyThrows
     public Optional<double[]> getLocalCursorPosition() {
+        try (final Arena arena = Arena.ofConfined()) {
+            final MemorySegment pointSegment = arena.allocate(Point.$LAYOUT());
+            canvasCursorPositionHandle.invoke(getQtRefHandle.invoke(), pointSegment);
+
+            final double x = Point.x$get(pointSegment);
+            final double y = Point.y$get(pointSegment);
+
+            return x > 0 && y > 0 ? Optional.of(new double[] {x, y}) : Optional.empty();
+        }
+
 /*        final Point cursorPosition = MouseInfo.getPointerInfo().getLocation();
         final Point2D localPosition = getCanvas().screenToLocal(cursorPosition.getX(), cursorPosition.getY());
         final double x = localPosition.getX();
         final double y = localPosition.getY();
         return getCanvas().contains(x, y) ? Optional.of(new double[] {x, y}) : Optional.empty();*/
-        return Optional.empty();
+        //return Optional.empty();
     }
 
     @Override

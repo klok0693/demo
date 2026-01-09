@@ -13,10 +13,6 @@ void set_engine(QQmlApplicationEngine* engine);
 
 QQmlApplicationEngine* get_engine();
 
-struct PainterContext {
-    QPainter* painter;
-};
-
 #ifdef __cplusplus
 }
 #endif

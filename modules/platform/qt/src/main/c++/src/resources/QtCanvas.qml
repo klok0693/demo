@@ -11,6 +11,8 @@ Item {
         width: 720
         height: 600
         anchors.centerIn: parent
+        Keys.forwardTo: [keyCatcher]
+        focus:true
 
         MouseArea {
             anchors.fill: parent

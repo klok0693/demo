@@ -31,6 +31,9 @@ Rectangle {
                 enabled: propertiesPanelController.x && propertiesPanelController.x.length > 0
                 text: propertiesPanelController.x
                 onAccepted: propertiesPanelController.updateX(text)
+                onEditingFinished: {
+                    focus = false
+                }
             }
             Label {
                 text: "y:"
@@ -40,6 +43,9 @@ Rectangle {
                 enabled: propertiesPanelController.y && propertiesPanelController.y.length > 0
                 text: propertiesPanelController.y
                 onAccepted: propertiesPanelController.updateY(text)
+                onEditingFinished: {
+                    focus = false
+                }
             }
 
             // Row 1 — Width / Height
@@ -51,6 +57,9 @@ Rectangle {
                 enabled: propertiesPanelController.width && propertiesPanelController.width.length > 0
                 text: propertiesPanelController.width
                 onAccepted: propertiesPanelController.updateWidth(text)
+                onEditingFinished: {
+                    focus = false
+                }
             }
             Label {
                 text: "height:"
@@ -60,6 +69,9 @@ Rectangle {
                 enabled: propertiesPanelController.height && propertiesPanelController.height.length > 0
                 text: propertiesPanelController.height
                 onAccepted: propertiesPanelController.updateHeight(text)
+                onEditingFinished: {
+                    focus = false
+                }
             }
 
             // Row 2 — Layer
@@ -71,6 +83,9 @@ Rectangle {
                 enabled: propertiesPanelController.propertiesPanelController.layer && propertiesPanelController.layer.length > 0
                 text: propertiesPanelController.layer
                 onAccepted: propertiesPanelController.updateLayer(text)
+                onEditingFinished: {
+                    focus = false
+                }
             }
 
             Item { }  // spacer

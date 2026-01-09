@@ -9,6 +9,9 @@ public class QtBlockingExecutor implements BlockingForegroundExecutor {
 
     @Override
     public <T> T execute(final Callable<T> supplier) {
+
+        System.out.println("bingo");
+
 /*        if (Platform.isFxApplicationThread()) {
             return supplier.get();
         }*/

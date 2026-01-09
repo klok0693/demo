@@ -60,6 +60,9 @@ target_sources(ui PRIVATE
     src/ui/root/root_ui_bridge.cpp
 
     src/realization/thread_manager_ui_bridge.cpp
+
+    src/keyboard/QtKeyboardView.cpp
+    src/keyboard/keyboard_view_ui_bridge.cpp
 )
 
 target_include_directories(ui PUBLIC 

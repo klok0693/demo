@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ui/ui_bridge.h"
 
 #ifdef __cplusplus
