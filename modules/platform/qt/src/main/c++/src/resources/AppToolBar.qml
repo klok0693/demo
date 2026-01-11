@@ -4,10 +4,32 @@ import QtQuick.Layouts
 
 ToolBar {
     id: toolBarRoot
-    height: 48
+    //height: 48
+    implicitHeight: 48 + (padding * 2) 
 
-    RowLayout {
+    readonly property int margin: 15
+
+    padding: margin
+
+    topInset: margin
+    bottomInset: margin
+    leftInset: margin
+    rightInset:margin
+
+    background: Rectangle {
+        color: "transparent"
+        border.width: 1
+        border.color: "black"
+        radius: 3
+    }
+
+    contentItem: RowLayout {
         anchors.fill: parent
+        anchors.left: parent.left
+        anchors.leftMargin: margin * 2;
+        anchors.right: parent.right
+        anchors.rightMargin: margin * 2;
+        
         spacing: 12
 
         // LEFT GROUP

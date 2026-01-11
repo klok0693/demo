@@ -9,7 +9,7 @@ Item {
         id: canvas
         objectName: "canvasItem"
         width: 720
-        height: 600
+        height: 630
         anchors.centerIn: parent
         Keys.forwardTo: [keyCatcher]
         focus:true

@@ -2,19 +2,43 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Rectangle {
+Pane /* Rectangle */ {
     id: layersRoot
     width: 240
     //color: "blue"
 
-    ColumnLayout {
+    readonly property int margin: 10
+
+    padding: margin
+
+    topInset: margin
+    bottomInset: margin
+    leftInset: margin
+    rightInset:margin
+
+    background: Rectangle {
+        color: "transparent"
+        border.width: 1
+        border.color: "black"
+        radius: 3
+    }
+
+    contentItem: ColumnLayout {
         anchors.fill: parent
-        
+        anchors.margins: margin * 2
+        spacing: 10
+
+         Rectangle {
+            color: "white"
+            anchors.fill: parent
+
         TreeView {
             id: layersTree
+
+            anchors.fill: parent
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.margins: 15
+            Layout.margins: layersRoot.margin
 
             model: layersTreeController.model
             selectionModel: layersTreeController.selectionModel
@@ -56,6 +80,6 @@ Rectangle {
                 }
             }
         }
-
+        }
     }
 }
