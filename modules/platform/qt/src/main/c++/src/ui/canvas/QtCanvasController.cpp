@@ -8,30 +8,30 @@ QtCanvasController::QtCanvasController(QObject* parent)
 
 void QtCanvasController::setOnMousePressedCallback(MousePressedCallback callback) 
 {
-    m_onMousePressedCallback = reinterpret_cast<MouseEventCallback>(callback);;
+    m_onMousePressedCallback = callback;
 }
 
-void QtCanvasController::setOnDragDetectedCallback(MousePressedCallback callback) 
+void QtCanvasController::setOnDragDetectedCallback(MouseEventCallback callback) 
 {
-    m_onDragDetectedCallback = reinterpret_cast<MouseEventCallback>(callback);
+    m_onDragDetectedCallback = callback;
 }
 
-void QtCanvasController::setOnMouseDraggedCallback(MousePressedCallback callback) 
+void QtCanvasController::setOnMouseDraggedCallback(MouseEventCallback callback) 
 {
-    m_onMouseDraggedCallback = reinterpret_cast<MouseEventCallback>(callback);
+    m_onMouseDraggedCallback = callback;
 }
 
-void QtCanvasController::setOnMouseReleasedCallback(MousePressedCallback callback) 
+void QtCanvasController::setOnMouseReleasedCallback(MouseEventCallback callback) 
 {
-    m_onMouseReleasedCallback = reinterpret_cast<MouseEventCallback>(callback);
+    m_onMouseReleasedCallback = callback;
 }
 
-void QtCanvasController::handleMousePressed(QPointF pos) 
+void QtCanvasController::handleMousePressed(QPointF pos, bool isCtrl, bool isShift) 
 {
     m_dragSource.m_pressPos = pos;
     m_dragSource.m_dragging = false;
 
-    m_onMousePressedCallback(pos.x(), pos.y());
+    m_onMousePressedCallback(pos.x(), pos.y(), isCtrl, isShift);
 }
 
 void QtCanvasController::handleMouseDragDetected(QPointF pos) 

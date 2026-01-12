@@ -5,7 +5,7 @@
 
 #include "ui/canvas/canvas_view_ui_bridge.h"
 
-using MousePressedCallback = void (*)(double, double);
+//using MousePressedCallback = void (*)(double, double);
 
 class QtCanvasController : public QObject {
     Q_OBJECT
@@ -19,18 +19,18 @@ public:
     explicit QtCanvasController(QObject* parent = nullptr);
 
     void setOnMousePressedCallback(MousePressedCallback callback);
-    void setOnDragDetectedCallback(MousePressedCallback callback);
-    void setOnMouseDraggedCallback(MousePressedCallback callback);
-    void setOnMouseReleasedCallback(MousePressedCallback callback);
+    void setOnDragDetectedCallback(MouseEventCallback callback);
+    void setOnMouseDraggedCallback(MouseEventCallback callback);
+    void setOnMouseReleasedCallback(MouseEventCallback callback);
 
 public slots:
-    void handleMousePressed(QPointF pos);
+    void handleMousePressed(QPointF pos, bool isCtrl, bool isShift);
     void handleMouseDragDetected(QPointF pos);
     void handleMouseDragged(QPointF pos);
     void handleMouseReleased(QPointF pos);
 
 private:
-    MouseEventCallback m_onMousePressedCallback = nullptr;
+    MousePressedCallback m_onMousePressedCallback = nullptr;
     MouseEventCallback m_onDragDetectedCallback = nullptr;
     MouseEventCallback m_onMouseDraggedCallback = nullptr;
     MouseEventCallback m_onMouseReleasedCallback = nullptr;

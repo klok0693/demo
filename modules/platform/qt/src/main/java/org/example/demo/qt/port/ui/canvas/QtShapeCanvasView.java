@@ -21,7 +21,7 @@ import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 import java.util.Optional;
 
-import static java.lang.foreign.ValueLayout.ADDRESS;
+import static java.lang.foreign.ValueLayout.*;
 
 /**
  * Qt's realization of {@link ShapeCanvasView}
@@ -76,7 +76,19 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
                         FunctionDescriptor.of(ValueLayout.ADDRESS));
 
         this.onMousePressedSegment =
-                createBoundSegment("handleMousePressCallback", NATIVE_SET_MOUSE_PRESSED_CALLBACK_NAME);
+                bindMethodToNative(
+                        "handleMousePressCallback",
+                        void.class,
+                        new Class[]{ double.class, double.class, boolean.class, boolean.class },
+                        FunctionDescriptor.ofVoid(
+                                JAVA_DOUBLE,
+                                JAVA_DOUBLE,
+                                JAVA_BOOLEAN,
+                                JAVA_BOOLEAN
+                        ),
+                        NATIVE_CANVAS_CONTROLLER_REF_NAME,
+                        NATIVE_SET_MOUSE_PRESSED_CALLBACK_NAME
+                );
 
         this.onDragDetectedSegment =
                 createBoundSegment("handleDragDetectedCallback", NATIVE_DRAG_DETECTED_CALLBACK_NAME);
@@ -98,8 +110,8 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
                 void.class,
                 new Class[]{ double.class, double.class },
                 FunctionDescriptor.ofVoid(
-                        ValueLayout.JAVA_DOUBLE,
-                        ValueLayout.JAVA_DOUBLE
+                        JAVA_DOUBLE,
+                        JAVA_DOUBLE
                 ),
                 NATIVE_CANVAS_REF_NAME,
                 NATIVE_INIT_CANVAS_CONTROLLER_NAME
@@ -116,16 +128,20 @@ public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtM
                 void.class,
                 new Class[]{ double.class, double.class },
                 FunctionDescriptor.ofVoid(
-                        ValueLayout.JAVA_DOUBLE,
-                        ValueLayout.JAVA_DOUBLE
+                        JAVA_DOUBLE,
+                        JAVA_DOUBLE
                 ),
                 NATIVE_CANVAS_CONTROLLER_REF_NAME,
                 nativeName
         );
     }
 
-    public void handleMousePressCallback(double mouseX, double mouseY) {
-        super.handleMousePressed(mouseX, mouseY, false, false);
+    public void handleMousePressCallback(
+            final double mouseX,
+            final double mouseY,
+            final boolean isAdditional,
+            final boolean isShift) {
+        super.handleMousePressed(mouseX, mouseY, isAdditional, isShift);
     }
 
     public void handleDragDetectedCallback(double mouseX, double mouseY) {

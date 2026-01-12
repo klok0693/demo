@@ -17,7 +17,9 @@ Item {
         MouseArea {
             anchors.fill: parent
             onPressed: function(mouse) {
-                canvasController.handleMousePressed(Qt.point(mouse.x, mouse.y))
+                var isCtrl  = mouse.modifiers & Qt.ControlModifier
+                var isShift = mouse.modifiers & Qt.ShiftModifier
+                canvasController.handleMousePressed(Qt.point(mouse.x, mouse.y), isCtrl, isShift)
             }
             onPositionChanged: function(mouse) {
                 canvasController.handleMouseDragged(Qt.point(mouse.x, mouse.y))

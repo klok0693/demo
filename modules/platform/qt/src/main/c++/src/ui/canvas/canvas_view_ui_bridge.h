@@ -8,9 +8,16 @@ extern "C" {
 
 typedef void (*MouseEventCallback)(double x, double y);
 
+typedef void (*MousePressedCallback)(
+        double x, 
+        double y, 
+        bool isAdditional, 
+        bool isShift
+);
+
 UI_API void set_mouse_pressed_callback(
         void* canvasController,
-        MouseEventCallback callback
+        MousePressedCallback callback
 );
 
 UI_API void set_drag_detected_callback(

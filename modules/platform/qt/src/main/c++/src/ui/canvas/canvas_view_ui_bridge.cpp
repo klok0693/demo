@@ -22,7 +22,7 @@ UI_API QtCanvasController* ui_canvas_controller_get()
 
 UI_API void set_mouse_pressed_callback(
         void* canvasController,
-        MouseEventCallback callback) 
+        MousePressedCallback callback) 
 {
     auto* ctrl = static_cast<QtCanvasController*>(canvasController);
     ctrl->setOnMousePressedCallback(callback);
