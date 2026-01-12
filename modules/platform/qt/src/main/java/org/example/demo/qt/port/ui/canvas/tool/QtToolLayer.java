@@ -8,8 +8,8 @@ import org.example.demo.qt.port.ui.canvas.tool.draggable.selection.QtShapeSelect
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 
 /**
- * JavaFX's realization of {@link ToolLayer}. Necessary, because it<p>
- * hold a link to {@link GraphicsContext}
+ * Qt's realization of {@link ToolLayer}. Necessary, because it<p>
+ * hold a link to {@link QtPainter}
  *
  * @author Pilip Yurchanka
  * @since v1.1

@@ -1,8 +1,4 @@
 #include "ui/layer/QtLayersPanelController.h"
-/* #include "ModelState.h"
-#include "UIState.h"
-#include "ShapeSelector.h"
-#include "Shape.h" */
 
 #include <iostream>
 
@@ -18,11 +14,13 @@ QtLayersPanelController::QtLayersPanelController(
     update();
 }
 
-QAbstractItemModel* QtLayersPanelController::model() {
+QAbstractItemModel* QtLayersPanelController::model() 
+{
     return &m_model;
 }
 
-QModelIndex QtLayersPanelController::rootIndex() const {
+QModelIndex QtLayersPanelController::rootIndex() const 
+{
     return QModelIndex(); // invisible root
 }
 
@@ -31,9 +29,8 @@ QItemSelectionModel* QtLayersPanelController::selectionModel()
     return &m_selectionModel; 
 }
 
-void QtLayersPanelController::layersUpdate(
-    const LayersSnapshot* snapshot
-) {
+void QtLayersPanelController::layersUpdate(const LayersSnapshot* snapshot) 
+{
     for (int i = 0; i < snapshot->layerCount; i++) {
         const LayerEntry& layer = snapshot->layers[i];
         QStandardItem* layerItem = new QStandardItem(QString::number(layer.layerKey));
@@ -49,16 +46,19 @@ void QtLayersPanelController::layersUpdate(
     }
 }
 
-void QtLayersPanelController::update() {
-    qDebug() << "I hope not";
+void QtLayersPanelController::update() 
+{
+    //qDebug() << "I hope not";
 }
 
-void QtLayersPanelController::unSelectAll() {
+void QtLayersPanelController::unSelectAll() 
+{
     m_selectionModel.clearSelection();
     m_selectionModel.setCurrentIndex(QModelIndex(), QItemSelectionModel::NoUpdate);
 }
 
-void QtLayersPanelController::cleanUp() {
+void QtLayersPanelController::cleanUp() 
+{
     m_model.clear();
     m_model.setHorizontalHeaderLabels({""});
 }
@@ -79,8 +79,8 @@ void QtLayersPanelController::setSelectedId(const char* selectedId)
     m_selectionModel.setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
 }
 
-void QtLayersPanelController::setOnShapeSelectCallback(SelectShapeCallback callback
-) {
+void QtLayersPanelController::setOnShapeSelectCallback(SelectShapeCallback callback) 
+{
     m_selectShapeCallback = callback;
 }
 

@@ -44,6 +44,7 @@ Q_INVOKABLE void QtKeyboardView::onKeyEvent(int key, int modifiers)
     m_keyCallback(utf8.constData(), isCtrl, isShift);
 }
 
-void QtKeyboardView::setKeyCallback(KeyCallback callback) {
+void QtKeyboardView::setKeyCallback(KeyCallback callback) 
+{
     m_keyCallback = callback;
 }

@@ -6,6 +6,10 @@ import java.lang.invoke.MethodHandles;
 
 import static java.lang.invoke.MethodType.methodType;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.2
+ */
 public interface QtMemoryView {
     Linker LINKER = Linker.nativeLinker();
     SymbolLookup LOOKUP = createLookup();

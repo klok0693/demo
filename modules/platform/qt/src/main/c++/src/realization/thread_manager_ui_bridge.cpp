@@ -10,15 +10,14 @@ extern "C" {
 
 UI_API void ui_run_later(
     JavaRunnableCallback cb,
-    jlong id
-) {
+    jlong id) 
+{
     QMetaObject::invokeMethod(
     QCoreApplication::instance(),
     [cb, id]() {
         cb(id);
     },
-    Qt::QueuedConnection
-    );
+    Qt::QueuedConnection);
 }
 
 #ifdef __cplusplus

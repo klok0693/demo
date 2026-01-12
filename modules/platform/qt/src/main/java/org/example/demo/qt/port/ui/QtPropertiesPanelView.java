@@ -17,10 +17,10 @@ import java.lang.invoke.MethodHandle;
 import static java.lang.String.valueOf;
 
 /**
- * JavaFX's realization of {@link PropertiesPanelView}
+ * Qt's realization of {@link PropertiesPanelView}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class QtPropertiesPanelView extends PropertiesPanelView implements QtMemoryView {
     //<editor-fold desc="ABI method's names">

@@ -10,10 +10,10 @@ import org.example.demo.core.port.ui.canvas.shape.ShapeLayer;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 
 /**
- * JavaFX's realization of {@link ShapeLayer}
+ * Qt's realization of {@link ShapeLayer}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class QtShapeLayer extends ShapeLayer<QtPainter> {
 

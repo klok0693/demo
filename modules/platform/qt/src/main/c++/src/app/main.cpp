@@ -19,7 +19,8 @@
 
 static JavaVM* gJvm = nullptr;
 
-void startJvmAndCallJava() {
+void startJvmAndCallJava() 
+{
     JavaVMInitArgs vm_args{};
     JavaVMOption options[4];
 
@@ -63,15 +64,12 @@ void startJvmAndCallJava() {
 
     gJvm->AttachCurrentThread((void**)&env, nullptr);
 
-    qDebug() << "Java init() executed temp17";
+    qDebug() << "Jvm initialized";
 }
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
-    qmlRegisterType<QtCanvasItem>("App.Canvas", 1, 0, "QtCanvasUI");
-    
     QQmlApplicationEngine engine;
 
     RootView rootView;
@@ -91,6 +89,8 @@ int main(int argc, char *argv[])
     
     QtKeyboardView keyboardView;
     engine.rootContext()->setContextProperty("keyboardView", &keyboardView);
+
+    qmlRegisterType<QtCanvasItem>("App.Canvas", 1, 0, "QtCanvasUI");
 
     engine.load(QUrl(QStringLiteral("qrc:/MainView.qml")));
     if (engine.rootObjects().isEmpty()) {

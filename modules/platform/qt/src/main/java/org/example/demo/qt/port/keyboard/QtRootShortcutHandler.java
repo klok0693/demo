@@ -15,7 +15,7 @@ import static java.lang.foreign.ValueLayout.*;
  * Bind keyboard shortcuts with specific operations and delegate it to the {@link OperationAdapter}.
  *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 public class QtRootShortcutHandler extends RootShortcutHandler implements QtMemoryView {
     private static final String NATIVE_REF_NAME = "ui_keyboard_view_get";
@@ -46,8 +46,6 @@ public class QtRootShortcutHandler extends RootShortcutHandler implements QtMemo
         final MemorySegment sizedSegment = keySegment.reinterpret(Long.MAX_VALUE);
         final String keyStr = sizedSegment.getUtf8String(0);
 
-        System.out.println("java receive " + keyStr + " " + isCtrl);
-
         process(
                 switch (keyStr.toLowerCase(Locale.ROOT)) {
                     case "z" -> Key.Z;
@@ -60,18 +58,4 @@ public class QtRootShortcutHandler extends RootShortcutHandler implements QtMemo
                 , isCtrl
         );
     }
-
-/*    @Override
-    public void handle(final KeyEvent keyEvent) {
-        process(
-                switch (keyEvent.getCode()) {
-                    case Z -> Key.Z;
-                    case X -> Key.X;
-                    case C -> Key.C;
-                    case V -> Key.V;
-                    case DELETE -> Key.DELETE;
-                    default -> null;
-        }
-        , keyEvent.isControlDown());
-    }*/
 }

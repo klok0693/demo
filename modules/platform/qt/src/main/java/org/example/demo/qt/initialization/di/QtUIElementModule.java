@@ -16,7 +16,7 @@ import org.example.demo.qt.port.ui.graphics.QtPainterFactory;
  * DI config for UI elements
  *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 class QtUIElementModule extends AbstractModule {
     @Override

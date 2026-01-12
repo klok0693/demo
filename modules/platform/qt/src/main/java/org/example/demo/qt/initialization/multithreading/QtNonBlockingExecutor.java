@@ -15,12 +15,8 @@ import java.lang.invoke.MethodHandle;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Custom executor service, wrapping logic operations into<p>
- * separate non-blocking thread and ui update operations into<p>
- * JavaFX Application thread.
- *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 public class QtNonBlockingExecutor implements NonBlockingForegroundExecutor, QtMemoryView {
     //<editor-fold desc="ABI method's names">

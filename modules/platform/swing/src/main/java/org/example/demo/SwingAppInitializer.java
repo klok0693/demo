@@ -22,7 +22,7 @@ public class SwingAppInitializer extends AppInitializer<JFrame> {
     }
 
     @Override
-    protected JFrame launchGUI(final Injector injector) {
+    protected JFrame launch(final Injector injector) {
         return buildApplication(injector).launchGUI();
     }
 

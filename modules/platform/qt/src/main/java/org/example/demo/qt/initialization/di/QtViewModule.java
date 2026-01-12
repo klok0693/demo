@@ -33,7 +33,7 @@ import org.example.demo.qt.port.keyboard.QtRootShortcutHandler;
  * DI config for UI views
  *
  * @author Pilip Yurchanka
- * @since v1.0
+ * @since v1.2
  */
 class QtViewModule extends AbstractModule {
 

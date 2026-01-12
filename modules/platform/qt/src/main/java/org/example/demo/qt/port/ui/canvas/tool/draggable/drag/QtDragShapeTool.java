@@ -5,15 +5,14 @@ import org.example.demo.core.adapter.ui.state.UIState;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 import org.example.demo.core.context.state.ModelState;
 import org.example.demo.core.port.ui.canvas.tool.draggable.drag.DragShapeTool;
-import org.example.demo.qt.port.ui.canvas.QtCanvasElement;
 
 /**
- * JavaFX's realization of {@link DragShapeTool}
+ * Qt's realization of {@link DragShapeTool}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
-public class QtDragShapeTool extends DragShapeTool<QtPainter> implements QtCanvasElement {
+public class QtDragShapeTool extends DragShapeTool<QtPainter> {
 
     public QtDragShapeTool(
             final CanvasAdapter adapter,

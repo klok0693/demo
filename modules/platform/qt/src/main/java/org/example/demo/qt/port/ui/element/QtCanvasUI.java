@@ -17,10 +17,8 @@ import java.lang.invoke.MethodHandle;
 import java.util.List;
 
 /**
- * Main(and the only=) canvas
- *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class QtCanvasUI implements CanvasUI, QtMemoryView {
     //<editor-fold desc="ABI method's names">

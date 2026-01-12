@@ -9,7 +9,8 @@
 extern "C" {
 #endif
 
-UI_API QtKeyboardView* ui_keyboard_view_get() {
+UI_API QtKeyboardView* ui_keyboard_view_get() 
+{
     QObject* obj =
         get_engine()->rootContext()
           ->contextProperty("keyboardView")
@@ -20,8 +21,8 @@ UI_API QtKeyboardView* ui_keyboard_view_get() {
 
 UI_API void set_key_callback(
     void* keyboardController,
-    KeyCallback callback
-) {
+    KeyCallback callback) 
+{
     auto* ctrl = static_cast<QtKeyboardView*>(keyboardController);
     ctrl->setKeyCallback(callback);
 }

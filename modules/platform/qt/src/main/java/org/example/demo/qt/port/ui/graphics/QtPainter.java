@@ -9,6 +9,10 @@ import java.lang.foreign.Arena;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.2
+ */
 @AllArgsConstructor
 public class QtPainter implements GraphicsPainter {
     private final MemorySegment ctxPtr;

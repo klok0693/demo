@@ -11,6 +11,10 @@ import org.example.demo.realization.level.async.RunnableWrapper;
 import org.example.demo.realization.level.async.NonBlockingForegroundExecutor;
 import org.example.demo.qt.initialization.multithreading.clipboard.QtOSClipboardAsyncWrapper;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.2
+ */
 class QtAsynchModule extends AbstractModule {
 
     @Override

@@ -14,7 +14,7 @@ ApplicationWindow {
 
     FocusScope {
        anchors.fill: parent
-       focus: true // Ensure the scope itself is focusable
+       focus: true
     
        Item {
            id: keyCatcher

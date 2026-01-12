@@ -24,10 +24,10 @@ import java.util.Optional;
 import static java.lang.foreign.ValueLayout.ADDRESS;
 
 /**
- * JavaFX's realization of {@link ShapeCanvasView}
+ * Qt's realization of {@link ShapeCanvasView}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class QtShapeCanvasView extends ShapeCanvasView<QtPainter> implements QtMemoryView {
     //<editor-fold desc="ABI method's names">

@@ -29,7 +29,7 @@ public abstract class AppInitializer<E> implements Initializer<E> {
         log.debug(INITIALIZATION_MARKER, "{}", injector.getInstance(Configuration.class));
 
         log.debug(INITIALIZATION_MARKER, "Launching GUI");
-        return launchGUI(injector);
+        return launch(injector);
     }
 
     protected List<Module> getModules() {
@@ -38,5 +38,5 @@ public abstract class AppInitializer<E> implements Initializer<E> {
         return list;
     }
 
-    protected abstract E launchGUI(Injector injector);
+    protected abstract E launch(Injector injector);
 }

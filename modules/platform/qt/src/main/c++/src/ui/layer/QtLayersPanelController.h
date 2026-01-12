@@ -7,10 +7,6 @@
 
 #include "ui/layer/layers_panel_ui_bridge.h"
 
-/* class ModelState;
-class UIState;
-class ShapeSelector; */
-
 class QtLayersPanelController : public QObject {
     Q_OBJECT
 
@@ -20,9 +16,6 @@ class QtLayersPanelController : public QObject {
 
 public:
     explicit QtLayersPanelController(
-/*         ModelState* modelState,
-        UIState* uiState,
-        ShapeSelector* shapeSelector, */
         QObject* parent = nullptr
     );
 
@@ -41,13 +34,6 @@ public slots:
     void onShapeSelect(const QString& value);
 
     void update();
-    //void unSelectAll();
-    //void onItemActivated(const QModelIndex& index);
-    
-
-/*     ModelState* m_modelState;
-    UIState* m_uiState;
-    ShapeSelector* m_shapeSelector; */
 
 private:    
     QStandardItemModel m_model;

@@ -12,7 +12,8 @@ bool PropertiesPanelController::enabled() const
     return m_enabled;
 }
 
-void PropertiesPanelController::setEnabled(bool isEnabled) {
+void PropertiesPanelController::setEnabled(bool isEnabled) 
+{
     m_enabled = isEnabled;
     emit enabledChanged();
 }
@@ -22,7 +23,8 @@ QString PropertiesPanelController::x() const
     return m_x;
 }
 
-void PropertiesPanelController::setX(const QString& str) {
+void PropertiesPanelController::setX(const QString& str) 
+{
     m_x = str;
     emit valuesChanged();
 }
@@ -32,7 +34,8 @@ QString PropertiesPanelController::y() const
     return m_y;
 }
 
-void PropertiesPanelController::setY(const QString& str) {
+void PropertiesPanelController::setY(const QString& str) 
+{
     m_y = str;
     emit valuesChanged();
 }
@@ -42,7 +45,8 @@ QString PropertiesPanelController::width() const
     return m_width;
 }
 
-void PropertiesPanelController::setWidth(const QString& str) {
+void PropertiesPanelController::setWidth(const QString& str) 
+{
     m_width = str;
     emit valuesChanged();
 }
@@ -52,7 +56,8 @@ QString PropertiesPanelController::height() const
     return m_height;
 }
 
-void PropertiesPanelController::setHeight(const QString& str) {
+void PropertiesPanelController::setHeight(const QString& str) 
+{
     m_height = str;
     emit valuesChanged();
 }
@@ -62,7 +67,8 @@ QString PropertiesPanelController::layer() const
     return m_layer;
 }
 
-void PropertiesPanelController::setLayer(const QString& str) {
+void PropertiesPanelController::setLayer(const QString& str) 
+{
     m_layer = str;
     emit valuesChanged();
 }
@@ -72,7 +78,8 @@ static constexpr unsigned int str2int(const char* str, int h = 0)
     return !str[h] ? 5381 : (str2int(str, h+1) * 33) ^ str[h];
 }
 
-void PropertiesPanelController::clearAndDisable(const QString& id) {
+void PropertiesPanelController::clearAndDisable(const QString& id) 
+{
     QByteArray ba = id.toLocal8Bit();
     const char *str = ba.data();
 
@@ -105,27 +112,33 @@ void PropertiesPanelController::clearAndDisable(const QString& id) {
     emit valuesChanged();
 }
 
-void PropertiesPanelController::setUpdateXCallback(UpdatePropertyCallback callback) {
+void PropertiesPanelController::setUpdateXCallback(UpdatePropertyCallback callback) 
+{
     m_updateXCallback = callback;
 }
 
-void PropertiesPanelController::setUpdateYCallback(UpdatePropertyCallback callback) {
+void PropertiesPanelController::setUpdateYCallback(UpdatePropertyCallback callback) 
+{
     m_updateYCallback = callback;
 }
 
-void PropertiesPanelController::setUpdateWidthCallback(UpdatePropertyCallback callback) {
+void PropertiesPanelController::setUpdateWidthCallback(UpdatePropertyCallback callback) 
+{
     m_updateWidthCallback = callback;
 }
 
-void PropertiesPanelController::setUpdateHeightCallback(UpdatePropertyCallback callback) {
+void PropertiesPanelController::setUpdateHeightCallback(UpdatePropertyCallback callback) 
+{
     m_updateHeightCallback = callback;
 }
 
-void PropertiesPanelController::setUpdateLayerCallback(UpdatePropertyCallback callback) {
+void PropertiesPanelController::setUpdateLayerCallback(UpdatePropertyCallback callback) 
+{
     m_updateLayerCallback = callback;
 }
 
-void PropertiesPanelController::setUpdateColorCallback(UpdatePropertyCallback callback) {
+void PropertiesPanelController::setUpdateColorCallback(UpdatePropertyCallback callback) 
+{
     m_updateColorCallback = callback;
 }
 

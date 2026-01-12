@@ -5,19 +5,18 @@ import org.example.demo.core.adapter.ui.state.UIState;
 import org.example.demo.core.context.state.ModelState;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ShapeSelectionTool;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
-import org.example.demo.qt.port.ui.canvas.QtCanvasElement;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * JavaFX's realization of {@link ShapeSelectionTool}
+ * Qt's realization of {@link ShapeSelectionTool}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
-public class QtShapeSelectionTool extends ShapeSelectionTool<QtPainter> implements QtCanvasElement {
+public class QtShapeSelectionTool extends ShapeSelectionTool<QtPainter> {
 
     private final Map<Integer, QtModificableSelectionFrame> frames = new HashMap<>(2);
 

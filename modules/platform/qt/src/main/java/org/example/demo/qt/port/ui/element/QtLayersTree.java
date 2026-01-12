@@ -24,12 +24,12 @@ import static java.lang.foreign.ValueLayout.ADDRESS;
 import static java.lang.foreign.ValueLayout.JAVA_INT;
 
 /**
- * JavaFX's realization of {@link LayersTree}
+ * Qt's realization of {@link LayersTree}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
-public class QtLayersTree /*extends TreeView<String>*/ implements LayersTree, QtMemoryView {
+public class QtLayersTree implements LayersTree, QtMemoryView {
     //<editor-fold desc="ABI method's names">
     private static final String NATIVE_LAYERS_PANEL_NAME = "ui_layers_controller_get";
 

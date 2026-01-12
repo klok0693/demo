@@ -20,12 +20,11 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * application initializer
+ * Application initializer for Qt platform
  *
  * @since 1.2
  * @author Pilip Yurchanka
  */
-
 @Slf4j
 public class QtAppInitializer extends AppInitializer {
 
@@ -36,8 +35,13 @@ public class QtAppInitializer extends AppInitializer {
         return modules;
     }
 
+    /**
+     * Unlike javafx and swing realizations, all ui initialization
+     * are performed outside the jvm. All we need to do is to attach
+     * java's methods to .c calls
+     */
     @Override
-    protected Object launchGUI(final Injector injector) {
+    protected Object launch(final Injector injector) {
         Stream.of(
                         ToolBarPanelView.class,
                         PropertiesPanelView.class,

@@ -10,7 +10,8 @@
 extern "C" {
 #endif
 
-UI_API QtLayersPanelController* ui_layers_controller_get() {
+UI_API QtLayersPanelController* ui_layers_controller_get() 
+{
     QObject* obj =
         get_engine()->rootContext()
           ->contextProperty("layersTreeController")
@@ -21,38 +22,38 @@ UI_API QtLayersPanelController* ui_layers_controller_get() {
 
 UI_API void ui_layers_update(
     void* layersController,
-    const LayersSnapshot* snapshot
-) {
+    const LayersSnapshot* snapshot) 
+{
     auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
     ctrl->layersUpdate(snapshot);
 }
 
 UI_API void ui_layers_panel_cleanup(
-    void* layersController
-) {
+    void* layersController) 
+{
     auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
     ctrl->cleanUp();
 }
 
 UI_API void set_selected_id(
     void* layersController,
-    const char* selectedId
-) {
+    const char* selectedId) 
+{
     auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
     ctrl->setSelectedId(selectedId);
 }
 
 UI_API void set_select_shape_callback(
     void* layersController,
-    SelectShapeCallback callback
-) {
+    SelectShapeCallback callback) 
+{
     auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
     ctrl->setOnShapeSelectCallback(callback);
 }
 
 UI_API void ui_layers_panel_unselect_all(
-    void* layersController
-) {
+    void* layersController) 
+{
     auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
     ctrl->unSelectAll();
 }

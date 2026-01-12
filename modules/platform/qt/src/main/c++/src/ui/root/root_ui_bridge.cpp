@@ -9,7 +9,8 @@
 extern "C" {
 #endif
 
-UI_API void set_cursor(const char* utf8) {
+UI_API void set_cursor(const char* utf8) 
+{
     QObject* obj =
         get_engine()->rootContext()
           ->contextProperty("rootView")

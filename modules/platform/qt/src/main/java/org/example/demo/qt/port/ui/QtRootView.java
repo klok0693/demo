@@ -16,10 +16,10 @@ import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 
 /**
- * JavaFX's realization of {@link RootView}
+ * Qt's realization of {@link RootView}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
 public class QtRootView extends RootView implements QtMemoryView {
     //<editor-fold desc="ABI method's names">

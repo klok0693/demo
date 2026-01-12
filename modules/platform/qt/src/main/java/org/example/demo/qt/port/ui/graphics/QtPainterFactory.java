@@ -7,6 +7,10 @@ import java.lang.foreign.MemorySegment;
 import java.lang.foreign.ValueLayout;
 import java.lang.invoke.MethodHandle;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.2
+ */
 public class QtPainterFactory implements QtMemoryView {
     //<editor-fold desc="ABI method's names">
     private static final String NATIVE_PAINTER_SAVE_NAME = "ui_painter_save";

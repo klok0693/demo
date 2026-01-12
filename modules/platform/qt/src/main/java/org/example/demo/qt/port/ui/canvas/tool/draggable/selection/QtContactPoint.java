@@ -5,16 +5,15 @@ import org.example.demo.core.adapter.ui.canvas.CanvasAdapter;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.SelectionFrame;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ContactPoint;
-import org.example.demo.qt.port.ui.canvas.QtCanvasElement;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 
 /**
- * JavaFX's realization of {@link ContactPoint}
+ * Qt's realization of {@link ContactPoint}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
-public class QtContactPoint extends ContactPoint<QtPainter> implements QtCanvasElement {
+public class QtContactPoint extends ContactPoint<QtPainter> {
 
     public QtContactPoint(
             final SelectionFrame<QtPainter> selectionTool,

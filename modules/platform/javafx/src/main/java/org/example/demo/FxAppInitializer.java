@@ -26,7 +26,7 @@ public class FxAppInitializer extends AppInitializer<Stage> {
     }
 
     @Override
-    protected Stage launchGUI(final Injector injector) {
+    protected Stage launch(final Injector injector) {
         FxHelloApplication.setInjector(injector);
         Application.launch(FxHelloApplication.class);
         return null;

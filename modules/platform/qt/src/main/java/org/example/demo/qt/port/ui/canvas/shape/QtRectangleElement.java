@@ -2,16 +2,15 @@ package org.example.demo.qt.port.ui.canvas.shape;
 
 import org.example.demo.api.graphics.color.Color;
 import org.example.demo.core.port.ui.canvas.shape.RectangleElement;
-import org.example.demo.qt.port.ui.canvas.QtCanvasElement;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 
 /**
- * JavaFX's realization of {@link RectangleElement}
+ * Qt's realization of {@link RectangleElement}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
-public class QtRectangleElement extends RectangleElement<QtPainter> implements QtCanvasElement {
+public class QtRectangleElement extends RectangleElement<QtPainter> {
     //TODO: Someday, sometime
     private double opacity;
     private double scale;

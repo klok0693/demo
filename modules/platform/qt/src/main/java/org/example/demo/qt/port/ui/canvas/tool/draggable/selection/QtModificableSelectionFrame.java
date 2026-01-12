@@ -5,11 +5,13 @@ import org.example.demo.core.adapter.ui.state.UIState;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ContactAlignment;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ContactPoint;
 import org.example.demo.core.port.ui.canvas.tool.draggable.selection.ModificableSelectionFrame;
-import org.example.demo.qt.port.ui.canvas.QtCanvasElement;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 
-public class QtModificableSelectionFrame extends ModificableSelectionFrame<QtPainter>
-        implements QtCanvasElement {
+/**
+ * @author Pilip Yurchanka
+ * @since v1.2
+ */
+public class QtModificableSelectionFrame extends ModificableSelectionFrame<QtPainter> {
 
     public QtModificableSelectionFrame(final CanvasAdapter adapter, final UIState uiState) {
         super(adapter, uiState);

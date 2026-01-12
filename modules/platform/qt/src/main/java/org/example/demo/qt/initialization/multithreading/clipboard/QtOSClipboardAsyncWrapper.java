@@ -4,6 +4,10 @@ import org.example.demo.core.port.os.OSClipboard;
 import org.example.demo.realization.level.async.AsynchWrapper;
 import org.example.demo.realization.level.async.BlockingForegroundExecutor;
 
+/**
+ * @author Pilip Yurchanka
+ * @since v1.2
+ */
 public class QtOSClipboardAsyncWrapper
         extends AsynchWrapper<OSClipboard, BlockingForegroundExecutor>
         implements OSClipboard {

@@ -67,8 +67,6 @@ ToolBar {
 
             Button {
                 text: "Delete"
-                //checkable: true
-                //checked: toolBarController.deleteEnabled()
                 enabled: toolBarController.deleteEnabled
                 onClicked: toolBarController.onDeleteAction()
             }

@@ -2,48 +2,44 @@
 
 #include <QGuiApplication>
 
-void ToolBarController::setDeleteBtnDisabled(bool isDisabled) {
+void ToolBarController::setDeleteBtnDisabled(bool isDisabled) 
+{
     m_deleteEnabled = !isDisabled;
-
     emit deleteEnabledChanged();
 }
 
-void ToolBarController::setinsertRectBtnSelected(bool isSelected) {
+void ToolBarController::setinsertRectBtnSelected(bool isSelected) 
+{
     m_insertRectBtnSelected = isSelected;
-
     emit insertRectBtnSelectedChanged();
 }
 
-void ToolBarController::setinsertCycleBtnSelected(bool isSelected) {
+void ToolBarController::setinsertCycleBtnSelected(bool isSelected) 
+{
     m_insertCycleBtnSelected = isSelected;
-
     emit insertCycleBtnSelectedChanged();
 }
 
-void ToolBarController::setInsertRectCallback(
-        void* cb,
-        void* userData) {
+void ToolBarController::setInsertRectCallback(void* cb, void* userData) 
+{
     m_insertRectCallback = reinterpret_cast<ToolbarCallback>(cb);
     m_insertRectUserData = userData;
 }
 
-void ToolBarController::setInsertCycleCallback(
-        void* cb,
-        void* userData) {
+void ToolBarController::setInsertCycleCallback(void* cb, void* userData) 
+{
     m_insertCycleCallback = reinterpret_cast<ToolbarCallback>(cb);
     m_insertRectUserData = userData;
 }
 
-void ToolBarController::setUndoCallback(
-        void* cb,
-        void* userData) {
+void ToolBarController::setUndoCallback(void* cb, void* userData) 
+{
     m_undoCallback = reinterpret_cast<ToolbarCallback>(cb);
     m_insertRectUserData = userData;
 }
 
-void ToolBarController::setDeleteCallback(
-        void* cb,
-        void* userData) {
+void ToolBarController::setDeleteCallback(void* cb, void* userData) 
+{
     m_deleteCallback = reinterpret_cast<ToolbarCallback>(cb);
     m_insertRectUserData = userData;
 }

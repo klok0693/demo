@@ -2,16 +2,15 @@ package org.example.demo.qt.port.ui.canvas.shape;
 
 import org.example.demo.api.graphics.color.Color;
 import org.example.demo.core.port.ui.canvas.shape.EllipseElement;
-import org.example.demo.qt.port.ui.canvas.QtCanvasElement;
 import org.example.demo.qt.port.ui.graphics.QtPainter;
 
 /**
- * JavaFX's realization of {@link EllipseElement}
+ * Qt's realization of {@link EllipseElement}
  *
  * @author Pilip Yurchanka
- * @since v1.1
+ * @since v1.2
  */
-public class QtEllipseElement extends EllipseElement<QtPainter> implements QtCanvasElement {
+public class QtEllipseElement extends EllipseElement<QtPainter> {
 
     protected QtEllipseElement(
             final int layer,

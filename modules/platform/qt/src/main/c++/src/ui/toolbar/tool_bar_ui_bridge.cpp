@@ -9,7 +9,8 @@
 extern "C" {
 #endif
 
-UI_API ToolBarController* ui_toolbar_get() {
+UI_API ToolBarController* ui_toolbar_get() 
+{
     QObject* obj =
         get_engine()->rootContext()
           ->contextProperty("toolBarController")
@@ -21,8 +22,8 @@ UI_API ToolBarController* ui_toolbar_get() {
 UI_API void set_toolbar_insert_rect_callback(
         void* toolbar,
         ToolbarCallback cb,
-        void* userData) {
-
+        void* userData) 
+{
     auto* ctrl = static_cast<ToolBarController*>(toolbar);
     ctrl->setInsertRectCallback((void*)cb, userData);
 }
@@ -30,8 +31,8 @@ UI_API void set_toolbar_insert_rect_callback(
 UI_API void set_toolbar_insert_cycle_callback(
         void* toolbar,
         ToolbarCallback cb,
-        void* userData) {
-
+        void* userData) 
+{
     auto* ctrl = static_cast<ToolBarController*>(toolbar);
     ctrl->setInsertCycleCallback((void*)cb, userData);
 }
@@ -39,8 +40,8 @@ UI_API void set_toolbar_insert_cycle_callback(
 UI_API void set_toolbar_undo_callback(
         void* toolbar,
         ToolbarCallback cb,
-        void* userData) {
-
+        void* userData) 
+{
     auto* ctrl = static_cast<ToolBarController*>(toolbar);
     ctrl->setUndoCallback((void*)cb, userData);
 }
@@ -48,23 +49,26 @@ UI_API void set_toolbar_undo_callback(
 UI_API void set_toolbar_delete_callback(
         void* toolbar,
         ToolbarCallback cb,
-        void* userData) {
-
+        void* userData) 
+{
     auto* ctrl = static_cast<ToolBarController*>(toolbar);
     ctrl->setDeleteCallback((void*)cb, userData);
 }
 
-UI_API void set_toolbar_insert_rect_btn_selected(void* toolbar, bool isSelected) {
+UI_API void set_toolbar_insert_rect_btn_selected(void* toolbar, bool isSelected) 
+{
     auto* ctrl = static_cast<ToolBarController*>(toolbar);
     ctrl->setinsertRectBtnSelected(isSelected);
 }
 
-UI_API void set_toolbar_insert_cycle_btn_selected(void* toolbar, bool isSelected) {
+UI_API void set_toolbar_insert_cycle_btn_selected(void* toolbar, bool isSelected) 
+{
     auto* ctrl = static_cast<ToolBarController*>(toolbar);
     ctrl->setinsertCycleBtnSelected(isSelected);
 }
 
-UI_API void set_toolbar_delete_btn_disabled(void* toolbar, bool disabled) {
+UI_API void set_toolbar_delete_btn_disabled(void* toolbar, bool disabled) 
+{
     auto* ctrl = static_cast<ToolBarController*>(toolbar);
     ctrl->setDeleteBtnDisabled(disabled);
 }

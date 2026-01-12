@@ -7,8 +7,8 @@ import java.util.List;
 import static org.example.demo.util.logging.MarkerStorage.INITIALIZATION_MARKER;
 
 /**
- * @since 1.2
  * @author Pilip Yurchanka
+ * @since 1.2
  */
 @Slf4j
 public class QtMain {
@@ -16,9 +16,5 @@ public class QtMain {
     public static void main(final String[] args) {
         log.debug(INITIALIZATION_MARKER, "Start application with args:{}", List.of(args));
         new QtAppInitializer().initialize(args);
-    }
-
-    public static void init() {
-        main(new String[]{});
     }
 }

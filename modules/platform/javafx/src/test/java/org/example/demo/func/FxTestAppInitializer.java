@@ -20,7 +20,7 @@ public class FxTestAppInitializer extends FxAppInitializer {
 
     @SneakyThrows
     @Override
-    protected Stage launchGUI(final Injector injector) {
+    protected Stage launch(final Injector injector) {
         FxHelloApplication.setInjector(injector);
 
         FxToolkit.registerPrimaryStage();

@@ -2,7 +2,6 @@
 
 #include <QObject>
 #include <QString>
-//#include <QColor>
 
 #include "ui/property/properties_panel_ui_bridge.h"
 
