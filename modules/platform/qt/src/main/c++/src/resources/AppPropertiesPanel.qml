@@ -6,7 +6,7 @@ import QtQuick.Layouts
 Pane /* Rectangle */ {
     id: propertyRoot
     width: 240
-    enabled: propertiesPanelController.enabled
+    enabled: propertiesPanelController && propertiesPanelController.enabled
 
     readonly property int margin: 10
 
@@ -52,8 +52,8 @@ Pane /* Rectangle */ {
                 Layout.horizontalStretchFactor: 3
             }
             TextField {
-                enabled: propertiesPanelController.x && propertiesPanelController.x.length > 0
-                text: propertiesPanelController.x
+                enabled: propertiesPanelController && propertiesPanelController.x && propertiesPanelController.x.length > 0
+                text: propertiesPanelController && propertiesPanelController.x
                 onAccepted: propertiesPanelController.updateX(text)
 
                 Layout.fillWidth: true
@@ -74,8 +74,8 @@ Pane /* Rectangle */ {
                 Layout.horizontalStretchFactor: 3
             }
             TextField {
-                enabled: propertiesPanelController.y && propertiesPanelController.y.length > 0
-                text: propertiesPanelController.y
+                enabled: propertiesPanelController && propertiesPanelController.y && propertiesPanelController.y.length > 0
+                text: propertiesPanelController && propertiesPanelController.y
                 onAccepted: propertiesPanelController.updateY(text)
 
                 Layout.fillWidth: true
@@ -98,8 +98,8 @@ Pane /* Rectangle */ {
                 Layout.horizontalStretchFactor: 3
             }
             TextField {
-                enabled: propertiesPanelController.width && propertiesPanelController.width.length > 0
-                text: propertiesPanelController.width
+                enabled: propertiesPanelController && propertiesPanelController.width && propertiesPanelController.width.length > 0
+                text: propertiesPanelController && propertiesPanelController.width
                 onAccepted: propertiesPanelController.updateWidth(text)
 
                 Layout.fillWidth: true
@@ -120,8 +120,8 @@ Pane /* Rectangle */ {
                 Layout.horizontalStretchFactor: 3
             }
             TextField {
-                enabled: propertiesPanelController.height && propertiesPanelController.height.length > 0
-                text: propertiesPanelController.height
+                enabled: propertiesPanelController && propertiesPanelController.height && propertiesPanelController.height.length > 0
+                text: propertiesPanelController && propertiesPanelController.height
                 onAccepted: propertiesPanelController.updateHeight(text)
 
                 Layout.fillWidth: true
@@ -144,8 +144,8 @@ Pane /* Rectangle */ {
                 Layout.horizontalStretchFactor: 3
             }
             TextField {
-                enabled: propertiesPanelController.layer && propertiesPanelController.layer.length > 0
-                text: propertiesPanelController.layer
+                enabled: propertiesPanelController && propertiesPanelController.layer && propertiesPanelController.layer.length > 0
+                text: propertiesPanelController && propertiesPanelController.layer
                 onAccepted: propertiesPanelController.updateLayer(text)
 
                 Layout.fillWidth: true

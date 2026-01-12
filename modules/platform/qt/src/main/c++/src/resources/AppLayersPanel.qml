@@ -40,8 +40,8 @@ Pane /* Rectangle */ {
             Layout.fillHeight: true
             Layout.margins: layersRoot.margin
 
-            model: layersTreeController.model
-            selectionModel: layersTreeController.selectionModel
+            model: layersTreeController && layersTreeController.model
+            selectionModel: layersTreeController && layersTreeController.selectionModel
 
             //clip: true
 

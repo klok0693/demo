@@ -39,14 +39,14 @@ ToolBar {
             Button {
                 text: "Rect"
                 checkable: true
-                checked: toolBarController.insertRectBtnSelected
+                checked: toolBarController && toolBarController.insertRectBtnSelected
                 onClicked: toolBarController.onInsertRectAction()
             }
 
             Button {
                 text: "Cycle"
                 checkable: true
-                checked: toolBarController.insertCycleBtnSelected
+                checked: toolBarController && toolBarController.insertCycleBtnSelected
                 onClicked: toolBarController.onInsertCycleAction()
             }
         }
@@ -67,7 +67,7 @@ ToolBar {
 
             Button {
                 text: "Delete"
-                enabled: toolBarController.deleteEnabled
+                enabled: toolBarController && toolBarController.deleteEnabled
                 onClicked: toolBarController.onDeleteAction()
             }
         }
