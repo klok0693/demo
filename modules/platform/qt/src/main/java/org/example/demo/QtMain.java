@@ -17,4 +17,8 @@ public class QtMain {
         log.debug(INITIALIZATION_MARKER, "Start application with args:{}", List.of(args));
         new QtAppInitializer().initialize(args);
     }
+
+    public static void init() {
+        main(new String[]{});
+    }
 }
