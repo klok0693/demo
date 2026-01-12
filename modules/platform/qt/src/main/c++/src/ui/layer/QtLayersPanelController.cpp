@@ -63,10 +63,8 @@ void QtLayersPanelController::cleanUp()
     m_model.setHorizontalHeaderLabels({""});
 }
 
-void QtLayersPanelController::setSelectedId(const char* selectedId) 
-{
+void QtLayersPanelController::setSelectedId(const char* selectedId) {
     const QString text = QString::fromUtf8(selectedId);
-
     const QList<QStandardItem*> items = m_model.findItems(text, Qt::MatchExactly | Qt::MatchRecursive);
     if (items.isEmpty()) {
         return;
@@ -75,8 +73,18 @@ void QtLayersPanelController::setSelectedId(const char* selectedId)
     QStandardItem *item = items.first();
     QModelIndex index = item->index();
 
-    m_selectionModel.select(index, QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
-    m_selectionModel.setCurrentIndex(index, QItemSelectionModel::SelectCurrent);
+    m_selectionModel.select(index, QItemSelectionModel::Select | QItemSelectionModel::Rows);
+    m_selectionModel.setCurrentIndex(index, QItemSelectionModel::NoUpdate/* SelectCurrent */);
+}
+
+void QtLayersPanelController::setSelectedIds(const char* const* ids, jsize_t count) 
+{
+    unSelectAll();
+
+    for (size_t i = 0; i < count; ++i) {
+        const char* id = ids[i];
+        setSelectedId(id);
+    }
 }
 
 void QtLayersPanelController::setOnShapeSelectCallback(SelectShapeCallback callback) 

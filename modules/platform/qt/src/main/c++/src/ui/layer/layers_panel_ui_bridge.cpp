@@ -35,12 +35,13 @@ UI_API void ui_layers_panel_cleanup(
     ctrl->cleanUp();
 }
 
-UI_API void set_selected_id(
+UI_API void set_selected_ids(
     void* layersController,
-    const char* selectedId) 
+    const char* const* ids, 
+    jsize_t count) 
 {
     auto* ctrl = static_cast<QtLayersPanelController*>(layersController);
-    ctrl->setSelectedId(selectedId);
+    ctrl->setSelectedIds(ids, count);
 }
 
 UI_API void set_select_shape_callback(

@@ -6,6 +6,8 @@
 extern "C" {
 #endif
 
+typedef unsigned long long jsize_t;
+
 typedef void (*SelectShapeCallback)(const char* utf8);
 
 typedef struct {
@@ -28,9 +30,10 @@ UI_API void ui_layers_panel_cleanup(
     void* layersController
 );
 
-UI_API void set_selected_id(
+UI_API void set_selected_ids(
     void* layersController,
-    const char* selectedId
+    const char* const* ids, 
+    jsize_t count
 );
 
 UI_API void set_select_shape_callback(

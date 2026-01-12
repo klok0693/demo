@@ -27,13 +27,13 @@ public:
     void cleanUp();
     void unSelectAll();
 
-    void setSelectedId(const char* selectedId);
+    void setSelectedIds(const char* const* ids, jsize_t count);
     void setOnShapeSelectCallback(SelectShapeCallback callback);
     
 public slots:
     void onShapeSelect(const QString& value);
 
-    void update();
+    void update();    
 
 private:    
     QStandardItemModel m_model;
@@ -41,4 +41,6 @@ private:
     QItemSelectionModel m_selectionModel;
 
     SelectShapeCallback m_selectShapeCallback;
+
+    void setSelectedId(const char* selectedId);
 };

@@ -9,19 +9,21 @@ import org.example.demo.core.port.ui.elements.LayersTree;
 import org.example.demo.qt.port.ui.QtMemoryView;
 
 import org.example.demo.qt.port.ui.bridge.*;
+import org.example.demo.qt.util.MemorySegmentUtil;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.FunctionDescriptor;
 import java.lang.foreign.MemorySegment;
 import java.lang.invoke.MethodHandle;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
-import static java.lang.foreign.ValueLayout.ADDRESS;
-import static java.lang.foreign.ValueLayout.JAVA_INT;
+import static java.lang.foreign.ValueLayout.*;
 
 /**
  * Qt's realization of {@link LayersTree}
@@ -38,7 +40,7 @@ public class QtLayersTree implements LayersTree, QtMemoryView {
     private static final String NATIVE_UPDATE_PANEL_NAME = "ui_layers_update";
     private static final String NATIVE_CLEANUP_PANEL_NAME = "ui_layers_panel_cleanup";
     private static final String NATIVE_UNSELECT_ALL_NAME = "ui_layers_panel_unselect_all";
-    private static final String NATIVE_SET_SELECTED_ID_NAME = "set_selected_id";
+    private static final String NATIVE_SET_SELECTED_ID_NAME = "set_selected_ids";
     //</editor-fold>
 
     private final ModelState modelState;
@@ -89,7 +91,7 @@ public class QtLayersTree implements LayersTree, QtMemoryView {
         this.selectIdHandle =
                 findNative(
                         NATIVE_SET_SELECTED_ID_NAME,
-                        FunctionDescriptor.ofVoid(ADDRESS, ADDRESS));
+                        FunctionDescriptor.ofVoid(ADDRESS, ADDRESS, JAVA_LONG));
     }
 
     public QtLayersTree(final ModelState modelState, final UIState uiState, final ShapeSelector shapeSelector) {
@@ -161,9 +163,20 @@ public class QtLayersTree implements LayersTree, QtMemoryView {
     public void setSelectedIdIfExist() {
         if (uiState.hasSelectedId()) {
             try (final Arena arena = Arena.ofConfined()) {
-                final String selectedId = valueOf(uiState.getSelectedShapeId());
-                final MemorySegment utf8 = arena.allocateUtf8String(selectedId);
-                selectIdHandle.invoke(qtRefHandle.invoke(), utf8);
+                final Stream<Integer> ids;
+                final long size;
+
+                if (uiState.isMultipleSelection()) {
+                    ids = uiState.getSelectedIds();
+                    size = uiState.getSelectedIds().count();
+                }
+                else {
+                    ids = Stream.of(uiState.getSelectedShapeId());
+                    size = 1;
+                }
+
+                final MemorySegment utf8Array = MemorySegmentUtil.transform(ids.map(String::valueOf), arena);
+                selectIdHandle.invoke(qtRefHandle.invoke(), utf8Array, size);
             }
         }
     }
