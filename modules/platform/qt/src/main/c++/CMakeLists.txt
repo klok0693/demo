@@ -24,21 +24,6 @@ find_package(JNI REQUIRED)
 message(STATUS "JNI include dirs: ${JNI_INCLUDE_DIRS}")
 message(STATUS "JNI libraries: ${JNI_LIBRARIES}")    
 
-#add_executable(qt-jvm
-#    src/app/main.cpp
-#)
-
-#target_include_directories(qt-jvm PRIVATE
-#    ${JNI_INCLUDE_DIRS}
-#)
-
-#target_link_libraries(qt-jvm
-#    PUBLIC Qt6::Quick
-#    PUBLIC Qt6::Core
-#    Qt6::Gui
-#    ${JNI_LIBRARIES}
-#)
-
 # ------ UI -------------
 
 
@@ -83,22 +68,17 @@ target_link_libraries(ui
     ${JNI_LIBRARIES}
 )
 
+# ------ EXECUTABLE -------------
 
 add_executable(QtDemo
     src/app/main.cpp
-    src/resources/resources.qrc
+    ${NATIVE_RESOURCES_DIR}/resources.qrc
 )
 
 target_include_directories(QtDemo
     PRIVATE ${JNI_INCLUDE_DIRS}
 )
 
-#target_link_libraries(QtDemo
-#    PRIVATE ${JNI_LIBRARIES}
-#)
-
-#BUILD_RPATH "${JAVA_HOME}/lib/server"
-#BUILD_RPATH "$ENV{JAVA_HOME}/lib/server"
 set_target_properties(QtDemo PROPERTIES
     BUILD_RPATH "$ORIGIN"
 )
