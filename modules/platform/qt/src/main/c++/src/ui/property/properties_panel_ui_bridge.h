@@ -68,6 +68,11 @@ UI_API void set_update_layer_callback(
     UpdatePropertyCallback callback
 );
 
+UI_API void set_update_color_callback(
+    void* propertiesPanel,
+    UpdatePropertyCallback callback
+);
+
 #ifdef __cplusplus
 }
 #endif

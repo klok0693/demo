@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Dialogs
 import QtQuick.Layouts
 
 Pane /* Rectangle */ {
@@ -161,21 +162,31 @@ Pane /* Rectangle */ {
             Item { }
 
             // Row 3 — Color
-/*             Label {
-                text: "color:"
-                Layout.alignment: Qt.AlignRight
+            Label {
+                text: "Color:"
+                horizontalAlignment: Text.AlignRight
+                verticalAlignment: Text.AlignVCenter
+
                 Layout.fillWidth: true
                 Layout.horizontalStretchFactor: 3
-            } */
-/*             ColorDialog {
-                id: colorDialog
-                onAccepted: propertiesPanelController.updateColor(color)
             }
             Button {
-                text: "Pick"
-                enabled: propertiesPanelController.enabled
-                onClicked: colorDialog.open()
-            } */
+               text: "pick"
+               onClicked: colorDialog.open()
+
+                Layout.fillWidth: true
+                Layout.horizontalStretchFactor: 2
+                Layout.minimumWidth: grid.textFieldMinWidth
+                Layout.maximumWidth: grid.textFieldMaxWidth
+
+               ColorDialog {
+                   id: colorDialog
+                   selectedColor: "blue" // Initial color
+                   onAccepted: {
+                        propertiesPanelController.updateColor(selectedColor.toString())
+                   }
+               }
+            }
         }
     }
 }

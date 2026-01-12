@@ -121,6 +121,14 @@ UI_API void set_update_layer_callback(
     ctrl->setUpdateLayerCallback(callback);
 }
 
+UI_API void set_update_color_callback(
+    void* propertiesPanel,
+    UpdatePropertyCallback callback
+) {
+    auto* ctrl = static_cast<PropertiesPanelController*>(propertiesPanel);
+    ctrl->setUpdateColorCallback(callback);
+}
+
 #ifdef __cplusplus
 }
 #endif

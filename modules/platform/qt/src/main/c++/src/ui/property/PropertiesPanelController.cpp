@@ -125,6 +125,10 @@ void PropertiesPanelController::setUpdateLayerCallback(UpdatePropertyCallback ca
     m_updateLayerCallback = callback;
 }
 
+void PropertiesPanelController::setUpdateColorCallback(UpdatePropertyCallback callback) {
+    m_updateColorCallback = callback;
+}
+
 void PropertiesPanelController::updateX(const QString& v) 
 {
     QByteArray utf8 = v.toUtf8();
@@ -155,7 +159,17 @@ void PropertiesPanelController::updateLayer(const QString& v)
     m_updateLayerCallback(utf8.constData());
 }
 
-/* void PropertiesPanelController::updateColor(const QColor& c) 
+void PropertiesPanelController::updateColor(const QString& v) 
 {
-    // business logic
-} */
+    QColor color(v);
+    
+    // 2. Pack into ARGB integer (matching Java bits)
+    // QRgb in Qt is typically 0xAARRGGBB
+    unsigned int argb = color.rgba(); 
+    
+    // 3. Convert integer to string for transfer
+    // We use std::to_string to get a decimal representation of the int
+    std::string convertedColor = std::to_string(static_cast<int>(argb));
+
+    m_updateColorCallback(convertedColor.c_str());
+}

@@ -44,6 +44,7 @@ public:
     void setUpdateWidthCallback(UpdatePropertyCallback callback);
     void setUpdateHeightCallback(UpdatePropertyCallback callback);
     void setUpdateLayerCallback(UpdatePropertyCallback callback);
+    void setUpdateColorCallback(UpdatePropertyCallback callback);
 
 public slots:
     void updateX(const QString& v);
@@ -51,7 +52,7 @@ public slots:
     void updateWidth(const QString& v);
     void updateHeight(const QString& v);
     void updateLayer(const QString& v);
-    //void updateColor(const QColor& c);
+    void updateColor(const QString& c);
 
 signals:
     void enabledChanged();
@@ -66,4 +67,5 @@ private:
     UpdatePropertyCallback m_updateWidthCallback;
     UpdatePropertyCallback m_updateHeightCallback;
     UpdatePropertyCallback m_updateLayerCallback;
+    UpdatePropertyCallback m_updateColorCallback;
 };

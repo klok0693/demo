@@ -1,6 +1,8 @@
 package org.example.demo.qt.port.ui;
 
 import lombok.SneakyThrows;
+import org.example.demo.api.graphics.color.Color;
+import org.example.demo.api.graphics.color.Colors;
 import org.example.demo.core.adapter.ui.property.PropertiesAdapter;
 import org.example.demo.core.adapter.ui.state.UIState;
 import org.example.demo.model.metadata.ShapeParam;
@@ -43,6 +45,7 @@ public class QtPropertiesPanelView extends PropertiesPanelView implements QtMemo
     private static final String NATIVE_UPDATE_WIDTH_CALLBACK_NAME = "set_update_width_callback";
     private static final String NATIVE_UPDATE_HEIGHT_CALLBACK_NAME = "set_update_height_callback";
     private static final String NATIVE_UPDATE_LAYER_CALLBACK_NAME = "set_update_layer_callback";
+    private static final String NATIVE_UPDATE_COLOR_CALLBACK_NAME = "set_update_color_callback";
     //</editor-fold>
 
     //<editor-fold desc="Native methods">
@@ -64,6 +67,7 @@ public class QtPropertiesPanelView extends PropertiesPanelView implements QtMemo
     private MemorySegment updateWidthSegment;
     private MemorySegment updateHeightSegment;
     private MemorySegment updateLayerSegment;
+    private MemorySegment updateColorSegment;
     //</editor-fold>
 
     public QtPropertiesPanelView(
@@ -102,6 +106,7 @@ public class QtPropertiesPanelView extends PropertiesPanelView implements QtMemo
         this.updateWidthSegment = createBoundSegment("updateWidth", NATIVE_UPDATE_WIDTH_CALLBACK_NAME);
         this.updateHeightSegment = createBoundSegment("updateHeight", NATIVE_UPDATE_HEIGHT_CALLBACK_NAME);
         this.updateLayerSegment = createBoundSegment("updateLayer", NATIVE_UPDATE_LAYER_CALLBACK_NAME);
+        this.updateLayerSegment = createBoundSegment("updateColor", NATIVE_UPDATE_COLOR_CALLBACK_NAME);
     }
 
     private MethodHandle findUpdateMethod(final String nativeName) {
@@ -220,8 +225,8 @@ public class QtPropertiesPanelView extends PropertiesPanelView implements QtMemo
         updateLayer(sizedSegment.getUtf8String(0));
     }
 
-    /*public void updateColor(final ActionEvent event) {
-        final Color selectedColor = colorField.getValue();
-        updateColor(String.valueOf(QtColorUtils.convert(selectedColor)));
-    }*/
+    public void updateColor(final MemorySegment segment) {
+        final MemorySegment sizedSegment = segment.reinterpret(Long.MAX_VALUE);
+        updateColor(sizedSegment.getUtf8String(0));
+    }
 }
