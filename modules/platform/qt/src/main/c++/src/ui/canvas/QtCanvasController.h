@@ -4,10 +4,9 @@
 #include <QPointF>
 
 #include "ui/canvas/canvas_view_ui_bridge.h"
+#include "ui/ui_export.h"
 
-//using MousePressedCallback = void (*)(double, double);
-
-class QtCanvasController : public QObject {
+class UI_EXPORT QtCanvasController : public QObject {
     Q_OBJECT
 
     struct DragSource {

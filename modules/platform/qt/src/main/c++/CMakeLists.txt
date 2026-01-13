@@ -10,8 +10,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-#set(CMAKE_PREFIX_PATH "~/6.10.0/gcc_64")
-
 find_package(Qt6 REQUIRED COMPONENTS 
     Quick 
     QuickControls2
@@ -26,7 +24,7 @@ message(STATUS "JNI libraries: ${JNI_LIBRARIES}")
 
 # ------ UI -------------
 
-
+# STATIC/SHARED
 add_library(ui SHARED)
 
 target_sources(ui PRIVATE
@@ -56,10 +54,14 @@ target_include_directories(ui PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-#set_target_properties(ui PROPERTIES
-#    CXX_VISIBILITY_PRESET default
-#    VISIBILITY_INLINES_HIDDEN OFF
-#)
+# CXX_VISIBILITY_PRESET default
+# VISIBILITY_INLINES_HIDDEN OFF
+set_target_properties(ui PROPERTIES
+    AUTOMOC ON
+    AUTORCC ON
+)
+
+target_compile_definitions(ui PRIVATE UI_LIBRARY)
 
 target_link_libraries(ui
     PUBLIC Qt6::Quick
@@ -89,3 +91,21 @@ target_link_libraries(QtDemo
     ui
     ${JNI_LIBRARIES}
 )
+
+if(WIN32)
+    set_target_properties(QtDemo PROPERTIES WIN32_EXECUTABLE OFF)
+
+    # Find windeployqt
+    get_target_property(_qt_bin_dir Qt6::Core LOCATION)
+    get_filename_component(_qt_bin_dir "${_qt_bin_dir}" DIRECTORY)
+    find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${_qt_bin_dir}")
+
+    # Run it after build
+    add_custom_command(TARGET QtDemo POST_BUILD
+        COMMAND "${WINDEPLOYQT_EXECUTABLE}"
+                --debug
+                --qmldir "${NATIVE_RESOURCES_DIR}/"
+                \"$<TARGET_FILE:QtDemo>\"
+        COMMENT "Deploying Qt dependencies..."
+    )
+endif()

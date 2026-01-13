@@ -4,8 +4,9 @@
 #include <QString>
 
 #include "ui/property/properties_panel_ui_bridge.h"
+#include "ui/ui_export.h"
 
-class PropertiesPanelController : public QObject {
+class UI_EXPORT PropertiesPanelController : public QObject {
     Q_OBJECT
     
     Q_PROPERTY(bool enabled READ enabled NOTIFY enabledChanged)

@@ -6,8 +6,9 @@
 #include <QModelIndex>
 
 #include "ui/layer/layers_panel_ui_bridge.h"
+#include "ui/ui_export.h"
 
-class QtLayersPanelController : public QObject {
+class UI_EXPORT QtLayersPanelController : public QObject {
     Q_OBJECT
 
     Q_PROPERTY(QAbstractItemModel* model READ model CONSTANT)

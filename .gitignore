@@ -46,3 +46,6 @@ out/
 
 ### Git ###
 *.bundle
+
+### MAVEN ###
+.mvn/

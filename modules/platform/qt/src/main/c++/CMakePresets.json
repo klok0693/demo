@@ -11,16 +11,15 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_C_COMPILER": "/usr/bin/gcc",
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
-        "CMAKE_PREFIX_PATH": "/home/pilip/6.10.0/gcc_64"
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
       }
     },
     {
       "name": "windows-msvc",
       "displayName": "Windows MSVC",
       "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
       "binaryDir": "build/windows-msvc",
-      "toolchainFile": "cmake/toolchains/windows-msvc.cmake",
         "cacheVariables": {
           "CMAKE_BUILD_TYPE": "Debug",
           "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
@@ -32,6 +31,10 @@
     {
       "name": "linux-gcc",
       "configurePreset": "linux-gcc"
+    },
+    {
+      "name": "windows-msvc",
+      "configurePreset": "windows-msvc"
     }
   ]
 }

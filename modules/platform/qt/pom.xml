@@ -24,6 +24,18 @@
         <platform.appName>QT_Demo</platform.appName>
         <platform.mainJar>${project.artifactId}-${project.version}.jar</platform.mainJar>
         <platform.mainClass>org.example.demo.QtMain</platform.mainClass>
+
+        <!-- PLUGINS VERSIONS -->
+        <helper.plugin.version>3.6.1</helper.plugin.version>
+        <antrun.plugin.version>3.1.0</antrun.plugin.version>
+
+        <!-- BUILD PROPERTIES -->
+        <jextract.bin>${jextract.home}/bin/jextract</jextract.bin>
+        <jextract.input>${project.basedir}/src/main/c++/src/</jextract.input>
+        <jextract.output>${project.basedir}/src/generated/java</jextract.output>
+        <jextract.target>org.example.demo.qt.port.ui.bridge</jextract.target>
+        <jextract.name>UiBridgeConstants</jextract.name>
+        <jextract.header>${project.basedir}/src/main/c++/src/ui/extract.h</jextract.header>
     </properties>
 
     <dependencies>
@@ -117,7 +129,36 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>qt-windows</id>
+            <activation>
+                <os><family>windows</family></os>
+            </activation>
+            <properties>
+                <jextract.exec>cmd</jextract.exec>
+                <jextract.arg>/c</jextract.arg>
+                <os.preset>windows-msvc</os.preset>
+                <stage.folder>Debug</stage.folder>
+            </properties>
+        </profile>
+        <profile>
+            <id>qt-linux</id>
+            <activation>
+                <os><family>unix</family></os>
+            </activation>
+            <properties>
+                <jextract.exec>sh</jextract.exec>
+                <jextract.arg>-c</jextract.arg>
+                <os.preset>linux-gcc</os.preset>
+                <stage.folder></stage.folder>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
+        <!-- Excluding qt resource from maven.
+        They managed by dedicated ant-run command later -->
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -196,8 +237,9 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>raw</shadedClassifierName>
+<!--                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>raw</shadedClassifierName>-->
+                            <finalName>qt-java-runtime</finalName>
                             <filters>
                                 <filter>
                                     <!-- Security: Remove signature files from dependencies to avoid SecurityException -->
@@ -220,66 +262,47 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>                    <execution>
-                    <id>jextract</id>
-                    <phase>generate-sources</phase>
-                    <goals><goal>exec</goal></goals>
-                    <configuration>
-                        <executable>jextract</executable>
-                        <arguments>
-                            <argument>--source</argument>
-
-                            <argument>-I</argument>
-                            <argument>${project.basedir}/src/main/c++/src/</argument>
-
-                            <argument>--output</argument>
-                            <argument>${project.basedir}/src/generated/java</argument>
-
-                            <argument>--target-package</argument>
-                            <argument>org.example.demo.qt.port.ui.bridge</argument>
-
-                            <argument>--header-class-name</argument>
-                            <argument>UiBridgeConstants</argument>
-
-                            <argument>${project.basedir}/src/main/c++/src/ui/extract.h</argument>
-                        </arguments>
-                    </configuration>
-                </execution>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${antrun.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>jextract</id>
+                        <phase>generate-sources</phase>
+                        <goals><goal>run</goal></goals>
+                        <configuration>
+                            <target>
+                                <exec executable="${jextract.exec}" failonerror="true">
+                                    <arg value="${jextract.arg}" />`
+                                    <arg value="${jextract.bin} --source -I ${jextract.input} --output ${jextract.output} --target-package ${jextract.target} --header-class-name ${jextract.name} ${jextract.header}" />
+                                </exec>
+                            </target>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>configure-qt</id>
                         <phase>verify</phase>
-                        <goals><goal>exec</goal></goals>
+                        <goals><goal>run</goal></goals>
                         <configuration>
-                            <workingDirectory>
-                                ${project.basedir}/src/main/c++/
-                            </workingDirectory>
-                            <executable>cmake</executable>
-                            <arguments>
-                                <argument>-S</argument>
-                                <argument>.</argument>
-                                <argument>-B</argument>
-                                <argument>${project.build.directory}/native/build</argument>
-                                <argument>-DNATIVE_RESOURCES_DIR=${project.basedir}/src/main/resources/native</argument>
-                                <argument>--preset</argument>
-                                <argument>linux-gcc</argument>
-                            </arguments>
+                            <target>
+                                <exec executable="${jextract.exec}" dir="${project.basedir}/src/main/c++/" failonerror="true">
+                                    <arg value="${jextract.arg}"/>
+                                    <arg value="cmake -S . -B ${project.build.directory}/native/build -DNATIVE_RESOURCES_DIR=${project.basedir}/src/main/resources/native --preset ${os.preset} -DCMAKE_PREFIX_PATH=${qt.compiler}"/>
+                                </exec>
+                            </target>
                         </configuration>
                     </execution>
                     <execution>
                         <id>build-qt</id>
                         <phase>verify</phase>
-                        <goals><goal>exec</goal></goals>
+                        <goals><goal>run</goal></goals>
                         <configuration>
-                            <workingDirectory>
-                                ${project.build.directory}/native/
-                            </workingDirectory>
-                            <executable>cmake</executable>
-                            <arguments>
-                                <argument>--build</argument>
-                                <argument>build</argument>
-                            </arguments>
+                            <target>
+                                <exec executable="${jextract.exec}" dir="${project.build.directory}/native/" failonerror="true">
+                                    <arg value="${jextract.arg}"/>
+                                    <arg value="cmake --build build"/>
+                                </exec>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
@@ -295,13 +318,13 @@
                         </goals>
                         <configuration>
                             <outputDirectory>
-                                ${project.build.directory}/native/build
+                                ${project.build.directory}/native/build/${stage.folder}
                             </outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}</directory>
                                     <includes>
-                                        <include>qt-1.2-raw.jar</include>
+                                        <include>qt-java-runtime.jar</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -312,7 +335,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>${helper.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>add-generated-sources</id>

@@ -22,15 +22,18 @@ static JavaVM* gJvm = nullptr;
 void startJvmAndCallJava() 
 {
     JavaVMInitArgs vm_args{};
-    JavaVMOption options[4];
+    JavaVMOption options[5];
 
-    options[0].optionString = const_cast<char*>("-Djava.class.path=qt-1.2-raw.jar");
+    QString jarPath = QCoreApplication::applicationDirPath() + "/qt-java-runtime.jar";
+    QByteArray cpArg = ("-Djava.class.path=" + jarPath).toLocal8Bit();
+
+    options[0].optionString = cpArg.data();
     options[1].optionString = const_cast<char*>("-Xmx256m");
     options[2].optionString = const_cast<char*>("--enable-native-access=ALL-UNNAMED");
     options[3].optionString = const_cast<char*>("--enable-preview");
     options[4].optionString = const_cast<char*>("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005");
 
-    vm_args.version = JNI_VERSION_10;
+    vm_args.version = JNI_VERSION_19;
     vm_args.nOptions = 5;
     vm_args.options = options;
     vm_args.ignoreUnrecognized = JNI_FALSE;
@@ -104,4 +107,4 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 
-#include "main.moc"
+//#include "main.moc"

@@ -17,7 +17,6 @@
     <modules>
         <module>javafx</module>
         <module>swing</module>
-        <module>qt</module>
     </modules>
 
     <properties>
@@ -115,9 +114,7 @@
         <profile>
             <id>windows</id>
             <activation>
-                <os>
-                    <family>Windows</family>
-                </os>
+                <os><family>Windows</family></os>
             </activation>
             <properties>
                 <jpackage.installer>exe</jpackage.installer>
@@ -128,14 +125,22 @@
         <profile>
             <id>linux</id>
             <activation>
-                <os>
-                    <family>unix</family>
-                </os>
+                <os><family>unix</family></os>
             </activation>
             <properties>
                 <jpackage.installer>deb</jpackage.installer>
                 <headless.args></headless.args>
             </properties>
+        </profile>
+        <!-- 'Qt' PROFILE -->
+        <profile>
+            <id>Qt</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>qt</module>
+            </modules>
         </profile>
         <!-- 'SKIP TESTS' PROFILE -->
         <profile>

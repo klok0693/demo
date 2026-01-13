@@ -3,8 +3,9 @@
 #include <QObject>
 
 #include "ui/toolbar/tool_bar_ui_bridge.h"
+#include "ui/ui_export.h"
 
-class ToolBarController : public QObject
+class UI_EXPORT ToolBarController : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool deleteEnabled READ deleteEnabled NOTIFY deleteEnabledChanged)

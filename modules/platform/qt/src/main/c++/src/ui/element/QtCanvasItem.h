@@ -4,6 +4,7 @@
 #include <QPainter>
 
 #include "ui/element/canvas_item_ui_bridge.h"
+#include "ui/ui_export.h"
 
 using initFunc = void (*)(double, double);
 
@@ -11,7 +12,7 @@ struct PainterContext {
     QPainter* painter;
 };
 
-class QtCanvasItem : public QQuickPaintedItem {
+class UI_EXPORT QtCanvasItem : public QQuickPaintedItem {
     Q_OBJECT
 
 public:

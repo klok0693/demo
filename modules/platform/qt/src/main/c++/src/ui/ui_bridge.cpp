@@ -6,12 +6,12 @@ extern "C" {
 
 static QQmlApplicationEngine* engine = nullptr;
 
-void set_engine(QQmlApplicationEngine* eng) 
+UI_EXPORT void set_engine(QQmlApplicationEngine* eng)
 {
     engine = eng;
 }
 
-QQmlApplicationEngine* get_engine() 
+UI_EXPORT QQmlApplicationEngine* get_engine()
 {
     return engine;
 }

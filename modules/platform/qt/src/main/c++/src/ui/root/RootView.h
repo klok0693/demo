@@ -3,7 +3,9 @@
 #include <QObject>
 #include <QString>
 
-class RootView : public QObject {
+#include "ui/ui_export.h"
+
+class UI_EXPORT RootView : public QObject {
     Q_OBJECT
 
 public:

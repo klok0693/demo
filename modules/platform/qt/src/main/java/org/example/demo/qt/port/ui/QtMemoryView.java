@@ -3,6 +3,7 @@ package org.example.demo.qt.port.ui;
 import java.lang.foreign.*;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
+import java.nio.file.Path;
 
 import static java.lang.invoke.MethodType.methodType;
 
@@ -16,7 +17,11 @@ public interface QtMemoryView {
 
     private static SymbolLookup createLookup() {
         try {
-            return SymbolLookup.libraryLookup("libui.so", Arena.global());
+            final Path lib = Path.of(
+                    System.getProperty("user.dir"),
+                    System.mapLibraryName("ui")
+            );
+            return SymbolLookup.libraryLookup(lib, Arena.global());
         }
         catch (final Exception e) {
             e.printStackTrace();
