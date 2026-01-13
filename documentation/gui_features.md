@@ -38,38 +38,6 @@ explicitly controls render order and visual stacking of elements. This makes ord
 manageable even as the number of visual elements grows. Direct manipulation of layer position is intentionally limited: 
 only elements belonging to the shapes layer can change their layer placement explicitly.
 
-## 🧪 GUI Feature: Multi-Platform UI Experiment
-
-I have long been interested in how difficult it would be to migrate an application 
-from one UI platform to another—especially given how many Swing applications still 
-wait for a modern UI.
-
-Surprisingly, the migration itself was not as hard as expected. Separating components 
-and avoiding logic duplication turned out to be very manageable. Almost all 
-logic—including most UI behavior—is shared and reused across platforms. This approach 
-proved highly effective: the overall structure remained nearly unchanged, and very 
-few bugs appeared during the migration.
-
-Rendering did not cause a lot of problem too. To avoid duplicating drawing logic, 
-a dedicated [rendering API](../modules/api/src/main/java/org/example/demo/api/graphics) 
-was introduced and moved into a separate api module, while 
-the core logic remained platform-agnostic. This allowed both JavaFX and Swing 
-implementations to reuse the same rendering intent with different backends.
-
-The challenges came from differences in platform lifecycles, event handling, and 
-underlying behavior. JavaFX follows a frame-driven rendering model, while Swing 
-relies on passive repainting and the EDT. Some UI and UX aspects were sensitive 
-to these differences, but they were resolved. 
-
-Some tests also required tinkering, mostly in the way how application being initialized.
-Also, all node's ids, used by test's robots, are moved in a [shared class](../modules/core/src/main/java/org/example/demo/core/port/ui/markup/ElementID.java)
-
-The most unresolved area is markup and styling. Swing lacks native CSS support, 
-and defining layouts and styles purely in code is verbose and difficult to maintain. 
-Ideally, UI appearance should come from a single declarative source. This remains 
-an open problem, and as a result, the appearance sometimes too primitive in 
-realization
-
 ### 🖱️ Input Handling
 
 All input events (mouse, keyboard) are intercepted by a 

@@ -1,11 +1,12 @@
 ## 🔧 Build & Execution
 
-This project uses **Maven** as the primary build tool and relies on a **multi-module setup**. 
-**JPackager** are used to generate the complete bundles, served to users
+This project uses **Maven** as the primary build tool and relies on a **multi-module setup**.
 
 ---
 
-## ▶️ Running the Application
+## ☕ Java
+
+### ▶️ Running the Application
 
 ### 🗃️ Jar
 
@@ -176,6 +177,51 @@ This is especially important for:
 - Application lifecycle correctness
 - GUI and functional tests that require clean startup and shutdown
 - Preventing shared static or platform state from leaking between tests
+
+---
+
+## ➕ C++
+
+This project contains a *native C++* module built using **CMake**
+
+#### 🚧 Build Requirements
+
+**All platforms:**
+ - *CMake* (must be installed and *available in PATH*)
+ - *Qt Quick*, version: approximately 6.10+. The path must be set up manually, using
+    *qt.toolchain* variable. Example:
+    ```
+   -Dqt.toolchain=C:/Qt/6.10.1/msvc2022_64
+    ```
+ - [Jextract](https://jdk.java.net/jextract/), version: 21+. The path must be set up 
+   manually, using *jextract.home* variable. Example:
+   ```
+   -Djextract.home=C:\Users\user0\.jextract\jextract-21
+    ```
+   
+**Linux**
+ - [Ninja](https://ninja-build.org/) (must be installed and *available in PATH*)
+ - *gcc/g++* - system default usually
+
+**Windows**
+ - *Visual Studio 17 2022 (v143)* build tools with *MSVC* compiler
+ - *%JAVA_HOME%\bin\server* - must be added to *PATH*, additionally to '%JAVA_HOME%\bin\'
+
+#### ⚙️ Build 
+
+```bash
+mvn clean verify -Pheadless -PQt -Djextract.home={path} -Dqt.toolchain={path}
+```
+
+#### ▶️ Execution
+
+**Linux**
+
+Navigate to *target\native\build\Debug* and launch 'QtDemo.exe' or run from console
+
+```bash
+./QtDemo
+```
 
 ---
 

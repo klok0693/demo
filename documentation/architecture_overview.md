@@ -228,7 +228,8 @@ Some logic is required for the application to work but does **not belong to busi
 This includes *how* things are done, not *what* is done.
 
 Such logic is separated into **infrastructure levels**, implemented in the 
-[realization](../modules/realization/src/main/java/org/example/demo/) module.
+[realization](../modules/realization/src/main/java/org/example/demo/) module. Each level wrap calls from the previous one, providing
+additional logic. Classic **Proxy** pattern
 
 ---
 

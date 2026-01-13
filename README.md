@@ -37,7 +37,7 @@ with basic shapes on a canvas. Users can:
 Shapes are selectable, resizable, and draggable. The interface includes 
 a property panel, layer's tree with a shape lists, and toolbar.
 
-Applications support two platforms:
+Applications support three platforms:
 
 &emsp;**JavaFX**&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -47,12 +47,20 @@ Applications support two platforms:
 <img src="documentation/screenshot_2.png" align="left" width="370" hspace="10"/>
 <br clear="left"/>
 
+&emsp;**Qt Quick**
+
+<img src="documentation/screenshot_3.png" align="left" width="370" hspace="10"/>
+<br clear="left"/>
+
 ---
 
 ## Tech Stack
 
-#### 💼 Project: Java, JavaFX, Java Swing, Google Guice, Logback, Maven, Lombock 
-#### 📋 Tests: JUnit, Mockito, Cucumber, TestFX, Monocle, AssertJ, Cacio
+#### 💼 Project:
+#### &emsp; Java, JavaFX, Java Swing, JNI/FFM, Google Guice, Logback, Maven, Lombok 
+#### &emsp; C++, Qt Quick, CMake
+#### 📋 Tests: 
+#### &emsp; JUnit, Mockito, Cucumber, TestFX, Monocle, AssertJ, Cacio
 
 ---
 
@@ -66,8 +74,8 @@ Applications support two platforms:
   explicitly modeled and kept out of core logic
 
 ### 🏗️ Multi-platform UI architecture
-- [Demonstrates how a single application architecture can target multiple GUI toolkits](documentation/gui_features.md#-gui-feature-multi-platform-ui-experiment) (*JavaFX* 
-  and *Swing*) without UI embedding via JFXPanel or SwingNode, platform hacks, or duplicated business logic. The implementation 
+- [Demonstrates how a single application architecture can target multiple GUI toolkits](documentation/multi_platform_migration.md) 
+  (*JavaFX*, *Swing*, *Qt*) without UI embedding via JFXPanel or SwingNode, platform hacks, or duplicated business logic. The implementation 
   avoids element duplication - almost all components, including the canvas logic, are shared across platforms
 
 ### 🔌 Dependency Management
@@ -75,7 +83,7 @@ Applications support two platforms:
   [test-specific configuration](modules/platform/javafx/src/test/java/org/example/demo/func/module) etc
 - **Strong modular separation, using Maven multi-module setup and JPMS**, with a clear distinction between:
   - platform-agnostic core logic
-  - platform-specific implementations (JavaFX, Swing)
+  - platform-specific implementations
 
 ### 🎨 Canvas & Interaction Logic
 - [Layered canvas architecture](documentation/gui_features.md#-canvas-layers), covering rendering, input handling, and interaction logic(mouse 
@@ -106,6 +114,7 @@ Each document focuses on a specific aspect of the project, such as:
 - [module structure](documentation/module_structure.md)
 - [architectural overview](documentation/architecture_overview.md)
 - [GUI features](documentation/gui_features.md)
+- [multi-platform migration](documentation/multi_platform_migration.md)
 - [testing strategy](documentation/testing_strategy.md)
 - [build and execution](documentation/build_and_execution.md)  
 
