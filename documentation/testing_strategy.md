@@ -1,8 +1,5 @@
 ## 🧪 Testing Strategy
 
-The goal is **not** exhaustive coverage, but validation of key *design decisions, interaction patterns, and 
-integration points*.
-
 ---
 
 ## 🗂️ Test Levels
@@ -85,14 +82,3 @@ A formal **application behavior scheme** — describing interaction flow, modes,
 and transitions — is currently under development and will be added in a future iteration 
 of the documentation.
 ![Selection](not_found.png)
-
----
-
-## 🎯 Coverage Philosophy
-
-This project does **not** aim for full or artificial test coverage.
-
-Instead:
-- Tests focus on interesting or non-trivial aspects of the system 
-- Emphasis is placed on architectural correctness, interaction safety, and integration behavior 
-- The current number of tests is intentionally limited

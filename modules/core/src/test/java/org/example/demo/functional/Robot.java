@@ -1,5 +1,11 @@
 package org.example.demo.functional;
 
+/**
+ * TODO: Split to several specialized robots
+ *
+ * @author Pilip Yurchanka
+ * @since v1.0
+ */
 public interface Robot {
 
     void clickOnCreateRectBtn();

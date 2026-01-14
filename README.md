@@ -46,6 +46,7 @@ Applications support three platforms:
 <img src="documentation/screenshot_0.png" align="left" width="370" hspace="10"/>
 <img src="documentation/screenshot_2.png" align="left" width="370" hspace="10"/>
 <br clear="left"/>
+<br clear="left"/>
 
 &emsp;**Qt Quick**
 

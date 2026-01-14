@@ -15,9 +15,10 @@ At a high level, the project consists of the following modules:
 - [platform](../modules/platform) - aggregator module for GUI platform modules 
   - [javafx](../modules/platform/javafx/src/main/java/org/example/demo/fx) 
   - [swing](../modules/platform/swing/src/main/java/org/example/demo/swing)
+  - [qt](../modules/platform/qt/src/main/java/org/example/demo/qt)
 
 Dependencies generally flow from higher-level policy to lower-level implementation.
-![Selection](Screenshot(22).png)
+![Selection](Screenshot(23).png)
 
 ## 🧠 Model Module
 
@@ -107,7 +108,6 @@ The [javafx](../modules/platform/javafx/src/main/java/org/example/demo/fx) modul
 🎯 Key responsibilities:
 - Rendering the application state
 - Handling user input (mouse, keyboard)
-- Translating UI events into domain actions
 - Displaying feedback to the user
 
 🔗 Dependencies:
@@ -136,20 +136,45 @@ and provides a complete alternative UI implementation.
 - Mapping Swing events to domain actions
 
 🔗 Dependencies:
-
-api
-
-core
-
-model
-
-realization
-
-util
+- api
+- core
+- model
+- realization
+- util
 
 This module demonstrates that the application can be ported 
 to a different UI toolkit without duplicating logic or relying 
 on hybrid solutions like JFXPanel.
+
+## 📡 Qt Module
+
+The [Qt](../modules/platform/qt/src/main/java/org/example/demo/qt)
+module contains all Qt/C++-specific code
+and provides a complete alternative UI implementation.
+
+Module itself is separated on two parts:
+ - Java - contains [components and panels attached to Qt](../modules/platform/qt/src/main/java/org/example/demo/qt/port)
+   used as a bridge between native code and core logic
+ - C++ - complete project with 
+    - [native panels](../modules/platform/qt/src/main/c++/src/ui) 
+    - FFM bridges
+    - [app launcher](../modules/platform/qt/src/main/c++/src/app)
+    - [CMake build files](../modules/platform/qt/src/main/c++/CMakeLists.txt)
+
+🎯 Key responsibilities:
+- Launch and render the application using Qt
+- Mapping Qt events to domain actions
+- Displaying feedback to the user
+
+🔗 Dependencies:
+- api
+- core
+- model
+- realization
+- util
+
+This module demonstrates that the application can be ported
+to a different UI toolkit, even if it is not written in java
 
 ## 🧬 Realization Module
 

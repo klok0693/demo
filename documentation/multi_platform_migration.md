@@ -1,6 +1,6 @@
 ### ♾️ GUI Feature: Multi-Platform UI Experiment
 
-All code was separated on two parts - platform-agnostic and platform dependent. 
+All code was separated on two parts - platform-agnostic and platform-dependent. 
 From the start, the architecture assumed that **Swing**, **JavaFX**, and **Qt Quick** 
 would all be replaceable realizations of the same logic
 
@@ -44,10 +44,10 @@ much simpler
 
 #### 🔀 Thread Managment
 
-Threads required some attention. All platforms implement sets of executors,
+Threads required some attention. All platforms implement sets of [executors](../modules/realization/src/main/java/org/example/demo/realization/level/async),
 while thread management is also stayed in shared modules. All calls to/from
 core logic components are wrapped into background threads to prevent freezing, 
-while simple adapter operations that trigger ui changed but not modifying the
+while simple adapter operations that trigger ui changed but do not modifying the
 model are executed from GUI loop to prevent unnecessary background-foreground
 thread's rethrowing. More information about application thread management 
 [here](architecture_overview.md#-infrastructure-levels-realization-module)
@@ -61,7 +61,7 @@ Making multi-platform automation functional tests turned out to be one of the
 most challenging task, surprisingly. 
 
 The core of the test ecosystem is **Cucumber** as scenario engine and 
-- abstract [configurators](../modules/core/src/test/java/org/example/demo/functional/agent/configurator) - application setup
+- [configurators](../modules/core/src/test/java/org/example/demo/functional/agent/configurator) - application setup
 - [steps](../modules/core/src/test/java/org/example/demo/functional/step) - operations 
 - [checkers](../modules/core/src/test/java/org/example/demo/functional/agent/checker) - validation of the inner application state, 
 - [Robot](../modules/core/src/test/java/org/example/demo/functional/Robot.java) and 
@@ -74,7 +74,7 @@ so all node IDs used by test robots were moved into a shared class
 Two main difficulties: 
 - Test framework must respect application's lifecycle, correctly launch/shutdown app.
    Fixed by using:
-   - [Hooks](../modules/platform/javafx/src/test/java/org/example/demo/func/hooks)
+   - [Hooks](../modules/platform/swing/src/test/java/org/example/demo/func/hooks)
    - Very precise initialization flow. Structure *AppMain-AppInitializer-GuiLauncher*
      appeared not as a fashion trick
    - Maven config
@@ -97,10 +97,10 @@ Two main difficulties:
    to standalone test module, so Maven ignore JPMS system, but only for tests code.
   <br>
   <br>
-   In reality, because there is a intermodule 'realization', trick with tests 
-   is being performed twice - from 'core' module to 'realization', where they 
-   grab some friend and travel further to 'swing'/'javafx' modules. This tests
-   travels more than I did last year☹️
+   In reality, because there is a intermodule [realization](module_structure.md#-realization-module), 
+   trick with tests is being performed twice - from [core](module_structure.md#-core-module) module 
+   to realization, where they grab some friend and travel further to [swing](module_structure.md#-swing-module)/
+   [javafx](module_structure.md#-javafx-module) modules. This tests travels more than I did last year☹️
 
 Source code [here](../modules/core/src/test/java/org/example/demo/functional)
 
@@ -171,7 +171,7 @@ Source code [here](../modules/platform/javafx/src/main/java/org/example/demo/fx)
 
 #### The Good, The Bad, and The Ugly
  - Layout and styling took some time because of different layout management design
- - MVVM style declarative gymnastic feels like driving a Tesla with a TV Remote when 
+ - MVVM style's declarative gymnastic feels like driving a Tesla with a TV Remote when 
    dealing with a custom nodes
  - Java-C++ interaction not so challenging, but drain huge amount of time 
  - Need to remember about resource and thread ownership
@@ -187,7 +187,7 @@ segregation is not logic-related — I wanted to try the new memory API and deal
 both variants: separated methods and variable allocation.
 
 Multithreading: the *main Qt thread is attached to the JVM* to avoid conflicts with the 
-garbage collector and other JVM internals.
+garbage collector and other JVM internals. UI updates wrapped with Qt's analog of *runLater()*.
 
 **Maven** is used as the primary build tool. First, it generates Java memory layouts from .c 
 files by launching jextract. Next, it assembles a *qt-runtime-jar* with all required 
@@ -201,7 +201,8 @@ Source code [here](../modules/platform/qt/src/main/java/org/example/demo/qt)
 
 ## 🏁 Summary
 
-A few challenges came from differences in platform lifecycles and event handling.
+In general, it was not so difficult and pretty fun. A few challenges came from differences 
+in platform lifecycles and event handling but finally almost all problems were solved
 
 The most unresolved area is *UI* — markup and styling — and *UX* aspects such as focus behavior. 
 *Swing* is configured purely in code; *JavaFX* uses *FXML*, *CSS*, and *JS*; *Qt* relies on *QML* and *JS*. 
