@@ -57,49 +57,57 @@ thread's rethrowing. More information about application thread management
 > ⚠️ Qt automation tests are under construction, this section relates to 
 > JavaFX and Swing tests
 
-Make multi-platform automation functional tests was one of the most challenging task,
-surprisingly. 
+Making multi-platform automation functional tests turned out to be one of the 
+most challenging task, surprisingly. 
 
 The core of the test ecosystem is **Cucumber** as scenario engine and 
-abstract [configurators] (to set up app for test), [steps] (operations) 
-and [checkers] (check the inner application state), that
-used [Robot] and [TestComponentHolder] interfaces. 
+- abstract [configurators](../modules/core/src/test/java/org/example/demo/functional/agent/configurator) - application setup
+- [steps](../modules/core/src/test/java/org/example/demo/functional/step) - operations 
+- [checkers](../modules/core/src/test/java/org/example/demo/functional/agent/checker) - validation of the inner application state, 
+- [Robot](../modules/core/src/test/java/org/example/demo/functional/Robot.java) and 
+  [TestComponentHolder](../modules/core/src/test/java/org/example/demo/functional/TestComponentHolder.java) interfaces. 
 
 All GUI components required unification of their names to being accessible,
 so all node IDs used by test robots were moved into a shared class 
 [ElementID](../modules/core/src/main/java/org/example/demo/core/port/ui/markup/ElementID.java)
 
 Two main difficulties: 
-1) Test framework must respect application's lifecycle, correctly launch/shutdown app
+- Test framework must respect application's lifecycle, correctly launch/shutdown app.
    Fixed by using:
-   - [Hooks]
-   - Very precise initialization flow. Structure 'AppMain-AppInitializer-GuiLauncher'
+   - [Hooks](../modules/platform/javafx/src/test/java/org/example/demo/func/hooks)
+   - Very precise initialization flow. Structure *AppMain-AppInitializer-GuiLauncher*
      appeared not as a fashion trick
    - Maven config
      - forkCount = 1
      - reuseForks = false
      - parallelMavenExecution = false
      - parallelOptimized=false
-   
-2) Custom test ecosystem must also be platform-agnostic, so it leads to nested
-   complexity, when test must deal with abstract components, being abstract itself,
-   while GUI module must implement core and test components. Like in matreska doll
-   
+       <br>
+       <br>
+- The custom test ecosystem itself had to remain platform-agnostic. 
+   This introduced nested complexity: tests operate on abstract components, 
+   while being abstract themselves, and each GUI platform must implement 
+   both core and test-specific components. It ended up resembling a 
+   matryoshka doll: abstractions wrapped inside abstractions.
+  <br>
+  <br>
    Solution was to pack all agnostic tests into test-jar and place them into
    platform realization, when they being visible to platform implementations. 
    JPMS was strongly agains such tricks, while I have no desire to move tests
    to standalone test module, so Maven ignore JPMS system, but only for tests code.
+  <br>
+  <br>
    In reality, because there is a intermodule 'realization', trick with tests 
-   is being performed twice - from 'core' module to 'realization', when they 
+   is being performed twice - from 'core' module to 'realization', where they 
    grab some friend and travel further to 'swing'/'javafx' modules. This tests
-   travels more than I this year=(
+   travels more than I did last year☹️
 
 Source code [here](../modules/core/src/test/java/org/example/demo/functional)
 
 #### 🏗️ Build
 
 Java Swing and JavaFX build are almost similar and do not contain heavy logic,
-while Qt build is described [beyond]
+while Qt build is described beyond
 
 
 ### 🖥️ Platforms
@@ -170,9 +178,8 @@ Source code [here](../modules/platform/javafx/src/main/java/org/example/demo/fx)
  - Cross-platform (Win/Ubuntu) build issues required significantly more effort than 
    the sum of two standalone platform-specific builds
 
-Few words about the migration — Java is bound to a .c file, not .cpp, due to **ABI 
-compatibility**. This leads to a situation where a procedural *C interlayer exists between 
-two OOP systems*.
+Java is bound to a .c file, not .cpp, due to **ABI compatibility**. This leads to a 
+situation where a procedural *C interlayer exists between two OOP systems*.
 
 **JNI** is used only to launch the JVM, while all communication uses **FFM**: hand-written 
 method access and generated code for structs (via **jextract**). The main reason for such 
