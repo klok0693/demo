@@ -1,0 +1,58 @@
+[
+  {
+    "name": "get_file_by_path",
+    "description": "Returns the full source code of a file by its exact path.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The exact file path to retrieve, e.g., '/src/main/java/com/example/MyClass.java'"
+        }
+      },
+      "required": ["path"]
+    }
+  },
+  {
+    "name": "get_class_source",
+    "description": "Returns the full source code of a class by name.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "The name of the class to retrieve, e.g., 'Color'."
+        }
+      },
+      "required": ["class_name"]
+    }
+  },
+  {
+    "name": "list_files_in_package",
+    "description": "Returns a list of file paths in the given package.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "package": {
+          "type": "string",
+          "description": "The Java package name, e.g., 'org.example.demo.api.graphics.color'"
+        }
+      },
+      "required": ["package"]
+    }
+  },
+  {
+    "name": "search_symbol",
+    "description": "Returns all files containing the specified symbol.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string",
+          "description": "Symbol name to search for, e.g., 'Color'."
+        }
+      },
+      "required": ["symbol"]
+    }
+  }
+]

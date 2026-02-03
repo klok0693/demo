@@ -55,3 +55,6 @@ out/
 
 ### Local Environment ###
 .env
+
+### Metadata Files ###
+repomix-output.*

@@ -16,6 +16,10 @@ public class OpsStateInstance implements OpsState {
     public OpsStateInstance() {
         this.innerClipboard = new InnerClipboard();
     }
+    
+    public OpsStateInstance(final InnerClipboard innerClipboard) {
+        this.innerClipboard = innerClipboard;
+    }
 
     @Override
     public void put(final Shape obj) {
