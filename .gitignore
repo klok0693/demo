@@ -49,3 +49,9 @@ out/
 
 ### MAVEN ###
 .mvn/
+
+### Python ###
+.venv/
+
+### Local Environment ###
+.env
