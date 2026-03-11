@@ -10,7 +10,7 @@ from langgraph.graph import END, StateGraph
 from langchain_core.messages import (BaseMessage, HumanMessage, SystemMessage)
 
 from tests.model import medium_llm
-from data.repo_xml import RepoIndex, RepoQueryTools
+from tools.repo_xml import RepoIndex, RepoQueryTools
 from tests.prompt_manager import get_generator_prompt
 
 logger = logging.getLogger(__name__)
@@ -24,7 +24,7 @@ LLM = "llm"
 
 # -- TOOLS ---
 
-index = RepoIndex("data/repomix-output.json")
+index = RepoIndex("tools/repomix-output.json")
 repo_tools = RepoQueryTools(index)
 tools = repo_tools.get_tools()
 

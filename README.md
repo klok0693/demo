@@ -60,6 +60,9 @@ Applications support three platforms:
 #### 💼 Project:
 #### &emsp; Java, JavaFX, Java Swing, JNI/FFM, Google Guice, Logback, Maven, Lombok 
 #### &emsp; C++, Qt Quick, CMake
+#### &emsp; Python, TOML 
+#### 🤖 AI
+#### LangGraph, LangSmith, Claude Code
 #### 📋 Tests: 
 #### &emsp; JUnit, Mockito, Cucumber, TestFX, Monocle, AssertJ, Cacio
 
@@ -78,6 +81,11 @@ Applications support three platforms:
 - [Demonstrates how a single application architecture can target multiple GUI toolkits](documentation/multi_platform_migration.md) 
   (*JavaFX*, *Swing*, *Qt*) without UI embedding via JFXPanel or SwingNode, platform hacks, or duplicated business logic. The implementation 
   avoids element duplication - almost all components, including the canvas logic, are shared across platforms
+
+### 🤖 AI Usage
+- Implements an [AI-assisted system for generating software tests](documentation/AI_overview.md) using LangGraph-based agents 
+  and local language models. The system analyzes source code, decides whether tests are needed, 
+  and generates them through a structured pipeline of specialized agents. It uses external tools to retrieve additional code context and relies on modular design and human-readable configuration for flexibility and experimentation
 
 ### 🔌 Dependency Management
 - **Dependency Injection (Guice)**, including [pre-initialization dependency setup](modules/realization/src/main/java/org/example/demo/realization/initialization), 
