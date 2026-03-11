@@ -62,7 +62,7 @@ Applications support three platforms:
 #### &emsp; C++, Qt Quick, CMake
 #### &emsp; Python, TOML 
 #### 🤖 AI
-#### LangGraph, LangSmith, Claude Code
+#### &emsp; LangGraph, LangSmith, Claude Code
 #### 📋 Tests: 
 #### &emsp; JUnit, Mockito, Cucumber, TestFX, Monocle, AssertJ, Cacio
 

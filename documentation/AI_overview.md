@@ -105,11 +105,11 @@ The system stores prompts and configuration files in *human-readable resources*.
 This design allows non-technical specialists to modify the behavior of the agents 
 without changing source code.
 
-**[style.txt](../scripts/agents/tests/resources/style.txt)** - defines the coding style expected for generated tests.
-**[unit_tests_prompts.ini](../scripts/agents/tests/resources/unit_test_prompts.ini)** - contains prompt templates used by the agents:
-- Analyzer prompt
-- Critic prompt
-- Generator prompt
+- **[style.txt](../scripts/agents/tests/resources/style.txt)** - defines the coding style expected for generated tests.
+- **[unit_tests_prompts.ini](../scripts/agents/tests/resources/unit_test_prompts.ini)** - contains prompt templates used by the agents:
+  - Analyzer prompt
+  - Critic prompt
+  - Generator prompt
 
 This approach keeps the AI behavior transparent and easy to adjust.
 

@@ -9,7 +9,8 @@ The project uses *three levels of testing*, each targeting a different layer of 
  - [Integration Tests](../modules/core/src/test/java/org/example/demo/integration)
  - [Functional Tests](../modules/core/src/test/java/org/example/demo/functional)
 
-Each level serves a distinct purpose and is intentionally scoped.
+Test system is moving to full [AI test generation](AI_overview.md), while currently only unit tests 
+generating are fully automated
 
 ## 🖥️ Functional Tests
 
